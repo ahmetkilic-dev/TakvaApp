@@ -133,11 +133,9 @@ export default function RegisterScreen() {
               <Text style={fontStyle} className="text-gray-300 text-[12px] text-center mb-1">
                 İlham verici İslami içerikler üretmek ister misiniz?
               </Text>
-              <TouchableOpacity onPress={() => router.push('/(auth)/creator-register')} className="p-1">
-                <Text style={fontStyle} className="text-white font-bold text-[13px]">
-                  Başvuru yapın.
-                </Text>
-              </TouchableOpacity>
+              <TouchableOpacity onPress={() => router.push('/creator-register')}>
+     <Text style={fontStyle} className="text-white font-bold text-sm underline">Başvuru yapın</Text>
+  </TouchableOpacity>
             </View>
 
           </View>

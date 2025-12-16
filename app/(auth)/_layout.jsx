@@ -1,24 +1,24 @@
-// app/(auth)/_layout.jsx
-import { Stack } from "expo-router";
+import { Stack } from 'expo-router';
+import { View } from 'react-native';
 
 export default function AuthLayout() {
   return (
-    <Stack>
-      <Stack.Screen 
-        name="login" 
-        options={{ 
-          headerShown: false,
-          gestureEnabled: true, // Swipe hareketi aktif
-        }} 
-      />
-      
-      <Stack.Screen 
-        name="create-account" 
-        options={{ 
-          headerShown: false,
-          gestureEnabled: true, // Swipe hareketi aktif
-        }} 
-      />
+    <Stack
+      screenOptions={{
+        // BU SATIR BAŞLIKLARI GİZLER
+        headerShown: false, 
+        
+        // Sayfa geçiş animasyonu (İsteğe bağlı)
+        animation: 'fade', 
+        
+        // Arka plan rengini şeffaf yapar
+        contentStyle: { backgroundColor: 'transparent' }, 
+      }}
+    >
+      <Stack.Screen name="register" />
+      <Stack.Screen name="login" />
+      <Stack.Screen name="create-account" />
+      <Stack.Screen name="creator-register" />
     </Stack>
   );
 }

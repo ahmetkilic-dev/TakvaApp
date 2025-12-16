@@ -38,7 +38,7 @@ export default function WelcomeScreen() {
 
         {/* --- BAŞLA BUTONU (KAYIT OL) --- */}
         <TouchableOpacity
-          onPress={() => router.push('/(auth)/create-account')}
+          onPress={() => router.push('/(auth)/register')}
           className="w-full py-4 bg-[#15221E] border border-white rounded-2xl items-center mb-6 shadow-xl active:opacity-90"
         >
           <Text style={fontStyle} className="text-white text-[24px] font-medium">
