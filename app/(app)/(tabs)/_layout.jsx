@@ -1,98 +1,132 @@
+import React, { useEffect, useRef } from 'react';
 import { Tabs } from 'expo-router';
-import { Image, View, Platform } from 'react-native';
+import { View, Platform, Animated } from 'react-native';
+import * as Haptics from 'expo-haptics';
 
-// İkonları import ediyoruz
-import icHome from '../../../assets/images/ic-home.png';   // Rosette (Çark)
-import icNamaz from '../../../assets/images/ic-namaz.png'; // Mihrab (Seccade/Kapı)
-import icKelam from '../../../assets/images/ic-kelam.png'; // Hilal (Ay)
-import icTasks from '../../../assets/images/ic-tasks.png'; // Liste (Clipboard)
-import icProfile from '../../../assets/images/ic-profile.png'; // Profil (Adam)
+// SVG İkonları import ediyoruz (Component olarak)
+import IcHome from '../../../assets/images/ic-home.svg';
+import IcNamaz from '../../../assets/images/ic-namaz.svg';
+import IcKelam from '../../../assets/images/ic-kelam.svg';
+import IcTasks from '../../../assets/images/ic-tasks.svg';
+import IcProfile from '../../../assets/images/ic-profile.svg';
+
+// Tab İkon Bileşeni - SVG Component kullanıyor
+const TabIcon = ({ SvgIcon, focused, size = 36 }) => {
+  const opacityAnim = useRef(new Animated.Value(0.5)).current;
+
+  useEffect(() => {
+    Animated.timing(opacityAnim, {
+      toValue: focused ? 1 : 0.5,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, [focused]);
+
+  return (
+    <View
+      style={{
+        width: 36,
+        height: 36,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // Drop shadow: x0 y2 blur10 spread0 #ffffff 25%
+        shadowColor: '#FFFFFF',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 10,
+        elevation: 5,
+      }}
+    >
+      <Animated.View
+        style={{
+          opacity: opacityAnim,
+        }}
+      >
+        <SvgIcon width={size} height={size} />
+      </Animated.View>
+    </View>
+  );
+};
 
 export default function TabsLayout() {
   return (
     <Tabs
+      initialRouteName="home"
+      screenListeners={{
+        tabPress: () => {
+          // Tab'a tıklandığında hafif titreşim
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        },
+      }}
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false, // Yazıları kapattım (Tasarımdaki gibi)
+        tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: '#04100D', // Tam Siyah-Yeşil zemin
-          borderTopColor: '#FFFFFF10', // Çok silik üst çizgi
-          borderTopWidth: 1,
-          height: Platform.OS === 'ios' ? 95 : 70, // iPhone için yükseklik
-          paddingTop: 10,
+          backgroundColor: '#182723',
+          borderTopColor: 'rgba(217, 217, 217, 0.5)',
+          borderTopWidth: 0.5,
+          height: 50 + (Platform.OS === 'ios' ? 30 : 0),
+          paddingBottom: Platform.OS === 'ios' ? 30 : 0,
+          paddingTop: 15,
+          alignItems: 'center',
+          justifyContent: 'center',
         },
-        tabBarActiveTintColor: '#D4AF37', // Altın Sarısı
-        tabBarInactiveTintColor: '#6B7280', // Pasif Gri
+        tabBarItemStyle: {
+          marginHorizontal: 25,
+          height: 60,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        tabBarActiveTintColor: '#D4AF37',
+        tabBarInactiveTintColor: '#6B7280',
       }}
     >
-      {/* 1. ANASAYFA (Rosette İkonu) */}
-      <Tabs.Screen
-        name="home"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image 
-              source={icHome} 
-              style={{ width: 28, height: 28, tintColor: focused ? '#D4AF37' : '#526D64' }} 
-              resizeMode="contain"
-            />
-          ),
-        }}
-      />
-
-      {/* 2. NAMAZ (Mihrab İkonu) */}
-      <Tabs.Screen
-        name="namaz"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image 
-              source={icNamaz} 
-              style={{ width: 26, height: 26, tintColor: focused ? '#D4AF37' : '#526D64' }} 
-              resizeMode="contain"
-            />
-          ),
-        }}
-      />
-
-      {/* 3. KELAM (Hilal İkonu - Ortadaki Büyük İkon) */}
+      {/* 1. KELAM (Hilal) */}
       <Tabs.Screen
         name="kelam"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`${focused ? 'bg-[#D4AF37]/10' : ''} p-3 rounded-full`}>
-                <Image 
-                  source={icKelam} 
-                  style={{ width: 32, height: 32, tintColor: focused ? '#D4AF37' : '#526D64' }} 
-                  resizeMode="contain"
-                />
-            </View>
+            <TabIcon SvgIcon={IcKelam} focused={focused} size={36} />
           ),
         }}
       />
 
-      {/* 4. TAKVİM/GÖREVLER (Liste İkonu) */}
+      {/* 2. NAMAZ (Mihrab) */}
+      <Tabs.Screen
+        name="namaz"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon SvgIcon={IcNamaz} focused={focused} />
+          ),
+        }}
+      />
+
+      {/* 3. ANASAYFA (Rosette - Home) */}
+      <Tabs.Screen
+        name="home"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon SvgIcon={IcHome} focused={focused} />
+          ),
+        }}
+      />
+
+      {/* 4. TAKVİM/GÖREVLER (Liste) */}
       <Tabs.Screen
         name="tasks"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Image 
-              source={icTasks} 
-              style={{ width: 26, height: 26, tintColor: focused ? '#D4AF37' : '#526D64' }} 
-              resizeMode="contain"
-            />
+            <TabIcon SvgIcon={IcTasks} focused={focused} />
           ),
         }}
       />
 
-      {/* 5. PROFİL (Kişi İkonu) */}
+      {/* 5. PROFİL (Kişi) */}
       <Tabs.Screen
         name="profile"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Image 
-              source={icProfile} 
-              style={{ width: 26, height: 26, tintColor: focused ? '#D4AF37' : '#526D64' }} 
-              resizeMode="contain"
-            />
+            <TabIcon SvgIcon={IcProfile} focused={focused} />
           ),
         }}
       />

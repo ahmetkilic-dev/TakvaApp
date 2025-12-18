@@ -1,59 +1,236 @@
-import { View, Text, ScrollView, Dimensions, ImageBackground, Image } from 'react-native';
+import { View, Text, FlatList, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useState, useRef, useCallback } from 'react';
 
 // Görseller
 import gununAyetiBg from '../../assets/images/gunun-ayeti.png';
+import zikirDuaBg from '../../assets/images/zikir-dua.png';
+import namazDurumuBg from '../../assets/images/namaz-durumu.png';
 
 const { width } = Dimensions.get('window');
-const CARD_WIDTH = width - 32; 
+
+// Ortadaki görsel: 335x182, yan görseller: height 136
+const CENTER_IMAGE_WIDTH = 335;
+const CENTER_IMAGE_HEIGHT = 182;
+const SIDE_IMAGE_HEIGHT = 136;
+// Yan görsellerin genişliği (oranı koruyarak)
+const ASPECT_RATIO = CENTER_IMAGE_WIDTH / CENTER_IMAGE_HEIGHT;
+const SIDE_IMAGE_WIDTH = SIDE_IMAGE_HEIGHT * ASPECT_RATIO;
+
+// Spacing - görseller arası boşluk (negatif değer yakınlaştırır)
+const SPACING = -20;
+const SNAP_INTERVAL = CENTER_IMAGE_WIDTH + SPACING;
+
+const ORIGINAL_DATA = [
+  {
+    id: 1,
+    title: 'Zikir ve Dua',
+    subtitle: 'Ruhun gıdası, kalbin huzuru.',
+    image: zikirDuaBg,
+    buttonText: 'Zikir çek',
+  },
+  {
+    id: 2,
+    title: 'Günün Ayeti',
+    subtitle: "Takva'daki herkesle birlikte salavat getir.",
+    image: gununAyetiBg,
+    buttonText: 'Günün ayeti',
+  },
+  {
+    id: 3,
+    title: 'Günün Hadisi',
+    subtitle: 'Peygamberimizden öğütler.',
+    image: namazDurumuBg,
+    buttonText: 'Oku',
+  },
+];
+
+// Infinite loop için data'yı 3 kez tekrarla
+const DATA = [...ORIGINAL_DATA, ...ORIGINAL_DATA, ...ORIGINAL_DATA];
+const CLONE_COUNT = ORIGINAL_DATA.length;
 
 export default function DailyCarousel() {
-  const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
+  // Ortadan başla (ikinci set)
+  const [activeIndex, setActiveIndex] = useState(CLONE_COUNT + 1);
+  const flatListRef = useRef(null);
+  const isScrolling = useRef(false);
+
+  // Gerçek data index'ini hesapla
+  const getRealIndex = (index) => index % ORIGINAL_DATA.length;
+  const currentItem = ORIGINAL_DATA[getRealIndex(activeIndex)];
+
+  const onViewableItemsChanged = useRef(({ viewableItems }) => {
+    if (viewableItems.length > 0 && !isScrolling.current) {
+      setActiveIndex(viewableItems[0].index);
+    }
+  }).current;
+
+  const viewabilityConfig = useRef({
+    itemVisiblePercentThreshold: 50,
+  }).current;
+
+  // Scroll bittiğinde loop için pozisyonu resetle
+  const onMomentumScrollEnd = useCallback((event) => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const index = Math.round(offsetX / SNAP_INTERVAL);
+
+    // Eğer ilk veya son sete geldiysek, ortadaki sete atla
+    if (index < CLONE_COUNT) {
+      // İlk setteyiz, ortadaki sete atla
+      isScrolling.current = true;
+      const newIndex = index + CLONE_COUNT;
+      flatListRef.current?.scrollToOffset({
+        offset: newIndex * SNAP_INTERVAL,
+        animated: false,
+      });
+      setActiveIndex(newIndex);
+      setTimeout(() => { isScrolling.current = false; }, 50);
+    } else if (index >= CLONE_COUNT * 2) {
+      // Son setteyiz, ortadaki sete atla
+      isScrolling.current = true;
+      const newIndex = index - CLONE_COUNT;
+      flatListRef.current?.scrollToOffset({
+        offset: newIndex * SNAP_INTERVAL,
+        animated: false,
+      });
+      setActiveIndex(newIndex);
+      setTimeout(() => { isScrolling.current = false; }, 50);
+    } else {
+      setActiveIndex(index);
+    }
+  }, []);
+
+  const renderItem = ({ item, index }) => {
+    const realActiveIndex = getRealIndex(activeIndex);
+    const realItemIndex = getRealIndex(index);
+    const isActive = realItemIndex === realActiveIndex;
+
+    const imageHeight = isActive ? CENTER_IMAGE_HEIGHT : SIDE_IMAGE_HEIGHT;
+    const imageWidth = isActive ? CENTER_IMAGE_WIDTH : SIDE_IMAGE_WIDTH;
+
+    return (
+      <View
+        style={{
+          width: CENTER_IMAGE_WIDTH + SPACING,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {/* Görsel Kartı */}
+        <View
+          style={{
+            height: imageHeight,
+            width: imageWidth,
+            borderRadius: 25,
+            overflow: 'hidden',
+            backgroundColor: '#1a1a1a',
+          }}
+        >
+          <Image
+            source={item.image}
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            resizeMode="cover"
+          />
+        </View>
+      </View>
+    );
+  };
 
   return (
-    <View className="mb-8">
-      <ScrollView 
-        horizontal 
-        pagingEnabled 
+    <View style={{ marginTop: 30, marginBottom: 24 }}>
+      {/* Sabit Header - Carousel dışında */}
+      <View style={{ alignItems: 'center', marginBottom: 16, paddingHorizontal: 24 }}>
+        <Text
+          style={{
+            fontFamily: 'PlusJakartaSans-SemiBold',
+            fontSize: 22,
+            fontWeight: '600',
+            color: 'rgba(255, 255, 255, 0.9)',
+            textAlign: 'center',
+          }}
+        >
+          {currentItem.title}
+        </Text>
+        <Text
+          style={{
+            fontFamily: 'PlusJakartaSans-Regular',
+            fontSize: 14,
+            fontWeight: '400',
+            color: '#AEB7B2',
+            textAlign: 'center',
+            marginTop: 4,
+          }}
+        >
+          {currentItem.subtitle}
+        </Text>
+      </View>
+
+      {/* Carousel */}
+      <FlatList
+        ref={flatListRef}
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
+        horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 16 }}
-        snapToInterval={CARD_WIDTH + 16} 
+        snapToInterval={SNAP_INTERVAL}
         decelerationRate="fast"
-      >
-        
-        {/* 1. KART: GÜNÜN AYETİ (Özel Resimli) */}
-        <View style={{ width: CARD_WIDTH, marginRight: 16 }}>
-           <Text style={fontStyle} className="text-white text-base font-bold mb-3 text-center">Günün Ayeti</Text>
-           <Text style={fontStyle} className="text-gray-500 text-[10px] mb-2 text-center -mt-2">Rabbimizden herkese bir rehber ve şifa.</Text>
-           
-           <View className="h-48 rounded-3xl overflow-hidden bg-[#0F221E] border border-white/5 relative justify-end">
-               <Image 
-                  source={gununAyetiBg}
-                  className="absolute w-full h-full opacity-80"
-                  resizeMode="cover"
-               />
-               
-               {/* Buton */}
-               <View className="absolute bottom-4 left-0 right-0 items-center">
-                  <View className="bg-black/40 px-4 py-2 rounded-full border border-white/10 backdrop-blur-md">
-                     <Text style={fontStyle} className="text-white text-xs font-bold">Günün ayeti {'>'}</Text>
-                  </View>
-               </View>
-           </View>
-        </View>
+        contentContainerStyle={{
+          paddingHorizontal: (width - CENTER_IMAGE_WIDTH) / 2,
+        }}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        initialScrollIndex={CLONE_COUNT + 1}
+        getItemLayout={(data, index) => ({
+          length: SNAP_INTERVAL,
+          offset: SNAP_INTERVAL * index,
+          index,
+        })}
+      />
 
-        {/* 2. KART: ZİKİR VE DUA */}
-        <View style={{ width: CARD_WIDTH, marginRight: 16 }}>
-           <Text style={fontStyle} className="text-white text-base font-bold mb-3 text-center">Zikir ve Dua</Text>
-           <Text style={fontStyle} className="text-gray-500 text-[10px] mb-2 text-center -mt-2">Ruhun gıdası.</Text>
-
-           <View className="h-48 rounded-3xl bg-[#1A1510] border border-[#D4AF37]/20 p-6 items-center justify-center">
-               <Text className="text-[#D4AF37] text-xl font-bold mb-2">سُبْحَانَ اللّٰهِ</Text>
-               <Text style={fontStyle} className="text-white text-lg font-bold">Subhanallah</Text>
-               <Text style={fontStyle} className="text-gray-400 text-xs text-center mt-2">"Allah her türlü eksiklikten münezzehtir."</Text>
-           </View>
-        </View>
-
-      </ScrollView>
+      {/* Alt Buton - 150x30, radius 10, bg #182723, stroke %50 1px */}
+      <View style={{ alignItems: 'center', marginTop: 12 }}>
+        <TouchableOpacity activeOpacity={0.8}>
+          <View
+            style={{
+              width: 150,
+              height: 30,
+              borderRadius: 10,
+              backgroundColor: '#182723',
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.5)',
+              flexDirection: 'row',
+              alignItems: 'center',
+              position: 'relative',
+            }}
+          >
+            {/* Text ortalı */}
+            <Text
+              style={{
+                flex: 1,
+                fontFamily: 'PlusJakartaSans-SemiBold',
+                fontSize: 15,
+                fontWeight: '600',
+                color: '#FFFFFF',
+                textAlign: 'center',
+              }}
+            >
+              {currentItem.buttonText}
+            </Text>
+            {/* Arrow sağa yaslı */}
+            <MaterialIcons
+              name="chevron-right"
+              size={18}
+              color="#FFFFFF"
+              style={{ position: 'absolute', right: 8 }}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
