@@ -5,9 +5,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeHeader from '../../../components/home/HomeHeader';
 import DailyCarousel from '../../../components/home/DailyCarousel';
 import SalavatCard from '../../../components/home/SalavatCard';
-
+import EsmaSlider from '../../../components/home/EsmaSlider';
 // Arka plan görseli
 import homeBg from '../../../assets/images/home-bg.png';
+import QuranSection from '../../../components/home/QuranSection';
 
 export default function HomeScreen() {
   return (
@@ -28,6 +29,12 @@ export default function HomeScreen() {
 
             {/* Salavat kartı */}
             <SalavatCard />
+
+            {/* Esmaü'l-Hüsna kartı */}
+            <EsmaSlider />
+
+            {/* Kuran kartı */}
+            <QuranSection />
           </ScrollView>
         </SafeAreaView>
       </ImageBackground>
