@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
@@ -15,8 +15,11 @@ import salavatSwipeIcon from '../../assets/images/salavat-swipe.png';
 import roseLeft from '../../assets/images/rose-left.png';
 import roseRight from '../../assets/images/rose-right.png';
 
-// Slider sabitleri
-const SLIDER_WIDTH = 300;
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+// Slider sabitleri - responsive
+const CARD_WIDTH = SCREEN_WIDTH * 0.9;
+const SLIDER_WIDTH = CARD_WIDTH * 0.85;
 const BUTTON_WIDTH = 100;
 const BUTTON_HEIGHT = 32;
 const PADDING = 3;
@@ -84,17 +87,17 @@ export default function SalavatCard() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <View className="w-full px-5 mt-8">
+      <View style={styles.container}>
         {/* Başlık */}
-        <Text className="text-white text-2xl font-bold text-center mb-1">
+        <Text style={styles.mainTitle}>
           Salavat Zinciri
         </Text>
-        <Text className="text-gray-400 text-sm text-center mb-8">
+        <Text style={styles.subTitle}>
           Takva'daki herkesle birlikte salavat getir.
         </Text>
 
         {/* Ana içerik alanı */}
-        <View className="relative items-center">
+        <View style={styles.contentArea}>
 
           {/* Gül süslemeleri */}
           <Image
@@ -157,15 +160,15 @@ export default function SalavatCard() {
         </View>
 
         {/* İstatistikler */}
-        <View className="items-center gap-y-2 mt-4">
-          <Text className="text-gray-400 text-base">
-            Toplam Salavat: <Text className="text-white font-bold">{formatNumber(totalCount)}</Text>
+        <View style={styles.statsContainer}>
+          <Text style={styles.statText}>
+            Toplam Salavat: <Text style={styles.statValue}>{formatNumber(totalCount)}</Text>
           </Text>
-          <Text className="text-gray-400 text-base">
-            Bugünkü Salavat Sayısı: <Text className="text-white font-bold">{formatNumber(todayCount)}</Text>
+          <Text style={styles.statText}>
+            Bugünkü Salavat Sayısı: <Text style={styles.statValue}>{formatNumber(todayCount)}</Text>
           </Text>
-          <Text className="text-gray-400 text-base">
-            Senin Salavatların: <Text className="text-[#FFBA4A] font-bold">{formatNumber(userCount)}</Text>
+          <Text style={styles.statText}>
+            Senin Salavatların: <Text style={styles.statValueGold}>{formatNumber(userCount)}</Text>
           </Text>
         </View>
       </View>
@@ -174,9 +177,31 @@ export default function SalavatCard() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 48,
+    width: '100%',
+    alignItems: 'center',
+  },
+  mainTitle: {
+    color: '#FFFFFF',
+    fontSize: 22,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  subTitle: {
+    color: 'rgba(255, 255, 255, 0.6)',
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 32,
+  },
+  contentArea: {
+    position: 'relative',
+    alignItems: 'center',
+  },
   roseLeft: {
     position: 'absolute',
-    left: 0,
+    left: -20,
     top: '50%',
     width: 131,
     height: 260,
@@ -185,7 +210,7 @@ const styles = StyleSheet.create({
   },
   roseRight: {
     position: 'absolute',
-    right: 0,
+    right: -20,
     top: '50%',
     width: 131,
     height: 260,
@@ -193,7 +218,7 @@ const styles = StyleSheet.create({
     transform: [{ translateY: -180 }],
   },
   textContainer: {
-    width: 350,
+    width: CARD_WIDTH,
     backgroundColor: '#24322E',
     borderRadius: 20,
     borderWidth: 0.5,
@@ -247,5 +272,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 12,
+  },
+  statsContainer: {
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 16,
+  },
+  statText: {
+    color: 'rgba(255, 255, 255, 0.6)',
+    fontSize: 14,
+  },
+  statValue: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+  },
+  statValueGold: {
+    color: '#FFBA4A',
+    fontWeight: '700',
   },
 });

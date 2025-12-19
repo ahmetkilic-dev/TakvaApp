@@ -140,7 +140,7 @@ export default function DailyCarousel() {
   };
 
   return (
-    <View style={{ marginTop: 30, marginBottom: 24 }}>
+    <View style={{ marginTop: 48, marginBottom: 24 }}>
       {/* Sabit Header - Carousel dışında */}
       <View style={{ alignItems: 'center', marginBottom: 16, paddingHorizontal: 24 }}>
         <Text

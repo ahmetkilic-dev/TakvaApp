@@ -1,7 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { esmaNames } from '../../constants/esmaData';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function EsmaSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,16 +20,15 @@ export default function EsmaSlider() {
   const currentEsma = esmaNames[currentIndex];
 
   return (
-
-    <View className="mb-8 items-center" style={{ marginTop: 56 }}>
-      <Text style={fontStyle} className="text-white text-2xl font-bold text-center mb-1">Esmaü’l-Hüsna</Text>
-      <Text style={fontStyle} className="text-gray-400 text-sm text-center mb-6">Allah’ın en güzel isimleri.</Text>
+    <View style={styles.container}>
+      <Text style={[fontStyle, styles.mainTitle]}>Esmaü'l-Hüsna</Text>
+      <Text style={[fontStyle, styles.subTitle]}>Allah'ın en güzel isimleri.</Text>
 
       {/* Slider Container */}
-      <View className="flex-row items-center justify-center space-x-4">
+      <View style={styles.sliderContainer}>
 
         {/* Sol Ok */}
-        <TouchableOpacity onPress={handlePrev} className="p-2">
+        <TouchableOpacity onPress={handlePrev} style={styles.arrowButton}>
           <Ionicons name="chevron-back" size={32} color="#FFFFFF" />
         </TouchableOpacity>
 
@@ -38,14 +39,14 @@ export default function EsmaSlider() {
             {currentEsma.id}/99
           </Text>
 
-          <View className="items-center justify-center flex-1 w-full px-2">
+          <View style={styles.cardContent}>
             {/* Arapça İsim */}
-            <Text style={[fontStyle, styles.arabicText]} className="mb-1">
+            <Text style={[fontStyle, styles.arabicText]}>
               {currentEsma.arabic}
             </Text>
 
             {/* Türkçe Okunuş */}
-            <Text style={[fontStyle, styles.turkishText]} className="mb-2">
+            <Text style={[fontStyle, styles.turkishText]}>
               {currentEsma.name}
             </Text>
 
@@ -57,7 +58,7 @@ export default function EsmaSlider() {
         </View>
 
         {/* Sağ Ok */}
-        <TouchableOpacity onPress={handleNext} className="p-2">
+        <TouchableOpacity onPress={handleNext} style={styles.arrowButton}>
           <Ionicons name="chevron-forward" size={32} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
@@ -66,10 +67,39 @@ export default function EsmaSlider() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 48,
+    marginBottom: 32,
+    width: '100%',
+    alignItems: 'center',
+  },
+  mainTitle: {
+    color: '#FFFFFF',
+    fontSize: 22,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  subTitle: {
+    color: 'rgba(255, 255, 255, 0.6)',
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  sliderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingHorizontal: 8,
+  },
+  arrowButton: {
+    padding: 8,
+  },
   card: {
-    width: 258,
+    width: SCREEN_WIDTH * 0.65,
     height: 148,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: '#24322E',
     borderRadius: 20,
     borderWidth: 0.5,
     borderColor: 'rgba(255, 255, 255, 0.5)',
@@ -84,15 +114,24 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.5)',
     fontSize: 10,
   },
+  cardContent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 8,
+  },
   arabicText: {
     color: '#F3D38C',
     fontSize: 30,
     fontWeight: '400',
+    marginBottom: 4,
   },
   turkishText: {
     color: 'rgba(255, 255, 255, 0.8)',
     fontSize: 20,
     fontWeight: '400',
+    marginBottom: 8,
   },
   meaningText: {
     color: 'rgba(255, 255, 255, 0.8)',
