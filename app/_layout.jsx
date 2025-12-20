@@ -6,6 +6,11 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig'; 
 import { View, ActivityIndicator } from 'react-native';
+import { useFonts, Cinzel_900Black } from '@expo-google-fonts/cinzel';
+import * as SplashScreen from 'expo-splash-screen';
+
+// Splash screen'i açık tut
+SplashScreen.preventAutoHideAsync();
 
 // İlk başta loading durumunu kontrol etmek için ayrı bir component
 const InitialLoader = () => (
@@ -55,6 +60,20 @@ function AuthGuard() {
 }
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    'Cinzel-Black': Cinzel_900Black,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return <InitialLoader />;
+  }
+
   return (
     <>
       <AuthGuard /> 

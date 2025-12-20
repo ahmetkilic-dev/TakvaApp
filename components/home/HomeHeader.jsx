@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'expo-router';
 
 // İkonlar
 import icHatirlatici from '../../assets/images/hatirlatici.png';
@@ -32,6 +33,7 @@ const getHijriDate = () => {
 };
 
 export default function HomeHeader() {
+  const router = useRouter();
   const fontFamily = 'Plus Jakarta Sans';
   const ACTIVE_COLOR = '#FFBA4A';
   const INACTIVE_COLOR = 'white';
@@ -130,11 +132,11 @@ export default function HomeHeader() {
   const [hours, minutes, seconds] = displayData.remainingTime.split(':');
 
   const menuItems = [
-    { image: icHatirlatici, label: 'Hatırlatıcı' },
-    { image: icIlim, label: 'İlim' },
-    { image: icKible, label: 'Kıble' },
-    { image: icTakvim, label: 'Takvim' },
-    { image: icDahaFazla, label: 'Daha fazlası' },
+    { image: icHatirlatici, label: 'Hatırlatıcı', onPress: () => {} },
+    { image: icIlim, label: 'İlim', onPress: () => {} },
+    { image: icKible, label: 'Kıble', onPress: () => router.push('/(app)/(services)/qibla') },
+    { image: icTakvim, label: 'Takvim', onPress: () => {} },
+    { image: icDahaFazla, label: 'Daha fazlası', onPress: () => {} },
   ];
 
   return (
@@ -230,6 +232,7 @@ export default function HomeHeader() {
           <View key={index} className="items-center" style={{ gap: 8 }}>
             <TouchableOpacity
               activeOpacity={0.7}
+              onPress={item.onPress}
               style={{
                 width: 50, height: 50, borderRadius: 25,
                 backgroundColor: 'rgba(250, 183, 75, 0.07)',

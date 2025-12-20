@@ -1,13 +1,7 @@
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
-import { useState } from 'react';
+import { View, Text, Image, StyleSheet, Dimensions, Animated, PanResponder } from 'react-native';
+import { useState, useRef } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  runOnJS,
-} from 'react-native-reanimated';
-import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 
 // Görseller
@@ -34,8 +28,8 @@ export default function SalavatCard() {
   // Swipe yüzdesi için state
   const [swipeProgress, setSwipeProgress] = useState(0);
 
-  // Reanimated shared value
-  const offset = useSharedValue(0);
+  // Animated value
+  const pan = useRef(new Animated.Value(0)).current;
 
   // Sayaçları güncelle
   const incrementCounters = () => {
@@ -44,38 +38,29 @@ export default function SalavatCard() {
     setUserCount(prev => prev + 1);
   };
 
-  // Swipe progress güncelle
-  const updateProgress = (value) => {
-    setSwipeProgress(value);
-  };
-
-  // Pan gesture
-  const pan = Gesture.Pan().onChange((event) => {
-    offset.value =
-      Math.abs(offset.value) <= MAX_VALUE
-        ? offset.value + event.changeX <= 0
-          ? 0
-          : offset.value + event.changeX >= MAX_VALUE
-            ? MAX_VALUE
-            : offset.value + event.changeX
-        : offset.value;
-
-    const progress = offset.value / MAX_VALUE;
-    runOnJS(updateProgress)(progress);
-  }).onEnd(() => {
-    if (offset.value >= MAX_VALUE * 0.9) {
-      runOnJS(incrementCounters)();
-    }
-    offset.value = 0;
-    runOnJS(updateProgress)(0);
-  });
-
-  // Animated style
-  const sliderStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: offset.value }],
-    };
-  });
+  // PanResponder
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gestureState) => {
+        const newValue = Math.max(0, Math.min(gestureState.dx, MAX_VALUE));
+        pan.setValue(newValue);
+        setSwipeProgress(newValue / MAX_VALUE);
+      },
+      onPanResponderRelease: (_, gestureState) => {
+        if (gestureState.dx >= MAX_VALUE * 0.9) {
+          incrementCounters();
+        }
+        Animated.spring(pan, {
+          toValue: 0,
+          useNativeDriver: true,
+          friction: 5,
+        }).start();
+        setSwipeProgress(0);
+      },
+    })
+  ).current;
 
   // Sayı formatlayıcı
   const formatNumber = (num) => {
@@ -86,93 +71,95 @@ export default function SalavatCard() {
   const arabicText = 'اللَّهُمَّ صَلِّ عَلَىٰ سَيِّدِنَا مُحَمَّدٍ';
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        {/* Başlık */}
-        <Text style={styles.mainTitle}>
-          Salavat Zinciri
-        </Text>
-        <Text style={styles.subTitle}>
-          Takva'daki herkesle birlikte salavat getir.
-        </Text>
+    <View style={styles.container}>
+      {/* Başlık */}
+      <Text style={styles.mainTitle}>
+        Salavat Zinciri
+      </Text>
+      <Text style={styles.subTitle}>
+        Takva'daki herkesle birlikte salavat getir.
+      </Text>
 
-        {/* Ana içerik alanı */}
-        <View style={styles.contentArea}>
+      {/* Ana içerik alanı */}
+      <View style={styles.contentArea}>
 
-          {/* Gül süslemeleri */}
-          <Image
-            source={roseLeft}
-            style={styles.roseLeft}
-            resizeMode="contain"
-          />
-          <Image
-            source={roseRight}
-            style={styles.roseRight}
-            resizeMode="contain"
-          />
+        {/* Gül süslemeleri */}
+        <Image
+          source={roseLeft}
+          style={styles.roseLeft}
+          resizeMode="contain"
+        />
+        <Image
+          source={roseRight}
+          style={styles.roseRight}
+          resizeMode="contain"
+        />
 
-          {/* Arapça metin alanı */}
-          <View style={styles.textContainer}>
-            {/* Arapça salavat - gradient geçişi */}
-            <MaskedView
-              style={styles.maskedView}
-              maskElement={
-                <Text style={styles.arabicMask}>
-                  {arabicText}
-                </Text>
-              }
-            >
-              <LinearGradient
-                colors={['#FFFFFF', '#FFBA4A']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                locations={[Math.max(1 - swipeProgress, 0), 1]}
-                style={{ flex: 1 }}
-              />
-            </MaskedView>
+        {/* Arapça metin alanı */}
+        <View style={styles.textContainer}>
+          {/* Arapça salavat - gradient geçişi */}
+          <MaskedView
+            style={styles.maskedView}
+            maskElement={
+              <Text style={styles.arabicMask}>
+                {arabicText}
+              </Text>
+            }
+          >
+            <LinearGradient
+              colors={['#FFFFFF', '#FFBA4A']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              locations={[Math.max(1 - swipeProgress, 0), 1]}
+              style={{ flex: 1 }}
+            />
+          </MaskedView>
 
-            {/* Türkçe okunuş */}
-            <Text style={styles.turkishText}>
-              Allahümme salli alâ seyyidinâ Muhammed.
-            </Text>
+          {/* Türkçe okunuş */}
+          <Text style={styles.turkishText}>
+            Allahümme salli alâ seyyidinâ Muhammed.
+          </Text>
 
-            {/* Türkçe anlam */}
-            <Text style={styles.meaningText}>
-              Allah'ım, Efendimiz Muhammed'e salat (rahmet ve tazim) eyle.
-            </Text>
-          </View>
-
-          {/* Swipe Slider */}
-          <View style={styles.sliderTrack}>
-            <GestureDetector gesture={pan}>
-              <Animated.View style={[styles.sliderHandle, sliderStyle]}>
-                {/* Salavat ikonu */}
-                <Image
-                  source={salavatSwipeIcon}
-                  style={{ width: 20, height: 20 }}
-                  resizeMode="contain"
-                />
-                {/* Arrow */}
-                <Ionicons name="chevron-forward" size={12} color="rgba(255, 255, 255, 0.8)" />
-              </Animated.View>
-            </GestureDetector>
-          </View>
+          {/* Türkçe anlam */}
+          <Text style={styles.meaningText}>
+            Allah'ım, Efendimiz Muhammed'e salat (rahmet ve tazim) eyle.
+          </Text>
         </View>
 
-        {/* İstatistikler */}
-        <View style={styles.statsContainer}>
-          <Text style={styles.statText}>
-            Toplam Salavat: <Text style={styles.statValue}>{formatNumber(totalCount)}</Text>
-          </Text>
-          <Text style={styles.statText}>
-            Bugünkü Salavat Sayısı: <Text style={styles.statValue}>{formatNumber(todayCount)}</Text>
-          </Text>
-          <Text style={styles.statText}>
-            Senin Salavatların: <Text style={styles.statValueGold}>{formatNumber(userCount)}</Text>
-          </Text>
+        {/* Swipe Slider */}
+        <View style={styles.sliderTrack}>
+          <Animated.View
+            style={[
+              styles.sliderHandle,
+              { transform: [{ translateX: pan }] }
+            ]}
+            {...panResponder.panHandlers}
+          >
+            {/* Salavat ikonu */}
+            <Image
+              source={salavatSwipeIcon}
+              style={{ width: 20, height: 20 }}
+              resizeMode="contain"
+            />
+            {/* Arrow */}
+            <Ionicons name="chevron-forward" size={12} color="rgba(255, 255, 255, 0.8)" />
+          </Animated.View>
         </View>
       </View>
-    </GestureHandlerRootView>
+
+      {/* İstatistikler */}
+      <View style={styles.statsContainer}>
+        <Text style={styles.statText}>
+          Toplam Salavat: <Text style={styles.statValue}>{formatNumber(totalCount)}</Text>
+        </Text>
+        <Text style={styles.statText}>
+          Bugünkü Salavat Sayısı: <Text style={styles.statValue}>{formatNumber(todayCount)}</Text>
+        </Text>
+        <Text style={styles.statText}>
+          Senin Salavatların: <Text style={styles.statValueGold}>{formatNumber(userCount)}</Text>
+        </Text>
+      </View>
+    </View>
   );
 }
 

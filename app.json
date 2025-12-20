@@ -15,11 +15,11 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sizinadiniz.takvaapp", 
+      "bundleIdentifier": "com.sizinadiniz.takvaapp",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Namaz vakitlerini doğru hesaplamak için konumunuz gereklidir.",
         "NSAppTransportSecurity": {
-          "NSAllowsArbitraryLoads": true // AĞ KISITLAMALARINI ESNETİR
+          "NSAllowsArbitraryLoads": true
         }
       }
     },
@@ -29,24 +29,25 @@
         "backgroundColor": "#04100D"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.sizinadiniz.takvaapp", 
+      "package": "com.sizinadiniz.takvaapp",
       "permissions": [
-        "INTERNET", 
-        "ACCESS_FINE_LOCATION" 
+        "INTERNET",
+        "ACCESS_FINE_LOCATION"
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "extra": {
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "buraya-eas-project-id-gelecek" 
+        "projectId": "buraya-eas-project-id-gelecek"
       }
     }
   }
