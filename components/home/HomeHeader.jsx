@@ -136,7 +136,7 @@ export default function HomeHeader() {
     { image: icIlim, label: 'İlim', onPress: () => {} },
     { image: icKible, label: 'Kıble', onPress: () => router.push('/(app)/(services)/qibla') },
     { image: icTakvim, label: 'Takvim', onPress: () => {} },
-    { image: icDahaFazla, label: 'Daha fazlası', onPress: () => {} },
+    { image: icDahaFazla, label: 'Daha fazlası', onPress: () => router.push('/(app)/(services)/guide-detail') },
   ];
 
   return (
