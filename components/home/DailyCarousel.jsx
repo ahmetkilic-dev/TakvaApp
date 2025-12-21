@@ -1,6 +1,7 @@
 import { View, Text, FlatList, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState, useRef, useCallback } from 'react';
+import { useRouter } from 'expo-router';
 
 // Görseller
 import gununAyetiBg from '../../assets/images/gunun-ayeti.png';
@@ -50,6 +51,7 @@ const DATA = [...ORIGINAL_DATA, ...ORIGINAL_DATA, ...ORIGINAL_DATA];
 const CLONE_COUNT = ORIGINAL_DATA.length;
 
 export default function DailyCarousel() {
+  const router = useRouter();
   // Ortadan başla (ikinci set)
   const [activeIndex, setActiveIndex] = useState(CLONE_COUNT + 1);
   const flatListRef = useRef(null);
@@ -194,7 +196,15 @@ export default function DailyCarousel() {
 
       {/* Alt Buton - 150x30, radius 10, bg #182723, stroke %50 1px */}
       <View style={{ alignItems: 'center', marginTop: 12 }}>
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity 
+          activeOpacity={0.8}
+          onPress={() => {
+            // Günün Ayeti butonuna basınca quran ekranına git
+            if (currentItem.title === 'Günün Ayeti') {
+              router.push('/(app)/(services)/quran');
+            }
+          }}
+        >
           <View
             style={{
               width: 150,

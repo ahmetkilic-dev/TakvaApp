@@ -8,13 +8,17 @@ export default function ServicesLayout() {
             <Stack.Screen name="dhikr" />
             <Stack.Screen name="guide-detail" />
             <Stack.Screen name="hadith" />
+            <Stack.Screen name="hatirlatici" />
             <Stack.Screen name="hoca-ai" />
             <Stack.Screen name="hutbe" />
+            <Stack.Screen name="imsakiye" />
             <Stack.Screen name="premium" />
             <Stack.Screen name="qibla" />
             <Stack.Screen name="quran" />
             <Stack.Screen name="quran-page" />
             <Stack.Screen name="settings" />
+            <Stack.Screen name="diniGunler" />
+            <Stack.Screen name="rozetgorev" />
         </Stack>
     );
 }

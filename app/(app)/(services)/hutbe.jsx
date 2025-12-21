@@ -84,7 +84,7 @@ export default function HutbeScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ 
             paddingHorizontal: horizontalPadding,
-            paddingTop: 24,
+            paddingTop: 42,
             paddingBottom: Platform.OS === 'ios' ? 120 : 100,
           }}
         >
@@ -96,7 +96,7 @@ export default function HutbeScreen() {
                 style={{
                   width: '100%',
                   maxWidth: 350,
-                  height: 45,
+                  height: 60,
                   borderRadius: 15,
                   borderWidth: 0.5,
                   borderColor: 'rgba(255, 255, 255, 0.75)',

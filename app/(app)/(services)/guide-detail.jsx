@@ -137,6 +137,20 @@ export default function GuideDetailScreen() {
       router.push('/(app)/(services)/quran');
     } else if (service.title === 'Hutbe') {
       router.push('/(app)/(services)/hutbe');
+    } else if (service.title === 'İmsakiye') {
+      router.push('/(app)/(services)/imsakiye');
+    } else if (service.title === 'Hatırlatıcılar') {
+      router.push('/(app)/(services)/hatirlatici');
+    } else if (service.title === 'Namaz Durumu') {
+      router.push('/(app)/(tabs)/namaz');
+    } else if (service.title === 'Günlük Ayet') {
+      router.push('/(app)/(services)/quran');
+    } else if (service.title === 'HocaAI') {
+      router.push('/(app)/(services)/hoca-ai');
+    } else if (service.title === 'Görevler & Rozetler') {
+      router.push('/(app)/(services)/rozetgorev');
+    } else if (service.title === 'Dini Günler') {
+      router.push('/(app)/(services)/diniGunler');
     } else {
       // Diğer hizmetler için şimdilik console.log
       console.log('Service pressed:', service.title);

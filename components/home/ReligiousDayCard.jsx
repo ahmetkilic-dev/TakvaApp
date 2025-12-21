@@ -1,13 +1,19 @@
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function ReligiousDayCard() {
+  const router = useRouter();
   const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity 
+      style={styles.container}
+      onPress={() => router.push('/(app)/(services)/diniGunler')}
+      activeOpacity={0.9}
+    >
       {/* Başlık Alanı */}
       <Text style={[fontStyle, styles.mainTitle]}>Dini Günler</Text>
       <Text style={[fontStyle, styles.subTitle]}>
@@ -51,7 +57,7 @@ export default function ReligiousDayCard() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
