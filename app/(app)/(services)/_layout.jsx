@@ -19,6 +19,8 @@ export default function ServicesLayout() {
             <Stack.Screen name="settings" />
             <Stack.Screen name="diniGunler" />
             <Stack.Screen name="rozetgorev" />
+            <Stack.Screen name="namazrehber" />
+            <Stack.Screen name="profil" />
         </Stack>
     );
 }
