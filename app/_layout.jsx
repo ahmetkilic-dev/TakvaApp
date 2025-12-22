@@ -1,4 +1,3 @@
-// app/_layout.jsx
 import "../global.css";
 import { Slot, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -9,25 +8,23 @@ import { View, ActivityIndicator } from 'react-native';
 import { useFonts, Cinzel_900Black } from '@expo-google-fonts/cinzel';
 import * as SplashScreen from 'expo-splash-screen';
 import { LocationProvider } from '../contexts/LocationContext';
+// 👇 BU SATIR EKLENMELİ
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-// Splash screen'i açık tut
 SplashScreen.preventAutoHideAsync();
 
-// İlk başta loading durumunu kontrol etmek için ayrı bir component
 const InitialLoader = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#15221E' }}>
     <ActivityIndicator size="large" color="#ffffff" />
   </View>
 );
 
-// Ana Yetkilendirme Durumu Yöneticisi
 function AuthGuard() {
   const [user, setUser] = useState(undefined); 
   const [initialRoute, setInitialRoute] = useState(false);
   const segments = useSegments();
   const router = useRouter();
   
-  // Firebase durumunu dinle
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser); 
@@ -35,23 +32,16 @@ function AuthGuard() {
     return unsubscribe;
   }, []);
 
-  // Yönlendirme mantığı
   useEffect(() => {
     if (user === undefined) return; 
     
-    // Auth ekranları (login, register), Welcome ekranı ve (app) ekranları
-    // segments boş array ise veya undefined ise de index.jsx demek
     const inAuthFlow = segments[0] === '(auth)' || segments[0] === '' || segments[0] === undefined || segments.length === 0;
     const inApp = segments[0] === '(app)';
 
     if (user && !inApp) {
-      // Kullanıcı GİRİŞ YAPTIYSA ve App dışındaysa
-      // -> Direkt Home'a yönlendir
       router.replace('/(app)/(tabs)/home'); 
       setInitialRoute(true);
     } else if (!user && inApp) {
-      // Kullanıcı GİRİŞ YAPMADIYSA ve App içindeyse
-      // -> Login'e yönlendir
       router.replace('/(auth)/login');
       setInitialRoute(true);
     } else {
@@ -59,7 +49,6 @@ function AuthGuard() {
     }
   }, [user, segments]);
 
-  // Yüklenme anında veya ilk yönlendirme yapılmadıysa loading göster
   if (user === undefined || !initialRoute) {
     return <InitialLoader />;
   }
@@ -83,9 +72,12 @@ export default function RootLayout() {
   }
 
   return (
-    <LocationProvider>
-      <AuthGuard /> 
-      <StatusBar style="light" />
-    </LocationProvider>
+    // 👇 KRİTİK NOKTA: UYGULAMA BU KAPSAYICI İÇİNDE OLMALI
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <LocationProvider>
+        <AuthGuard /> 
+        <StatusBar style="light" />
+      </LocationProvider>
+    </GestureHandlerRootView>
   );
 }

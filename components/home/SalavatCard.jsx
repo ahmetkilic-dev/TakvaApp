@@ -1,8 +1,16 @@
-import { View, Text, Image, StyleSheet, Dimensions, Animated, PanResponder } from 'react-native';
-import { useState, useRef } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import MaskedView from '@react-native-masked-view/masked-view';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import Animated, { 
+  useSharedValue, 
+  useAnimatedStyle, 
+  withSpring, 
+  withTiming, // Yaylanma olmadan hareket için
+  runOnJS,
+  interpolate,
+  Extrapolation 
+} from 'react-native-reanimated';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
 // Görseller
 import salavatSwipeIcon from '../../assets/images/salavat-swipe.png';
@@ -17,57 +25,84 @@ const SLIDER_WIDTH = CARD_WIDTH * 0.85;
 const BUTTON_WIDTH = 100;
 const BUTTON_HEIGHT = 32;
 const PADDING = 3;
-const MAX_VALUE = SLIDER_WIDTH - BUTTON_WIDTH - (PADDING * 2) - 2;
+// Sürüklenebilir maksimum mesafe
+const MAX_DRAG = SLIDER_WIDTH - BUTTON_WIDTH - (PADDING * 2);
 
 export default function SalavatCard() {
-  // Sayaçlar
+  // Sayaçlar (State)
   const [totalCount, setTotalCount] = useState(0);
   const [todayCount, setTodayCount] = useState(0);
   const [userCount, setUserCount] = useState(0);
 
-  // Swipe yüzdesi için state
-  const [swipeProgress, setSwipeProgress] = useState(0);
+  // Reanimated Shared Values
+  const translateX = useSharedValue(0);
+  const isCompleted = useSharedValue(false);
 
-  // Animated value
-  const pan = useRef(new Animated.Value(0)).current;
-
-  // Sayaçları güncelle
+  // Sayaçları güncelleme fonksiyonu (JS Thread)
   const incrementCounters = () => {
     setTotalCount(prev => prev + 1);
     setTodayCount(prev => prev + 1);
     setUserCount(prev => prev + 1);
   };
 
-  // PanResponder
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: (_, gestureState) => {
-        const newValue = Math.max(0, Math.min(gestureState.dx, MAX_VALUE));
-        pan.setValue(newValue);
-        setSwipeProgress(newValue / MAX_VALUE);
-      },
-      onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dx >= MAX_VALUE * 0.9) {
-          incrementCounters();
-        }
-        Animated.spring(pan, {
-          toValue: 0,
-          useNativeDriver: true,
-          friction: 5,
-        }).start();
-        setSwipeProgress(0);
-      },
+  // İşlem tamamlandığında çalışacak fonksiyon
+  const handleComplete = () => {
+    incrementCounters();
+    // Butonu ve yazıyı SIFIRLAMA (Savrulma olmadan)
+    setTimeout(() => {
+      // duration: 0 ile anında başlangıca atar (yaylanmaz)
+      translateX.value = withTiming(0, { duration: 0 });
+      isCompleted.value = false;
+    }, 100); // 100ms kısa bir bekleme (kullanıcı bittiğini görsün diye)
+  };
+
+  // Gesture Handler
+  const panGesture = Gesture.Pan()
+    .onUpdate((event) => {
+      // Sadece ileri (sağa) harekete ve işlem bitmemişse izin ver
+      if (event.translationX > 0 && !isCompleted.value) {
+        // Sınırları aşma
+        translateX.value = Math.min(event.translationX, MAX_DRAG);
+      }
     })
-  ).current;
+    .onEnd(() => {
+      // Eğer %90'dan fazla çekildiyse tamamla
+      if (translateX.value > MAX_DRAG * 0.9) {
+        // Sona giderken de spring değil timing kullanıyoruz ki net dursun
+        translateX.value = withTiming(MAX_DRAG, { duration: 100 });
+        isCompleted.value = true;
+        runOnJS(handleComplete)();
+      } else {
+        // Yeterince çekilmediyse geri bırak (burada hafif yaylanabilir)
+        translateX.value = withSpring(0, { damping: 20, stiffness: 200 });
+      }
+    });
+
+  // Buton Animasyon Stili
+  const buttonAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: translateX.value }],
+    };
+  });
+
+  // Altın Rengi Yazı Maskesi Animasyonu (SAĞDAN SOLA DOLMA)
+  const textMaskStyle = useAnimatedStyle(() => {
+    const widthPercent = interpolate(
+      translateX.value,
+      [0, MAX_DRAG],
+      [0, 100], // %0'dan %100'e
+      Extrapolation.CLAMP
+    );
+    return {
+      width: `${widthPercent}%`,
+    };
+  });
 
   // Sayı formatlayıcı
   const formatNumber = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
-  // Arapça metin
   const arabicText = 'اللَّهُمَّ صَلِّ عَلَىٰ سَيِّدِنَا مُحَمَّدٍ';
 
   return (
@@ -95,25 +130,33 @@ export default function SalavatCard() {
           resizeMode="contain"
         />
 
-        {/* Arapça metin alanı */}
+        {/* Metin Alanı */}
         <View style={styles.textContainer}>
-          {/* Arapça salavat - gradient geçişi */}
-          <MaskedView
-            style={styles.maskedView}
-            maskElement={
-              <Text style={styles.arabicMask}>
-                {arabicText}
-              </Text>
-            }
-          >
-            <LinearGradient
-              colors={['#FFFFFF', '#FFBA4A']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              locations={[Math.max(1 - swipeProgress, 0), 1]}
-              style={{ flex: 1 }}
-            />
-          </MaskedView>
+          
+          {/* ARAPÇA METİN YAPISI (Hizalama Düzeltildi)
+              Her iki metin de (Beyaz ve Altın) aynı container içinde
+              absolute pozisyonda üst üste bindirildi.
+          */}
+          <View style={styles.arabicTextWrapper}>
+            
+            {/* 1. Katman: Beyaz Metin (Arka Plan) */}
+            <Text style={[styles.arabicTextBase, { color: '#FFFFFF', opacity: 1 }]}>
+              {arabicText}
+            </Text>
+
+            {/* 2. Katman: Altın Metin (Maskelenmiş - Sağdan Sola Açılır) */}
+            <Animated.View style={[styles.arabicTextMaskContainer, textMaskStyle]}>
+               {/* İçerideki metin kapsayıcısı sabit genişlikte (Parent kadar) olmalı ki
+                  maske daralsa bile metin kaymasın.
+               */}
+              <View style={styles.arabicTextInnerFixed}>
+                <Text style={[styles.arabicTextBase, { color: '#FFBA4A' }]}>
+                  {arabicText}
+                </Text>
+              </View>
+            </Animated.View>
+
+          </View>
 
           {/* Türkçe okunuş */}
           <Text style={styles.turkishText}>
@@ -128,22 +171,18 @@ export default function SalavatCard() {
 
         {/* Swipe Slider */}
         <View style={styles.sliderTrack}>
-          <Animated.View
-            style={[
-              styles.sliderHandle,
-              { transform: [{ translateX: pan }] }
-            ]}
-            {...panResponder.panHandlers}
-          >
-            {/* Salavat ikonu */}
-            <Image
-              source={salavatSwipeIcon}
-              style={{ width: 20, height: 20 }}
-              resizeMode="contain"
-            />
-            {/* Arrow */}
-            <Ionicons name="chevron-forward" size={12} color="rgba(255, 255, 255, 0.8)" />
-          </Animated.View>
+          <GestureDetector gesture={panGesture}>
+            <Animated.View style={[styles.sliderHandle, buttonAnimatedStyle]}>
+              {/* Salavat ikonu */}
+              <Image
+                source={salavatSwipeIcon}
+                style={{ width: 20, height: 20 }}
+                resizeMode="contain"
+              />
+              {/* Arrow */}
+              <Ionicons name="chevron-forward" size={12} color="rgba(255, 255, 255, 0.8)" />
+            </Animated.View>
+          </GestureDetector>
         </View>
       </View>
 
@@ -214,21 +253,49 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     paddingHorizontal: 16,
   },
-  maskedView: {
-    height: 32,
+  
+  // --- YENİLENEN METİN STİLLERİ ---
+  arabicTextWrapper: {
+    height: 40, // Yüksekliği sabitledik (font boyutuna göre ayarla)
+    width: '100%',
     marginBottom: 8,
+    position: 'relative',
+    justifyContent: 'center', // Dikey ortala
   },
-  arabicMask: {
+  arabicTextBase: {
     fontSize: 20,
-    textAlign: 'right',
+    textAlign: 'right', // Sağa yaslı
     writingDirection: 'rtl',
-    color: 'black',
+    fontWeight: '400',
+    width: '100%',
+    lineHeight: 40, // Wrapper height ile aynı yaparak dikey hizalamayı garantiledik
+    position: 'absolute', // Üst üste binmeleri için
+    right: 0,
+    top: 0,
   },
+  arabicTextMaskContainer: {
+    height: '100%',
+    position: 'absolute',
+    right: 0, // Sağa yaslı (maske buradan açılacak)
+    top: 0,
+    overflow: 'hidden', // Taşan kısmı gizle
+    zIndex: 2,
+  },
+  arabicTextInnerFixed: {
+    width: CARD_WIDTH - 32, // Container padding'i çıkarılmış net genişlik
+    height: '100%',
+    position: 'absolute',
+    right: 0, // Metni sağa sabitle ki maske daraldığında metin kaymasın
+    top: 0,
+  },
+  // ------------------------------
+
   turkishText: {
     fontSize: 14,
     textAlign: 'left',
     color: 'rgba(255, 255, 255, 0.8)',
     marginBottom: 4,
+    marginTop: 8,
   },
   meaningText: {
     fontSize: 11,
@@ -259,6 +326,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 12,
+    zIndex: 10,
   },
   statsContainer: {
     alignItems: 'center',
