@@ -36,23 +36,23 @@ const ORIGINAL_DATA = [
   {
     id: 1,
     title: 'Zikir ve Dua',
-    subtitle: 'Ruhun gıdası, kalbin huzuru.',
+    subtitle: 'Günlük zikir ve dualarını düzenli kıl.',
     image: zikirDuaBg,
-    buttonText: 'Zikir çek',
+    buttonText: 'Zikirleri Gör',
   },
   {
     id: 2,
     title: 'Günün Ayeti',
-    subtitle: "Takva'daki herkesle birlikte salavat getir.",
+    subtitle: "Her gün Kur’an’dan seçilmiş bir ayet.",
     image: gununAyetiBg,
-    buttonText: 'Günün ayeti',
+    buttonText: 'Ayet’i Gör',
   },
   {
     id: 3,
-    title: 'Günün Hadisi',
-    subtitle: 'Peygamberimizden öğütler.',
+    title: 'Namaz Durumun',
+    subtitle: 'Bugünkü namazlarını hızlıca takip et.',
     image: namazDurumuBg,
-    buttonText: 'Oku',
+    buttonText: 'Namaz Durumunu Gör',
   },
 ];
 
@@ -205,7 +205,7 @@ export default function DailyCarousel() {
         })}
       />
 
-      {/* Alt Buton - 150x30, radius 10, bg #182723, stroke %50 1px */}
+      {/* Alt Buton */}
       <View style={{ alignItems: 'center', marginTop: 12 }}>
         <TouchableOpacity 
           activeOpacity={0.8}
@@ -218,7 +218,8 @@ export default function DailyCarousel() {
         >
           <View
             style={{
-              width: 150,
+              minWidth: 150, // Minimum genişlik
+              paddingHorizontal: 32, // Dinamik genişlik için padding (Ok payı dahil)
               height: 30,
               borderRadius: 10,
               backgroundColor: '#182723',
@@ -226,13 +227,13 @@ export default function DailyCarousel() {
               borderColor: 'rgba(255, 255, 255, 0.5)',
               flexDirection: 'row',
               alignItems: 'center',
+              justifyContent: 'center',
               position: 'relative',
             }}
           >
             {/* Text ortalı */}
             <Text
               style={{
-                flex: 1,
                 fontFamily: 'PlusJakartaSans-SemiBold',
                 fontSize: 15,
                 fontWeight: '600',
