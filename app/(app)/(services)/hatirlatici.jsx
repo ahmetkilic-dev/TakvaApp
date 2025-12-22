@@ -2,6 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity, TextInput, Dimensions, Platfo
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { BlurView } from 'expo-blur';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 import { useState } from 'react';
 import { Switch } from 'react-native';
@@ -762,32 +763,41 @@ export default function HatirlaticiScreen() {
           setShowOffsetDropdown(false);
         }}
       >
-        <Pressable
+        <BlurView
+          intensity={50}
+          tint="dark"
           style={{
             flex: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
             justifyContent: 'center',
             alignItems: 'center',
             paddingHorizontal: horizontalPadding,
           }}
-          onPress={() => {
-            setIsModalVisible(false);
-            setShowDaysDropdown(false);
-            setShowOffsetDropdown(false);
-          }}
         >
           <Pressable
             style={{
+              flex: 1,
               width: '100%',
-              maxWidth: SCREEN_WIDTH * 0.9,
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'rgba(255, 255, 255, 0.75)',
-              backgroundColor: '#172521',
-              padding: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
-            onPress={(e) => e.stopPropagation()}
+            onPress={() => {
+              setIsModalVisible(false);
+              setShowDaysDropdown(false);
+              setShowOffsetDropdown(false);
+            }}
           >
+            <Pressable
+              style={{
+                width: '100%',
+                maxWidth: SCREEN_WIDTH * 0.9,
+                borderRadius: 10,
+                borderWidth: 0.5,
+                borderColor: 'rgba(255, 255, 255, 0.75)',
+                backgroundColor: '#172521',
+                padding: 20,
+              }}
+              onPress={(e) => e.stopPropagation()}
+            >
             {/* Modal Header */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <Text
@@ -1211,7 +1221,8 @@ export default function HatirlaticiScreen() {
               </Text>
             </TouchableOpacity>
           </Pressable>
-        </Pressable>
+          </Pressable>
+        </BlurView>
       </Modal>
     </ScreenBackground>
   );

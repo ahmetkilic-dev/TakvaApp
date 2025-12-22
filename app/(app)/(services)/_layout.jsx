@@ -5,12 +5,16 @@ export default function ServicesLayout() {
     return (
         <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="abdest" />
+            <Stack.Screen name="bildirimler" />
             <Stack.Screen name="dhikr" />
             <Stack.Screen name="guide-detail" />
             <Stack.Screen name="hadith" />
+            <Stack.Screen name="hakkinda" />
             <Stack.Screen name="hatirlatici" />
+            <Stack.Screen name="hesap" />
             <Stack.Screen name="hoca-ai" />
             <Stack.Screen name="hutbe" />
+            <Stack.Screen name="ilim" />
             <Stack.Screen name="imsakiye" />
             <Stack.Screen name="premium" />
             <Stack.Screen name="qibla" />
