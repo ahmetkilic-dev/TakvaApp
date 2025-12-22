@@ -148,13 +148,15 @@ export default function GuideDetailScreen() {
     } else if (service.title === 'HocaAI') {
       router.push('/(app)/(services)/hoca-ai');
     } else if (service.title === 'Görevler & Rozetler') {
-      router.push('/(app)/(services)/rozetgorev');
+      router.push('/(app)/(tabs)/tasks');
     } else if (service.title === 'Dini Günler') {
       router.push('/(app)/(services)/diniGunler');
     } else if (service.title === 'Namaz Rehberi') {
       router.push('/(app)/(services)/namazrehber');
     } else if (service.title === 'Profil & İstatistikler') {
-      router.push('/(app)/(services)/profil');
+      router.push('/(app)/(tabs)/profile');
+    } else if (service.title === 'İlim') {
+      router.push('/(app)/(services)/ilim');
     } else {
       // Diğer hizmetler için şimdilik console.log
       console.log('Service pressed:', service.title);
