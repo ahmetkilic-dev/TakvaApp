@@ -1,8 +1,9 @@
 // firebaseConfig.js
-import { initializeApp } from "firebase/app";
-// initializeAuth yerine standart getAuth kullanıyoruz (Takılmayı önler)
-import { getAuth } from "firebase/auth"; 
+import { initializeApp, getApps, getApp } from "firebase/app";
+// Kalıcı oturum için initializeAuth ve AsyncStorage kullanıyoruz
+import { initializeAuth, getReactNativePersistence, getAuth } from "firebase/auth"; 
 import { getFirestore } from "firebase/firestore";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // --- FIREBASE BİLGİLERİN (AYNI KALIYOR) ---
 const firebaseConfig = {
@@ -15,11 +16,20 @@ const firebaseConfig = {
   measurementId: "G-49JZBRG633"
 };
 
-// Firebase'i başlat
-const app = initializeApp(firebaseConfig);
+// Firebase'i başlat (Hot reload için kontrol)
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-// Auth sistemini başlat (Sadeleştirilmiş versiyon)
-const auth = getAuth(app);
+// Auth sistemini başlat (AsyncStorage ile kalıcı oturum)
+// Hot reload sırasında tekrar başlatmayı önle
+let auth;
+try {
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage)
+  });
+} catch (error) {
+  // Zaten başlatılmışsa mevcut instance'ı al
+  auth = getAuth(app);
+}
 
 // Veritabanını başlat
 const db = getFirestore(app);

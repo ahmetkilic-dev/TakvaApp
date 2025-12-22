@@ -8,6 +8,7 @@ import { auth } from '../firebaseConfig';
 import { View, ActivityIndicator } from 'react-native';
 import { useFonts, Cinzel_900Black } from '@expo-google-fonts/cinzel';
 import * as SplashScreen from 'expo-splash-screen';
+import { LocationProvider } from '../contexts/LocationContext';
 
 // Splash screen'i açık tut
 SplashScreen.preventAutoHideAsync();
@@ -22,6 +23,7 @@ const InitialLoader = () => (
 // Ana Yetkilendirme Durumu Yöneticisi
 function AuthGuard() {
   const [user, setUser] = useState(undefined); 
+  const [initialRoute, setInitialRoute] = useState(false);
   const segments = useSegments();
   const router = useRouter();
   
@@ -38,16 +40,22 @@ function AuthGuard() {
     if (user === undefined) return; 
     
     // Auth ekranları (login, register), Welcome ekranı ve (app) ekranları
-    const inAuthFlow = segments[0] === '(auth)' || segments[0] === ''; // '' index.jsx demek
+    // segments boş array ise veya undefined ise de index.jsx demek
+    const inAuthFlow = segments[0] === '(auth)' || segments[0] === '' || segments[0] === undefined || segments.length === 0;
+    const inApp = segments[0] === '(app)';
 
-    if (user && inAuthFlow) {
-      // 1. Durum: Kullanıcı GİRİŞ YAPTIYSA ve Auth/Welcome görüyorsa
-      // -> Login/Welcome'ı atla, App'e (Home) yönlendir.
+    if (user && !inApp) {
+      // Kullanıcı GİRİŞ YAPTIYSA ve App dışındaysa
+      // -> Direkt Home'a yönlendir
       router.replace('/(app)/(tabs)/home'); 
-    } else if (!user && segments[0] === '(app)') {
-      // 2. Durum: Kullanıcı GİRİŞ YAPMADIYSA ve App Layout'a girmeye çalışıyorsa
-      // -> Geri Login'e yönlendir.
+      setInitialRoute(true);
+    } else if (!user && inApp) {
+      // Kullanıcı GİRİŞ YAPMADIYSA ve App içindeyse
+      // -> Login'e yönlendir
       router.replace('/(auth)/login');
+      setInitialRoute(true);
+    } else {
+      setInitialRoute(true);
     }
   }, [user, segments]);
 
@@ -75,9 +83,9 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <LocationProvider>
       <AuthGuard /> 
       <StatusBar style="light" />
-    </>
+    </LocationProvider>
   );
 }

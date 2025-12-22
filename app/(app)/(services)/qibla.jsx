@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Animated, Easing, Vibration, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Vibration, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as Location from 'expo-location';
-import Svg, { Path, Defs, LinearGradient, Stop, Circle, G, Text as SvgText, Line, Rect } from 'react-native-svg';
+import Svg, { Path, Circle, Text as SvgText, Line } from 'react-native-svg';
+import { Ionicons } from '@expo/vector-icons';
+import QiblaBgSvg from '../../../assets/images/qıbla-bg.svg';
+import KabeSvg from '../../../assets/images/kabe.svg';
+import { useLocation } from '../../../contexts/LocationContext';
 
 const { width, height } = Dimensions.get('window');
 const COMPASS_SIZE = width * 0.75;
@@ -12,108 +16,17 @@ const COMPASS_SIZE = width * 0.75;
 const KAABA_LAT = 21.4225;
 const KAABA_LNG = 39.8262;
 
-// Kıble toleransı (derece) - Kullanıcı bu açı aralığında Kıble yönünde sayılır
+// Kıble toleransı (derece)
 const QIBLA_TOLERANCE = 5;
 
-// Kabe İkonu Bileşeni
-const KaabaIcon = ({ size = 20 }) => (
-    <Svg width={size} height={size} viewBox="0 0 24 24">
-        {/* Kabe binası */}
-        <Rect x="4" y="6" width="16" height="14" fill="white" rx="1" />
-        {/* Kapı */}
-        <Rect x="9" y="12" width="6" height="8" fill="#2A2A2A" rx="0.5" />
-        {/* Hacer-ül Esved köşesi */}
-        <Circle cx="4" cy="14" r="2" fill="#FFD700" />
-        {/* Üst örtü çizgisi */}
-        <Path d="M4 8 L20 8" stroke="#FFD700" strokeWidth="1.5" />
-        {/* Kabe yazısı süsü */}
-        <Path d="M6 10 L18 10" stroke="rgba(0,0,0,0.3)" strokeWidth="0.5" />
-    </Svg>
-);
-
-// Dekoratif arka plan deseni (qıbla-bg.svg benzeri)
+// Arka plan deseni
 const BackgroundPattern = () => (
     <View style={styles.patternContainer}>
-        <Svg width={width} height={height * 0.5} viewBox="0 0 400 400">
-            <Defs>
-                <LinearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <Stop offset="0%" stopColor="#1a3a3a" stopOpacity="0.9" />
-                    <Stop offset="100%" stopColor="#0d1f1f" stopOpacity="0" />
-                </LinearGradient>
-            </Defs>
-            
-            {/* Ana mandala deseni */}
-            {[...Array(24)].map((_, i) => {
-                const angle = (i * 15 * Math.PI) / 180;
-                const x1 = 200 + 40 * Math.cos(angle);
-                const y1 = 180 + 40 * Math.sin(angle);
-                const x2 = 200 + 160 * Math.cos(angle);
-                const y2 = 180 + 160 * Math.sin(angle);
-                return (
-                    <G key={i}>
-                        {/* Ana ışın çizgileri */}
-                        <Line
-                            x1={x1}
-                            y1={y1}
-                            x2={x2}
-                            y2={y2}
-                            stroke="rgba(139, 168, 158, 0.15)"
-                            strokeWidth={1}
-                        />
-                        {/* Yaprak şekilleri */}
-                        {i % 2 === 0 && (
-                            <Path
-                                d={`M ${200 + 70 * Math.cos(angle)} ${180 + 70 * Math.sin(angle)} 
-                                   Q ${200 + 100 * Math.cos(angle + 0.15)} ${180 + 100 * Math.sin(angle + 0.15)} 
-                                     ${200 + 130 * Math.cos(angle)} ${180 + 130 * Math.sin(angle)}
-                                   Q ${200 + 100 * Math.cos(angle - 0.15)} ${180 + 100 * Math.sin(angle - 0.15)}
-                                     ${200 + 70 * Math.cos(angle)} ${180 + 70 * Math.sin(angle)}`}
-                                fill="rgba(139, 168, 158, 0.08)"
-                                stroke="rgba(139, 168, 158, 0.12)"
-                                strokeWidth={0.5}
-                            />
-                        )}
-                    </G>
-                );
-            })}
-            
-            {/* İç daireler */}
-            <Circle cx="200" cy="180" r="35" stroke="rgba(139, 168, 158, 0.1)" strokeWidth={1} fill="none" />
-            <Circle cx="200" cy="180" r="70" stroke="rgba(139, 168, 158, 0.08)" strokeWidth={1} fill="none" />
-            <Circle cx="200" cy="180" r="105" stroke="rgba(139, 168, 158, 0.06)" strokeWidth={1} fill="none" />
-            <Circle cx="200" cy="180" r="140" stroke="rgba(139, 168, 158, 0.04)" strokeWidth={1} fill="none" />
-            
-            {/* Köşe süsleri */}
-            {[0, 90, 180, 270].map((deg, i) => {
-                const angle = (deg * Math.PI) / 180;
-                return (
-                    <G key={`corner${i}`}>
-                        <Circle
-                            cx={200 + 50 * Math.cos(angle)}
-                            cy={180 + 50 * Math.sin(angle)}
-                            r={4}
-                            fill="rgba(139, 168, 158, 0.15)"
-                        />
-                        <Circle
-                            cx={200 + 90 * Math.cos(angle)}
-                            cy={180 + 90 * Math.sin(angle)}
-                            r={3}
-                            fill="rgba(139, 168, 158, 0.12)"
-                        />
-                        <Circle
-                            cx={200 + 125 * Math.cos(angle)}
-                            cy={180 + 125 * Math.sin(angle)}
-                            r={2}
-                            fill="rgba(139, 168, 158, 0.1)"
-                        />
-                    </G>
-                );
-            })}
-        </Svg>
+        <QiblaBgSvg width={width} height={height} preserveAspectRatio="xMidYMid slice" />
     </View>
 );
 
-// Pusula Yüzü (qibla.svg tasarımına benzer)
+// Pusula Yüzü
 const CompassFace = ({ size }) => {
     const center = size / 2;
     const outerR = size / 2 - 10;
@@ -128,7 +41,6 @@ const CompassFace = ({ size }) => {
 
     return (
         <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-            {/* Dış çerçeve */}
             <Circle
                 cx={center}
                 cy={center}
@@ -139,7 +51,6 @@ const CompassFace = ({ size }) => {
                 strokeWidth={8}
             />
             
-            {/* İç gölge efekti */}
             <Circle
                 cx={center - 5}
                 cy={center - 5}
@@ -148,7 +59,6 @@ const CompassFace = ({ size }) => {
                 fillOpacity={0.5}
             />
 
-            {/* Derece çizgileri */}
             {[...Array(72)].map((_, i) => {
                 const degree = i * 5;
                 const angle = (degree * Math.PI) / 180;
@@ -183,7 +93,6 @@ const CompassFace = ({ size }) => {
                 );
             })}
 
-            {/* Yön harfleri */}
             {directions.map((dir, i) => {
                 const angle = (dir.angle * Math.PI) / 180;
                 const textR = innerR - 25;
@@ -205,7 +114,6 @@ const CompassFace = ({ size }) => {
                 );
             })}
 
-            {/* İç daire */}
             <Circle
                 cx={center}
                 cy={center}
@@ -223,41 +131,89 @@ const CompassNeedle = ({ size }) => {
     const needleSize = size * 0.35;
     return (
         <Svg width={needleSize} height={needleSize} viewBox="0 0 100 100">
-            {/* Kuzey (Kırmızı/Turuncu) */}
-            <Path
-                d="M50 15 L58 48 L50 44 L42 48 Z"
-                fill="#E74C3C"
-            />
-            {/* Güney (Beyaz) */}
-            <Path
-                d="M50 85 L58 52 L50 56 L42 52 Z"
-                fill="#CCCCCC"
-            />
-            {/* Merkez */}
+            <Path d="M50 15 L58 48 L50 44 L42 48 Z" fill="#E74C3C" />
+            <Path d="M50 85 L58 52 L50 56 L42 52 Z" fill="#CCCCCC" />
             <Circle cx="50" cy="50" r="6" fill="#444" />
             <Circle cx="50" cy="50" r="3" fill="#888" />
         </Svg>
     );
 };
 
+// Konum İzni Gerekli Ekranı
+const LocationPermissionRequired = ({ onRetry, router }) => (
+    <View style={styles.container}>
+        <BackgroundPattern />
+        <SafeAreaView edges={['top']} style={styles.safeArea}>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                    <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
+                        <Path
+                            d="M15 18L9 12L15 6"
+                            stroke="white"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </Svg>
+                </TouchableOpacity>
+                <Text style={styles.title}>KIBLE</Text>
+                <View style={{ width: 40 }} />
+            </View>
+
+            <View style={styles.permissionContainer}>
+                <View style={styles.permissionIconContainer}>
+                    <Ionicons name="location-outline" size={80} color="#FF6B6B" />
+                </View>
+                
+                <Text style={styles.permissionTitle}>Konum İzni Gerekli</Text>
+                
+                <Text style={styles.permissionDescription}>
+                    Kıble yönünü doğru hesaplayabilmemiz için konum bilginize ihtiyacımız var.
+                </Text>
+                
+                <Text style={styles.permissionSubtext}>
+                    Konum bilginiz sadece Kıble açısını ve Kâbe'ye olan mesafenizi hesaplamak için kullanılır.
+                </Text>
+
+                <TouchableOpacity style={styles.retryButton} onPress={onRetry}>
+                    <Ionicons name="location" size={20} color="#fff" />
+                    <Text style={styles.retryButtonText}>Konum İzni Ver</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.backHomeButton} onPress={() => router.back()}>
+                    <Text style={styles.backHomeButtonText}>Geri Dön</Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
+    </View>
+);
+
 export default function QiblaScreen() {
     const router = useRouter();
+    
+    const { 
+        location: userLocation, 
+        city: userCity, 
+        district: userDistrict,
+        hasPermission, 
+        isLoading: locationLoading,
+        retryPermission 
+    } = useLocation();
+
+    // HAM DEĞERLER - HİÇBİR FİLTRE YOK
     const [heading, setHeading] = useState(0);
     const [qiblaAngle, setQiblaAngle] = useState(null);
-    const [accuracy, setAccuracy] = useState(0);
-    const [city, setCity] = useState('');
-    const [district, setDistrict] = useState('');
     const [distance, setDistance] = useState(null);
     const [isQiblaDirection, setIsQiblaDirection] = useState(false);
     const [currentTime, setCurrentTime] = useState('');
+    const [needsCalibration, setNeedsCalibration] = useState(false);
+    const [compassStarted, setCompassStarted] = useState(false);
     
-    const rotationAnim = useRef(new Animated.Value(0)).current;
-    const currentRotation = useRef(0);
     const subscriptionRef = useRef(null);
     const lastVibration = useRef(0);
 
+    // Saat güncelleme
     useEffect(() => {
-        initializeQibla();
         updateTime();
         const timeInterval = setInterval(updateTime, 1000);
         return () => {
@@ -266,6 +222,13 @@ export default function QiblaScreen() {
         };
     }, []);
 
+    // Konum değiştiğinde Kıble hesapla ve pusulayı başlat
+    useEffect(() => {
+        if (hasPermission && userLocation && !compassStarted) {
+            initializeQibla();
+        }
+    }, [hasPermission, userLocation, compassStarted]);
+
     const updateTime = () => {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, '0');
@@ -273,13 +236,23 @@ export default function QiblaScreen() {
         setCurrentTime(`${hours}:${minutes}`);
     };
 
+    // Kıble yönü kontrolü - GÖRÜNEN DEĞERLERLE KARŞILAŞTIR
     useEffect(() => {
         if (qiblaAngle !== null) {
-            let diff = Math.abs(heading - qiblaAngle);
+            // Kullanıcının gördüğü değerlerle karşılaştır (ikisi de ekranda görünüyor)
+            // Heading: Manyetik pusula değeri
+            // Kıble Açısı: API'den gelen değer
+            // İkisi eşit olduğunda "Kıble Yönündesiniz" göster
+            const displayedQibla = Math.round(qiblaAngle); // Ekranda gösterilen Kıble açısı
+            
+            let diff = Math.abs(heading - displayedQibla);
             if (diff > 180) diff = 360 - diff;
             
-            // QIBLA_TOLERANCE derece tolerans ile Kıble yönünde sayılır
-            const isOnQibla = diff < QIBLA_TOLERANCE;
+            // Debug log
+            console.log(`🧭 Heading: ${heading}° | Kıble: ${displayedQibla}° | Fark: ${diff}°`);
+            
+            // Tolerans: ±2 derece (151, 152, 153 için 152 merkez)
+            const isOnQibla = diff <= 2;
             setIsQiblaDirection(isOnQibla);
             
             if (isOnQibla && Date.now() - lastVibration.current > 1000) {
@@ -290,29 +263,12 @@ export default function QiblaScreen() {
     }, [heading, qiblaAngle]);
 
     const initializeQibla = async () => {
-        try {
-            const { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') return;
-
-            const position = await Location.getCurrentPositionAsync({
-                accuracy: Location.Accuracy.High
-            });
-            
-            const { latitude, longitude } = position.coords;
-            await fetchQiblaDirection(latitude, longitude);
-            
-            try {
-                const geocode = await Location.reverseGeocodeAsync({ latitude, longitude });
-                if (geocode.length > 0) {
-                    setCity(geocode[0].city || geocode[0].region || 'Bilinmiyor');
-                    setDistrict(geocode[0].district || geocode[0].subregion || '');
-                }
-            } catch (e) {}
-
-            startCompass();
-        } catch (error) {
-            console.log('Başlatma hatası:', error);
-        }
+        if (!userLocation) return;
+        
+        const { latitude, longitude } = userLocation;
+        await fetchQiblaDirection(latitude, longitude);
+        startCompass();
+        setCompassStarted(true);
     };
 
     const fetchQiblaDirection = async (latitude, longitude) => {
@@ -326,6 +282,7 @@ export default function QiblaScreen() {
                 setQiblaAngle(data.data.direction);
                 const dist = calculateDistance(latitude, longitude, KAABA_LAT, KAABA_LNG);
                 setDistance(Math.round(dist));
+                console.log('🕋 Kıble açısı:', data.data.direction);
             }
         } catch (error) {
             const manualQibla = calculateQiblaAngle(latitude, longitude);
@@ -359,34 +316,26 @@ export default function QiblaScreen() {
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     };
 
-    const getShortestRotation = (from, to) => {
-        let diff = to - from;
-        while (diff > 180) diff -= 360;
-        while (diff < -180) diff += 360;
-        return from + diff;
-    };
-
+    // PUSULA - SIFIR GECİKME, HAM VERİ
     const startCompass = async () => {
         try {
+            console.log('🧭 Pusula başlatılıyor...');
+            
             subscriptionRef.current = await Location.watchHeadingAsync((headingData) => {
-                const newHeading = headingData.trueHeading >= 0 
-                    ? headingData.trueHeading 
-                    : headingData.magHeading;
+                // magHeading: Manyetik kuzey - telefon pusulası ile aynı değer
+                const rawHeading = headingData.magHeading;
                 
-                setAccuracy(headingData.accuracy);
-                setHeading(Math.round(newHeading));
+                // Kalibrasyon kontrolü (accuracy: 1=düşük, 2=orta, 3=yüksek)
+                setNeedsCalibration(headingData.accuracy < 2);
                 
-                const targetRotation = getShortestRotation(currentRotation.current, -newHeading);
-                currentRotation.current = targetRotation;
-                
-                Animated.timing(rotationAnim, {
-                    toValue: targetRotation,
-                    duration: 150,
-                    easing: Easing.out(Easing.quad),
-                    useNativeDriver: true,
-                }).start();
+                // DOĞRUDAN STATE'E YAZ - HİÇBİR İŞLEM YOK
+                setHeading(Math.round(rawHeading));
             });
-        } catch (error) {}
+            
+            console.log('🧭 Pusula başlatıldı');
+        } catch (error) {
+            console.log('Pusula başlatma hatası:', error);
+        }
     };
 
     const stopCompass = () => {
@@ -396,16 +345,26 @@ export default function QiblaScreen() {
         }
     };
 
-    const rotateStyle = {
-        transform: [{
-            rotate: rotationAnim.interpolate({
-                inputRange: [-360, 360],
-                outputRange: ['-360deg', '360deg'],
-            })
-        }]
-    };
-
+    // Kıble işareti rotasyonu - Görünen değerlerle eşleşsin
+    // Heading 152° iken Kabe ikonu tam üstte olmalı (Kıble açısı 152° ise)
     const qiblaIndicatorRotation = qiblaAngle !== null ? qiblaAngle - heading : 0;
+
+    // Konum yükleniyorsa bekle
+    if (locationLoading) {
+        return (
+            <View style={styles.container}>
+                <BackgroundPattern />
+                <SafeAreaView edges={['top']} style={[styles.safeArea, styles.loadingContainer]}>
+                    <Text style={styles.loadingText}>Konum alınıyor...</Text>
+                </SafeAreaView>
+            </View>
+        );
+    }
+
+    // Konum izni yoksa uyarı göster
+    if (!hasPermission) {
+        return <LocationPermissionRequired onRetry={retryPermission} router={router} />;
+    }
 
     return (
         <View style={[styles.container, isQiblaDirection && styles.containerQibla]}>
@@ -431,9 +390,9 @@ export default function QiblaScreen() {
 
                 {/* Şehir bilgisi */}
                 <View style={styles.cityContainer}>
-                    <Text style={styles.cityName}>{city || 'Konum alınıyor...'}</Text>
+                    <Text style={styles.cityName}>{userCity || 'Konum alınıyor...'}</Text>
                     <View style={styles.locationRow}>
-                        {district ? (
+                        {userDistrict ? (
                             <View style={styles.infoRow}>
                                 <Svg width={14} height={14} viewBox="0 0 24 24" fill="none">
                                     <Path
@@ -441,7 +400,7 @@ export default function QiblaScreen() {
                                         fill="#8BA89E"
                                     />
                                 </Svg>
-                                <Text style={styles.infoRowText}>{district}</Text>
+                                <Text style={styles.infoRowText}>{userDistrict}</Text>
                             </View>
                         ) : null}
                         <View style={styles.infoRow}>
@@ -456,7 +415,6 @@ export default function QiblaScreen() {
 
                 {/* Pusula */}
                 <View style={styles.compassWrapper}>
-                    {/* Dış halka */}
                     <View style={styles.outerRing}>
                         {/* Kıble işareti (Kabe ikonu) */}
                         {qiblaAngle !== null && (
@@ -467,15 +425,18 @@ export default function QiblaScreen() {
                                 ]}
                             >
                                 <View style={styles.qiblaIconOuter}>
-                                    <KaabaIcon size={22} />
+                                    <KabeSvg width={38} height={38} />
                                 </View>
                             </View>
                         )}
                         
-                        {/* Dönen pusula yüzü */}
-                        <Animated.View style={[styles.compassInner, rotateStyle]}>
+                        {/* Dönen pusula yüzü - HAM HEADING DEĞERİ */}
+                        <View style={[
+                            styles.compassInner,
+                            { transform: [{ rotate: `${-heading}deg` }] }
+                        ]}>
                             <CompassFace size={COMPASS_SIZE} />
-                        </Animated.View>
+                        </View>
                         
                         {/* Sabit iğne */}
                         <View style={styles.needleContainer}>
@@ -499,8 +460,20 @@ export default function QiblaScreen() {
                     )}
                 </View>
 
+                {/* Kalibrasyon uyarısı */}
+                {needsCalibration && (
+                    <View style={styles.calibrationBanner}>
+                        <Text style={styles.calibrationText}>
+                            ⚠️ Pusula kalibrasyona ihtiyaç duyuyor
+                        </Text>
+                        <Text style={styles.calibrationHint}>
+                            Telefonunuzu 8 şeklinde hareket ettirin
+                        </Text>
+                    </View>
+                )}
+
                 {/* Kıble bulundu */}
-                {isQiblaDirection && (
+                {isQiblaDirection && !needsCalibration && (
                     <View style={styles.qiblaFoundBanner}>
                         <Text style={styles.qiblaFoundText}>🕋 Kıble Yönündesiniz</Text>
                     </View>
@@ -530,9 +503,18 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
+        bottom: 0,
     },
     safeArea: {
         flex: 1,
+    },
+    loadingContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loadingText: {
+        color: '#8BA89E',
+        fontSize: 18,
     },
     header: {
         flexDirection: 'row',
@@ -545,14 +527,14 @@ const styles = StyleSheet.create({
         padding: 8,
     },
     title: {
-    fontFamily: 'Cinzel-Black',
-    color: '#FFFFFF',
-    fontSize: 24,
-    textAlign: 'center',
-    letterSpacing: -1,
-    textShadowColor: 'rgba(255, 255, 255, 0.25)',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 10,
+        fontFamily: 'Cinzel-Black',
+        color: '#FFFFFF',
+        fontSize: 24,
+        textAlign: 'center',
+        letterSpacing: -1,
+        textShadowColor: 'rgba(255, 255, 255, 0.25)',
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 10,
     },
     cityContainer: {
         alignItems: 'center',
@@ -608,14 +590,8 @@ const styles = StyleSheet.create({
     qiblaIconOuter: {
         position: 'absolute',
         top: -2,
-        width: 38,
-        height: 38,
-        borderRadius: 19,
-        backgroundColor: '#2A2A2A',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 2,
-        borderColor: '#fff',
     },
     compassInner: {
         width: COMPASS_SIZE,
@@ -641,6 +617,25 @@ const styles = StyleSheet.create({
         color: '#8BA89E',
         marginTop: 2,
     },
+    calibrationBanner: {
+        backgroundColor: 'rgba(255, 152, 0, 0.15)',
+        paddingVertical: 12,
+        marginHorizontal: 40,
+        borderRadius: 14,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'rgba(255, 152, 0, 0.3)',
+    },
+    calibrationText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#FF9800',
+    },
+    calibrationHint: {
+        fontSize: 12,
+        color: '#FFB74D',
+        marginTop: 4,
+    },
     qiblaFoundBanner: {
         backgroundColor: 'rgba(76, 175, 80, 0.15)',
         paddingVertical: 14,
@@ -665,5 +660,66 @@ const styles = StyleSheet.create({
         color: '#5A7A70',
         textAlign: 'center',
         lineHeight: 20,
+    },
+    permissionContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 40,
+    },
+    permissionIconContainer: {
+        width: 140,
+        height: 140,
+        borderRadius: 70,
+        backgroundColor: 'rgba(255, 107, 107, 0.15)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30,
+        borderWidth: 2,
+        borderColor: 'rgba(255, 107, 107, 0.3)',
+    },
+    permissionTitle: {
+        fontSize: 26,
+        fontWeight: '700',
+        color: '#fff',
+        marginBottom: 16,
+        textAlign: 'center',
+    },
+    permissionDescription: {
+        fontSize: 16,
+        color: '#B8C9C0',
+        textAlign: 'center',
+        lineHeight: 24,
+        marginBottom: 12,
+    },
+    permissionSubtext: {
+        fontSize: 13,
+        color: '#7A8A82',
+        textAlign: 'center',
+        lineHeight: 20,
+        marginBottom: 40,
+    },
+    retryButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#4ECDC4',
+        paddingVertical: 16,
+        paddingHorizontal: 32,
+        borderRadius: 30,
+        gap: 10,
+        marginBottom: 16,
+    },
+    retryButtonText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#fff',
+    },
+    backHomeButton: {
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+    },
+    backHomeButtonText: {
+        fontSize: 14,
+        color: '#8BA89E',
     },
 });

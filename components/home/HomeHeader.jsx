@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
+import { useLocation } from '../../contexts/LocationContext';
 
 // İkonlar
 import icHatirlatici from '../../assets/images/hatirlatici.png';
@@ -38,6 +39,9 @@ export default function HomeHeader() {
   const ACTIVE_COLOR = '#FFBA4A';
   const INACTIVE_COLOR = 'white';
 
+  // Konum context'inden al
+  const { location: userLocation, city: userCity, hasPermission, isLoading: locationLoading } = useLocation();
+
   const [prayerTimes, setPrayerTimes] = useState([]);
   const [displayData, setDisplayData] = useState({
     nextPrayerName: "Yükleniyor",
@@ -45,15 +49,28 @@ export default function HomeHeader() {
     activeVakitIndex: -1
   });
 
-  const [location, setLocation] = useState('İstanbul');
+  const [displayCity, setDisplayCity] = useState('Konum alınıyor...');
 
-  // 1. API İsteği
+  // 1. API İsteği - Konum değiştiğinde güncelle
   useEffect(() => {
     const fetchTimes = async () => {
       try {
         const now = new Date();
         const dateStr = `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
-        const finalUrl = `${API_BASE}/${dateStr}?city=Istanbul&country=Turkey&method=13`;
+        
+        let finalUrl;
+        
+        // Eğer konum izni varsa ve konum alındıysa, koordinat ile sorgula
+        if (hasPermission && userLocation) {
+          console.log('🕌 Namaz vakitleri konuma göre alınıyor:', userCity, userLocation.latitude, userLocation.longitude);
+          finalUrl = `${API_BASE}/${dateStr}?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&method=13`;
+          setDisplayCity(userCity || 'Türkiye');
+        } else {
+          // Varsayılan olarak İstanbul kullan
+          console.log('🕌 Namaz vakitleri varsayılan İstanbul için alınıyor (konum izni yok veya konum alınamadı)');
+          finalUrl = `${API_BASE}/${dateStr}?city=Istanbul&country=Turkey&method=13`;
+          setDisplayCity('İstanbul');
+        }
 
         const response = await fetch(finalUrl);
         const result = await response.json();
@@ -69,7 +86,6 @@ export default function HomeHeader() {
             { label: 'Yatsı', time: t.Isha }
           ];
           setPrayerTimes(mapping);
-          setLocation('İstanbul');
         } else {
           useFallbackData();
         }
@@ -84,9 +100,14 @@ export default function HomeHeader() {
         { label: 'Öğle', time: '13:06' }, { label: 'İkindi', time: '15:24' },
         { label: 'Akşam', time: '17:44' }, { label: 'Yatsı', time: '19:10' }
       ]);
+      setDisplayCity('İstanbul');
     };
-    fetchTimes();
-  }, []);
+
+    // Konum yüklenirken bekle, sonra fetch et
+    if (!locationLoading) {
+      fetchTimes();
+    }
+  }, [userLocation, hasPermission, userCity, locationLoading]);
 
   // 2. Geri Sayım
   useEffect(() => {
@@ -191,7 +212,7 @@ export default function HomeHeader() {
           style={{ fontFamily, fontSize: 16, fontWeight: '400', color: INACTIVE_COLOR }}
           className="mt-0"
         >
-          {location}
+          {displayCity}
         </Text>
       </View>
 

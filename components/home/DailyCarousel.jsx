@@ -10,17 +10,27 @@ import namazDurumuBg from '../../assets/images/namaz-durumu.png';
 
 const { width } = Dimensions.get('window');
 
-// Ortadaki görsel: 335x182, yan görseller: height 136
-const CENTER_IMAGE_WIDTH = 335;
-const CENTER_IMAGE_HEIGHT = 182;
-const SIDE_IMAGE_HEIGHT = 136;
-// Yan görsellerin genişliği (oranı koruyarak)
-const ASPECT_RATIO = CENTER_IMAGE_WIDTH / CENTER_IMAGE_HEIGHT;
-const SIDE_IMAGE_WIDTH = SIDE_IMAGE_HEIGHT * ASPECT_RATIO;
+// Responsive boyutlar - yüzdelik sistem
+const ASPECT_RATIO = 335 / 182; // Orijinal görsel oranı
 
-// Spacing - görseller arası boşluk (negatif değer yakınlaştırır)
-const SPACING = -20;
-const SNAP_INTERVAL = CENTER_IMAGE_WIDTH + SPACING;
+// Ekran dağılımı: %8 sol + %1 boşluk + %82 merkez + %1 boşluk + %8 sağ = %100
+const CENTER_PERCENT = 0.82; // Merkez görsel %82
+const SIDE_PEEK_PERCENT = 0.08; // Yan görsellerin görünen kısmı %8
+const GAP_PERCENT = 0.01; // Boşluklar %1
+
+// Hesaplamalar
+const CENTER_IMAGE_WIDTH = width * CENTER_PERCENT;
+const CENTER_IMAGE_HEIGHT = CENTER_IMAGE_WIDTH / ASPECT_RATIO;
+const GAP = width * GAP_PERCENT;
+const SIDE_PEEK = width * SIDE_PEEK_PERCENT;
+
+// Yan görseller - merkez görselin %90'ı boyutunda (yükseklik için)
+const SIDE_SCALE = 0.90;
+const SIDE_IMAGE_WIDTH = CENTER_IMAGE_WIDTH * SIDE_SCALE;
+const SIDE_IMAGE_HEIGHT = CENTER_IMAGE_HEIGHT * SIDE_SCALE;
+
+// Snap interval
+const SNAP_INTERVAL = CENTER_IMAGE_WIDTH + GAP;
 
 const ORIGINAL_DATA = [
   {
@@ -113,7 +123,7 @@ export default function DailyCarousel() {
     return (
       <View
         style={{
-          width: CENTER_IMAGE_WIDTH + SPACING,
+          width: SNAP_INTERVAL,
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -181,7 +191,8 @@ export default function DailyCarousel() {
         snapToInterval={SNAP_INTERVAL}
         decelerationRate="fast"
         contentContainerStyle={{
-          paddingHorizontal: (width - CENTER_IMAGE_WIDTH) / 2,
+          // Sol: %8 peek + %1 gap = %9 padding
+          paddingHorizontal: SIDE_PEEK + GAP,
         }}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
