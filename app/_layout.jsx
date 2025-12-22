@@ -59,8 +59,8 @@ function AuthGuard() {
     }
   }, [user, segments]);
 
-  // Yüklenme anında
-  if (user === undefined) {
+  // Yüklenme anında veya ilk yönlendirme yapılmadıysa loading göster
+  if (user === undefined || !initialRoute) {
     return <InitialLoader />;
   }
 
