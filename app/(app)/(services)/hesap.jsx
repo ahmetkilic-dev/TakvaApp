@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, Dimensions, Platform, TextInp
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -24,9 +25,12 @@ export default function HesapScreen() {
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneCode, setPhoneCode] = useState(['', '', '', '', '', '', '']);
+  const [showPhoneCode, setShowPhoneCode] = useState(false);
   const [email, setEmail] = useState('');
   const [emailCode, setEmailCode] = useState(['', '', '', '', '', '', '']);
-  const [birthDate, setBirthDate] = useState('');
+  const [showEmailCode, setShowEmailCode] = useState(false);
+  const [birthDate, setBirthDate] = useState(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -48,6 +52,47 @@ export default function HesapScreen() {
       newCode[index] = value;
       setEmailCode(newCode);
     }
+  };
+
+  const formatDate = (date) => {
+    if (!date) return '';
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
+  const onDateChange = (event, selectedDate) => {
+    if (Platform.OS === 'android') {
+      setShowDatePicker(false);
+      if (event.type === 'set' && selectedDate) {
+        setBirthDate(selectedDate);
+      }
+    } else {
+      // iOS'ta sadece tarihi güncelle, picker'ı kapatma (sadece butonlarla kapanacak)
+      if (selectedDate) {
+        setBirthDate(selectedDate);
+      }
+    }
+  };
+
+  const handleSaveBirthDate = () => {
+    // Burada doğum tarihini kaydetme işlemi yapılacak
+    console.log('Doğum tarihi kaydedildi:', birthDate);
+    // API çağrısı veya state güncellemesi burada yapılabilir
+  };
+
+  const handleSavePassword = () => {
+    // Burada şifre değiştirme işlemi yapılacak
+    if (newPassword !== confirmPassword) {
+      alert('Yeni parolalar eşleşmiyor!');
+      return;
+    }
+    console.log('Şifre değiştirildi');
+    // API çağrısı burada yapılabilir
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
   };
 
   const sections = [
@@ -143,8 +188,6 @@ export default function HesapScreen() {
               style={{
                 width: '100%',
                 borderRadius: 15,
-                borderWidth: 0.5,
-                borderColor: 'rgba(255, 255, 255, 0.5)',
                 backgroundColor: 'rgba(24, 39, 35, 0.5)',
                 overflow: 'hidden',
               }}
@@ -227,6 +270,7 @@ export default function HesapScreen() {
                             keyboardType="phone-pad"
                           />
                           <TouchableOpacity
+                            onPress={() => setShowPhoneCode(true)}
                             style={{
                               position: 'absolute',
                               right: 15,
@@ -248,30 +292,57 @@ export default function HesapScreen() {
                           </TouchableOpacity>
                         </View>
                         {/* Code Input Boxes */}
-                        <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
-                          {phoneCode.map((digit, idx) => (
-                            <TextInput
-                              key={idx}
+                        {showPhoneCode && (
+                          <>
+                            <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center', marginBottom: 16 }}>
+                              {phoneCode.map((digit, idx) => (
+                                <TextInput
+                                  key={idx}
+                                  style={{
+                                    width: 40,
+                                    height: 43,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                    backgroundColor: '#15221E',
+                                    textAlign: 'center',
+                                    color: '#FFFFFF',
+                                    fontFamily,
+                                    fontSize: 20,
+                                    fontWeight: '400',
+                                  }}
+                                  value={digit}
+                                  onChangeText={(value) => handleCodeInput(idx, value, 'phone')}
+                                  keyboardType="number-pad"
+                                  maxLength={1}
+                                />
+                              ))}
+                            </View>
+                            <TouchableOpacity
                               style={{
-                                width: 40,
-                                height: 43,
+                                width: '100%',
+                                height: 42,
                                 borderRadius: 10,
                                 borderWidth: 1,
                                 borderColor: 'rgba(255, 255, 255, 0.5)',
                                 backgroundColor: '#15221E',
-                                textAlign: 'center',
-                                color: '#FFFFFF',
-                                fontFamily,
-                                fontSize: 20,
-                                fontWeight: '400',
+                                alignItems: 'center',
+                                justifyContent: 'center',
                               }}
-                              value={digit}
-                              onChangeText={(value) => handleCodeInput(idx, value, 'phone')}
-                              keyboardType="number-pad"
-                              maxLength={1}
-                            />
-                          ))}
-                        </View>
+                            >
+                              <Text
+                                style={{
+                                  fontFamily,
+                                  fontSize: 18,
+                                  fontWeight: '500',
+                                  color: '#FFFFFF',
+                                }}
+                              >
+                                Kaydet
+                              </Text>
+                            </TouchableOpacity>
+                          </>
+                        )}
                       </>
                     )}
 
@@ -301,6 +372,7 @@ export default function HesapScreen() {
                             autoCapitalize="none"
                           />
                           <TouchableOpacity
+                            onPress={() => setShowEmailCode(true)}
                             style={{
                               position: 'absolute',
                               right: 15,
@@ -322,53 +394,216 @@ export default function HesapScreen() {
                           </TouchableOpacity>
                         </View>
                         {/* Code Input Boxes */}
-                        <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
-                          {emailCode.map((digit, idx) => (
-                            <TextInput
-                              key={idx}
+                        {showEmailCode && (
+                          <>
+                            <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center', marginBottom: 16 }}>
+                              {emailCode.map((digit, idx) => (
+                                <TextInput
+                                  key={idx}
+                                  style={{
+                                    width: 40,
+                                    height: 43,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                    backgroundColor: '#15221E',
+                                    textAlign: 'center',
+                                    color: '#FFFFFF',
+                                    fontFamily,
+                                    fontSize: 20,
+                                    fontWeight: '400',
+                                  }}
+                                  value={digit}
+                                  onChangeText={(value) => handleCodeInput(idx, value, 'email')}
+                                  keyboardType="number-pad"
+                                  maxLength={1}
+                                />
+                              ))}
+                            </View>
+                            <TouchableOpacity
                               style={{
-                                width: 40,
-                                height: 43,
+                                width: '100%',
+                                height: 42,
                                 borderRadius: 10,
                                 borderWidth: 1,
                                 borderColor: 'rgba(255, 255, 255, 0.5)',
                                 backgroundColor: '#15221E',
-                                textAlign: 'center',
-                                color: '#FFFFFF',
-                                fontFamily,
-                                fontSize: 20,
-                                fontWeight: '400',
+                                alignItems: 'center',
+                                justifyContent: 'center',
                               }}
-                              value={digit}
-                              onChangeText={(value) => handleCodeInput(idx, value, 'email')}
-                              keyboardType="number-pad"
-                              maxLength={1}
-                            />
-                          ))}
-                        </View>
+                            >
+                              <Text
+                                style={{
+                                  fontFamily,
+                                  fontSize: 18,
+                                  fontWeight: '500',
+                                  color: '#FFFFFF',
+                                }}
+                              >
+                                Kaydet
+                              </Text>
+                            </TouchableOpacity>
+                          </>
+                        )}
                       </>
                     )}
 
                     {/* Doğum Tarihi */}
                     {section.id === 'dogumTarihi' && (
-                      <TextInput
-                        style={{
-                          width: '100%',
-                          height: 42,
-                          borderRadius: 10,
-                          borderWidth: 1,
-                          borderColor: 'rgba(255, 255, 255, 0.7)',
-                          backgroundColor: '#15221E',
-                          paddingHorizontal: 15,
-                          color: '#FFFFFF',
-                          fontFamily,
-                          fontSize: 12,
-                        }}
-                        placeholder="Doğum tarihini giriniz"
-                        placeholderTextColor="rgba(255, 255, 255, 0.5)"
-                        value={birthDate}
-                        onChangeText={setBirthDate}
-                      />
+                      <>
+                        <TouchableOpacity
+                          onPress={() => setShowDatePicker(true)}
+                          style={{
+                            width: '100%',
+                            height: 42,
+                            borderRadius: 10,
+                            borderWidth: 1,
+                            borderColor: 'rgba(255, 255, 255, 0.7)',
+                            backgroundColor: '#15221E',
+                            paddingHorizontal: 15,
+                            justifyContent: 'center',
+                            marginBottom: 16,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontFamily,
+                              fontSize: 12,
+                              color: birthDate ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
+                            }}
+                          >
+                            {birthDate ? formatDate(birthDate) : 'Doğum tarihini giriniz'}
+                          </Text>
+                        </TouchableOpacity>
+                        {showDatePicker && (
+                          <>
+                            <DateTimePicker
+                              value={birthDate || new Date()}
+                              mode="date"
+                              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                              onChange={onDateChange}
+                              maximumDate={new Date()}
+                              minimumDate={new Date(1900, 0, 1)}
+                              locale="tr-TR"
+                              textColor="#FFFFFF"
+                              themeVariant="dark"
+                            />
+                            {Platform.OS === 'ios' && (
+                              <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+                                <TouchableOpacity
+                                  onPress={() => setShowDatePicker(false)}
+                                  style={{
+                                    flex: 1,
+                                    height: 42,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                    backgroundColor: '#15221E',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      fontFamily,
+                                      fontSize: 14,
+                                      fontWeight: '500',
+                                      color: '#FFFFFF',
+                                    }}
+                                  >
+                                    İptal
+                                  </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                  onPress={() => {
+                                    if (!birthDate) setBirthDate(new Date());
+                                    setShowDatePicker(false);
+                                  }}
+                                  style={{
+                                    flex: 1,
+                                    height: 42,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                    backgroundColor: '#15221E',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      fontFamily,
+                                      fontSize: 14,
+                                      fontWeight: '500',
+                                      color: '#FFFFFF',
+                                    }}
+                                  >
+                                    Tamam
+                                  </Text>
+                                </TouchableOpacity>
+                              </View>
+                            )}
+                            <TouchableOpacity
+                              onPress={() => {
+                                handleSaveBirthDate();
+                                setShowDatePicker(false);
+                              }}
+                              disabled={!birthDate}
+                              style={{
+                                width: '100%',
+                                height: 42,
+                                borderRadius: 10,
+                                borderWidth: 1,
+                                borderColor: 'rgba(255, 255, 255, 0.5)',
+                                backgroundColor: birthDate ? '#15221E' : 'rgba(21, 34, 30, 0.5)',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                opacity: birthDate ? 1 : 0.5,
+                                marginTop: 8,
+                              }}
+                            >
+                              <Text
+                                style={{
+                                  fontFamily,
+                                  fontSize: 18,
+                                  fontWeight: '500',
+                                  color: '#FFFFFF',
+                                }}
+                              >
+                                Kaydet
+                              </Text>
+                            </TouchableOpacity>
+                          </>
+                        )}
+                        {!showDatePicker && (
+                          <TouchableOpacity
+                            onPress={handleSaveBirthDate}
+                            disabled={!birthDate}
+                            style={{
+                              width: '100%',
+                              height: 42,
+                              borderRadius: 10,
+                              borderWidth: 1,
+                              borderColor: 'rgba(255, 255, 255, 0.5)',
+                              backgroundColor: birthDate ? '#15221E' : 'rgba(21, 34, 30, 0.5)',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              opacity: birthDate ? 1 : 0.5,
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontFamily,
+                                fontSize: 18,
+                                fontWeight: '500',
+                                color: '#FFFFFF',
+                              }}
+                            >
+                              Kaydet
+                            </Text>
+                          </TouchableOpacity>
+                        )}
+                      </>
                     )}
 
                     {/* Parola Değiştir */}
@@ -388,7 +623,7 @@ export default function HesapScreen() {
                             fontSize: 12,
                             marginBottom: 12,
                           }}
-                          placeholder="Parolanızı giriniz"
+                          placeholder="Mevcut parolanızı giriniz"
                           placeholderTextColor="rgba(255, 255, 255, 0.5)"
                           value={currentPassword}
                           onChangeText={setCurrentPassword}
@@ -408,7 +643,7 @@ export default function HesapScreen() {
                             fontSize: 12,
                             marginBottom: 12,
                           }}
-                          placeholder="Yeni parolanızı tekrar giriniz"
+                          placeholder="Yeni parolanızı giriniz"
                           placeholderTextColor="rgba(255, 255, 255, 0.5)"
                           value={newPassword}
                           onChangeText={setNewPassword}
@@ -426,6 +661,7 @@ export default function HesapScreen() {
                             color: '#FFFFFF',
                             fontFamily,
                             fontSize: 12,
+                            marginBottom: 16,
                           }}
                           placeholder="Yeni parolanızı tekrar giriniz"
                           placeholderTextColor="rgba(255, 255, 255, 0.5)"
@@ -433,6 +669,32 @@ export default function HesapScreen() {
                           onChangeText={setConfirmPassword}
                           secureTextEntry
                         />
+                        <TouchableOpacity
+                          onPress={handleSavePassword}
+                          disabled={!currentPassword || !newPassword || !confirmPassword}
+                          style={{
+                            width: '100%',
+                            height: 42,
+                            borderRadius: 10,
+                            borderWidth: 1,
+                            borderColor: 'rgba(255, 255, 255, 0.5)',
+                            backgroundColor: (currentPassword && newPassword && confirmPassword) ? '#15221E' : 'rgba(21, 34, 30, 0.5)',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            opacity: (currentPassword && newPassword && confirmPassword) ? 1 : 0.5,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontFamily,
+                              fontSize: 18,
+                              fontWeight: '500',
+                              color: '#FFFFFF',
+                            }}
+                          >
+                            Kaydet
+                          </Text>
+                        </TouchableOpacity>
                       </>
                     )}
 
@@ -452,6 +714,16 @@ export default function HesapScreen() {
                   )}
                 </View>
               ))}
+
+              {/* Divider before Hesabı Sil */}
+              <View
+                style={{
+                  width: '100%',
+                  height: 0.5,
+                  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  marginLeft: 16,
+                }}
+              />
 
               {/* Hesabı Sil Section - Always Visible, Inside Main Box */}
               <View

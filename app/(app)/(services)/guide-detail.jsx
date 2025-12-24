@@ -2,6 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity, Image, Dimensions, Platform }
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -291,51 +292,78 @@ export default function GuideDetailScreen() {
           </View>
 
           {/* Premium Banner */}
-          <TouchableOpacity
-            onPress={handlePremiumPress}
-            activeOpacity={0.8}
-            className="mx-5 mt-4 mb-6 rounded-[15px] overflow-hidden"
-            style={{
-              backgroundColor: '#1E3A35',
-              borderWidth: 0.5,
-              borderColor: 'rgba(255, 255, 255, 0.1)',
-            }}
-          >
-            <View className="flex-row items-center px-4 py-4">
-              {/* Crescent Icon */}
-              <View className="w-12 h-12 items-center justify-center mr-3">
-                <Text style={{ fontSize: 24 }}>🌙</Text>
-              </View>
-
-              {/* Text Content */}
-              <View className="flex-1">
-                <Text
-                  style={{ 
-                    fontFamily,
-                    fontSize: 16,
-                    fontWeight: '700',
-                    color: '#FAB74B',
-                    marginBottom: 4,
-                  }}
-                >
-                  TAKVA PREMIUM
-                </Text>
-                <Text
-                  style={{ 
-                    fontFamily,
-                    fontSize: 12,
-                    fontWeight: '400',
-                    color: 'rgba(255, 255, 255, 0.8)',
-                  }}
-                >
-                  Daha fazla özellik ve reklamsız deneyim için Premium'u keşfet.
-                </Text>
-              </View>
-
-              {/* Arrow Icon */}
-              <Ionicons name="chevron-forward" size={20} color="#FAB74B" />
-            </View>
-          </TouchableOpacity>
+          <View style={{ alignItems: 'center', marginTop: 4, marginBottom: 32 }}>
+            <TouchableOpacity
+              onPress={handlePremiumPress}
+              style={{
+                width: '100%',
+                maxWidth: Math.min(SCREEN_WIDTH - 40, 400),
+                height: 55,
+                borderRadius: 10,
+                borderWidth: 0.5,
+                borderColor: 'rgba(207, 155, 71, 0.5)',
+                overflow: 'visible',
+              }}
+            >
+              <LinearGradient
+                colors={['#0A2345', '#0C2F3B', '#0E3537', '#0F3B32']}
+                start={{ x: 1, y: 0 }}
+                end={{ x: 0, y: 0 }}
+                style={{
+                  flex: 1,
+                  padding: 16,
+                  paddingVertical: 14,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderRadius: 10,
+                  // Drop shadow effect
+                  shadowColor: '#FFFFFF',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 10,
+                  elevation: 10,
+                }}
+              >
+                <Image
+                  source={require('../../../assets/images/bg-intro-icon.png')}
+                  style={{ width: 24, height: 24, marginRight: 12 }}
+                  resizeMode="contain"
+                />
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      fontFamily: 'Cinzel-Bold',
+                      fontSize: 20,
+                      fontWeight: '700',
+                      color: '#CF9B47',
+                      marginBottom: 4,
+                      // Drop shadow effect for text
+                      textShadowColor: 'rgba(255, 255, 255, 0.25)',
+                      textShadowOffset: { width: 0, height: 2 },
+                      textShadowRadius: 10,
+                    }}
+                  >
+                    TAKVA PREMİUM
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily,
+                      fontSize: 12,
+                      fontWeight: '500',
+                      color: 'rgba(255, 255, 255, 0.8)',
+                      lineHeight: 16,
+                    }}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit={true}
+                    minimumFontScale={0.8}
+                  >
+                    Daha fazla özellik ve reklamsız deneyim için Premium'u keşfet.
+                  </Text>
+                </View>
+                <Ionicons name="chevron-forward" size={20} color="#CF9B47" />
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </ScreenBackground>

@@ -59,6 +59,7 @@ function AuthGuard() {
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     'Cinzel-Black': Cinzel_900Black,
+    'Cinzel-Bold': require('../assets/font/Cinzel-Bold.ttf'),
   });
 
   useEffect(() => {

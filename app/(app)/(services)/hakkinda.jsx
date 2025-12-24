@@ -110,8 +110,6 @@ export default function HakkindaScreen() {
               style={{
                 width: '100%',
                 borderRadius: 15,
-                borderWidth: 0.5,
-                borderColor: 'rgba(255, 255, 255, 0.5)',
                 backgroundColor: 'rgba(24, 39, 35, 0.5)',
                 overflow: 'hidden',
               }}

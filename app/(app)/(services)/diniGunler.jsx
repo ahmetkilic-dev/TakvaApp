@@ -211,33 +211,10 @@ export default function DiniGunlerScreen() {
                       color: '#FFBA4A',
                       fontSize: 28,
                       fontWeight: '700',
-                      marginBottom: 12,
                     }}
                   >
                     {day.remainingDays} Gün
                   </Text>
-
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: '#182723',
-                      borderRadius: 8,
-                      borderWidth: 0.5,
-                      borderColor: 'rgba(255, 255, 255, 0.5)',
-                      paddingVertical: 10,
-                      paddingHorizontal: 14,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontFamily,
-                        color: '#FFFFFF',
-                        fontSize: 11,
-                        fontWeight: '700',
-                      }}
-                    >
-                      İslamî takvime git
-                    </Text>
-                  </TouchableOpacity>
                 </View>
               </View>
             ))}

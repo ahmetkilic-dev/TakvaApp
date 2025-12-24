@@ -210,9 +210,17 @@ export default function DailyCarousel() {
         <TouchableOpacity 
           activeOpacity={0.8}
           onPress={() => {
-            // Günün Ayeti butonuna basınca quran ekranına git
-            if (currentItem.title === 'Günün Ayeti') {
-              router.push('/(app)/(services)/quran');
+            // Zikir ve Dua butonuna basınca dhikr ekranına git
+            if (currentItem.title === 'Zikir ve Dua') {
+              router.push('/(app)/(services)/dhikr');
+            }
+            // Günün Ayeti butonuna basınca hadith ekranına git
+            else if (currentItem.title === 'Günün Ayeti') {
+              router.push('/(app)/(services)/hadith');
+            }
+            // Namaz Durumun butonuna basınca namazdurumu ekranına git
+            else if (currentItem.title === 'Namaz Durumun') {
+              router.push('/(app)/(services)/namazdurumu');
             }
           }}
         >

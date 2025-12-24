@@ -396,30 +396,46 @@ export default function ProfilScreen() {
               borderRadius: 10,
               borderWidth: 0.5,
               borderColor: 'rgba(207, 155, 71, 0.5)',
-              overflow: 'hidden',
+              overflow: 'visible',
               marginBottom: 32,
             }}
           >
             <LinearGradient
               colors={['#0A2345', '#0C2F3B', '#0E3537', '#0F3B32']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 0 }}
               style={{
                 flex: 1,
                 padding: 16,
+                paddingVertical: 14,
                 flexDirection: 'row',
                 alignItems: 'center',
+                borderRadius: 10,
+                // Drop shadow effect
+                shadowColor: '#FFFFFF',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 10,
+                elevation: 10,
               }}
             >
-              <Ionicons name="star" size={24} color="#CF9B47" style={{ marginRight: 12 }} />
+              <Image
+                source={require('../../../assets/images/bg-intro-icon.png')}
+                style={{ width: 24, height: 24, marginRight: 12 }}
+                resizeMode="contain"
+              />
               <View style={{ flex: 1 }}>
                 <Text
                   style={{
-                    fontFamily: 'Cinzel',
+                    fontFamily: 'Cinzel-Bold',
                     fontSize: 20,
                     fontWeight: '700',
                     color: '#CF9B47',
                     marginBottom: 4,
+                    // Drop shadow effect for text
+                    textShadowColor: 'rgba(255, 255, 255, 0.25)',
+                    textShadowOffset: { width: 0, height: 2 },
+                    textShadowRadius: 10,
                   }}
                 >
                   TAKVA PREMİUM
@@ -427,11 +443,14 @@ export default function ProfilScreen() {
                 <Text
                   style={{
                     fontFamily,
-                    fontSize: 10,
+                    fontSize: 12,
                     fontWeight: '500',
                     color: 'rgba(255, 255, 255, 0.8)',
-                    letterSpacing: -0.2,
+                    lineHeight: 16,
                   }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit={true}
+                  minimumFontScale={0.8}
                 >
                   Daha fazla özellik ve reklamsız deneyim için Premium'u keşfet.
                 </Text>
