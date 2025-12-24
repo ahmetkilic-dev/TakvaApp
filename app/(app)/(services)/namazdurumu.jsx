@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, Platform, Image } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Platform, Image, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
+import BottomNavBar from '../../../components/common/BottomNavBar';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -27,6 +28,7 @@ const totalCount = prayers.length;
 export default function NamazDurumuScreen() {
   const router = useRouter();
   const [prayerStates, setPrayerStates] = useState(prayers);
+  const checkAnim = useRef(new Animated.Value(1)).current;
 
   const togglePrayer = (id) => {
     setPrayerStates(prev => 
@@ -37,6 +39,16 @@ export default function NamazDurumuScreen() {
   };
 
   const currentCompletedCount = prayerStates.filter(p => p.completed).length;
+  const allCompleted = currentCompletedCount === totalCount;
+
+  useEffect(() => {
+    if (!allCompleted) return;
+    checkAnim.setValue(1);
+    Animated.sequence([
+      Animated.spring(checkAnim, { toValue: 1.25, useNativeDriver: true, speed: 20, bounciness: 10 }),
+      Animated.spring(checkAnim, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 10 }),
+    ]).start();
+  }, [allCompleted, checkAnim]);
 
   return (
     <ScreenBackground>
@@ -86,8 +98,17 @@ export default function NamazDurumuScreen() {
             />
           </View>
 
-          {/* Prayer List */}
-          <View style={{ marginBottom: 24 }}>
+          {/* Prayer List (Border + Separators) */}
+          <View
+            style={{
+              marginBottom: 24,
+              borderRadius: 12,
+              borderWidth: 0.5,
+              borderColor: 'rgba(255, 255, 255, 0.5)',
+              backgroundColor: 'rgba(24, 39, 35, 0.35)',
+              overflow: 'hidden',
+            }}
+          >
             {prayerStates.map((prayer, index) => (
               <View key={prayer.id}>
                 <TouchableOpacity
@@ -97,7 +118,7 @@ export default function NamazDurumuScreen() {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     paddingVertical: 12,
-                    paddingHorizontal: 4,
+                    paddingHorizontal: 12,
                   }}
                   activeOpacity={0.7}
                 >
@@ -132,8 +153,8 @@ export default function NamazDurumuScreen() {
                   <View
                     style={{
                       width: '100%',
-                      height: 0.1,
-                      backgroundColor: '#D9D9D9',
+                      height: 0.5,
+                      backgroundColor: 'rgba(217, 217, 217, 0.5)',
                     }}
                   />
                 )}
@@ -148,7 +169,13 @@ export default function NamazDurumuScreen() {
             justifyContent: 'center',
             marginBottom: 16,
           }}>
-            <Ionicons name="checkmark-circle" size={20} color="#FFFFFF" style={{ marginRight: 8 }} />
+            <Animated.View style={{ transform: [{ scale: checkAnim }], marginRight: 8 }}>
+              <Ionicons
+                name={allCompleted ? 'checkmark-circle' : 'checkmark-circle-outline'}
+                size={20}
+                color={allCompleted ? '#8CD7C0' : '#FFFFFF'}
+              />
+            </Animated.View>
             <Text
               style={{
                 fontFamily,
@@ -191,6 +218,7 @@ export default function NamazDurumuScreen() {
           </View>
         </ScrollView>
       </SafeAreaView>
+      <BottomNavBar />
     </ScreenBackground>
   );
 }
