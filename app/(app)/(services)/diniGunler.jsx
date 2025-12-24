@@ -4,12 +4,20 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
 
 // Responsive calculations
 const horizontalPadding = 20;
 const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
+
+// Responsive values for right content
+const minRightWidth = Math.min(110, SCREEN_WIDTH * 0.25); // Max 25% of screen width
+const lineWidth = Math.min(60, SCREEN_WIDTH * 0.15); // Max 15% of screen width
+
+// Responsive font sizes
+const kalanSureFontSize = Math.max(14, Math.min(16, SCREEN_WIDTH / 40)); // Between 14-16px
+const gunSayisiFontSize = Math.max(24, Math.min(28, SCREEN_WIDTH / 15)); // Between 24-28px
 
 // Sample data for religious days
 const religiousDays = [
@@ -108,9 +116,35 @@ export default function DiniGunlerScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
+          {/* Title Section */}
+          <View className="items-center mb-6">
+            <Text
+              style={{
+                fontFamily,
+                fontSize: 21,
+                fontWeight: '700',
+                color: '#FFFFFF',
+                marginBottom: 4,
+              }}
+            >
+              Bu Yılın Dini Günleri
+            </Text>
+            <Text
+              style={{
+                fontFamily,
+                fontSize: 13,
+                fontWeight: '400',
+                color: 'rgba(255, 255, 255, 0.6)',
+                textAlign: 'center',
+              }}
+            >
+              Mübarek günlere ve gecelere kalan süreyi buradan takip edebilirsin.
+            </Text>
+          </View>
+
           {/* Religious Days List */}
           <View style={{ gap: 16 }}>
             {religiousDays.map((day) => (
@@ -118,7 +152,7 @@ export default function DiniGunlerScreen() {
                 key={day.id}
                 style={{
                   width: contentWidth,
-                  backgroundColor: '#24322E',
+                  backgroundColor: 'rgba(36, 50, 46, 0.05)',
                   borderRadius: 20,
                   borderWidth: 0.5,
                   borderColor: 'rgba(255, 255, 255, 0.5)',
@@ -168,7 +202,7 @@ export default function DiniGunlerScreen() {
                       }}
                       numberOfLines={1}
                     >
-                      <Text style={{ textDecorationLine: 'underline' }}>Hicrî Takvim</Text> :{' '}
+                      Hicrî Takvim :{' '}
                       <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>{day.hijriDate}</Text>
                     </Text>
                     <View
@@ -186,30 +220,39 @@ export default function DiniGunlerScreen() {
                       }}
                       numberOfLines={1}
                     >
-                      <Text style={{ textDecorationLine: 'underline' }}>Miladî Takvim</Text> :{' '}
+                      Miladî Takvim :{' '}
                       <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>{day.gregorianDate}</Text>
                     </Text>
                   </View>
                 </View>
 
                 {/* Right Content */}
-                <View style={{ alignItems: 'center', justifyContent: 'center', minWidth: 110 }}>
+                <View style={{ alignItems: 'center', justifyContent: 'center', minWidth: minRightWidth }}>
+                  <View style={{ alignItems: 'center' }}>
+                    <Text
+                      style={{
+                        fontFamily,
+                        color: '#FFBA4A',
+                        fontSize: kalanSureFontSize,
+                        marginBottom: 4,
+                      }}
+                    >
+                      Kalan Süre
+                    </Text>
+                    <View
+                      style={{
+                        width: lineWidth,
+                        height: 1,
+                        backgroundColor: '#FFBA4A',
+                        marginBottom: 4,
+                      }}
+                    />
+                  </View>
                   <Text
                     style={{
                       fontFamily,
                       color: '#FFBA4A',
-                      fontSize: 13,
-                      textDecorationLine: 'underline',
-                      marginBottom: 4,
-                    }}
-                  >
-                    Kalan Süre
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily,
-                      color: '#FFBA4A',
-                      fontSize: 28,
+                      fontSize: gunSayisiFontSize,
                       fontWeight: '700',
                     }}
                   >

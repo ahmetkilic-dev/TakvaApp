@@ -127,7 +127,7 @@ export default function BildirimlerScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* Bildirimler Section */}

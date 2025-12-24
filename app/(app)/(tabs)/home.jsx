@@ -10,6 +10,7 @@ import EsmaSlider from '../../../components/home/EsmaSlider';
 import QuranSection from '../../../components/home/QuranSection';
 import HadithCard from '../../../components/home/HadithCard';
 import ReligiousDayCard from '../../../components/home/ReligiousDayCard';
+import FloatingHocaButton from '../../../components/common/FloatingHocaButton';
 
 export default function HomeScreen() {
   return (
@@ -19,7 +20,7 @@ export default function HomeScreen() {
       <SafeAreaView edges={['top']} className="flex-1">
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
+          contentContainerStyle={{ flexGrow: 1 }}
         >
           {/* Ana sayfa başlık ve namaz vakitleri */}
           <HomeHeader />
@@ -43,6 +44,7 @@ export default function HomeScreen() {
           <ReligiousDayCard />
         </ScrollView>
       </SafeAreaView>
+      <FloatingHocaButton />
     </ScreenBackground>
   );
 }

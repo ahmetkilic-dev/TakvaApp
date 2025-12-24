@@ -109,10 +109,10 @@ export default function AbdestScreen() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 120 : 100 }}
+          contentContainerStyle={{ paddingBottom: 0 }}
         >
           {/* Title Section */}
-          <View style={{ paddingHorizontal: horizontalPadding, paddingTop: 24, paddingBottom: 16 }}>
+          <View style={{ paddingHorizontal: horizontalPadding, paddingTop: 25, paddingBottom: 16 }}>
             <Text
               style={{
                 fontFamily,
@@ -136,6 +136,8 @@ export default function AbdestScreen() {
             </Text>
           </View>
 
+          <View style={{ height: 20 }} />
+
           {/* Steps */}
           <View style={{ paddingHorizontal: horizontalPadding }}>
             {abdestSteps.map((step, index) => (
@@ -147,7 +149,7 @@ export default function AbdestScreen() {
                     fontSize: 18,
                     fontWeight: '600',
                     color: '#FFFFFF',
-                    marginBottom: 8,
+                    marginBottom: 30,
                     textAlign: 'center',
                   }}
                 >
@@ -220,7 +222,7 @@ export default function AbdestScreen() {
                       borderRadius: 15,
                       backgroundColor: 'rgba(24, 39, 35, 0.5)',
                       borderWidth: 0.5,
-                      borderColor: 'rgba(255, 255, 255, 0.75)',
+                      borderColor: 'rgba(255, 255, 255, 0.3)',
                       marginBottom: descIndex < step.descriptions.length - 1 ? 8 : 0,
                     }}
                   >

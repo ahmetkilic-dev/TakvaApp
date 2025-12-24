@@ -57,7 +57,7 @@ export default function HocaAIScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: 100,
+            paddingBottom: 0,
           }}
         >
           {/* Profile Section */}
@@ -95,6 +95,7 @@ export default function HocaAIScreen() {
                 borderColor: 'rgba(255, 255, 255, 0.5)',
                 overflow: 'hidden',
                 backgroundColor: '#24322E',
+                marginTop: 55,
               }}
             >
               <Image

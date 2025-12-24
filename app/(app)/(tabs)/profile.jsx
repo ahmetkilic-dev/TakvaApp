@@ -83,7 +83,7 @@ export default function ProfilScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* Profile Section */}
@@ -259,7 +259,11 @@ export default function ProfilScreen() {
               <Image
                 key={index}
                 source={icon}
-                style={{ width: 32, height: 32 }}
+                style={{
+                  width: 32,
+                  height: 32,
+                  marginHorizontal: 15, // 30px total gap between badges (15px each side)
+                }}
                 resizeMode="contain"
               />
             ))}

@@ -250,7 +250,7 @@ export default function HatirlaticiScreen() {
           contentContainerStyle={{ 
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* Vakit Hatırlatıcıları Section */}
@@ -258,7 +258,7 @@ export default function HatirlaticiScreen() {
             <Text
               style={{
                 fontFamily,
-                fontSize: 16,
+                fontSize: 16 * 1.3,
                 fontWeight: '700',
                 color: '#FFFFFF',
                 marginBottom: 8,
@@ -270,7 +270,7 @@ export default function HatirlaticiScreen() {
             <Text
               style={{
                 fontFamily,
-                fontSize: 10,
+                fontSize: 10 * 1.3,
                 fontWeight: '400',
                 color: 'rgba(255, 255, 255, 0.6)',
                 textAlign: 'center',
@@ -290,7 +290,7 @@ export default function HatirlaticiScreen() {
                     minHeight: 105,
                     borderRadius: 10,
                     borderWidth: 0.5,
-                    borderColor: 'rgba(255, 255, 255, 0.75)',
+                    borderColor: 'rgba(255, 255, 255, 0.5)',
                     backgroundColor: 'rgba(24, 39, 35, 0.5)',
                     padding: 12,
                   }}
@@ -298,7 +298,7 @@ export default function HatirlaticiScreen() {
                   {/* Top Section: Icon + Name and Toggle Switch */}
                   <View style={{ marginBottom: 8 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
                         {/* Icon */}
                         <View style={{ marginRight: 12 }}>
                           <Ionicons name={reminder.icon} size={24} color="#FFFFFF" />
@@ -310,6 +310,7 @@ export default function HatirlaticiScreen() {
                             fontSize: 18,
                             fontWeight: '600',
                             color: '#FFFFFF',
+                            flexShrink: 1,
                           }}
                         >
                           {reminder.name}
@@ -325,19 +326,22 @@ export default function HatirlaticiScreen() {
                         ios_backgroundColor="#7C8381"
                       />
                     </View>
-                    {/* Time - Icon'un altında, iconla aynı hizadan başlıyor */}
-                    <Text
-                      style={{
-                        fontFamily,
-                        fontSize: 14,
-                        fontWeight: '400',
-                        color: 'rgba(255, 255, 255, 0.6)',
-                        marginLeft: 0,
-                        paddingLeft: 36, // Icon genişliği (24) + marginRight (12) = 36
-                      }}
-                    >
-                      {reminder.time}
-                    </Text>
+                    {/* Time - iconun tam altında */}
+                    <View style={{ flexDirection: 'row' }}>
+                      <View style={{ width: 52, alignItems: 'flex-start' }}>
+                        <Text
+                          numberOfLines={1}
+                          style={{
+                            fontFamily,
+                            fontSize: 14 * 1.1,
+                            fontWeight: '400',
+                            color: 'rgba(255, 255, 255, 0.6)',
+                          }}
+                        >
+                          {reminder.time}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
 
                   {/* Separator Line */}
@@ -357,7 +361,7 @@ export default function HatirlaticiScreen() {
                       <Text
                         style={{
                           fontFamily,
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: '400',
                           color: reminder.days ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
                           marginBottom: 4,
@@ -368,7 +372,7 @@ export default function HatirlaticiScreen() {
                       <Text
                         style={{
                           fontFamily,
-                          fontSize: 10,
+                          fontSize: 12,
                           fontWeight: '400',
                           color: reminder.offset ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
                         }}
@@ -385,7 +389,7 @@ export default function HatirlaticiScreen() {
                         height: 25,
                         borderRadius: 5,
                         borderWidth: 0.5,
-                        borderColor: 'rgba(255, 255, 255, 0.75)',
+                        borderColor: 'rgba(255, 255, 255, 0.5)',
                         backgroundColor: 'rgba(24, 39, 35, 0.5)',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -445,7 +449,7 @@ export default function HatirlaticiScreen() {
                     minHeight: 105,
                     borderRadius: 10,
                     borderWidth: 0.5,
-                    borderColor: 'rgba(255, 255, 255, 0.75)',
+                    borderColor: 'rgba(255, 255, 255, 0.5)',
                     backgroundColor: 'rgba(24, 39, 35, 0.5)',
                     padding: 12,
                   }}
@@ -490,7 +494,7 @@ export default function HatirlaticiScreen() {
                       <Text
                         style={{
                           fontFamily,
-                          fontSize: 14,
+                          fontSize: 14 * 1.1,
                           fontWeight: '400',
                           color: reminder.time ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.5)',
                           marginBottom: 4,
@@ -519,7 +523,7 @@ export default function HatirlaticiScreen() {
                           height: 25,
                           borderRadius: 5,
                           borderWidth: 0.5,
-                          borderColor: 'rgba(255, 255, 255, 0.75)',
+                          borderColor: 'rgba(255, 255, 255, 0.5)',
                           backgroundColor: 'rgba(24, 39, 35, 0.5)',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -563,7 +567,7 @@ export default function HatirlaticiScreen() {
                 width: contentWidth,
                 borderRadius: 10,
                 borderWidth: 0.5,
-                borderColor: 'rgba(255, 255, 255, 0.75)',
+                borderColor: 'rgba(255, 255, 255, 0.5)',
                 backgroundColor: 'rgba(24, 39, 35, 0.5)',
                 padding: 16,
               }}
@@ -807,7 +811,7 @@ export default function HatirlaticiScreen() {
                 maxWidth: SCREEN_WIDTH * 0.9,
                 borderRadius: 10,
                 borderWidth: 0.5,
-                borderColor: 'rgba(255, 255, 255, 0.75)',
+                borderColor: 'rgba(255, 255, 255, 0.5)',
                 backgroundColor: '#172521',
                 padding: 20,
               }}

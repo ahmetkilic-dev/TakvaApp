@@ -192,7 +192,7 @@ export default function GuideDetailScreen() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 120 : 100 }}
+          contentContainerStyle={{ paddingBottom: 0 }}
         >
           {/* Title Section */}
           <View className="px-5 mb-6 mt-2">

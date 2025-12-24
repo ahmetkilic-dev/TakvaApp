@@ -34,34 +34,28 @@ export default function BottomNavBar({ activeTab }) {
   ];
 
   return (
-    <View pointerEvents="box-none" style={StyleSheet.absoluteFill}>
-      <View style={styles.container} pointerEvents="auto">
-        {items.map(({ key, Icon, to }) => {
-          const focused = resolvedActive === key;
-          return (
-            <TouchableOpacity
-              key={key}
-              activeOpacity={0.8}
-              onPress={() => router.replace(to)}
-              style={styles.item}
-            >
-              <View style={[styles.iconWrap, { opacity: focused ? 1 : 0.5 }]}>
-                <Icon width={ICON_SIZE} height={ICON_SIZE} />
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+    <View style={styles.container} pointerEvents="auto">
+      {items.map(({ key, Icon, to }) => {
+        const focused = resolvedActive === key;
+        return (
+          <TouchableOpacity
+            key={key}
+            activeOpacity={0.8}
+            onPress={() => router.replace(to)}
+            style={styles.item}
+          >
+            <View style={[styles.iconWrap, { opacity: focused ? 1 : 0.5 }]}>
+              <Icon width={ICON_SIZE} height={ICON_SIZE} />
+            </View>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
     height: TAB_BAR_HEIGHT,
     paddingBottom: Platform.OS === 'ios' ? 30 : 0,
     paddingTop: 15,

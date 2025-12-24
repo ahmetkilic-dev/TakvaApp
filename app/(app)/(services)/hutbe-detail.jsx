@@ -75,7 +75,7 @@ export default function HutbeDetailScreen() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ 
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* Title Section */}

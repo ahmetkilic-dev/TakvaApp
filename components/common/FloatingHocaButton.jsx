@@ -12,13 +12,9 @@ export default function FloatingHocaButton() {
   const router = useRouter();
   const segments = useSegments();
 
-  const inApp = segments?.[0] === '(app)';
-  if (!inApp) return null; // (auth) ve root (index) ekranlarında görünmesin
-
-  // HocaAI ekranında bu ikon görünmesin
-  const isHocaAiScreen =
-    segments?.includes('hoca-ai') || segments?.[2] === 'hoca-ai' || segments?.[3] === 'hoca-ai';
-  if (isHocaAiScreen) return null;
+  // Sadece Home ekranında göster: /(app)/(tabs)/home
+  const isHomeScreen = segments?.[0] === '(app)' && segments?.[1] === '(tabs)' && segments?.[2] === 'home';
+  if (!isHomeScreen) return null;
 
   // Tab bar olmayan ekranlarda da, tab bar varmış gibi aynı konumda kalsın
   const bottom = TAB_BAR_HEIGHT + 5;
@@ -39,12 +35,8 @@ export default function FloatingHocaButton() {
 const styles = StyleSheet.create({
   button: {
     position: 'absolute',
-    width: 65,
-    height: 65,
-    borderRadius: 32.5,
-    backgroundColor: '#FFBA4A', // fill
-    borderWidth: 2, // stroke
-    borderColor: '#FFBA4A', // %100 stroke
+    width: 60,
+    height: 60,
     alignItems: 'center',
     justifyContent: 'center',
     // küçük bir gölge (production-safe)

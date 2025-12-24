@@ -5,7 +5,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 import Svg, { Circle } from 'react-native-svg';
-import BottomNavBar from '../../../components/common/BottomNavBar';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -153,7 +152,7 @@ export default function DhikrScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* Main Image */}
@@ -178,6 +177,8 @@ export default function DhikrScreen() {
               maxWidth: 400,
               borderRadius: 15,
               backgroundColor: '#1C1C1C',
+              borderWidth: 0.5,
+              borderColor: 'rgba(255, 255, 255, 0.5)',
               padding: 16,
               marginBottom: 40,
               alignSelf: 'center',
@@ -457,7 +458,6 @@ export default function DhikrScreen() {
           </View>
         </ScrollView>
       </SafeAreaView>
-      <BottomNavBar />
     </ScreenBackground>
   );
 }

@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 import Svg, { Circle } from 'react-native-svg';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
 
 // Responsive calculations
@@ -219,7 +219,7 @@ export default function TasksScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* Bugünün Görevleri Section */}
@@ -250,8 +250,24 @@ export default function TasksScreen() {
               Bugüne özel küçük görevleri tamamlayarak istikrarını artır.
             </Text>
 
+            {/* Background Rectangle for Ayet Box - Full Screen Width */}
+            <View
+              style={{
+                position: 'absolute',
+                top: 50, // 2px below the description text
+                left: -horizontalPadding * 3, // More aggressive full screen width
+                right: -horizontalPadding * 3, // More aggressive full screen width
+                bottom: -SCREEN_HEIGHT * 2, // Extend way beyond screen bottom
+                backgroundColor: '#182723',
+                opacity: 0.75, // More visible
+                borderTopLeftRadius: 20, // Oval top-left corner
+                borderTopRightRadius: 20, // Oval top-right corner
+                zIndex: -1, // Behind all content
+              }}
+            />
+
             {/* Today's Tasks */}
-            {todayTasks.map((task) => (
+            {todayTasks.map((task, index) => (
               <View
                 key={task.id}
                 style={{

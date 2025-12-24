@@ -3,13 +3,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 
 // İkonlar
-import SabahIcon from '../../assets/images/sabah.png';
-import OgleIcon from '../../assets/images/ogle.png';
-import IkindiIcon from '../../assets/images/ikindi.png';
-import AksamIcon from '../../assets/images/aksam.png';
-import YatsiIcon from '../../assets/images/yatsi.png';
-import VitirIcon from '../../assets/images/vitir.png';
-import OrucIcon from '../../assets/images/oruc.png';
+import SabahIcon from '../../assets/kazanamaz/sabah.png';
+import OgleIcon from '../../assets/kazanamaz/ogle.png';
+import IkindiIcon from '../../assets/kazanamaz/ikindi.png';
+import AksamIcon from '../../assets/kazanamaz/aksam.png';
+import YatsiIcon from '../../assets/kazanamaz/yatsi.png';
+import VitirIcon from '../../assets/kazanamaz/vitir.png';
+import OrucIcon from '../../assets/kazanamaz/oruc.png';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 

@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
-import BottomNavBar from '../../../components/common/BottomNavBar';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -80,7 +79,7 @@ export default function NamazDurumuScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* Main Image */}
@@ -218,7 +217,6 @@ export default function NamazDurumuScreen() {
           </View>
         </ScrollView>
       </SafeAreaView>
-      <BottomNavBar />
     </ScreenBackground>
   );
 }

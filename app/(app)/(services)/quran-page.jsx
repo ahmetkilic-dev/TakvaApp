@@ -89,7 +89,7 @@ export default function QuranPageScreen() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 120 : 100 }}
+          contentContainerStyle={{ paddingBottom: 0 }}
         >
           {/* Sura Title */}
           <View style={{ paddingHorizontal: horizontalPadding, paddingTop: 24, paddingBottom: 16 }}>

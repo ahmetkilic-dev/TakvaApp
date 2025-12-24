@@ -85,7 +85,7 @@ export default function HutbeScreen() {
           contentContainerStyle={{ 
             paddingHorizontal: horizontalPadding,
             paddingTop: 42,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* List Items */}

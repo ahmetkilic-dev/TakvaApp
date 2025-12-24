@@ -84,7 +84,7 @@ export default function IlimScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
         >
           {/* Title Section */}
@@ -92,7 +92,7 @@ export default function IlimScreen() {
             <Text
               style={{
                 fontFamily,
-                fontSize: 16,
+                fontSize: 21,
                 fontWeight: '700',
                 color: '#FFFFFF',
                 marginBottom: 4,
@@ -103,7 +103,7 @@ export default function IlimScreen() {
             <Text
               style={{
                 fontFamily,
-                fontSize: 10,
+                fontSize: 13,
                 fontWeight: '400',
                 color: 'rgba(255, 255, 255, 0.6)',
               }}
@@ -134,18 +134,16 @@ export default function IlimScreen() {
                   borderRadius: 20,
                   padding: 20,
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
                   alignItems: 'center',
                   shadowColor: '#FFFFFF',
                   shadowOffset: { width: 0, height: 18 },
                   shadowOpacity: 0.05,
                   shadowRadius: 36,
                   elevation: 5,
-                  position: 'relative',
                 }}
               >
                 {/* Left: Daily Points Icon + Points */}
-                <View className="flex-row items-center">
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                   <Image 
                     source={günlükPuanIcon} 
                     style={{ width: 48, height: 48, marginRight: 12 }} 
@@ -176,21 +174,17 @@ export default function IlimScreen() {
                   </View>
                 </View>
 
-                {/* Vertical Divider - Centered between left points and right icon */}
+                {/* Vertical Divider - always centered */}
                 <View
                   style={{
-                    position: 'absolute',
-                    left: '50%',
-                    top: 20,
                     width: 0.5,
                     height: 48,
                     backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                    marginLeft: -0.25,
                   }}
                 />
 
                 {/* Right: Total Points Icon + Points */}
-                <View className="flex-row items-center">
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                   <Image 
                     source={toplamPuanIcon} 
                     style={{ width: 48, height: 48, marginRight: 12 }} 
@@ -282,12 +276,26 @@ export default function IlimScreen() {
 
             {/* Category Section */}
             <View className="items-center mb-6">
-              {/* Fikih Icon */}
-              <Image 
-                source={fikihIcon} 
-                style={{ width: 44, height: 44, marginBottom: 8 }} 
-                resizeMode="contain"
-              />
+              {/* Fikih Icon (with circle behind) */}
+              <View
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 30,
+                  backgroundColor: 'rgba(217, 217, 217, 0.2)',
+                  borderWidth: 1,
+                  borderColor: 'rgba(0, 0, 0, 0.5)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 8,
+                }}
+              >
+                <Image
+                  source={fikihIcon}
+                  style={{ width: 44, height: 44 }}
+                  resizeMode="contain"
+                />
+              </View>
               <Text
                 style={{
                   fontFamily,
@@ -309,7 +317,7 @@ export default function IlimScreen() {
                   fontWeight: '700',
                   color: '#FFFFFF',
                   lineHeight: 24,
-                  textAlign: 'center',
+                  textAlign: 'left',
                 }}
               >
                 {questionData.question}
@@ -336,7 +344,7 @@ export default function IlimScreen() {
                       backgroundColor: '#182723',
                       paddingHorizontal: 16,
                       paddingVertical: 12,
-                      alignItems: 'center',
+                      alignItems: 'flex-start',
                       justifyContent: 'center',
                       marginBottom: index < questionData.answers.length - 1 ? 12 : 0,
                     }}
@@ -347,7 +355,7 @@ export default function IlimScreen() {
                         fontSize: 14,
                         fontWeight: '700',
                         color: '#FFFFFF',
-                        textAlign: 'center',
+                        textAlign: 'left',
                         lineHeight: 20,
                       }}
                     >

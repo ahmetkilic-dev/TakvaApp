@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
-import BottomNavBar from '../../../components/common/BottomNavBar';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -144,7 +143,7 @@ export default function HadithScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+            paddingBottom: 0,
           }}
           style={{
             flex: 1,
@@ -271,7 +270,6 @@ export default function HadithScreen() {
           </View>
         </ScrollView>
       </SafeAreaView>
-      <BottomNavBar />
     </ScreenBackground>
   );
 }

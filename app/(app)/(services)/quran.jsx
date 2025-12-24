@@ -118,7 +118,7 @@ const quranSections = [
 
 export default function QuranScreen() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState('Cüz');
+  const [activeTab, setActiveTab] = useState('Sure');
 
   return (
     <ScreenBackground>
@@ -144,14 +144,14 @@ export default function QuranScreen() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 120 : 100 }}
+          contentContainerStyle={{ paddingBottom: 0 }}
         >
           {/* Kuran Yolculuğun Section */}
-          <View style={{ paddingHorizontal: horizontalPadding, paddingTop: 42, paddingBottom: 16 }}>
+          <View style={{ paddingHorizontal: horizontalPadding, paddingTop: 22, paddingBottom: 16 }}>
             <Text
               style={{
                 fontFamily,
-                fontSize: 16,
+                fontSize: 16 * 1.3,
                 fontWeight: '700',
                 color: '#FFFFFF',
                 marginBottom: 8,
@@ -163,11 +163,11 @@ export default function QuranScreen() {
             <Text
               style={{
                 fontFamily,
-                fontSize: 10,
+                fontSize: 10 * 1.3,
                 fontWeight: '400',
                 color: 'rgba(255, 255, 255, 0.6)',
                 textAlign: 'center',
-                lineHeight: 14,
+                lineHeight: 14 * 1.3,
               }}
             >
               Kur'ân-ı Kerim'i okuyabilir, meallerini inceleyebilir ve aradığın ayeti kolayca bulabilirsin.
@@ -228,18 +228,25 @@ export default function QuranScreen() {
                   </Text>
                 </View>
 
-                <TouchableOpacity onPress={() => router.push('/(app)/(services)/quran-page')}>
+                <TouchableOpacity
+                  onPress={() => router.push('/(app)/(services)/quran-page')}
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}
+                >
                   <Text
                     style={{
                       fontFamily,
                       fontSize: 14,
                       fontWeight: '400',
                       color: '#FFFFFF',
-                      marginBottom: 8,
                     }}
                   >
-                    Devam et {'>'}
+                    Devam et
                   </Text>
+                  <Image
+                    source={require('../../../assets/images/arrow.png')}
+                    style={{ width: 14, height: 14, tintColor: '#FFFFFF' }}
+                    resizeMode="contain"
+                  />
                 </TouchableOpacity>
 
                 {/* Progress Bar */}

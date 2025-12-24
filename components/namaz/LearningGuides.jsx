@@ -33,8 +33,13 @@ export default function LearningGuides({ onAbdestPress, onNamazPress }) {
       <View style={styles.guideCardNamaz}>
         <View style={styles.guideContentLeft}>
           <Text style={[fontStyle, styles.guideTitle]}>Namaz Kılma Rehberi</Text>
-          <Text style={[fontStyle, styles.guideDescription]}>
-            Namazın hareketlerini, dualarını ve tüm sıralamasını öğrenin.
+          <Text
+            style={[fontStyle, styles.guideDescription, styles.twoLineDescription]}
+            numberOfLines={2}
+            adjustsFontSizeToFit
+            minimumFontScale={0.95}
+          >
+            Namazın hareketlerini ve dualarını adım adım öğrenin.
           </Text>
           <TouchableOpacity style={styles.guideButton} onPress={onNamazPress}>
             <Text style={[fontStyle, styles.guideButtonText]}>Namazı Öğren</Text>
@@ -75,6 +80,7 @@ const styles = StyleSheet.create({
   },
   guideCardNamaz: {
     width: SCREEN_WIDTH * 0.9,
+    height: 130,
     alignSelf: 'center',
     backgroundColor: '#24322E',
     borderRadius: 20,
@@ -93,7 +99,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   imageContainerRight: {
+    width: 160,
+    height: 100,
     marginLeft: 12,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   guideImageAbdest: {
     width: '100%',
@@ -101,9 +111,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   guideImageNamaz: {
-    width: 160,
-    height: 115,
-    borderRadius: 10,
+    width: '100%',
+    height: '100%',
   },
   guideContentRight: {
     flex: 1,
@@ -121,9 +130,13 @@ const styles = StyleSheet.create({
   },
   guideDescription: {
     color: 'rgba(255, 255, 255, 0.7)',
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 12,
+    lineHeight: 16,
     marginBottom: 10,
+  },
+  twoLineDescription: {
+    // 2 satırın tam sığması için (lineHeight * 2)
+    minHeight: 32,
   },
   guideButton: {
     backgroundColor: 'transparent',
