@@ -30,8 +30,8 @@ const prayerReminders = [
     id: 1,
     name: 'İmsak',
     time: '05:45',
-    days: 'Pazartesi, Salı, Cumartesi',
-    offset: 'Vaktinden 10 dk önce',
+    days: null,
+    offset: null,
     icon: 'moon-outline',
     enabled: false,
   },
@@ -39,26 +39,26 @@ const prayerReminders = [
     id: 2,
     name: 'Güneş',
     time: '07:15',
-    days: 'Hafta içi',
-    offset: 'Tam vaktinde',
+    days: null,
+    offset: null,
     icon: 'sunny-outline',
-    enabled: true,
+    enabled: false,
   },
   {
     id: 3,
     name: 'Öğle',
     time: '12:50',
-    days: 'Her gün',
-    offset: 'Vaktinden 10 dk önce',
+    days: null,
+    offset: null,
     icon: 'sunny',
-    enabled: true,
+    enabled: false,
   },
   {
     id: 4,
     name: 'İkindi',
     time: '15:25',
-    days: 'Hafta sonu',
-    offset: 'Vaktinden 15 dk önce',
+    days: null,
+    offset: null,
     icon: 'partly-sunny-outline',
     enabled: false,
   },
@@ -66,19 +66,19 @@ const prayerReminders = [
     id: 5,
     name: 'Akşam',
     time: '18:00',
-    days: 'Her gün',
-    offset: 'Vaktinden 10 dk önce',
+    days: null,
+    offset: null,
     icon: 'moon',
-    enabled: true,
+    enabled: false,
   },
   {
     id: 6,
     name: 'Yatsı',
     time: '19:30',
-    days: 'Hafta sonu',
-    offset: 'Vaktinden 15 dk önce',
+    days: null,
+    offset: null,
     icon: 'moon-outline',
-    enabled: true,
+    enabled: false,
   },
 ];
 
@@ -93,7 +93,7 @@ export default function HatirlaticiScreen() {
   const [selectedDays, setSelectedDays] = useState('Her gün');
   const [reminderTime, setReminderTime] = useState('18:00');
   const [notificationEnabled, setNotificationEnabled] = useState(false);
-  const [alarmEnabled, setAlarmEnabled] = useState(true);
+  const [alarmEnabled, setAlarmEnabled] = useState(false);
   
   // Modal state
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -105,6 +105,9 @@ export default function HatirlaticiScreen() {
   const [showDaysDropdown, setShowDaysDropdown] = useState(false);
   const [showOffsetDropdown, setShowOffsetDropdown] = useState(false);
   const [selectedDaysList, setSelectedDaysList] = useState([]);
+
+  const daysOptions = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
+  const offsetOptions = ['Tam vaktinde', '5 dakika önce', '10 dakika önce', '15 dakika önce', '30 dakika önce', '45 dakika önce', '1 saat önce'];
 
   const toggleReminder = (id) => {
     setReminders(reminders.map(r => r.id === id ? { ...r, enabled: !r.enabled } : r));
@@ -139,26 +142,41 @@ export default function HatirlaticiScreen() {
       const daysArray = reminder.days.split(',').map(d => d.trim());
       setSelectedDaysList(daysArray);
       setModalDays('Özel');
-    } else if (reminder.days === 'Her gün' || reminder.days === 'Hafta içi' || reminder.days === 'Hafta sonu') {
-      setSelectedDaysList([]);
-      setModalDays(reminder.days || 'Her gün');
+    } else if (reminder.days === 'Her gün') {
+      // Her gün seçiliyse tüm günleri seçili göster
+      setSelectedDaysList(daysOptions);
+      setModalDays('Her gün');
+    } else if (reminder.days === 'Hafta içi') {
+      setSelectedDaysList(['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma']);
+      setModalDays('Hafta içi');
+    } else if (reminder.days === 'Hafta sonu') {
+      setSelectedDaysList(['Cumartesi', 'Pazar']);
+      setModalDays('Hafta sonu');
     } else {
       setSelectedDaysList([]);
-      setModalDays('Her gün');
+      setModalDays(reminder.days || 'Her gün');
     }
     // Parse offset string
     const offsetText = reminder.offset || 'Tam vaktinde';
-    if (offsetText === 'Vaktinden 10 dk önce') {
-      setModalOffset('10 dakika önce');
-    } else if (offsetText === 'Vaktinden 15 dk önce') {
-      setModalOffset('15 dakika önce');
-    } else if (offsetText === 'Tam vaktinde') {
+    if (offsetText === 'Tam vaktinde') {
       setModalOffset('Tam vaktinde');
+    } else if (offsetText.includes('5 dk önce') || offsetText.includes('5 dakika önce')) {
+      setModalOffset('5 dakika önce');
+    } else if (offsetText.includes('10 dk önce') || offsetText.includes('10 dakika önce')) {
+      setModalOffset('10 dakika önce');
+    } else if (offsetText.includes('15 dk önce') || offsetText.includes('15 dakika önce')) {
+      setModalOffset('15 dakika önce');
+    } else if (offsetText.includes('30 dk önce') || offsetText.includes('30 dakika önce')) {
+      setModalOffset('30 dakika önce');
+    } else if (offsetText.includes('45 dk önce') || offsetText.includes('45 dakika önce')) {
+      setModalOffset('45 dakika önce');
+    } else if (offsetText.includes('1 saat önce')) {
+      setModalOffset('1 saat önce');
     } else {
       setModalOffset('Tam vaktinde');
     }
     setModalNotification(false);
-    setModalAlarm(true);
+    setModalAlarm(false);
     setIsModalVisible(true);
   };
 
@@ -204,9 +222,6 @@ export default function HatirlaticiScreen() {
     setShowDaysDropdown(false);
     setShowOffsetDropdown(false);
   };
-
-  const daysOptions = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
-  const offsetOptions = ['Tam vaktinde', '5 dakika önce', '10 dakika önce', '15 dakika önce', '30 dakika önce', '45 dakika önce', '1 saat önce'];
 
   return (
     <ScreenBackground>
@@ -344,21 +359,21 @@ export default function HatirlaticiScreen() {
                           fontFamily,
                           fontSize: 12,
                           fontWeight: '400',
-                          color: '#FFFFFF',
+                          color: reminder.days ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
                           marginBottom: 4,
                         }}
                       >
-                        {reminder.days}
+                        {reminder.days || 'Gün seçili değil'}
                       </Text>
                       <Text
                         style={{
                           fontFamily,
                           fontSize: 10,
                           fontWeight: '400',
-                          color: '#FFFFFF',
+                          color: reminder.offset ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
                         }}
                       >
-                        {reminder.offset}
+                        {reminder.offset || 'Vakit seçili değil'}
                       </Text>
                     </View>
 
@@ -477,21 +492,21 @@ export default function HatirlaticiScreen() {
                           fontFamily,
                           fontSize: 14,
                           fontWeight: '400',
-                          color: 'rgba(255, 255, 255, 0.6)',
+                          color: reminder.time ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.5)',
                           marginBottom: 4,
                         }}
                       >
-                        {reminder.time}
+                        {reminder.time || 'Vakit seçili değil'}
                       </Text>
                       <Text
                         style={{
                           fontFamily,
                           fontSize: 12,
                           fontWeight: '400',
-                          color: '#FFFFFF',
+                          color: reminder.days ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
                         }}
                       >
-                        {reminder.days}
+                        {reminder.days || 'Gün seçili değil'}
                       </Text>
                     </View>
 

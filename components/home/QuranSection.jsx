@@ -1,4 +1,5 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { useRouter } from 'expo-router';
 import QuranCta from '../../assets/images/quran-cta.png';
 import HeadphoneIcon from '../../assets/images/headphone.svg';
 import PlayIcon from '../../assets/images/play.svg';
@@ -6,6 +7,7 @@ import PlayIcon from '../../assets/images/play.svg';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function QuranSection() {
+   const router = useRouter();
    const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
 
    return (
@@ -47,7 +49,11 @@ export default function QuranSection() {
                   Kuran-ı Kerim'i okuyabilir, mealleri inceleyebilir, ayet bulabilirsin.
                </Text>
 
-               <TouchableOpacity style={styles.ctaButton}>
+               <TouchableOpacity
+                  style={styles.ctaButton}
+                  onPress={() => router.push('/(app)/(services)/quran')}
+                  activeOpacity={0.8}
+               >
                   <Text style={[fontStyle, styles.ctaButtonText]}>Kuran'a git</Text>
                </TouchableOpacity>
             </View>

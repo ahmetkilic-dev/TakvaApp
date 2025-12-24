@@ -180,15 +180,15 @@ export default function AbdestScreen() {
                   <View
                     style={{
                       position: 'absolute',
-                      bottom: 8,
-                      right: 8,
+                      bottom: 0,
+                      right: 0,
                       width: 36,
                       height: 20,
                       borderTopLeftRadius: 10,
                       borderBottomRightRadius: 10,
                       borderTopRightRadius: 0,
                       borderBottomLeftRadius: 0,
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      backgroundColor: '#95887D',
                       borderWidth: 0.5,
                       borderColor: 'rgba(255, 255, 255, 0.5)',
                       alignItems: 'center',

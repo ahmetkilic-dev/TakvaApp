@@ -10,6 +10,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { LocationProvider } from '../contexts/LocationContext';
 // 👇 BU SATIR EKLENMELİ
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import FloatingHocaButton from '../components/common/FloatingHocaButton';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,7 +54,12 @@ function AuthGuard() {
     return <InitialLoader />;
   }
 
-  return <Slot />;
+  return (
+    <>
+      <Slot />
+      <FloatingHocaButton />
+    </>
+  );
 }
 
 export default function RootLayout() {

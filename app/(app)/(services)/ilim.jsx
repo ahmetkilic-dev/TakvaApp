@@ -176,7 +176,7 @@ export default function IlimScreen() {
                   </View>
                 </View>
 
-                {/* Vertical Divider - Centered */}
+                {/* Vertical Divider - Centered between left points and right icon */}
                 <View
                   style={{
                     position: 'absolute',

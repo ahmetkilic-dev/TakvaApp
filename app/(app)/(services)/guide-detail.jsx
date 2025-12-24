@@ -145,7 +145,11 @@ export default function GuideDetailScreen() {
     } else if (service.title === 'Namaz Durumu') {
       router.push('/(app)/(tabs)/namaz');
     } else if (service.title === 'Günlük Ayet') {
-      router.push('/(app)/(services)/quran');
+      router.push('/(app)/(services)/hadith');
+    } else if (service.title === 'Zikir & Dua') {
+      router.push('/(app)/(services)/dhikr');
+    } else if (service.title === 'Kıble Pusulası') {
+      router.push('/(app)/(services)/qibla');
     } else if (service.title === 'HocaAI') {
       router.push('/(app)/(services)/hoca-ai');
     } else if (service.title === 'Görevler & Rozetler') {

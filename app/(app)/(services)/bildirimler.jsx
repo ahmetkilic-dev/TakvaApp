@@ -16,7 +16,7 @@ const notifications = [
     id: 'all',
     title: 'Tüm bildirimler',
     description: 'Tüm bildirimleri genel olarak aç veya kapat.',
-    enabled: true,
+    enabled: false,
   },
   {
     id: 'prayer',
@@ -40,13 +40,13 @@ const notifications = [
     id: 'knowledge',
     title: 'İlim hatırlatıcısı',
     description: 'Gün içinde yeni sorular çözmen için bildirim gönder.',
-    enabled: true,
+    enabled: false,
   },
   {
     id: 'religious',
     title: 'Dini günler bildirimi',
     description: 'Mübarek gün ve gecelerden önce sana haber verelim.',
-    enabled: true,
+    enabled: false,
   },
 ];
 
@@ -60,10 +60,41 @@ export default function BildirimlerScreen() {
   );
 
   const toggleNotification = (id) => {
-    setNotificationStates(prev => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    if (id === 'all') {
+      // Tüm bildirimler switch'ine basıldığında
+      const newValue = !notificationStates[id];
+      // Tüm bildirimleri aynı değere ayarla
+      const allNotifications = notifications.map(n => n.id);
+      setNotificationStates(prev => {
+        const newState = { ...prev };
+        allNotifications.forEach(notifId => {
+          newState[notifId] = newValue;
+        });
+        return newState;
+      });
+    } else {
+      // Diğer bildirimler için normal toggle
+      setNotificationStates(prev => {
+        const newState = {
+          ...prev,
+          [id]: !prev[id],
+        };
+        
+        // Tüm bildirimler (all hariç) açıksa, "Tüm bildirimler"i de aç
+        const otherNotifications = notifications.filter(n => n.id !== 'all').map(n => n.id);
+        const allOtherEnabled = otherNotifications.every(notifId => newState[notifId]);
+        
+        // Eğer tüm bildirimler açıksa, "Tüm bildirimler"i de aç
+        if (allOtherEnabled) {
+          newState['all'] = true;
+        } else {
+          // Eğer bir tanesi bile kapalıysa, "Tüm bildirimler"i kapat
+          newState['all'] = false;
+        }
+        
+        return newState;
+      });
+    }
   };
 
   return (

@@ -108,12 +108,12 @@ const ProgressCircle = ({ percentage, size = 40 }) => {
 
 // Sample data for Quran sections
 const quranSections = [
-  { id: 1, title: 'Fâtiha - Bakara', ayet: 7, progress: 5 },
-  { id: 2, title: 'Bakara', ayet: 286, progress: 10 },
-  { id: 3, title: 'Bakara - Âl-i İmrân', ayet: 200, progress: 5 },
-  { id: 4, title: 'Fâtiha Suresi', ayet: 7, progress: 5 },
-  { id: 5, title: 'Bakara Suresi', ayet: 286, progress: 5 },
-  { id: 6, title: 'Âl-i İmrân Suresi', ayet: 200, progress: 5 },
+  { id: 1, title: 'Fâtiha - Bakara', ayet: 7, progress: 0 },
+  { id: 2, title: 'Bakara', ayet: 286, progress: 0 },
+  { id: 3, title: 'Bakara - Âl-i İmrân', ayet: 200, progress: 0 },
+  { id: 4, title: 'Fâtiha Suresi', ayet: 7, progress: 0 },
+  { id: 5, title: 'Bakara Suresi', ayet: 286, progress: 0 },
+  { id: 6, title: 'Âl-i İmrân Suresi', ayet: 200, progress: 0 },
 ];
 
 export default function QuranScreen() {
@@ -256,7 +256,7 @@ export default function QuranScreen() {
                 >
                   <View
                     style={{
-                      width: '56%',
+                      width: '0%',
                       height: '100%',
                       backgroundColor: '#8CD7C0',
                       borderRadius: 10,
@@ -272,7 +272,7 @@ export default function QuranScreen() {
                         color: '#FFFFFF',
                       }}
                     >
-                      %56
+                      %0
                     </Text>
                   </View>
                 </View>
@@ -309,28 +309,41 @@ export default function QuranScreen() {
                 Kuran
               </Text>
 
-              {/* Tabs */}
-              <View style={{ flexDirection: 'row', gap: 8 }}>
+              {/* Tabs - Container Box */}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 9.2,
+                  padding: 3.45,
+                  borderRadius: 11.5,
+                  borderWidth: 0.5,
+                  borderColor: 'rgba(255, 255, 255, 0.5)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                }}
+              >
                 {['Sure', 'Cüz', 'Sayfa'].map((tab) => (
                   <TouchableOpacity
                     key={tab}
                     onPress={() => setActiveTab(tab)}
                     style={{
-                      paddingHorizontal: 12,
-                      paddingVertical: 6,
-                      borderRadius: 10,
-                      backgroundColor: activeTab === tab ? '#15614D' : 'transparent',
+                      paddingHorizontal: 9.2,
+                      height: 24.15,
+                      borderRadius: 11.5,
+                      backgroundColor: activeTab === tab ? '#143E33' : 'transparent',
                       borderWidth: 0.5,
                       borderColor: 'rgba(255, 255, 255, 0.5)',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       opacity: activeTab === tab ? 1 : 0.1,
                     }}
                   >
                     <Text
                       style={{
                         fontFamily,
-                        fontSize: 14,
+                        fontSize: 11.5,
                         fontWeight: '400',
                         color: '#FFFFFF',
+                        lineHeight: 11.5,
                       }}
                     >
                       {tab}
@@ -359,9 +372,37 @@ export default function QuranScreen() {
                     paddingVertical: 12,
                   }}
                 >
-                  {/* Hexagon Icon */}
-                  <View style={{ marginRight: 12 }}>
-                    <HexagonIcon number={section.id} size={40} />
+                  {/* Kuran Icon with Number */}
+                  <View style={{ marginRight: 12, width: 40, height: 40, position: 'relative' }}>
+                    <Image
+                      source={require('../../../assets/images/kuranicc.png')}
+                      style={{
+                        width: 40,
+                        height: 40,
+                      }}
+                      resizeMode="contain"
+                    />
+                    {/* Number Overlay */}
+                    <View
+                      style={{
+                        position: 'absolute',
+                        width: 40,
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontFamily,
+                          fontSize: 16,
+                          fontWeight: '700',
+                          color: '#FFFFFF',
+                        }}
+                      >
+                        {section.id}
+                      </Text>
+                    </View>
                   </View>
 
                   {/* Text Content */}

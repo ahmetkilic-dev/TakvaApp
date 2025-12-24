@@ -1,16 +1,33 @@
-import React, { useRef } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, Platform, Image, PanResponder, Animated } from 'react-native';
+import React from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Platform, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+  interpolate,
+  Extrapolation,
+} from 'react-native-reanimated';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
 
-// Responsive calculations
+// Responsive calculations - tüm cihazlarda çalışacak şekilde
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
+
+// Slider sabitleri - responsive
+const boxWidth = Math.min(300, contentWidth);
+const buttonWidth = 114;
+const buttonHeight = 32;
+const boxHeight = 40;
+const padding = 4;
+const maxTranslateX = boxWidth - buttonWidth - (padding * 2);
 
 // Sample data - will be replaced with real data
 const verseData = {
@@ -21,44 +38,76 @@ const verseData = {
 
 export default function HadithScreen() {
   const router = useRouter();
-  const boxWidth = Math.min(300, contentWidth);
-  const buttonWidth = 114;
-  const maxTranslateX = boxWidth - buttonWidth - 8; // 4px padding on each side
   
-  const translateX = useRef(new Animated.Value(0)).current;
-  const startX = useRef(0);
+  // Reanimated Shared Values - smooth animasyon için
+  const translateX = useSharedValue(0);
+  const isAnimating = useSharedValue(false);
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        translateX.stopAnimation((value) => {
-          startX.current = value;
-        });
-      },
-      onPanResponderMove: (e, gestureState) => {
-        const newX = startX.current + gestureState.dx;
-        const clampedX = Math.max(0, Math.min(newX, maxTranslateX));
-        translateX.setValue(clampedX);
-      },
-      onPanResponderRelease: (e, gestureState) => {
-        const finalX = startX.current + gestureState.dx;
-        const clampedX = Math.max(0, Math.min(finalX, maxTranslateX));
-        
-        // Her zaman en sola dön (0'a) - smooth animasyon
-        Animated.spring(translateX, {
-          toValue: 0,
-          useNativeDriver: false,
-          tension: 40,
-          friction: 8,
-          velocity: gestureState.vx || 0,
-        }).start();
-        
-        startX.current = 0;
-      },
+  // Gesture Handler - production-ready smooth gesture
+  const panGesture = Gesture.Pan()
+    .activeOffsetX(5) // Sağa 5px hareket edince aktif ol
+    .failOffsetY([-10, 10]) // Dikey hareket 10px'den fazlaysa iptal et
+    .onStart(() => {
+      // Animasyon başladığında mevcut değeri al
+      isAnimating.value = false;
     })
-  ).current;
+    .onUpdate((event) => {
+      // Sadece sağa (ileri) hareket izin ver
+      if (event.translationX > 0) {
+        // Sınırları aşma - smooth clamping
+        translateX.value = Math.min(event.translationX, maxTranslateX);
+      }
+    })
+    .onEnd((event) => {
+      // Eğer %80'den fazla çekildiyse tamamla
+      const threshold = maxTranslateX * 0.8;
+      if (translateX.value > threshold) {
+        // Sona git - smooth timing animasyonu
+        isAnimating.value = true;
+        translateX.value = withTiming(maxTranslateX, {
+          duration: 200,
+        }, () => {
+          // Tamamlandıktan sonra geri dön - smooth spring
+          translateX.value = withSpring(0, {
+            damping: 20,
+            stiffness: 200,
+            mass: 0.5,
+          }, () => {
+            isAnimating.value = false;
+          });
+        });
+      } else {
+        // Yeterince çekilmediyse geri bırak - smooth spring animasyonu
+        isAnimating.value = true;
+        translateX.value = withSpring(0, {
+          damping: 20,
+          stiffness: 200,
+          mass: 0.5,
+        }, () => {
+          isAnimating.value = false;
+        });
+      }
+    });
+
+  // Buton Animasyon Stili - native driver ile smooth
+  const buttonAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: translateX.value }],
+    };
+  });
+
+  // Box opacity animasyonu (opsiyonel - daha smooth görünüm için)
+  const boxAnimatedStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateX.value,
+      [0, maxTranslateX * 0.5, maxTranslateX],
+      [1, 0.95, 0.9],
+      Extrapolation.CLAMP
+    );
+    return {
+      opacity,
+    };
+  });
 
   return (
     <ScreenBackground>
@@ -87,10 +136,17 @@ export default function HadithScreen() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+          decelerationRate="normal"
+          bounces={true}
+          alwaysBounceVertical={false}
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
             paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+          }}
+          style={{
+            flex: 1,
           }}
         >
           {/* Main Image */}
@@ -110,43 +166,49 @@ export default function HadithScreen() {
 
           {/* Navigation Bar */}
           <View style={{ marginBottom: 24, alignItems: 'center' }}>
-            {/* Outer Box */}
-            <View
-              style={{
-                width: boxWidth,
-                height: 40,
-                borderRadius: 20,
-                borderWidth: 1,
-                borderColor: 'rgba(255, 186, 74, 0.5)', // #FFBA4A with 50% opacity
-                backgroundColor: '#24322E',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
-            >
-              {/* Slidable Button Inside */}
-              <Animated.View
-                style={{
-                  position: 'absolute',
-                  left: 4,
-                  top: (40 - 32) / 2, // Yükseklik olarak ortalama
-                  width: buttonWidth,
-                  height: 32,
+            {/* Outer Box - flexbox ile ortalama */}
+            <Animated.View
+              style={[
+                {
+                  width: boxWidth,
+                  height: boxHeight,
                   borderRadius: 20,
-                  borderWidth: 0.5,
-                  borderColor: 'rgba(255, 255, 255, 0.5)',
-                  backgroundColor: '#182723',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  paddingHorizontal: 12,
-                  transform: [{ translateX }],
-                }}
-                {...panResponder.panHandlers}
-              >
-                <Ionicons name="book" size={20} color="#FFFFFF" />
-                <Ionicons name="chevron-forward" size={16} color="#FFFFFF" />
-              </Animated.View>
-            </View>
+                  borderWidth: 1,
+                  borderColor: 'rgba(255, 186, 74, 0.5)', // #FFBA4A with 50% opacity
+                  backgroundColor: '#24322E',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  justifyContent: 'center', // Dikey ortalama
+                },
+                boxAnimatedStyle,
+              ]}
+            >
+              {/* Slidable Button Inside - flexbox ile mükemmel ortalama */}
+              <GestureDetector gesture={panGesture}>
+                <Animated.View
+                  style={[
+                    {
+                      position: 'absolute',
+                      left: padding,
+                      width: buttonWidth,
+                      height: buttonHeight,
+                      borderRadius: 20,
+                      borderWidth: 0.5,
+                      borderColor: 'rgba(255, 255, 255, 0.5)',
+                      backgroundColor: '#182723',
+                      flexDirection: 'row',
+                      alignItems: 'center', // İçerik dikey ortalama
+                      justifyContent: 'space-between', // İçerik yatay dağılım
+                      paddingHorizontal: 12,
+                    },
+                    buttonAnimatedStyle,
+                  ]}
+                >
+                  <Ionicons name="book" size={20} color="#FFFFFF" />
+                  <Ionicons name="chevron-forward" size={16} color="#FFFFFF" />
+                </Animated.View>
+              </GestureDetector>
+            </Animated.View>
           </View>
 
           {/* Arabic Text */}

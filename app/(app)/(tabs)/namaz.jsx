@@ -12,12 +12,12 @@ export default function NamazScreen() {
 
   const handleAbdestPress = () => {
     // Abdest rehberine yönlendir
-    console.log('Abdest rehberine git');
+    router.push('/(app)/(services)/abdest');
   };
 
   const handleNamazPress = () => {
     // Namaz rehberine yönlendir
-    console.log('Namaz rehberine git');
+    router.push('/(app)/(services)/namazrehber');
   };
 
   return (

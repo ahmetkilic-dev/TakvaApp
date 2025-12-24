@@ -40,17 +40,17 @@ export default function KazaCounter() {
 
   // Kaza namazları state
   const [kazaNamazlari, setKazaNamazlari] = useState({
-    sabah: 2,
-    ogle: 7,
+    sabah: 0,
+    ogle: 0,
     ikindi: 0,
-    aksam: 5,
-    yatsi: 6,
-    vitir: 12,
+    aksam: 0,
+    yatsi: 0,
+    vitir: 0,
   });
 
   // Kaza oruçları state
   const [kazaOruclari, setKazaOruclari] = useState({
-    oruc: 2,
+    oruc: 0,
   });
 
   // Namaz sayısını artır/azalt

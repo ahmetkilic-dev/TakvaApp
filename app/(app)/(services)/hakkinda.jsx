@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, Dimensions, Platform } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -37,10 +38,17 @@ const aboutItems = [
 export default function HakkindaScreen() {
   const router = useRouter();
 
-  const handleItemPress = (id) => {
-    // Navigate to detail screen based on id
-    console.log(`Navigate to ${id}`);
-    // router.push(`/(app)/(services)/${id}`);
+  const handleItemPress = async (id) => {
+    if (id === 'gizlilik') {
+      // Gizlilik Politikası web sayfasını aç
+      await WebBrowser.openBrowserAsync('https://wezyapps.com/gizlilik-politikasi');
+    } else if (id === 'kullanim') {
+      // Kullanım Koşulları web sayfasını aç
+      await WebBrowser.openBrowserAsync('https://wezyapps.com/kullanim-kosullari');
+    } else {
+      // Diğer öğeler için console log (ileride detay sayfaları eklenebilir)
+      console.log(`Navigate to ${id}`);
+    }
   };
 
   return (

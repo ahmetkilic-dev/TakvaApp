@@ -14,14 +14,14 @@ const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
 
 // Sample data - will be replaced with real data
 const prayers = [
-  { id: 1, name: 'Sabah namazı', completed: true },
-  { id: 2, name: 'Öğle namazı', completed: true },
-  { id: 3, name: 'İkindi namazı', completed: true },
+  { id: 1, name: 'Sabah namazı', completed: false },
+  { id: 2, name: 'Öğle namazı', completed: false },
+  { id: 3, name: 'İkindi namazı', completed: false },
   { id: 4, name: 'Akşam namazı', completed: false },
-  { id: 5, name: 'Yatsı namazı', completed: true },
+  { id: 5, name: 'Yatsı namazı', completed: false },
 ];
 
-const completedCount = prayers.filter(p => p.completed).length;
+const completedCount = 0;
 const totalCount = prayers.length;
 
 export default function NamazDurumuScreen() {

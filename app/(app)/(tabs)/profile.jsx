@@ -25,12 +25,12 @@ const badgeIcons = [
 
 // Statistics data
 const statistics = [
-  { id: 1, title: 'Toplam okunan ayet', value: '12.380', icon: 'book' },
-  { id: 2, title: 'Toplam salavat', value: '1.250', icon: 'beads' },
-  { id: 3, title: 'Toplam zikir sayısı', value: '4.820', icon: 'dhikr' },
-  { id: 4, title: 'Toplam kılınan namaz', value: '620', icon: 'prayer' },
-  { id: 5, title: 'İlim doğru cevap', value: '84', icon: 'knowledge' },
-  { id: 6, title: 'Tamamlanan görevler', value: '17', icon: 'tasks' },
+  { id: 1, title: 'Toplam okunan ayet', value: '0', icon: 'book' },
+  { id: 2, title: 'Toplam salavat', value: '0', icon: 'beads' },
+  { id: 3, title: 'Toplam zikir sayısı', value: '0', icon: 'dhikr' },
+  { id: 4, title: 'Toplam kılınan namaz', value: '0', icon: 'prayer' },
+  { id: 5, title: 'İlim doğru cevap', value: '0', icon: 'knowledge' },
+  { id: 6, title: 'Tamamlanan görevler', value: '0', icon: 'tasks' },
 ];
 
 export default function ProfilScreen() {
@@ -177,7 +177,7 @@ export default function ProfilScreen() {
                   marginBottom: 4,
                 }}
               >
-                12
+                0
               </Text>
               <Text
                 style={{
@@ -201,7 +201,7 @@ export default function ProfilScreen() {
                   marginBottom: 4,
                 }}
               >
-                12
+                0
               </Text>
               <Text
                 style={{
@@ -276,6 +276,7 @@ export default function ProfilScreen() {
               borderColor: 'rgba(255, 255, 255, 0.5)',
               backgroundColor: '#E2E2E2',
               overflow: 'hidden',
+              alignSelf: 'center',
               marginBottom: 32,
             }}
           >
@@ -284,7 +285,7 @@ export default function ProfilScreen() {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={{
-                width: '62%',
+                width: '0%',
                 height: '100%',
                 borderRadius: 10,
                 alignItems: 'center',
@@ -299,7 +300,7 @@ export default function ProfilScreen() {
                   color: '#FFFFFF',
                 }}
               >
-                %62
+                %0
               </Text>
             </LinearGradient>
           </View>

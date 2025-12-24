@@ -63,7 +63,7 @@ export default function QuranPageScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const [selectedPage, setSelectedPage] = useState(3);
-  const [activeTab, setActiveTab] = useState('Meal');
+  const [activeTab, setActiveTab] = useState('Kur\'an');
 
   return (
     <ScreenBackground>
@@ -207,71 +207,94 @@ export default function QuranPageScreen() {
               marginBottom: 24,
             }}
           >
-            {verses.map((verse, index) => (
-              <View key={verse.id}>
-                {/* Arabic Text with Verse Number */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-                  {verse.verseNumberText && (
+            {activeTab === 'Kur\'an' ? (
+              /* Kur'an Tab - Single Arabic Text Block */
+              <Text
+                style={{
+                  fontFamily: arabicFontFamily,
+                  fontSize: 20,
+                  fontWeight: '300',
+                  color: '#E9CC88',
+                  textAlign: 'right',
+                  lineHeight: 37,
+                  letterSpacing: 2,
+                }}
+              >
+                {verses.map((verse) => {
+                  if (verse.verseNumberText) {
+                    return `${verse.arabic} ${verse.verseNumberText} `;
+                  }
+                  return `${verse.arabic} `;
+                }).join('')}
+              </Text>
+            ) : (
+              /* Meal Tab - Separate Verses with Turkish Translation */
+              verses.map((verse, index) => (
+                <View key={verse.id}>
+                  {/* Arabic Text with Verse Number */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+                    {verse.verseNumberText && (
+                      <Text
+                        style={{
+                          fontFamily: arabicFontFamily,
+                          fontSize: 15,
+                          fontWeight: '300',
+                          color: '#FFBA4A',
+                          lineHeight: 37,
+                          letterSpacing: 2,
+                          marginRight: 8,
+                        }}
+                      >
+                        {verse.verseNumberText}
+                      </Text>
+                    )}
                     <Text
                       style={{
                         fontFamily: arabicFontFamily,
-                        fontSize: 15,
+                        fontSize: 20,
                         fontWeight: '300',
-                        color: '#FFBA4A',
+                        color: '#E9CC88',
+                        textAlign: 'center',
                         lineHeight: 37,
                         letterSpacing: 2,
-                        marginRight: 8,
                       }}
                     >
-                      {verse.verseNumberText}
+                      {verse.arabic}
                     </Text>
-                  )}
+                  </View>
+
+                  {/* Turkish Translation */}
                   <Text
                     style={{
-                      fontFamily: arabicFontFamily,
-                      fontSize: 20,
+                      fontFamily,
+                      fontSize: 15,
                       fontWeight: '300',
-                      color: '#E9CC88',
+                      color: '#FFFFFF',
                       textAlign: 'center',
-                      lineHeight: 37,
+                      lineHeight: 15,
                       letterSpacing: 2,
+                      width: '100%',
+                      marginTop: 8,
                     }}
                   >
-                    {verse.arabic}
+                    {verse.turkish}
                   </Text>
+
+                  {/* Horizontal Separator Line after Arabic and Turkish */}
+                  {index < verses.length - 1 && (
+                    <View
+                      style={{
+                        width: '100%',
+                        height: 0.5,
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                        marginTop: 24,
+                        marginBottom: 0,
+                      }}
+                    />
+                  )}
                 </View>
-
-                {/* Turkish Translation */}
-                <Text
-                  style={{
-                    fontFamily,
-                    fontSize: 15,
-                    fontWeight: '300',
-                    color: '#FFFFFF',
-                    textAlign: 'center',
-                    lineHeight: 15,
-                    letterSpacing: 2,
-                    width: '100%',
-                    marginTop: 8,
-                  }}
-                >
-                  {verse.turkish}
-                </Text>
-
-                {/* Horizontal Separator Line after Arabic and Turkish */}
-                {index < verses.length - 1 && (
-                  <View
-                    style={{
-                      width: '100%',
-                      height: 0.5,
-                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                      marginTop: 24,
-                      marginBottom: 0,
-                    }}
-                  />
-                )}
-              </View>
-            ))}
+              ))
+            )}
           </View>
         </ScrollView>
       </SafeAreaView>

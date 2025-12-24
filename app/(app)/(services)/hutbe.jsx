@@ -93,6 +93,10 @@ export default function HutbeScreen() {
             {hutbeList.map((hutbe) => (
               <TouchableOpacity
                 key={hutbe.id}
+                onPress={() => router.push({
+                  pathname: '/(app)/(services)/hutbe-detail',
+                  params: { id: hutbe.id, title: hutbe.title, date: hutbe.date }
+                })}
                 style={{
                   width: '100%',
                   maxWidth: 350,

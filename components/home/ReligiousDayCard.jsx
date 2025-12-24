@@ -52,7 +52,11 @@ export default function ReligiousDayCard() {
           <Text style={[fontStyle, styles.remainingLabel]}>Kalan Süre</Text>
           <Text style={[fontStyle, styles.remainingDays]}>12 Gün</Text>
           
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push('/(app)/(services)/diniGunler')}
+            activeOpacity={0.8}
+          >
             <Text style={[fontStyle, styles.buttonText]}>İslamî takvime git</Text>
           </TouchableOpacity>
         </View>

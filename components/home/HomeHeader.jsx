@@ -153,10 +153,10 @@ export default function HomeHeader() {
   const [hours, minutes, seconds] = displayData.remainingTime.split(':');
 
   const menuItems = [
-    { image: icHatirlatici, label: 'Hatırlatıcı', onPress: () => {} },
-    { image: icIlim, label: 'İlim', onPress: () => {} },
+    { image: icHatirlatici, label: 'Hatırlatıcı', onPress: () => router.push('/(app)/(services)/hatirlatici') },
+    { image: icIlim, label: 'İlim', onPress: () => router.push('/(app)/(services)/ilim') },
     { image: icKible, label: 'Kıble', onPress: () => router.push('/(app)/(services)/qibla') },
-    { image: icTakvim, label: 'Takvim', onPress: () => {} },
+    { image: icTakvim, label: 'Takvim', onPress: () => router.push('/(app)/(services)/diniGunler') },
     { image: icDahaFazla, label: 'Daha fazlası', onPress: () => router.push('/(app)/(services)/guide-detail') },
   ];
 
