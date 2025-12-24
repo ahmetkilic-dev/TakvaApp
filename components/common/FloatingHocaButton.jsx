@@ -17,13 +17,13 @@ export default function FloatingHocaButton() {
   if (!isHomeScreen) return null;
 
   // Tab bar olmayan ekranlarda da, tab bar varmış gibi aynı konumda kalsın
-  const bottom = TAB_BAR_HEIGHT + 5;
+  const bottom = 3;
 
   return (
     <View pointerEvents="box-none" style={StyleSheet.absoluteFill}>
       <Pressable
         onPress={() => router.push('/(app)/(services)/hoca-ai')}
-        style={[styles.button, { right: 5, bottom }]}
+        style={[styles.button, { right: 3, bottom }]}
         hitSlop={10}
       >
         <Image source={HOCA_ICON} style={styles.image} resizeMode="contain" />

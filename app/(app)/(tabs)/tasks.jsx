@@ -257,7 +257,7 @@ export default function TasksScreen() {
                 top: 50, // 2px below the description text
                 left: -horizontalPadding * 3, // More aggressive full screen width
                 right: -horizontalPadding * 3, // More aggressive full screen width
-                bottom: -SCREEN_HEIGHT * 2, // Extend way beyond screen bottom
+                height: SCREEN_HEIGHT * 3, // Extend way beyond screen bottom
                 backgroundColor: '#182723',
                 opacity: 0.75, // More visible
                 borderTopLeftRadius: 20, // Oval top-left corner
@@ -293,6 +293,7 @@ export default function TasksScreen() {
                       fontSize: 16,
                       fontWeight: '300',
                       color: '#FFFFFF',
+                      lineHeight: 22,
                     }}
                     numberOfLines={2}
                   >
@@ -388,8 +389,9 @@ export default function TasksScreen() {
                             fontWeight: '300',
                             color: '#FFFFFF',
                             marginBottom: 4,
+                            lineHeight: 16,
                           }}
-                          numberOfLines={2}
+                          numberOfLines={4}
                         >
                           {task.text}
                         </Text>
