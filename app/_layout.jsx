@@ -8,6 +8,7 @@ import { View, ActivityIndicator } from 'react-native';
 import { useFonts, Cinzel_900Black } from '@expo-google-fonts/cinzel';
 import * as SplashScreen from 'expo-splash-screen';
 import { LocationProvider } from '../contexts/LocationContext';
+import { DayChangeProvider } from '../contexts/DayChangeContext';
 // 👇 BU SATIR EKLENMELİ
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -76,8 +77,10 @@ export default function RootLayout() {
     // 👇 KRİTİK NOKTA: UYGULAMA BU KAPSAYICI İÇİNDE OLMALI
     <GestureHandlerRootView style={{ flex: 1 }}>
       <LocationProvider>
-        <AuthGuard /> 
-        <StatusBar style="light" />
+        <DayChangeProvider>
+          <AuthGuard /> 
+          <StatusBar style="light" />
+        </DayChangeProvider>
       </LocationProvider>
     </GestureHandlerRootView>
   );
