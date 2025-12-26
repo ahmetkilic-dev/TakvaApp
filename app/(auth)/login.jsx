@@ -8,8 +8,13 @@ import { Ionicons } from '@expo/vector-icons';
 
 // Firebase
 import { auth, db } from '../../firebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { signInWithEmailAndPassword, OAuthProvider, signInWithCredential } from 'firebase/auth';
+// GÜNCELLEME 1: doc, setDoc ve serverTimestamp eklendi
+import { collection, query, where, getDocs, doc, setDoc, serverTimestamp } from 'firebase/firestore';
+
+// Apple Auth & Crypto
+import * as AppleAuthentication from 'expo-apple-authentication';
+import * as Crypto from 'expo-crypto';
 
 // Görseller
 import bgIntro from '../../assets/images/bg-intro-register.png';
@@ -83,6 +88,89 @@ export default function LoginScreen() {
     }
   };
 
+  // --- APPLE İLE GİRİŞ FONKSİYONU (GÜNCELLENDİ) ---
+  const handleAppleLogin = async () => {
+    try {
+      setLoading(true);
+      
+      // 1. Rastgele bir "nonce" oluştur
+      const rawNonce = Math.random().toString(36).substring(2, 10);
+      const requestedScopes = [
+        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+        AppleAuthentication.AppleAuthenticationScope.EMAIL,
+      ];
+
+      // 2. Apple'dan kimlik doğrulama iste
+      const appleCredential = await AppleAuthentication.signInAsync({
+        requestedScopes,
+        nonce: await Crypto.digestStringAsync(
+          Crypto.CryptoDigestAlgorithm.SHA256,
+          rawNonce
+        ),
+      });
+
+      const { identityToken } = appleCredential;
+
+      if (!identityToken) {
+        throw new Error("Apple Identity Token bulunamadı.");
+      }
+
+      // 3. Firebase için credential oluştur
+      const provider = new OAuthProvider('apple.com');
+      const credential = provider.credential({
+        idToken: identityToken,
+        rawNonce: rawNonce, 
+      });
+
+      // 4. Firebase'e giriş yap
+      const userCredential = await signInWithCredential(auth, credential);
+      const user = userCredential.user;
+
+      // --- GÜNCELLEME 2: FIRESTORE KAYIT İŞLEMİ ---
+      
+      // Apple isimi sadece ilk girişte verir. 
+      // Eğer 'appleCredential.fullName' doluysa, yeni kullanıcıdır veya isim verisini alabiliyoruzdur.
+      let fullName = user.displayName; 
+      
+      if (appleCredential.fullName?.givenName) {
+        fullName = `${appleCredential.fullName.givenName} ${appleCredential.fullName.familyName || ''}`.trim();
+      }
+
+      // Veritabanına yazılacak veri
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        name: fullName || "Apple Kullanıcısı", // İsim yoksa varsayılan
+        role: 'user',
+        lastLogin: serverTimestamp(), // Son giriş zamanı
+      };
+
+      // Eğer kullanıcı ilk defa kayıt oluyorsa (veya yeni bir oturumsa) createdAt ekle
+      // _tokenResponse firebase internal yapısıdır, genellikle isNewUser bilgisini taşır.
+      if (userCredential._tokenResponse?.isNewUser) {
+          userData.createdAt = serverTimestamp();
+      }
+
+      // Firestore'a kaydet. { merge: true } sayesinde varsa üzerine yazmaz, sadece günceller.
+      await setDoc(doc(db, "users", user.uid), userData, { merge: true });
+      
+      // ------------------------------------------------
+
+      // Başarılı
+      setLoading(false);
+      router.replace('/(app)/(tabs)/home');
+
+    } catch (e) {
+      setLoading(false);
+      if (e.code === 'ERR_REQUEST_CANCELED') {
+        // Kullanıcı iptal etti, işlem yapma
+      } else {
+        Alert.alert("Hata", "Apple ile giriş yapılamadı.");
+        console.error(e);
+      }
+    }
+  };
+
   const handleNotImplemented = (feature) => { Alert.alert("Yakında", `${feature} özelliği yakında eklenecek.`); };
 
   return (
@@ -114,10 +202,12 @@ export default function LoginScreen() {
 
             <View className="mt-8 gap-y-4"> 
                 <View className="flex-row w-full gap-3 mb-1">
-                    <TouchableOpacity onPress={() => handleNotImplemented('Apple')} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
+                    {/* Apple Butonu: Sadece iOS'ta gösterilmesi önerilir ama tasarım bozulmasın diye şimdilik gizlemedim */}
+                    <TouchableOpacity onPress={handleAppleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
                         <View className="w-[20%] ml-2 h-full items-center justify-center"><Image source={appleLogo} className="w-7 h-7" resizeMode="contain" /></View>
                         <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular mr-4 text-[12px] leading-tight">Apple ile devam et</Text></View>
                     </TouchableOpacity>
+                    
                     <TouchableOpacity onPress={() => handleNotImplemented('Google')} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
                         <View className="w-[20%] h-full ml-2 items-center justify-center"><Image source={googleLogo} className="w-7 h-7" resizeMode="contain" /></View>
                         <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular text-[12px] leading-tight">Google ile devam et</Text></View>

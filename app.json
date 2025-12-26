@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "TakvaApp",
+    "name": "Takva",
     "slug": "TakvaApp",
     "scheme": "takvaapp",
     "version": "1.0.0",
@@ -15,7 +15,9 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sizinadiniz.takvaapp",
+      "bundleIdentifier": "com.wezyapps.takvaapp",
+      "usesAppleSignIn": true,
+      "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Namaz vakitlerini doğru hesaplamak için konumunuz gereklidir.",
         "NSAppTransportSecurity": {
@@ -29,7 +31,7 @@
         "backgroundColor": "#04100D"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.sizinadiniz.takvaapp",
+      "package": "com.wezyapps.takvaapp",
       "permissions": [
         "INTERNET",
         "ACCESS_FINE_LOCATION"
@@ -41,7 +43,8 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      "expo-apple-authentication"
     ],
     "extra": {
       "router": {
