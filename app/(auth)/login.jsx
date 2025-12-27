@@ -2,19 +2,21 @@
 import { View, Text, ImageBackground, Image, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
 // Firebase
 import { auth, db } from '../../firebaseConfig';
-import { signInWithEmailAndPassword, OAuthProvider, signInWithCredential } from 'firebase/auth';
-// GÜNCELLEME 1: doc, setDoc ve serverTimestamp eklendi
+import { signInWithEmailAndPassword, OAuthProvider, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
 import { collection, query, where, getDocs, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 // Apple Auth & Crypto
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as Crypto from 'expo-crypto';
+
+// Google Auth
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 // Görseller
 import bgIntro from '../../assets/images/bg-intro-register.png';
@@ -33,10 +35,19 @@ export default function LoginScreen() {
 
   const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
 
-  // Görsel olarak +90 ekle (Kullanıcıya kolaylık olsun diye)
+  // --- GOOGLE KONFİGÜRASYONU ---
+  useEffect(() => {
+    GoogleSignin.configure({
+      // BURAYA Google Cloud Console > Credentials > Web Client ID kısmındaki ID'yi yapıştırın.
+      // Genelde '...apps.googleusercontent.com' ile biter.
+      webClientId: '1063960456618-f5clq2ujmacf5dvaf7efqg6jpc6ie0d9.apps.googleusercontent.com', 
+    });
+  }, []);
+
+  // Görsel olarak +90 ekle
   const handleIdentifierChange = (text) => {
     if (/^[0-9]/.test(text) && !text.startsWith('+')) {
-        setIdentifier('+90' + text); // Boşluksuz ekliyoruz
+        setIdentifier('+90' + text);
         return;
     }
     if (text === '+90') { setIdentifier(''); return; }
@@ -53,13 +64,8 @@ export default function LoginScreen() {
     let loginEmail = identifier; 
 
     try {
-      // 1. ADIM: Eğer telefon numarası girildiyse (içinde @ yoksa)
       if (!identifier.includes('@')) {
-        
-        // TELEFON TEMİZLEME: Sorgu yapmadan önce boşlukları sil
         const cleanPhone = identifier.replace(/\s/g, ''); 
-        
-        // Firestore'da temizlenmiş numarayı ara
         const usersRef = collection(db, "users");
         const q = query(usersRef, where("phone", "==", cleanPhone));
         const querySnapshot = await getDocs(q);
@@ -69,11 +75,10 @@ export default function LoginScreen() {
           loginEmail = userDoc.email;
         } else {
           setLoading(false);
-          return Alert.alert("Hesap Bulunamadı", "Bu telefon numarası ile kayıtlı bir kullanıcı bulunamadı. Lütfen numarayı kontrol edin veya yeni hesap oluşturun.");
+          return Alert.alert("Hesap Bulunamadı", "Bu numara ile kayıtlı kullanıcı bulunamadı.");
         }
       }
 
-      // 2. ADIM: Giriş Yap
       await signInWithEmailAndPassword(auth, loginEmail, password);
       
       setLoading(false);
@@ -82,92 +87,111 @@ export default function LoginScreen() {
     } catch (error) {
       setLoading(false);
       let msg = "Giriş yapılamadı.";
-      if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') msg = "Hatalı şifre veya kullanıcı bilgisi.";
-      if (error.code === 'auth/invalid-email') msg = "Geçersiz format.";
+      if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password') msg = "Hatalı şifre veya kullanıcı bilgisi.";
       Alert.alert("Hata", msg);
     }
   };
 
-  // --- APPLE İLE GİRİŞ FONKSİYONU (GÜNCELLENDİ) ---
+  // --- APPLE İLE GİRİŞ ---
   const handleAppleLogin = async () => {
     try {
       setLoading(true);
-      
-      // 1. Rastgele bir "nonce" oluştur
       const rawNonce = Math.random().toString(36).substring(2, 10);
       const requestedScopes = [
         AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
         AppleAuthentication.AppleAuthenticationScope.EMAIL,
       ];
 
-      // 2. Apple'dan kimlik doğrulama iste
       const appleCredential = await AppleAuthentication.signInAsync({
         requestedScopes,
-        nonce: await Crypto.digestStringAsync(
-          Crypto.CryptoDigestAlgorithm.SHA256,
-          rawNonce
-        ),
+        nonce: await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, rawNonce),
       });
 
       const { identityToken } = appleCredential;
+      if (!identityToken) throw new Error("Apple Identity Token bulunamadı.");
 
-      if (!identityToken) {
-        throw new Error("Apple Identity Token bulunamadı.");
-      }
-
-      // 3. Firebase için credential oluştur
       const provider = new OAuthProvider('apple.com');
-      const credential = provider.credential({
-        idToken: identityToken,
-        rawNonce: rawNonce, 
-      });
+      const credential = provider.credential({ idToken: identityToken, rawNonce: rawNonce });
 
-      // 4. Firebase'e giriş yap
       const userCredential = await signInWithCredential(auth, credential);
       const user = userCredential.user;
 
-      // --- GÜNCELLEME 2: FIRESTORE KAYIT İŞLEMİ ---
-      
-      // Apple isimi sadece ilk girişte verir. 
-      // Eğer 'appleCredential.fullName' doluysa, yeni kullanıcıdır veya isim verisini alabiliyoruzdur.
       let fullName = user.displayName; 
-      
       if (appleCredential.fullName?.givenName) {
         fullName = `${appleCredential.fullName.givenName} ${appleCredential.fullName.familyName || ''}`.trim();
       }
 
-      // Veritabanına yazılacak veri
       const userData = {
         uid: user.uid,
         email: user.email,
-        name: fullName || "Apple Kullanıcısı", // İsim yoksa varsayılan
+        name: fullName || "Apple Kullanıcısı",
         role: 'user',
-        lastLogin: serverTimestamp(), // Son giriş zamanı
+        lastLogin: serverTimestamp(),
       };
 
-      // Eğer kullanıcı ilk defa kayıt oluyorsa (veya yeni bir oturumsa) createdAt ekle
-      // _tokenResponse firebase internal yapısıdır, genellikle isNewUser bilgisini taşır.
       if (userCredential._tokenResponse?.isNewUser) {
           userData.createdAt = serverTimestamp();
       }
 
-      // Firestore'a kaydet. { merge: true } sayesinde varsa üzerine yazmaz, sadece günceller.
       await setDoc(doc(db, "users", user.uid), userData, { merge: true });
       
-      // ------------------------------------------------
-
-      // Başarılı
       setLoading(false);
       router.replace('/(app)/(tabs)/home');
 
     } catch (e) {
       setLoading(false);
-      if (e.code === 'ERR_REQUEST_CANCELED') {
-        // Kullanıcı iptal etti, işlem yapma
-      } else {
+      if (e.code !== 'ERR_REQUEST_CANCELED') {
         Alert.alert("Hata", "Apple ile giriş yapılamadı.");
-        console.error(e);
       }
+    }
+  };
+
+  // --- GOOGLE İLE GİRİŞ ---
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      
+      // 1. Play Services Kontrolü
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      
+      // 2. Google'dan Giriş İzni ve Token Alma
+      const { data: { idToken } } = await GoogleSignin.signIn();
+      
+      if (!idToken) throw new Error('Google ID Token alınamadı.');
+
+      // 3. Firebase Kimlik Bilgisi Oluşturma
+      const googleCredential = GoogleAuthProvider.credential(idToken);
+
+      // 4. Firebase'e Giriş Yapma
+      const userCredential = await signInWithCredential(auth, googleCredential);
+      const user = userCredential.user;
+
+      // 5. Firestore'a Kaydetme
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName || "Google Kullanıcısı",
+        photoURL: user.photoURL,
+        role: 'user',
+        lastLogin: serverTimestamp(),
+      };
+
+      if (userCredential._tokenResponse?.isNewUser) {
+        userData.createdAt = serverTimestamp();
+      }
+
+      await setDoc(doc(db, "users", user.uid), userData, { merge: true });
+
+      setLoading(false);
+      router.replace('/(app)/(tabs)/home');
+
+    } catch (error) {
+      setLoading(false);
+      if (error.code === '12501') { // Kullanıcı iptal etti
+        return; 
+      }
+      console.error(error);
+      Alert.alert("Hata", "Google ile giriş yapılamadı.");
     }
   };
 
@@ -202,13 +226,12 @@ export default function LoginScreen() {
 
             <View className="mt-8 gap-y-4"> 
                 <View className="flex-row w-full gap-3 mb-1">
-                    {/* Apple Butonu: Sadece iOS'ta gösterilmesi önerilir ama tasarım bozulmasın diye şimdilik gizlemedim */}
                     <TouchableOpacity onPress={handleAppleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
                         <View className="w-[20%] ml-2 h-full items-center justify-center"><Image source={appleLogo} className="w-7 h-7" resizeMode="contain" /></View>
                         <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular mr-4 text-[12px] leading-tight">Apple ile devam et</Text></View>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity onPress={() => handleNotImplemented('Google')} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
+                    <TouchableOpacity onPress={handleGoogleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
                         <View className="w-[20%] h-full ml-2 items-center justify-center"><Image source={googleLogo} className="w-7 h-7" resizeMode="contain" /></View>
                         <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular text-[12px] leading-tight">Google ile devam et</Text></View>
                     </TouchableOpacity>
