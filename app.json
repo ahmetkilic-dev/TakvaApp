@@ -44,7 +44,13 @@
       "expo-router",
       "expo-font",
       "@react-native-community/datetimepicker",
-      "expo-apple-authentication"
+      "expo-apple-authentication",
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "1063960456618-cuioug118j594vt957cv74slnamru62d.apps.googleusercontent.com"
+        }
+      ]
     ],
     "extra": {
       "router": {
