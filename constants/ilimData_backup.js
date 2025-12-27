@@ -1,6 +1,6 @@
-export default {
-  fikih: {
-    questions: [
+// constants/ilimData.js -> fikih -> questions dizisi:
+
+questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-10) - ABDEST VE TEMİZLİK
   // --------------------------------------------------------
@@ -1465,10 +1465,11 @@ export default {
     correctAnswer: "Kıyam ve 4 Tekbir",
     explanation: "Cenaze namazının rükunları (içindeki farzlar) Kıyam (ayakta durmak) ve 4 Tekbirdir."
   } 
-    ]
-  },
-  kuran: {
-    questions: [
+]
+
+// constants/ilimData.js -> kuran -> questions dizisi:
+
+questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - KURAN KÜLTÜRÜ (10 PUAN)
   // --------------------------------------------------------
@@ -2921,10 +2922,11 @@ export default {
     correctAnswer: "Bakara",
     explanation: "Bakara suresi 144. ayet: 'Yüzünü Mescid-i Haram tarafına çevir' emriyle kıble değişmiştir."
   }
-    ]
-  },
-  hadis: {
-    questions: [
+]
+
+// constants/ilimData.js -> hadis -> questions dizisi:
+
+questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - HADİS DERYASI (10 PUAN)
   // --------------------------------------------------------
@@ -4377,10 +4379,11 @@ export default {
     correctAnswer: "Şu'be b. Haccac (veya Buhari)",
     explanation: "Bu en yüksek unvan, hadis ilminin zirvesi sayılan Şu'be b. Haccac, Süfyan-ı Sevri ve İmam Buhari gibi çok az sayıda alim için kullanılmıştır."
   }
-    ]
-  },
-  ahlak: {
-    questions: [
+]
+
+// constants/ilimData.js -> ahlak -> questions dizisi:
+
+questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - AHLAK VE ADAP (10 PUAN)
   // --------------------------------------------------------
@@ -5833,10 +5836,11 @@ export default {
     correctAnswer: "Nefsimle baş başa",
     explanation: "Nefsin hilelerinden Allah'a sığınmanın zirve duasıdır: 'Beni nefsimin eline bir an bile bırakma.'"
   },
-    ]
-  },
-  siyer: {
-    questions: [
+]
+
+// constants/ilimData.js -> siyer -> questions dizisi:
+
+questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - SİYER-İ NEBİ (10 PUAN)
   // --------------------------------------------------------
@@ -7289,10 +7293,11 @@ export default {
     correctAnswer: "Hz. Hasan'ın 6 aylık hilafetiyle",
     explanation: "Dört Halife'nin süresi 29.5 yıldır. Hz. Hasan'ın 6 aylık halifeliği ile 30 yıl (Raşid Halifelik) tamamlanmış, sonra saltanat başlamıştır."
   }
-    ]
-  },
-  gunler: {
-    questions: [
+]
+
+// constants/ilimData.js -> gunler -> questions dizisi:
+
+questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - DİNİ GÜNLER VE İBADETLER (10 PUAN)
   // --------------------------------------------------------
@@ -8745,10 +8750,11 @@ export default {
     correctAnswer: "Teşrik Tekbirleri",
     explanation: "Toplam 23 vakit namazın farzından sonra 'Allahu Ekber Allahu Ekber...' demek vaciptir."
   }
-    ]
-  },
-  kavramlar: {
-    questions: [
+]
+
+// constants/ilimData.js -> kavramlar -> questions dizisi:
+
+questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - DİNİ KAVRAMLAR (10 PUAN)
   // --------------------------------------------------------
@@ -10201,10 +10207,11 @@ export default {
     correctAnswer: "Halvet der Encümen",
     explanation: "Nakşibendi yolunun prensiplerinden olan Halvet der Encümen; kalabalıklar içindeyken bile kalbin Allah ile baş başa (halvet) olmasıdır."
   }
-    ]
-  },
-  esma: {
-    questions: [
+]
+
+// constants/ilimData.js -> esma -> questions dizisi:
+
+questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - ESMA-İ HÜSNA (10 PUAN)
   // --------------------------------------------------------
@@ -11657,6 +11664,4 @@ export default {
     correctAnswer: "Haşr Suresi (Son 3 ayet)",
     explanation: "Haşr suresinin sonu (Hüvallahüllezi...), Esma-i Hüsna'nın en yoğun geçtiği ve faziletli yerdir."
   }
-    ]
-  }
-};
+]
