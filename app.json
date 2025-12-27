@@ -48,7 +48,7 @@
       [
         "@react-native-google-signin/google-signin",
         {
-          "iosUrlScheme": "1063960456618-cuioug118j594vt957cv74slnamru62d.apps.googleusercontent.com"
+          "iosUrlScheme": "com.googleusercontent.apps.1063960456618-cuioug118j594vt957cv74slnamru62d"
         }
       ]
     ],
