@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../../firebaseConfig';
@@ -57,9 +58,11 @@ export function useNamazDurumu() {
 
   const ensureUserDoc = useCallback(async (uid) => {
     const userRef = doc(db, 'users', uid);
-    await setDoc(
-      userRef,
-      {
+    const snap = await getDoc(userRef);
+
+    if (!snap.exists()) {
+      console.log('📝 Kullanıcı dokümanı oluşturuluyor...');
+      await setDoc(userRef, {
         kazaNamazlari: {
           sabah: 0,
           ogle: 0,
@@ -74,9 +77,35 @@ export function useNamazDurumu() {
           completed: emptyCompleted(),
           updatedAt: serverTimestamp(),
         },
-      },
-      { merge: true }
-    );
+      });
+    } else {
+      const data = snap.data();
+      const updates = {};
+
+      if (!data.kazaNamazlari) {
+        updates.kazaNamazlari = {
+          sabah: 0, ogle: 0, ikindi: 0, aksam: 0, yatsi: 0, vitir: 0
+        };
+      }
+
+      if (!data.kazaOruclari) {
+        updates.kazaOruclari = { oruc: 0 };
+      }
+
+      if (!data.namazDurumu) {
+        console.log('📝 namazDurumu alanı oluşturuluyor...');
+        updates.namazDurumu = {
+          dateKey: todayKey,
+          completed: emptyCompleted(),
+          updatedAt: serverTimestamp(),
+        };
+      }
+
+      if (Object.keys(updates).length > 0) {
+        console.log('📝 Eksik alanlar tamamlanıyor:', Object.keys(updates));
+        await setDoc(userRef, updates, { merge: true });
+      }
+    }
   }, [todayKey]);
 
   const rolloverIfNeeded = useCallback(
@@ -86,11 +115,20 @@ export function useNamazDurumu() {
 
   const refreshFromFirestore = useCallback(
     async (uid) => {
+      console.log('🔄 refreshFromFirestore: Başladı');
       const userRef = doc(db, 'users', uid);
       const snap = await getDoc(userRef);
+      console.log('📄 Firebase doküman var mı:', snap.exists());
+
       const nd = snap.exists() ? snap.data()?.namazDurumu : null;
+      console.log('📊 Firebase namazDurumu:', nd);
+
       const completed = { ...emptyCompleted(), ...(nd?.completed || {}) };
-      setState({ dateKey: nd?.dateKey || todayKey, completed });
+      const newState = { dateKey: nd?.dateKey || todayKey, completed };
+
+      console.log('🔄 Yeni state set ediliyor:', newState);
+      setState(newState);
+      console.log('✅ refreshFromFirestore: Tamamlandı');
     },
     [todayKey]
   );
@@ -99,19 +137,51 @@ export function useNamazDurumu() {
   useEffect(() => {
     let alive = true;
     (async () => {
+      console.log('🔍 useNamazDurumu: useEffect çalıştı');
+      console.log('👤 User:', user?.uid ? `Giriş yapılmış (${user.uid})` : 'Giriş yapılmamış');
+      console.log('📅 Today Key:', todayKey);
+
       if (!user?.uid) {
+        // Giriş yapmamış kullanıcılar için AsyncStorage'dan yükle
+        try {
+          console.log('📱 Namaz Durumu: AsyncStorage\'dan yükleniyor...');
+          const stored = await AsyncStorage.getItem('@takva_namaz_durumu_local');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            console.log('📱 AsyncStorage verisi:', parsed);
+            console.log('📱 Bugünkü key:', todayKey);
+            // Eğer tarih değiştiyse sıfırla
+            if (parsed.dateKey === todayKey) {
+              console.log('✅ Aynı gün - state yükleniyor');
+              setState(parsed);
+            } else {
+              console.log('🔄 Farklı gün - sıfırlanıyor');
+              setState({ dateKey: todayKey, completed: emptyCompleted() });
+              await AsyncStorage.setItem('@takva_namaz_durumu_local', JSON.stringify({ dateKey: todayKey, completed: emptyCompleted() }));
+            }
+          } else {
+            console.log('⚠️ AsyncStorage boş - yeni state oluşturuluyor');
+            setState({ dateKey: todayKey, completed: emptyCompleted() });
+          }
+        } catch (error) {
+          console.error('❌ AsyncStorage yükleme hatası:', error);
+          setState({ dateKey: todayKey, completed: emptyCompleted() });
+        }
         setLoading(false);
-        setState({ dateKey: todayKey, completed: emptyCompleted() });
         return;
       }
 
       try {
+        console.log('☁️ Firebase: Kullanıcı dokümanı kontrol ediliyor...');
         setLoading(true);
         await ensureUserDoc(user.uid);
+        console.log('☁️ Firebase: Rollover kontrol ediliyor...');
         await rolloverIfNeeded(user.uid);
 
         if (!alive) return;
+        console.log('☁️ Firebase: State yükleniyor...');
         await refreshFromFirestore(user.uid);
+        console.log('✅ Firebase: State yüklendi');
       } finally {
         if (alive) setLoading(false);
       }
@@ -119,7 +189,7 @@ export function useNamazDurumu() {
     return () => {
       alive = false;
     };
-  }, [ensureUserDoc, refreshFromFirestore, rolloverIfNeeded, todayKey, user?.uid]);
+  }, [user?.uid, todayKey]);
 
   // Gün içinde midnight rollover (app açık kalırsa)
   useEffect(() => {
@@ -158,23 +228,39 @@ export function useNamazDurumu() {
 
   const toggle = useCallback(
     async (key) => {
-      if (!user?.uid) return;
       if (!PRAYER_KEYS.includes(key)) return;
       if (!arrived?.[key]) return; // vakit gelmeden checkleme kapalı
 
       const next = !state.completed[key];
-      setState((s) => ({
-        ...s,
-        completed: { ...s.completed, [key]: next },
-      }));
+      const newState = {
+        ...state,
+        completed: { ...state.completed, [key]: next },
+      };
+      setState(newState);
 
-      const userRef = doc(db, 'users', user.uid);
-      await updateDoc(userRef, {
-        [`namazDurumu.completed.${key}`]: next,
-        'namazDurumu.updatedAt': serverTimestamp(),
-      });
+      console.log(`🔄 Toggle: ${key} = ${next}`);
+      console.log('📱 Yeni state:', newState);
+
+      // Giriş yapmış kullanıcılar için Firebase'e kaydet
+      if (user?.uid) {
+        console.log('☁️ Firebase\'e kaydediliyor...');
+        const userRef = doc(db, 'users', user.uid);
+        await updateDoc(userRef, {
+          [`namazDurumu.completed.${key}`]: next,
+          'namazDurumu.updatedAt': serverTimestamp(),
+        });
+      } else {
+        // Giriş yapmamış kullanıcılar için AsyncStorage'a kaydet
+        try {
+          console.log('💾 AsyncStorage\'a kaydediliyor...');
+          await AsyncStorage.setItem('@takva_namaz_durumu_local', JSON.stringify(newState));
+          console.log('✅ AsyncStorage\'a kaydedildi');
+        } catch (error) {
+          console.error('❌ AsyncStorage kaydetme hatası:', error);
+        }
+      }
     },
-    [arrived, state.completed, user?.uid]
+    [arrived, state, user?.uid]
   );
 
   const items = useMemo(() => {

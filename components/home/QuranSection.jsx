@@ -1,14 +1,120 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useState, useEffect, useRef } from 'react';
+import { Audio, InterruptionModeIOS, InterruptionModeAndroid } from 'expo-av';
+import { Ionicons } from '@expo/vector-icons';
 import QuranCta from '../../assets/images/quran-cta.png';
 import HeadphoneIcon from '../../assets/images/headphone.svg';
-import PlayIcon from '../../assets/images/play.svg';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const STREAM_SOURCES = [
+   'https://qurango.net/radio/mix',             // Qurango (MP3Quran) - Ana Kaynak
+   'https://stream.radiojar.com/8s5u8tp48v8uv', // Sharjah Quran Radio - Yedek 1
+   'https://radio.alukah.net/ulumalquran.mp3'   // Alukah Quran - Yedek 2
+];
 
 export default function QuranSection() {
    const router = useRouter();
+   const [isPlaying, setIsPlaying] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
+   const [sound, setSound] = useState(null);
+   const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
    const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
+
+   // Ses ayarlarını bir kez yapılandır
+   useEffect(() => {
+      const setupAudio = async () => {
+         try {
+            await Audio.setAudioModeAsync({
+               allowsRecordingIOS: false,
+               interruptionModeIOS: InterruptionModeIOS.DoNotMix,
+               playsInSilentModeIOS: true,
+               shouldDuckAndroid: true,
+               interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
+               playThroughEarpieceAndroid: false,
+               staysActiveInBackground: true,
+            });
+         } catch (e) {
+            console.log('Audio setup error:', e);
+         }
+      };
+      setupAudio();
+   }, []);
+
+   async function togglePlayback() {
+      if (sound) {
+         try {
+            if (isPlaying) {
+               await sound.pauseAsync();
+               setIsPlaying(false);
+            } else {
+               setIsLoading(true);
+               await sound.playAsync();
+               setIsPlaying(true);
+               setIsLoading(false);
+            }
+         } catch (error) {
+            console.error('Playback Error:', error);
+            setSound(null);
+            setIsPlaying(false);
+            setIsLoading(false);
+            // Hata durumunda bir sonraki kaynağı dene
+            tryNextSource(currentSourceIndex);
+         }
+         return;
+      }
+
+      // İlk kez yükleme
+      await tryNextSource(0);
+   }
+
+   async function tryNextSource(index) {
+      if (index >= STREAM_SOURCES.length) {
+         console.error('All sources failed');
+         setIsLoading(false);
+         setIsPlaying(false);
+         setCurrentSourceIndex(0); // Başa dön
+         return;
+      }
+
+      setIsLoading(true);
+      setCurrentSourceIndex(index);
+
+      try {
+         const { sound: newSound } = await Audio.Sound.createAsync(
+            { uri: STREAM_SOURCES[index] },
+            { shouldPlay: true, isLooping: false, volume: 1.0 }
+         );
+
+         setSound(newSound);
+         setIsPlaying(true);
+         setIsLoading(false);
+
+         newSound.setOnPlaybackStatusUpdate((status) => {
+            if (status.isLoaded) {
+               if (status.didJustFinish) setIsPlaying(false);
+            }
+            if (status.error) {
+               console.error(`Source ${index} Playback Error:`, status.error);
+               setIsPlaying(false);
+               setSound(null);
+               tryNextSource(index + 1);
+            }
+         });
+      } catch (error) {
+         console.error(`Source ${index} Loading Error:`, error);
+         // Bir sonraki kaynağı dene
+         await tryNextSource(index + 1);
+      }
+   }
+
+   useEffect(() => {
+      return () => {
+         if (sound) {
+            sound.unloadAsync();
+         }
+      };
+   }, [sound]);
 
    return (
       <View style={styles.container}>
@@ -23,18 +129,30 @@ export default function QuranSection() {
             <View style={styles.radioContent}>
                {/* Sol Metin */}
                <View style={styles.radioTextContainer}>
-                  <Text style={[fontStyle, styles.radioTitle]}>Nassar el Qatami</Text>
-                  <Text style={[fontStyle, styles.radioSubtitle]}>Kral Pop FM</Text>
+                  <Text style={[fontStyle, styles.radioTitle]}>Kesintisiz Kuran Tilaveti</Text>
+                  <Text style={[fontStyle, styles.radioSubtitle]}>7/24 Dünyaca Ünlü Hafızlar</Text>
                </View>
 
                {/* Sağ İkonlar - metinlerle hizalı */}
                <View style={styles.iconContainer}>
-                  <TouchableOpacity style={styles.playButtonRow}>
-                     <PlayIcon width={20} height={20} fill="white" />
+                  <TouchableOpacity
+                     style={styles.playButtonRow}
+                     onPress={togglePlayback}
+                     disabled={isLoading}
+                  >
+                     {isLoading ? (
+                        <ActivityIndicator size="small" color="#FFFFFF" />
+                     ) : (
+                        <Ionicons
+                           name={isPlaying ? "pause" : "play"}
+                           size={24}
+                           color="white"
+                        />
+                     )}
                   </TouchableOpacity>
                   <View style={styles.headphoneRow}>
                      <HeadphoneIcon width={20} height={20} color="white" />
-                     <Text style={[fontStyle, styles.listenerText]}>107</Text>
+                     <Text style={[fontStyle, styles.listenerText]}>CANLI</Text>
                   </View>
                </View>
             </View>

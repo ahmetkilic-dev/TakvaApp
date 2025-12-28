@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, TextInput, Switch } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Switch, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
+import CustomReminderSettingsModal from './CustomReminderSettingsModal';
 
 const fontFamily = 'Plus Jakarta Sans';
 
@@ -10,6 +11,7 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
   const [time, setTime] = useState('18:00');
   const [notificationEnabled, setNotificationEnabled] = useState(false);
   const [alarmEnabled, setAlarmEnabled] = useState(false);
+  const [dayModalVisible, setDayModalVisible] = useState(false);
 
   const handleSave = () => {
     if (name.trim()) {
@@ -86,6 +88,7 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
         Hangi günlerde hatırlatma gelsin?
       </Text>
       <TouchableOpacity
+        onPress={() => setDayModalVisible(true)}
         style={{
           backgroundColor: 'rgba(255, 255, 255, 0.1)',
           borderRadius: 5,
@@ -219,9 +222,11 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
           width: '100%',
           height: 44,
           borderRadius: 10,
-          backgroundColor: '#15614D',
+          backgroundColor: '#182723',
           alignItems: 'center',
           justifyContent: 'center',
+          borderWidth: 1,
+          borderColor: 'rgba(255, 255, 255, 0.2)',
         }}
       >
         <Text
@@ -235,6 +240,18 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
           Kaydet
         </Text>
       </TouchableOpacity>
+
+      {/* Day Selection Modal */}
+      <CustomReminderSettingsModal
+        visible={dayModalVisible}
+        onClose={() => setDayModalVisible(false)}
+        onSave={(settings) => {
+          setSelectedDays(settings.days);
+          setDayModalVisible(false);
+        }}
+        reminder={{ name: name || 'Özel Hatırlatıcı' }}
+        currentSettings={{ days: selectedDays }}
+      />
     </View>
   );
 }

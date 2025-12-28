@@ -17,24 +17,60 @@ const HutbePDFViewer = memo(({ pdfUrl }) => {
 
   // PDF URL'ini Google Docs Viewer ile yükle
   let pdfViewerUrl = pdfUrl;
-  
+
   if (pdfUrl) {
     // URL'i tam URL haline getir
     let fullUrl = pdfUrl;
     if (!pdfUrl.startsWith('http')) {
       fullUrl = `https://dinhizmetleri.diyanet.gov.tr${pdfUrl.startsWith('/') ? '' : '/'}${pdfUrl}`;
     }
-    
+
     // Google Docs Viewer kullan (CORS sorunlarını önlemek için)
     // encodeURIComponent URL'i tamamen encode eder (Türkçe karakterler dahil)
     pdfViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`;
   }
 
+  // Google Docs Viewer optimize edilmiş CSS
+  const INJECTED_JAVASCRIPT = `
+    const meta = document.createElement('meta');
+    meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=1');
+    meta.setAttribute('name', 'viewport');
+    document.getElementsByTagName('head')[0].appendChild(meta);
+
+    const style = document.createElement('style');
+    style.innerHTML = '
+      /* Toolbar ve headerları gizle */
+      div[role="toolbar"], .toolbar { display: none !important; }
+      .ndfHFb-c4YZDc-Wrql6b { display: none !important; }
+      
+      /* Arka planı beyaz yap */
+      body, html { 
+        background-color: #ffffff !important; 
+        margin: 0 !important; 
+        padding: 0 !important;
+        overflow-x: hidden !important;
+      }
+      
+      /* İçeriği (PDF resimlerini) tam genişliğe yay */
+      img { 
+        width: 100% !important; 
+        height: auto !important; 
+        margin: 0 auto !important;
+        display: block !important;
+      }
+      
+      /* Gereksiz boşlukları sil */
+      .ndfHFb-c4YZDc-Wrql6b-bMEDc { margin-top: 0 !important; padding-top: 0 !important; }
+    ';
+    document.head.appendChild(style);
+    true;
+  `;
+
   return (
     <View style={styles.container}>
       {loading && (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#FFFFFF" />
+          <ActivityIndicator size="large" color="#182723" />
         </View>
       )}
       <WebView
@@ -51,6 +87,8 @@ const HutbePDFViewer = memo(({ pdfUrl }) => {
         domStorageEnabled={true}
         startInLoadingState={true}
         scalesPageToFit={true}
+        injectedJavaScript={INJECTED_JAVASCRIPT}
+        scrollEnabled={true}
       />
     </View>
   );
@@ -60,15 +98,11 @@ HutbePDFViewer.displayName = 'HutbePDFViewer';
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: horizontalPadding,
-    paddingVertical: 24,
-    borderRadius: CONTAINER_BORDER_RADIUS,
-    backgroundColor: 'rgba(24, 39, 35, 0.8)',
-    marginHorizontal: horizontalPadding,
-    marginTop: CONTAINER_MARGIN_TOP,
-    marginBottom: CONTAINER_MARGIN_BOTTOM,
-    height: SCREEN_HEIGHT * 0.7, // Ekranın %70'i
-    minHeight: 400,
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#182723',
+    overflow: 'hidden',
+    // margin vs eklenecekse buraya değil parent'a eklenmeli
   },
   webview: {
     flex: 1,
@@ -83,6 +117,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
+    backgroundColor: '#182723', // Yüklenirken koyu ekran
   },
 });
 

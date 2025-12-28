@@ -1,14 +1,27 @@
+import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { hadithData } from '../../constants/hadithData';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-export default function HadithCard() {
+const HadithCard = () => {
   const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
+
+  // Günün hadisini seç
+  const currentHadith = useMemo(() => {
+    const startOfYear = new Date(new Date().getFullYear(), 0, 0);
+    const diff = new Date() - startOfYear;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+
+    // Yılın gününe göre mod al
+    return hadithData[dayOfYear % hadithData.length];
+  }, []);
 
   return (
     <View style={styles.container}>
       {/* Başlık Alanı */}
-      <Text style={[fontStyle, styles.mainTitle]}>Hadis</Text>
+      <Text style={[fontStyle, styles.mainTitle]}>Günün Hadisi</Text>
       <Text style={[fontStyle, styles.subTitle]}>
         Peygamber Efendimiz'in (s.a.v.) sözleri,{'\n'}davranışları ve onayları.
       </Text>
@@ -16,12 +29,17 @@ export default function HadithCard() {
       {/* Hadis Kartı */}
       <View style={styles.card}>
         <Text style={[fontStyle, styles.hadithText]}>
-          Ameller ancak niyetlere göredir.
+          "{currentHadith.metin}"
+        </Text>
+        <Text style={[fontStyle, styles.sourceText]}>
+          - {currentHadith.kaynak}
         </Text>
       </View>
     </View>
   );
-}
+};
+
+export default React.memo(HadithCard);
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 0.5,
     borderColor: 'rgba(255, 255, 255, 0.5)',
-    paddingVertical: 14,
+    paddingVertical: 20,
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -59,6 +77,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
     textAlign: 'center',
-    lineHeight: 26,
+    lineHeight: 28,
+    fontStyle: 'italic',
+  },
+  sourceText: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontSize: 12,
+    fontWeight: '500',
+    textAlign: 'center',
+    marginTop: 12,
   },
 });

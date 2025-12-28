@@ -17,7 +17,7 @@ const createDateFromTime = (timeStr) => {
  */
 export const usePrayerTimesForReminders = () => {
   const { location: userLocation, city: userCity, hasPermission, isLoading: locationLoading } = useLocation();
-  
+
   const [prayerTimes, setPrayerTimes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,9 +31,9 @@ export const usePrayerTimesForReminders = () => {
 
         const now = new Date();
         const dateStr = `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
-        
+
         let finalUrl;
-        
+
         // Eğer konum izni varsa ve konum alındıysa, koordinat ile sorgula
         if (hasPermission && userLocation) {
           console.log('🕌 Hatırlatıcı: Namaz vakitleri konuma göre alınıyor');
@@ -84,6 +84,28 @@ export const usePrayerTimesForReminders = () => {
     // Konum yüklenirken bekle, sonra fetch et
     if (!locationLoading) {
       fetchTimes();
+
+      // Günlük otomatik yenileme - her gün gece 00:01'de
+      const now = new Date();
+      const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 1, 0);
+      const msUntilMidnight = tomorrow - now;
+
+      console.log(`⏰ Bir sonraki namaz vakti güncellemesi: ${tomorrow.toLocaleString('tr-TR')}`);
+
+      const midnightTimer = setTimeout(() => {
+        console.log('🌙 Gece yarısı - Namaz vakitleri güncelleniyor...');
+        fetchTimes();
+
+        // Her 24 saatte bir tekrarla
+        const dailyInterval = setInterval(() => {
+          console.log('🌙 Günlük güncelleme - Namaz vakitleri yenileniyor...');
+          fetchTimes();
+        }, 24 * 60 * 60 * 1000);
+
+        return () => clearInterval(dailyInterval);
+      }, msUntilMidnight);
+
+      return () => clearTimeout(midnightTimer);
     }
   }, [userLocation, hasPermission, userCity, locationLoading]);
 

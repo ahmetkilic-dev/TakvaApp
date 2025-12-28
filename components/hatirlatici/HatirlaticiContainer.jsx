@@ -5,6 +5,7 @@ import PrayerReminderCard from './PrayerReminderCard';
 import CustomReminderCard from './CustomReminderCard';
 import CustomReminderForm from './CustomReminderForm';
 import ReminderSettingsModal from './ReminderSettingsModal';
+import CustomReminderSettingsModal from './CustomReminderSettingsModal';
 import { useState } from 'react';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -28,31 +29,39 @@ export default function HatirlaticiContainer() {
   } = useReminderSettings(prayerTimes);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [customModalVisible, setCustomModalVisible] = useState(false);
   const [selectedPrayer, setSelectedPrayer] = useState(null);
-  const [isCustom, setIsCustom] = useState(false);
+  const [selectedCustomReminder, setSelectedCustomReminder] = useState(null);
 
-  const handleUpdate = (prayer, custom = false) => {
-    setSelectedPrayer(prayer);
-    setIsCustom(custom);
-    setModalVisible(true);
+  const handleUpdate = (item, isCustom = false) => {
+    if (isCustom) {
+      setSelectedCustomReminder(item);
+      setCustomModalVisible(true);
+    } else {
+      setSelectedPrayer(item);
+      setModalVisible(true);
+    }
   };
 
   const handleSave = async (settings) => {
     if (selectedPrayer) {
-      if (isCustom) {
-        await updateCustomReminder(selectedPrayer.id, {
-          ...settings,
-          enabled: true,
-        });
-      } else {
-        await updateReminder(selectedPrayer.id, {
-          ...settings,
-          enabled: true,
-        });
-      }
+      await updateReminder(selectedPrayer.id, {
+        ...settings,
+        enabled: true,
+      });
       setModalVisible(false);
       setSelectedPrayer(null);
-      setIsCustom(false);
+    }
+  };
+
+  const handleCustomSave = async (settings) => {
+    if (selectedCustomReminder) {
+      await updateCustomReminder(selectedCustomReminder.id, {
+        ...settings,
+        enabled: true,
+      });
+      setCustomModalVisible(false);
+      setSelectedCustomReminder(null);
     }
   };
 
@@ -143,32 +152,6 @@ export default function HatirlaticiContainer() {
         }}
         style={{ flex: 1 }}
       >
-        {/* Başlık */}
-        <Text
-          style={{
-            fontFamily,
-            fontSize: 24,
-            fontWeight: '700',
-            color: '#FFFFFF',
-            marginBottom: 8,
-          }}
-        >
-          Namaz Vakitleri Hatırlatıcı
-        </Text>
-
-        {/* Konum */}
-        <Text
-          style={{
-            fontFamily,
-            fontSize: 14,
-            fontWeight: '400',
-            color: 'rgba(255, 255, 255, 0.6)',
-            marginBottom: 24,
-          }}
-        >
-          📍 {displayCity} - {new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
-        </Text>
-
         {/* Vakit Kartları */}
         <View style={{ gap: 16 }}>
           {prayerTimes.map((prayer) => (
@@ -229,33 +212,9 @@ export default function HatirlaticiContainer() {
           {/* Yeni Hatırlatıcı Formu */}
           <CustomReminderForm onSave={handleAddCustom} contentWidth={contentWidth} />
         </View>
-
-        {/* Bilgilendirme */}
-        <View
-          style={{
-            marginTop: 24,
-            padding: 16,
-            borderRadius: 10,
-            borderWidth: 0.5,
-            borderColor: 'rgba(255, 186, 74, 0.3)',
-            backgroundColor: 'rgba(255, 186, 74, 0.05)',
-          }}
-        >
-          <Text
-            style={{
-              fontFamily,
-              fontSize: 12,
-              fontWeight: '400',
-              color: 'rgba(255, 255, 255, 0.7)',
-              lineHeight: 18,
-            }}
-          >
-            💡 Hatırlatıcılar cihazınızda saklanır ve her gün belirlediğiniz zamanlarda otomatik olarak kurulur.
-          </Text>
-        </View>
       </ScrollView>
 
-      {/* Settings Modal */}
+      {/* Prayer Settings Modal */}
       <ReminderSettingsModal
         visible={modalVisible}
         onClose={() => {
@@ -265,6 +224,18 @@ export default function HatirlaticiContainer() {
         onSave={handleSave}
         prayer={selectedPrayer}
         currentSettings={selectedPrayer ? reminders[selectedPrayer.id] : null}
+      />
+
+      {/* Custom Reminder Settings Modal */}
+      <CustomReminderSettingsModal
+        visible={customModalVisible}
+        onClose={() => {
+          setCustomModalVisible(false);
+          setSelectedCustomReminder(null);
+        }}
+        onSave={handleCustomSave}
+        reminder={selectedCustomReminder}
+        currentSettings={selectedCustomReminder}
       />
     </>
   );

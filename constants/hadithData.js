@@ -1,4 +1,4 @@
-[
+export const hadithData = [
   { "id": 1, "metin": "Ameller (başka değil) ancak niyetlere göredir; herkesin niyeti ne ise eline geçecek odur.", "kaynak": "Buhârî, Bedü'l-vahy, 1" },
   { "id": 2, "metin": "Kolaylaştırınız, güçleştirmeyiniz; müjdeleyiniz, nefret ettirmeyiniz.", "kaynak": "Buhârî, İlim, 11" },
   { "id": 3, "metin": "Müslüman, dilinden ve elinden diğer Müslümanların emin olduğu kimsedir.", "kaynak": "Buhârî, Îmân, 4" },
@@ -700,4 +700,4 @@
   { "id": 699, "metin": "Hayra vesile olan, hayrı yapan gibidir.", "kaynak": "Tirmizî, İlim, 14" },
   { "id": 700, "metin": "Allah'ım! Senden cenneti isterim, cehennemden sana sığınırım.", "kaynak": "Ebû Dâvûd, Salât, 179" }
 
-]
+];
