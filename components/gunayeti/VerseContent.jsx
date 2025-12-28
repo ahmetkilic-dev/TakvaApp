@@ -2,11 +2,17 @@ import { View, Text } from 'react-native';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-export default function VerseContent({ verse }) {
+export default function VerseContent({ verse, isRevealed = false }) {
   if (!verse) {
     return null;
   }
 
+  // Ayet henüz gösterilmediyse boş göster
+  if (!isRevealed) {
+    return null;
+  }
+
+  // Ayet gösterildiyse normal göster
   return (
     <>
       {/* Arabic Text */}

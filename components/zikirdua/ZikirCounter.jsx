@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Svg, { Circle } from 'react-native-svg';
-import { useDhikrCount } from './hooks/useDhikrCount';
+import { useZikirDuaDailyStats } from './hooks/useZikirDuaDailyStats';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -29,7 +29,7 @@ const dhikrData = {
 };
 
 export default function ZikirCounter() {
-  const { count, incrementCount } = useDhikrCount();
+  const { dhikrCount: count, incrementDhikr } = useZikirDuaDailyStats();
 
   // Mevcut aşamayı bul
   const getCurrentStage = () => {
@@ -103,9 +103,7 @@ export default function ZikirCounter() {
   };
 
   const handleZikirPress = () => {
-    if (incrementCount) {
-      incrementCount();
-    }
+    incrementDhikr?.();
   };
 
   return (

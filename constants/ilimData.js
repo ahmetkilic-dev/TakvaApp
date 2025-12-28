@@ -1,6 +1,6 @@
-// constants/ilimData.js -> fikih -> questions dizisi:
-
-questions: [
+export default {
+  fikih: {
+    questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-10) - ABDEST VE TEMİZLİK
   // --------------------------------------------------------
@@ -1465,11 +1465,10 @@ questions: [
     correctAnswer: "Kıyam ve 4 Tekbir",
     explanation: "Cenaze namazının rükunları (içindeki farzlar) Kıyam (ayakta durmak) ve 4 Tekbirdir."
   } 
-]
-
-// constants/ilimData.js -> kuran -> questions dizisi:
-
-questions: [
+    ]
+  },
+  kuran: {
+    questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - KURAN KÜLTÜRÜ (10 PUAN)
   // --------------------------------------------------------
@@ -2922,11 +2921,10 @@ questions: [
     correctAnswer: "Bakara",
     explanation: "Bakara suresi 144. ayet: 'Yüzünü Mescid-i Haram tarafına çevir' emriyle kıble değişmiştir."
   }
-]
-
-// constants/ilimData.js -> hadis -> questions dizisi:
-
-questions: [
+    ]
+  },
+  hadis: {
+    questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - HADİS DERYASI (10 PUAN)
   // --------------------------------------------------------
@@ -4379,11 +4377,10 @@ questions: [
     correctAnswer: "Şu'be b. Haccac (veya Buhari)",
     explanation: "Bu en yüksek unvan, hadis ilminin zirvesi sayılan Şu'be b. Haccac, Süfyan-ı Sevri ve İmam Buhari gibi çok az sayıda alim için kullanılmıştır."
   }
-]
-
-// constants/ilimData.js -> ahlak -> questions dizisi:
-
-questions: [
+    ]
+  },
+  ahlak: {
+    questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - AHLAK VE ADAP (10 PUAN)
   // --------------------------------------------------------
@@ -5836,11 +5833,10 @@ questions: [
     correctAnswer: "Nefsimle baş başa",
     explanation: "Nefsin hilelerinden Allah'a sığınmanın zirve duasıdır: 'Beni nefsimin eline bir an bile bırakma.'"
   },
-]
-
-// constants/ilimData.js -> siyer -> questions dizisi:
-
-questions: [
+    ]
+  },
+  siyer: {
+    questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - SİYER-İ NEBİ (10 PUAN)
   // --------------------------------------------------------
@@ -7293,11 +7289,10 @@ questions: [
     correctAnswer: "Hz. Hasan'ın 6 aylık hilafetiyle",
     explanation: "Dört Halife'nin süresi 29.5 yıldır. Hz. Hasan'ın 6 aylık halifeliği ile 30 yıl (Raşid Halifelik) tamamlanmış, sonra saltanat başlamıştır."
   }
-]
-
-// constants/ilimData.js -> gunler -> questions dizisi:
-
-questions: [
+    ]
+  },
+  gunler: {
+    questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - DİNİ GÜNLER VE İBADETLER (10 PUAN)
   // --------------------------------------------------------
@@ -8750,11 +8745,10 @@ questions: [
     correctAnswer: "Teşrik Tekbirleri",
     explanation: "Toplam 23 vakit namazın farzından sonra 'Allahu Ekber Allahu Ekber...' demek vaciptir."
   }
-]
-
-// constants/ilimData.js -> kavramlar -> questions dizisi:
-
-questions: [
+    ]
+  },
+  kavramlar: {
+    questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - DİNİ KAVRAMLAR (10 PUAN)
   // --------------------------------------------------------
@@ -10207,11 +10201,10 @@ questions: [
     correctAnswer: "Halvet der Encümen",
     explanation: "Nakşibendi yolunun prensiplerinden olan Halvet der Encümen; kalabalıklar içindeyken bile kalbin Allah ile baş başa (halvet) olmasıdır."
   }
-]
-
-// constants/ilimData.js -> esma -> questions dizisi:
-
-questions: [
+    ]
+  },
+  esma: {
+    questions: [
   // --------------------------------------------------------
   // 🟢 KOLAY SEVİYE (1-40) - ESMA-İ HÜSNA (10 PUAN)
   // --------------------------------------------------------
@@ -11664,4 +11657,6 @@ questions: [
     correctAnswer: "Haşr Suresi (Son 3 ayet)",
     explanation: "Haşr suresinin sonu (Hüvallahüllezi...), Esma-i Hüsna'nın en yoğun geçtiği ve faziletli yerdir."
   }
-]
+    ]
+  }
+};

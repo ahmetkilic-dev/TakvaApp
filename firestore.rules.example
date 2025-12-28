@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Kullanıcı dokümanları
+    match /users/{userId} {
+      // Kullanıcı sadece kendi dokümanını okuyabilir ve yazabilir
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Günlük istatistikler (zikir/dua/ayet) (alt koleksiyon)
+      match /dailyStats/{dayKey} {
+        // Kullanıcı sadece kendi günlük istatistiklerine erişebilir
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+        
+        // Ek güvenlik: Sadece bugün ve geçmiş günlere yazılabilir
+        allow write: if request.auth != null 
+                     && request.auth.uid == userId
+                     && request.resource.data.date is string
+                     && request.resource.data.date <= request.time.toMillis().toString();
+        
+        // Veri yapısı:
+        // - dhikrCount: number (zikir sayısı)
+        // - duaRemaining: number (kalan dua hakkı, 0-3)
+        // - verseRevealed: boolean (ayet gösterildi mi?)
+        // - verseData: object (gösterilen ayet bilgileri)
+      }
+      
+      // İlim (eğitim) verileri
+      match /ilim/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      // Namaz verileri
+      match /namaz/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      // Kaza namazları
+      match /kazaNamazlari/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Genel okuma izni gereken koleksiyonlar (varsa)
+    // Örnek: Dini günler, hutbeler vb.
+    match /religiousDays/{document=**} {
+      allow read: if request.auth != null;
+      allow write: if false; // Sadece admin yazabilir
+    }
+    
+    match /hutbe/{document=**} {
+      allow read: if request.auth != null;
+      allow write: if false; // Sadece admin yazabilir
+    }
+  }
+}
+

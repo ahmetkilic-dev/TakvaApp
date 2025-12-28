@@ -1,7 +1,8 @@
 import { ScrollView, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { useVerses } from './hooks/useVerses';
+import { useVersesDailyStats } from './hooks/useVersesDailyStats';
 import GününAyetiHeader from './GününAyetiHeader';
 import GününAyetiImage from './GününAyetiImage';
 import GününAyetiVideo from './GününAyetiVideo';
@@ -16,33 +17,69 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 
 export default function GününAyetiContainer() {
-  const { currentVerse, loading, error, getRandomVerse } = useVerses();
+  const { currentVerse, loading: versesLoading, error: versesError, getRandomVerse } = useVerses();
+  const {
+    loading: dailyStatsLoading,
+    verseRevealed,
+    canRevealVerse,
+    currentVerseData,
+    revealVerse,
+  } = useVersesDailyStats();
+
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  // Slider tamamlandığında video oynatmayı başlat
-  const handleSliderComplete = useCallback(() => {
-    setIsVideoPlaying(true);
-  }, []);
+  // Gösterilecek ayet: Sadece ayet gösterildiyse currentVerseData göster
+  const displayVerse = useMemo(() => {
+    return verseRevealed ? currentVerseData : null;
+  }, [verseRevealed, currentVerseData]);
 
-  // Video bittiğinde yeni ayet getir ve image'i geri göster
-  const handleVideoEnd = useCallback(() => {
+  // Slider tamamlandığında video oynat (ayet henüz seçilmez)
+  const handleSliderComplete = useCallback(async () => {
+    if (!canRevealVerse) {
+      console.warn('📖 Bugün ayet gösterme hakkı yok');
+      return;
+    }
+
+    // Sadece video oynat (ayet henüz seçilmez)
+    setIsVideoPlaying(true);
+  }, [canRevealVerse]);
+
+  // Video bittiğinde rastgele ayet seç, kaydet ve göster
+  const handleVideoEnd = useCallback(async () => {
     try {
+      // Video bitti, artık rastgele ayet seç
+      const newVerse = getRandomVerse();
+      
+      if (!newVerse) {
+        console.error('📖 Rastgele ayet seçilemedi');
+        setIsVideoPlaying(false);
+        return;
+      }
+
+      // Seçilen ayeti Firebase'e kaydet
+      const result = await revealVerse(newVerse);
+      if (result.success) {
+        console.log('📖 Rastgele ayet seçildi ve kaydedildi:', newVerse.reference);
+      } else {
+        console.error('📖 Ayet kaydedilemedi:', result.message);
+      }
+
+      // Video'yu kapat, ayet göster
       setIsVideoPlaying(false);
-      getRandomVerse();
     } catch (error) {
       console.error('Video bitiş hatası:', error);
       setIsVideoPlaying(false);
     }
-  }, [getRandomVerse]);
+  }, [getRandomVerse, revealVerse]);
 
   // Loading durumu - Hook'lardan sonra return
-  if (loading) {
+  if (versesLoading || dailyStatsLoading) {
     return <GününAyetiLoading />;
   }
 
   // Error durumu
-  if (error) {
-    return <GününAyetiError error={error} />;
+  if (versesError) {
+    return <GününAyetiError error={versesError} />;
   }
 
   return (
@@ -71,11 +108,15 @@ export default function GününAyetiContainer() {
           <GününAyetiImage />
         )}
 
-        {/* Navigation Slider */}
-        <VerseSlider onComplete={handleSliderComplete} />
+        {/* Navigation Slider - Sadece bugün ayet gösterilmediyse aktif */}
+        <VerseSlider 
+          onComplete={handleSliderComplete} 
+          disabled={!canRevealVerse}
+          message={!canRevealVerse ? "Bugün kaydırma hakkınız bitti." : null}
+        />
 
-        {/* Verse Content */}
-        <VerseContent verse={currentVerse} />
+        {/* Verse Content - Eğer ayet gösterildiyse göster, değilse gizle */}
+        <VerseContent verse={displayVerse} isRevealed={verseRevealed} />
       </ScrollView>
     </SafeAreaView>
   );

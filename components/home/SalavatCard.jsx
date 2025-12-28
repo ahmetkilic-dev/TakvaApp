@@ -1,5 +1,4 @@
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
-import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Animated, { 
   useSharedValue, 
@@ -16,6 +15,7 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import salavatSwipeIcon from '../../assets/images/salavat-swipe.png';
 import roseLeft from '../../assets/images/rose-left.png';
 import roseRight from '../../assets/images/rose-right.png';
+import { useSalavatCounters } from './hooks/useSalavatCounters';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -29,25 +29,15 @@ const PADDING = 3;
 const MAX_DRAG = SLIDER_WIDTH - BUTTON_WIDTH - (PADDING * 2);
 
 export default function SalavatCard() {
-  // Sayaçlar (State)
-  const [totalCount, setTotalCount] = useState(0);
-  const [todayCount, setTodayCount] = useState(0);
-  const [userCount, setUserCount] = useState(0);
+  const { globalTotal, globalToday, userTotal, addOne } = useSalavatCounters();
 
   // Reanimated Shared Values
   const translateX = useSharedValue(0);
   const isCompleted = useSharedValue(false);
 
-  // Sayaçları güncelleme fonksiyonu (JS Thread)
-  const incrementCounters = () => {
-    setTotalCount(prev => prev + 1);
-    setTodayCount(prev => prev + 1);
-    setUserCount(prev => prev + 1);
-  };
-
   // İşlem tamamlandığında çalışacak fonksiyon
   const handleComplete = () => {
-    incrementCounters();
+    addOne();
     // Butonu ve yazıyı SIFIRLAMA (Savrulma olmadan)
     setTimeout(() => {
       // duration: 0 ile anında başlangıca atar (yaylanmaz)
@@ -58,11 +48,13 @@ export default function SalavatCard() {
 
   // Gesture Handler
   const panGesture = Gesture.Pan()
+    .activeOffsetX(5)
+    .failOffsetY([-10, 10])
     .onUpdate((event) => {
       // Sadece ileri (sağa) harekete ve işlem bitmemişse izin ver
-      if (event.translationX > 0 && !isCompleted.value) {
-        // Sınırları aşma
-        translateX.value = Math.min(event.translationX, MAX_DRAG);
+      if (!isCompleted.value) {
+        // Sınırları aşma - 0 ile MAX_DRAG arasında clamp
+        translateX.value = Math.max(0, Math.min(event.translationX, MAX_DRAG));
       }
     })
     .onEnd(() => {
@@ -87,14 +79,14 @@ export default function SalavatCard() {
 
   // Altın Rengi Yazı Maskesi Animasyonu (SAĞDAN SOLA DOLMA)
   const textMaskStyle = useAnimatedStyle(() => {
-    const widthPercent = interpolate(
+    const widthValue = interpolate(
       translateX.value,
       [0, MAX_DRAG],
-      [0, 100], // %0'dan %100'e
+      [0, CARD_WIDTH - 32], // 0'dan tam genişliğe
       Extrapolation.CLAMP
     );
     return {
-      width: `${widthPercent}%`,
+      width: widthValue,
     };
   });
 
@@ -189,13 +181,13 @@ export default function SalavatCard() {
       {/* İstatistikler */}
       <View style={styles.statsContainer}>
         <Text style={styles.statText}>
-          Toplam Salavat: <Text style={styles.statValue}>{formatNumber(totalCount)}</Text>
+          Toplam Salavat: <Text style={styles.statValue}>{formatNumber(globalTotal)}</Text>
         </Text>
         <Text style={styles.statText}>
-          Bugünkü Salavat Sayısı: <Text style={styles.statValue}>{formatNumber(todayCount)}</Text>
+          Bugünkü Salavat Sayısı: <Text style={styles.statValue}>{formatNumber(globalToday)}</Text>
         </Text>
         <Text style={styles.statText}>
-          Senin Salavatların: <Text style={styles.statValueGold}>{formatNumber(userCount)}</Text>
+          Senin Salavatların: <Text style={styles.statValueGold}>{formatNumber(userTotal)}</Text>
         </Text>
       </View>
     </View>

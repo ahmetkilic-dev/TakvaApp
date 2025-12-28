@@ -1,10 +1,12 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useDuas } from './hooks/useDuas';
+import { useZikirDuaDailyStats } from './hooks/useZikirDuaDailyStats';
 
 const fontFamily = 'Plus Jakarta Sans';
 
 export default function DuaCard() {
   const { currentDua, getRandomDua } = useDuas();
+  const { duaRemaining, consumeDuaRight } = useZikirDuaDailyStats();
 
   if (!currentDua) {
     return null;
@@ -119,16 +121,23 @@ export default function DuaCard() {
         marginBottom: 24,
       }}>
         <TouchableOpacity
-          onPress={getRandomDua}
+          onPress={async () => {
+            const res = await consumeDuaRight();
+            if (res.ok) {
+              getRandomDua();
+            }
+          }}
+          disabled={duaRemaining <= 0}
           style={{
             width: 95,
             height: 38,
             borderRadius: 10,
             borderWidth: 1,
-            borderColor: '#8CD7C0',
+            borderColor: duaRemaining > 0 ? '#8CD7C0' : 'rgba(255,255,255,0.25)',
             backgroundColor: '#1C1C1C',
             alignItems: 'center',
             justifyContent: 'center',
+            opacity: duaRemaining > 0 ? 1 : 0.6,
           }}
         >
           <Text
@@ -139,7 +148,7 @@ export default function DuaCard() {
               color: '#FFFFFF',
             }}
           >
-            Yeni dua
+            Yeni dua ({duaRemaining}/3)
           </Text>
         </TouchableOpacity>
       </View>

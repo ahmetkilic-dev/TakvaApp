@@ -76,7 +76,7 @@ const LocationPermissionRequired = ({ onRetry, router }) => (
                     <Ionicons name="chevron-back" size={28} color="white" />
                 </TouchableOpacity>
                 <Text style={styles.title}>KIBLE</Text>
-                <View style={{ width: 40 }} />
+                <View style={styles.placeholder} />
             </View>
             <View style={styles.permissionContainer}>
                 <View style={styles.permissionIconContainer}>
@@ -261,7 +261,7 @@ export default function QiblaScreen() {
                             </Svg>
                         </TouchableOpacity>
                         <Text style={styles.title}>KIBLE</Text>
-                        <View style={{ width: 40 }} />
+                        <View style={styles.placeholder} />
                     </View>
 
                     <View style={styles.cityContainer}>
@@ -342,9 +342,10 @@ const styles = StyleSheet.create({
     },
 
     // Header & Şehir
-    header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12 },
-    backButton: { padding: 8 },
-    title: { fontFamily: 'Cinzel-Black', color: '#FFFFFF', fontSize: 24, textAlign: 'center' },
+    header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingTop: 8, paddingBottom: 8 },
+    backButton: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
+    title: { fontFamily: 'Cinzel-Black', color: '#FFFFFF', fontSize: 24, textAlign: 'center', letterSpacing: -2 },
+    placeholder: { width: 36 },
     cityContainer: { alignItems: 'center', paddingVertical: 10 },
     cityName: { fontSize: 34, fontWeight: '300', color: 'white' },
     locationRow: { flexDirection: 'row', alignItems: 'center', marginTop: 8, gap: 20 },
