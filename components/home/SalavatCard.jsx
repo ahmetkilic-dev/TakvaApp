@@ -1,5 +1,4 @@
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
-import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Animated, { 
   useSharedValue, 
@@ -16,6 +15,7 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import salavatSwipeIcon from '../../assets/images/salavat-swipe.png';
 import roseLeft from '../../assets/images/rose-left.png';
 import roseRight from '../../assets/images/rose-right.png';
+import { useSalavatCounters } from './hooks/useSalavatCounters';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -29,25 +29,15 @@ const PADDING = 3;
 const MAX_DRAG = SLIDER_WIDTH - BUTTON_WIDTH - (PADDING * 2);
 
 export default function SalavatCard() {
-  // Sayaçlar (State)
-  const [totalCount, setTotalCount] = useState(0);
-  const [todayCount, setTodayCount] = useState(0);
-  const [userCount, setUserCount] = useState(0);
+  const { globalTotal, globalToday, userTotal, addOne } = useSalavatCounters();
 
   // Reanimated Shared Values
   const translateX = useSharedValue(0);
   const isCompleted = useSharedValue(false);
 
-  // Sayaçları güncelleme fonksiyonu (JS Thread)
-  const incrementCounters = () => {
-    setTotalCount(prev => prev + 1);
-    setTodayCount(prev => prev + 1);
-    setUserCount(prev => prev + 1);
-  };
-
   // İşlem tamamlandığında çalışacak fonksiyon
   const handleComplete = () => {
-    incrementCounters();
+    addOne();
     // Butonu ve yazıyı SIFIRLAMA (Savrulma olmadan)
     setTimeout(() => {
       // duration: 0 ile anında başlangıca atar (yaylanmaz)
@@ -189,13 +179,13 @@ export default function SalavatCard() {
       {/* İstatistikler */}
       <View style={styles.statsContainer}>
         <Text style={styles.statText}>
-          Toplam Salavat: <Text style={styles.statValue}>{formatNumber(totalCount)}</Text>
+          Toplam Salavat: <Text style={styles.statValue}>{formatNumber(globalTotal)}</Text>
         </Text>
         <Text style={styles.statText}>
-          Bugünkü Salavat Sayısı: <Text style={styles.statValue}>{formatNumber(todayCount)}</Text>
+          Bugünkü Salavat Sayısı: <Text style={styles.statValue}>{formatNumber(globalToday)}</Text>
         </Text>
         <Text style={styles.statText}>
-          Senin Salavatların: <Text style={styles.statValueGold}>{formatNumber(userCount)}</Text>
+          Senin Salavatların: <Text style={styles.statValueGold}>{formatNumber(userTotal)}</Text>
         </Text>
       </View>
     </View>
