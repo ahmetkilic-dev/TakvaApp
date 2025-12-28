@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useKazaCounters } from './hooks/useKazaCounters';
 
 // İkonlar
 import SabahIcon from '../../assets/kazanamaz/sabah.png';
@@ -38,36 +38,7 @@ const PRAYER_NAMES = {
 export default function KazaCounter() {
   const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
 
-  // Kaza namazları state
-  const [kazaNamazlari, setKazaNamazlari] = useState({
-    sabah: 0,
-    ogle: 0,
-    ikindi: 0,
-    aksam: 0,
-    yatsi: 0,
-    vitir: 0,
-  });
-
-  // Kaza oruçları state
-  const [kazaOruclari, setKazaOruclari] = useState({
-    oruc: 0,
-  });
-
-  // Namaz sayısını artır/azalt
-  const updateNamaz = (type, delta) => {
-    setKazaNamazlari(prev => ({
-      ...prev,
-      [type]: Math.max(0, prev[type] + delta),
-    }));
-  };
-
-  // Oruç sayısını artır/azalt
-  const updateOruc = (type, delta) => {
-    setKazaOruclari(prev => ({
-      ...prev,
-      [type]: Math.max(0, prev[type] + delta),
-    }));
-  };
+  const { canEdit, kazaNamazlari, kazaOruclari, updateNamaz, updateOruc } = useKazaCounters();
 
   // Sayaç satırı componenti
   const CounterRow = ({ type, value, onDecrease, onIncrease }) => (
@@ -79,11 +50,11 @@ export default function KazaCounter() {
       <View style={styles.counterRight}>
         <Text style={[fontStyle, styles.counterValue]}>{value}</Text>
         <View style={styles.counterButtons}>
-          <TouchableOpacity style={styles.counterBtn} onPress={onDecrease}>
+          <TouchableOpacity style={styles.counterBtn} onPress={onDecrease} disabled={!canEdit || value <= 0} activeOpacity={0.7}>
             <Ionicons name="remove" size={22} color="#FFFFFF" />
           </TouchableOpacity>
           <View style={styles.buttonDivider} />
-          <TouchableOpacity style={styles.counterBtn} onPress={onIncrease}>
+          <TouchableOpacity style={styles.counterBtn} onPress={onIncrease} disabled={!canEdit} activeOpacity={0.7}>
             <Ionicons name="add" size={22} color="#FFFFFF" />
           </TouchableOpacity>
         </View>

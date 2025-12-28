@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Tabs } from 'expo-router';
-import { View, Platform, Animated } from 'react-native';
+import { View, Animated } from 'react-native';
 import * as Haptics from 'expo-haptics';
 
 // SVG İkonları import ediyoruz (Component olarak)
@@ -61,24 +61,9 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: '#182723',
-          borderTopColor: 'rgba(217, 217, 217, 0.5)',
-          borderTopWidth: 0.5,
-          height: 50 + (Platform.OS === 'ios' ? 30 : 0),
-          paddingBottom: Platform.OS === 'ios' ? 30 : 0,
-          paddingTop: 15,
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-        tabBarItemStyle: {
-          marginHorizontal: 25,
-          height: 60,
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-        tabBarActiveTintColor: '#D4AF37',
-        tabBarInactiveTintColor: '#6B7280',
+        // Bottom bar artık app-level `BottomNavBar` olarak tek instance render ediliyor.
+        // Tabs'in kendi barını kapatıyoruz ki çift bar olmasın.
+        tabBarStyle: { display: 'none' },
       }}
     >
       {/* 1. KELAM (Hilal) */}

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useRouter, useSegments } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as Haptics from 'expo-haptics';
 
 import IcHome from '../../assets/images/ic-home.svg';
 import IcNamaz from '../../assets/images/ic-namaz.svg';
@@ -8,7 +10,6 @@ import IcKelam from '../../assets/images/ic-kelam.svg';
 import IcTasks from '../../assets/images/ic-tasks.svg';
 import IcProfile from '../../assets/images/ic-profile.svg';
 
-const TAB_BAR_HEIGHT = 50 + (Platform.OS === 'ios' ? 30 : 0);
 const ICON_SIZE = 36;
 
 function getActiveTabFromSegments(segments) {
@@ -22,6 +23,7 @@ function getActiveTabFromSegments(segments) {
 export default function BottomNavBar({ activeTab }) {
   const router = useRouter();
   const segments = useSegments();
+  const insets = useSafeAreaInsets();
 
   const resolvedActive = activeTab || getActiveTabFromSegments(segments);
 
@@ -34,14 +36,18 @@ export default function BottomNavBar({ activeTab }) {
   ];
 
   return (
-    <View style={styles.container} pointerEvents="auto">
+    <View style={[styles.container, { height: 50 + insets.bottom, paddingBottom: insets.bottom }]} pointerEvents="auto">
       {items.map(({ key, Icon, to }) => {
         const focused = resolvedActive === key;
         return (
           <TouchableOpacity
             key={key}
             activeOpacity={0.8}
-            onPress={() => router.replace(to)}
+            onPress={() => {
+              // Home tab bar davranışıyla aynı: hafif titreşim
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              router.replace(to);
+            }}
             style={styles.item}
           >
             <View style={[styles.iconWrap, { opacity: focused ? 1 : 0.5 }]}>
@@ -56,8 +62,6 @@ export default function BottomNavBar({ activeTab }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: TAB_BAR_HEIGHT,
-    paddingBottom: Platform.OS === 'ios' ? 30 : 0,
     paddingTop: 15,
     backgroundColor: '#182723',
     borderTopWidth: 0.5,

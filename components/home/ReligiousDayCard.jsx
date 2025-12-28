@@ -1,12 +1,29 @@
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useReligiousDays } from '../dinigunler';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function ReligiousDayCard() {
   const router = useRouter();
   const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
+  const { religiousDays, loading, error } = useReligiousDays();
+
+  const nearestDay = religiousDays?.[0] ?? null;
+
+  const iconName = (nearestDay?.icon || 'moon');
+  const dayTitle =
+    nearestDay?.name ||
+    (loading ? 'Yükleniyor...' : (error ? 'Dini günler yüklenemedi' : 'Yaklaşan dini gün yok'));
+  const description =
+    nearestDay?.description ||
+    (loading ? 'Dini günler hesaplanıyor...' : (error ? 'Lütfen daha sonra tekrar deneyin.' : ''));
+  const hijriDate = nearestDay?.hijriDate || '-';
+  const gregorianDate = nearestDay?.gregorianDate || '-';
+  const remainingText = nearestDay
+    ? (nearestDay.remainingDays === 0 ? 'Bugün' : `${nearestDay.remainingDays} Gün`)
+    : (loading ? '...' : '--');
 
   return (
     <TouchableOpacity 
@@ -26,23 +43,25 @@ export default function ReligiousDayCard() {
         <View style={styles.leftContent}>
           {/* Başlık satırı */}
           <View style={styles.titleRow}>
-            <Ionicons name="moon" size={20} color="#FFFFFF" />
-            <Text style={[fontStyle, styles.dayTitle]}>Berat Kandili</Text>
+            <Ionicons name={iconName} size={20} color="#FFFFFF" />
+            <Text style={[fontStyle, styles.dayTitle]} numberOfLines={2}>{dayTitle}</Text>
           </View>
 
           {/* Açıklama */}
-          <Text style={[fontStyle, styles.description]}>
-            Günahların affı ve kaderin yazıldığı{'\n'}mübarek gece.
-          </Text>
+          {!!description && (
+            <Text style={[fontStyle, styles.description]}>
+              {description}
+            </Text>
+          )}
 
           {/* Takvim Bilgileri */}
           <View style={styles.dateContainer}>
             <Text style={[fontStyle, styles.dateLabel]} numberOfLines={1}>
-              <Text style={styles.dateUnderline}>Hicrî Takvim</Text> : <Text style={styles.dateValue}>15 Şaban 1446</Text>
+              <Text style={styles.dateUnderline}>Hicrî Takvim</Text> : <Text style={styles.dateValue}>{hijriDate}</Text>
             </Text>
             <View style={styles.dateDivider} />
             <Text style={[fontStyle, styles.dateLabel]} numberOfLines={1}>
-              <Text style={styles.dateUnderline}>Miladî Takvim</Text> : <Text style={styles.dateValue}>25 Şubat 2025</Text>
+              <Text style={styles.dateUnderline}>Miladî Takvim</Text> : <Text style={styles.dateValue}>{gregorianDate}</Text>
             </Text>
           </View>
         </View>
@@ -50,7 +69,7 @@ export default function ReligiousDayCard() {
         {/* Sağ Taraf */}
         <View style={styles.rightContent}>
           <Text style={[fontStyle, styles.remainingLabel]}>Kalan Süre</Text>
-          <Text style={[fontStyle, styles.remainingDays]}>12 Gün</Text>
+          <Text style={[fontStyle, styles.remainingDays]}>{remainingText}</Text>
           
           <TouchableOpacity
             style={styles.button}
