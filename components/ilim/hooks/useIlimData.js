@@ -2,12 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { auth, db } from '../../../firebaseConfig';
 import { doc, getDoc, setDoc, serverTimestamp, updateDoc, increment } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useDayChangeContext } from '../../../contexts/DayChangeContext';
 
 /**
  * İlim modülü için Firebase hook'u
  * Kullanıcı bazlı puan, istatistik ve ilerleme yönetimi
  */
 export const useIlimData = () => {
+  const { isDayChanged } = useDayChangeContext();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,27 +35,29 @@ export const useIlimData = () => {
     return unsubscribe;
   }, []);
 
-  // Günlük puan reset kontrolü
+  // Günlük puan reset kontrolü - isDayChanged ile
   useEffect(() => {
-    if (user) {
-      checkDailyReset();
+    if (user && isDayChanged) {
+      console.log('📚 Gün değişti! İlim günlük puanı sıfırlanıyor...');
+      const resetDate = new Date();
+      const resetIlimDaily = async () => {
+        try {
+          const userDocRef = doc(db, 'users', user.uid);
+          await updateDoc(userDocRef, {
+            'ilim.lastDailyReset': resetDate,
+            'ilim.dailyPoints': 0,
+          });
+          setLastDailyReset(resetDate);
+          setDailyPoints(0);
+          console.log('📚 İlim günlük puanı sıfırlandı');
+        } catch (err) {
+          console.error('İlim günlük puan sıfırlama hatası:', err);
+        }
+      };
+      resetIlimDaily();
     }
-  }, [user]);
+  }, [user, isDayChanged]);
 
-  /**
-   * Günlük puanı resetle (gece yarısı kontrolü)
-   */
-  const checkDailyReset = useCallback(() => {
-    if (!user) return;
-    
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    
-    if (!lastDailyReset || new Date(lastDailyReset).getTime() < today.getTime()) {
-      setDailyPoints(0);
-      saveDailyReset(user.uid, today);
-    }
-  }, [user, lastDailyReset]);
 
   /**
    * Kullanıcı verilerini Firebase'den yükle
@@ -131,6 +135,7 @@ export const useIlimData = () => {
       });
       setLastDailyReset(resetDate);
       setDailyPoints(0);
+      console.log('📚 İlim günlük puanı sıfırlandı');
     } catch (err) {
       setError(err.message);
     }
@@ -144,16 +149,7 @@ export const useIlimData = () => {
 
     try {
       const userDocRef = doc(db, 'users', user.uid);
-      
-      // Günlük reset kontrolü
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      
       let currentDailyPoints = dailyPoints;
-      if (!lastDailyReset || new Date(lastDailyReset).getTime() < today.getTime()) {
-        currentDailyPoints = 0;
-        await saveDailyReset(user.uid, today);
-      }
 
       // Puan hesapla (sadece doğru cevap verildiğinde)
       if (isCorrect) {
@@ -205,7 +201,7 @@ export const useIlimData = () => {
     } catch (err) {
       setError(err.message);
     }
-  }, [user, totalPoints, dailyPoints, categoryStats, lastDailyReset, saveDailyReset]);
+  }, [user, totalPoints, dailyPoints, categoryStats]);
 
   /**
    * Kategori bazlı 10 üzerinden puan hesapla

@@ -1,4 +1,4 @@
-import { View, Dimensions } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useCallback } from 'react';
 import Animated, {
@@ -26,7 +26,7 @@ const boxHeight = 40;
 const padding = 4;
 const maxTranslateX = boxWidth - buttonWidth - (padding * 2);
 
-export default function VerseSlider({ onComplete }) {
+export default function VerseSlider({ onComplete, disabled = false, message = null }) {
   // Reanimated Shared Values - smooth animasyon için
   const translateX = useSharedValue(0);
   const isAnimating = useSharedValue(false);
@@ -44,6 +44,7 @@ export default function VerseSlider({ onComplete }) {
 
   // Gesture Handler - production-ready smooth gesture
   const panGesture = Gesture.Pan()
+    .enabled(!disabled) // Disabled ise gesture'ı devre dışı bırak
     .activeOffsetX(5) // Sağa 5px hareket edince aktif ol
     .failOffsetY([-10, 10]) // Dikey hareket 10px'den fazlaysa iptal et
     .onStart(() => {
@@ -119,6 +120,13 @@ export default function VerseSlider({ onComplete }) {
 
   return (
     <View style={{ marginBottom: 24, alignItems: 'center' }}>
+      {message && (
+        <View style={{ marginBottom: 16, alignItems: 'center' }}>
+          <Text style={{ fontFamily: 'Plus Jakarta Sans', fontSize: 14, fontWeight: '600', color: '#FFBA4A', textAlign: 'center' }}>
+            {message}
+          </Text>
+        </View>
+      )}
       {/* Outer Box */}
       <Animated.View
         style={[
@@ -127,11 +135,12 @@ export default function VerseSlider({ onComplete }) {
             height: boxHeight,
             borderRadius: 20,
             borderWidth: 1,
-            borderColor: 'rgba(255, 186, 74, 0.5)',
+            borderColor: disabled ? 'rgba(255, 186, 74, 0.2)' : 'rgba(255, 186, 74, 0.5)',
             backgroundColor: '#24322E',
             position: 'relative',
             overflow: 'hidden',
             justifyContent: 'center',
+            opacity: disabled ? 0.5 : 1,
           },
           boxAnimatedStyle,
         ]}

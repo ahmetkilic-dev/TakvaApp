@@ -34,7 +34,9 @@
       "package": "com.wezyapps.takvaapp",
       "permissions": [
         "INTERNET",
-        "ACCESS_FINE_LOCATION"
+        "ACCESS_FINE_LOCATION",
+        "POST_NOTIFICATIONS",
+        "SCHEDULE_EXACT_ALARM"
       ]
     },
     "web": {
@@ -49,6 +51,15 @@
         "@react-native-google-signin/google-signin",
         {
           "iosUrlScheme": "com.googleusercontent.apps.1063960456618-cuioug118j594vt957cv74slnamru62d"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/t_icon.png",
+          "color": "#FFBA4A",
+          "sounds": [],
+          "mode": "production"
         }
       ]
     ],

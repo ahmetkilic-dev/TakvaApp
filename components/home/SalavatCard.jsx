@@ -48,11 +48,13 @@ export default function SalavatCard() {
 
   // Gesture Handler
   const panGesture = Gesture.Pan()
+    .activeOffsetX(5)
+    .failOffsetY([-10, 10])
     .onUpdate((event) => {
       // Sadece ileri (sağa) harekete ve işlem bitmemişse izin ver
-      if (event.translationX > 0 && !isCompleted.value) {
-        // Sınırları aşma
-        translateX.value = Math.min(event.translationX, MAX_DRAG);
+      if (!isCompleted.value) {
+        // Sınırları aşma - 0 ile MAX_DRAG arasında clamp
+        translateX.value = Math.max(0, Math.min(event.translationX, MAX_DRAG));
       }
     })
     .onEnd(() => {
@@ -77,14 +79,14 @@ export default function SalavatCard() {
 
   // Altın Rengi Yazı Maskesi Animasyonu (SAĞDAN SOLA DOLMA)
   const textMaskStyle = useAnimatedStyle(() => {
-    const widthPercent = interpolate(
+    const widthValue = interpolate(
       translateX.value,
       [0, MAX_DRAG],
-      [0, 100], // %0'dan %100'e
+      [0, CARD_WIDTH - 32], // 0'dan tam genişliğe
       Extrapolation.CLAMP
     );
     return {
-      width: `${widthPercent}%`,
+      width: widthValue,
     };
   });
 
