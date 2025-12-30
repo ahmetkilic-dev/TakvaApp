@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '../../../lib/supabase';
+import { auth } from '../../../firebaseConfig';
 
 // Dua listesi
 const duas = [
@@ -162,21 +164,68 @@ const duas = [
 export const useDuas = () => {
   const [currentDua, setCurrentDua] = useState(null);
   const [usedIndices, setUsedIndices] = useState(new Set());
+  const [loading, setLoading] = useState(true);
 
-  // İlk duayı seç
+  // Initial load: Fetch last active dua from user_stats or pick random
   useEffect(() => {
-    if (duas.length > 0 && !currentDua) {
-      const randomIndex = Math.floor(Math.random() * duas.length);
-      setCurrentDua(duas[randomIndex]);
-      setUsedIndices(new Set([randomIndex]));
-    }
+    let mounted = true;
+
+    const initDua = async () => {
+      try {
+        const user = auth.currentUser;
+
+        if (user) {
+          // Try to fetch last active dua from Supabase
+          const { data, error } = await supabase
+            .from('user_stats')
+            .select('last_active_dua_id')
+            .eq('user_id', user.uid)
+            .maybeSingle();
+
+          if (!error && data?.last_active_dua_id) {
+            const savedDua = duas.find(d => d.id === data.last_active_dua_id);
+            if (savedDua && mounted) {
+              setCurrentDua(savedDua);
+              setLoading(false);
+              return;
+            }
+          }
+        }
+
+        // Fallback: Random dua if not found or not logged in
+        if (mounted && duas.length > 0) {
+          const randomIndex = Math.floor(Math.random() * duas.length);
+          setCurrentDua(duas[randomIndex]);
+          setUsedIndices(new Set([randomIndex]));
+
+          // If logged in, save this initial random dua too
+          if (user) {
+            await supabase
+              .from('user_stats')
+              .update({ last_active_dua_id: duas[randomIndex].id })
+              .eq('user_id', user.uid);
+          }
+        }
+      } catch (e) {
+        console.error('Error initializing dua:', e);
+        // Fail safe
+        if (mounted && duas.length > 0 && !currentDua) {
+          const randomIndex = Math.floor(Math.random() * duas.length);
+          setCurrentDua(duas[randomIndex]);
+        }
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    initDua();
+
+    return () => { mounted = false; };
   }, []);
 
   // Yeni rastgele dua getir
-  const getRandomDua = useCallback(() => {
-    if (duas.length === 0) {
-      return;
-    }
+  const getRandomDua = useCallback(async () => {
+    if (duas.length === 0) return;
 
     // Eğer tüm dualar kullanıldıysa, kullanılanları sıfırla
     if (usedIndices.size >= duas.length) {
@@ -190,19 +239,33 @@ export const useDuas = () => {
       randomIndex = Math.floor(Math.random() * duas.length);
       attempts++;
       if (attempts > 100) {
-        // Çok deneme yapıldıysa, tüm listeyi sıfırla
         setUsedIndices(new Set());
         break;
       }
     } while (usedIndices.has(randomIndex));
 
-    setCurrentDua(duas[randomIndex]);
+    const newDua = duas[randomIndex];
+    setCurrentDua(newDua);
     setUsedIndices(prev => new Set([...prev, randomIndex]));
+
+    // Persist to Supabase
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        await supabase
+          .from('user_stats')
+          .update({ last_active_dua_id: newDua.id })
+          .eq('user_id', user.uid);
+      }
+    } catch (e) {
+      console.error('Error saving dua persistence:', e);
+    }
+
   }, [usedIndices]);
 
   return {
     currentDua,
-    loading: false,
+    loading,
     error: null,
     getRandomDua,
     totalDuas: duas.length,
