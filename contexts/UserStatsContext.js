@@ -68,7 +68,10 @@ export const UserStatsProvider = ({ children }) => {
 
             let finalStats = stats;
             if (statsResult.data) {
-                finalStats = statsResult.data;
+                finalStats = {
+                    ...statsResult.data,
+                    follows: statsResult.data.follows || []
+                };
                 setStats(finalStats);
             }
 
@@ -178,6 +181,13 @@ export const UserStatsProvider = ({ children }) => {
         return { badgeCount: total, categoryLevels: levels };
     }, [stats]);
 
+    const updateStat = useCallback((key, amount) => {
+        setStats(prev => ({
+            ...prev,
+            [key]: (prev[key] || 0) + amount
+        }));
+    }, []);
+
     const incrementTask = useCallback(async (taskId, amount = 1) => {
         // Update local state for instant feedback
         setDailyTasks(prev => prev.map(t =>
@@ -199,10 +209,11 @@ export const UserStatsProvider = ({ children }) => {
         loading,
         isInitialized,
         ...badgeLogic,
+        updateStat,
         incrementTask,
         refreshTasks,
         refreshAll: () => fetchAllData(user?.uid)
-    }), [user, stats, dailyTasks, loading, isInitialized, badgeLogic, incrementTask, refreshTasks]);
+    }), [user, stats, dailyTasks, loading, isInitialized, badgeLogic, updateStat, incrementTask, refreshTasks]);
 
     return (
         <UserStatsContext.Provider value={value}>

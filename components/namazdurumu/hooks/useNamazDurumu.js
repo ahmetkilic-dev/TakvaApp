@@ -29,7 +29,7 @@ const parseDayKey = (dayKey) => {
 
 export function useNamazDurumu() {
   const { todayKey, arrived, currentPrayerKey, loading: timesLoading } = useDailyPrayerTimes();
-  const { user, incrementTask } = useUserStats();
+  const { user, incrementTask, updateStat } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(() => ({
@@ -170,23 +170,30 @@ export function useNamazDurumu() {
       setState(newState);
 
       if (user?.uid) {
-        await supabase.from('namaz_durumu').upsert({
-          user_id: user.uid,
-          date_key: todayKey,
-          completed: newState.completed,
-          updated_at: new Date().toISOString()
-        });
-
-        // 5. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
+        // optimistik state güncellemeleri - UI anında tepki vermeli
+        // 1. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
         if (next) {
-          await incrementTask(5, 1);
+          void incrementTask(5, 1);
         }
 
-        // Toplam hanesini güncelle (Kumulatif)
-        await supabase.rpc('increment_user_stat', {
-          target_user_id: user.uid,
-          column_name: 'total_prayers',
-          increment_by: next ? 1 : -1
+        // 2. Optimistik olarak global context'i de güncelle (Zıplama olmasın!)
+        updateStat('total_prayers', next ? 1 : -1);
+
+        // Arka plan işlemleri - UI'yı bloklamadan paralel çalıştır
+        void Promise.all([
+          supabase.from('namaz_durumu').upsert({
+            user_id: user.uid,
+            date_key: todayKey,
+            completed: newState.completed,
+            updated_at: new Date().toISOString()
+          }),
+          supabase.rpc('increment_user_stat', {
+            target_user_id: user.uid,
+            column_name: 'total_prayers',
+            increment_by: next ? 1 : -1
+          })
+        ]).catch(err => {
+          console.error('❌ Namaz toggle sync error:', err);
         });
       } else {
         try {

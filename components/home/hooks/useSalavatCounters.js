@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../../firebaseConfig';
 import { supabase } from '../../../lib/supabase';
 import { useDayChange } from '../../../hooks/useDayChange';
-import TaskService from '../../../services/TaskService';
+import { useUserStats } from '../../../contexts/UserStatsContext';
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const toDayKeyLocal = (date) => {
@@ -16,7 +14,7 @@ const toDayKeyLocal = (date) => {
 
 export const useSalavatCounters = () => {
   const { getToday, isLoading: dayLoading } = useDayChange();
-  const { user, stats, incrementTask } = useUserStats();
+  const { user, stats, incrementTask, updateStat } = useUserStats();
 
   const [loading, setLoading] = useState(true);
 
@@ -95,6 +93,9 @@ export const useSalavatCounters = () => {
 
         // 3. Update User Total (This will trigger real-time update in Context)
         await supabase.rpc('increment_user_stat', { target_user_id: user.uid, column_name: 'total_salavat', increment_by: pending });
+
+        // Optimistik olarak global context'i de güncelle (Zıplama olmasın!)
+        updateStat('total_salavat', pending);
 
         // Atomik olarak sayaçlardan düş
         pendingRef.current -= pending;

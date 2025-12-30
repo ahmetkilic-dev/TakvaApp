@@ -17,9 +17,8 @@ const toDayKeyLocal = (date) => {
  * Gün değiştiğinde otomatik sıfırlanır
  */
 export const useVersesDailyStats = () => {
-  const { user: dayUser, getToday, isLoading: dayLoading, isDayChanged } = useDayChangeContext();
-  const { incrementTask } = useUserStats();
-  const user = dayUser || auth.currentUser;
+  const { getToday, isLoading: dayLoading, isDayChanged } = useDayChangeContext();
+  const { user, incrementTask } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [verseRevealed, setVerseRevealed] = useState(false); // Bugün ayet gösterildi mi?

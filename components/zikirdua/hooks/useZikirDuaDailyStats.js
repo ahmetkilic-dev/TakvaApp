@@ -18,7 +18,7 @@ const toDayKeyLocal = (date) => {
 
 export const useZikirDuaDailyStats = () => {
   const { getToday, isLoading: dayLoading } = useDayChangeContext();
-  const { user, incrementTask } = useUserStats();
+  const { user, incrementTask, updateStat } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [dhikrBase, setDhikrBase] = useState(0);
@@ -53,6 +53,9 @@ export const useZikirDuaDailyStats = () => {
           column_name: 'total_dhikr',
           increment_by: pending
         });
+
+        // Optimistik olarak global context'i de güncelle (Zıplama olmasın!)
+        updateStat('total_dhikr', pending);
 
         // 2. Günlük kullanıcı istatistiğini güncelle
         try {

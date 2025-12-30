@@ -8,13 +8,13 @@ export default function ScreenBackground({ children }) {
     <View style={styles.container}>
       {/* SVG Background */}
       <View style={styles.backgroundContainer}>
-        <HomeBg 
-          width={SCREEN_WIDTH} 
-          height={SCREEN_HEIGHT} 
+        <HomeBg
+          width={SCREEN_WIDTH}
+          height={SCREEN_HEIGHT}
           preserveAspectRatio="xMidYMid slice"
         />
       </View>
-      
+
       {/* Content */}
       <View style={styles.content}>
         {children}
@@ -26,7 +26,7 @@ export default function ScreenBackground({ children }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#182723',
+    backgroundColor: '#04100D',
   },
   backgroundContainer: {
     position: 'absolute',

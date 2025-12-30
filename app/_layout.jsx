@@ -15,13 +15,12 @@ import * as SplashScreen from 'expo-splash-screen';
 import { LocationProvider } from '../contexts/LocationContext';
 import { DayChangeProvider } from '../contexts/DayChangeContext';
 import { UserStatsProvider } from '../contexts/UserStatsContext';
-// 👇 BU SATIR EKLENMELİ
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 SplashScreen.preventAutoHideAsync();
 
 const InitialLoader = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#15221E' }}>
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#04100D' }}>
     <ActivityIndicator size="large" color="#ffffff" />
   </View>
 );
@@ -83,7 +82,6 @@ export default function RootLayout() {
   }
 
   return (
-    // 👇 KRİTİK NOKTA: UYGULAMA BU KAPSAYICI İÇİNDE OLMALI
     <GestureHandlerRootView style={{ flex: 1 }}>
       <LocationProvider>
         <DayChangeProvider>
