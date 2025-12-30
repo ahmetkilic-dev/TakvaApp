@@ -46,4 +46,4 @@ export const DailyTaskSection = ({ tasks, onTaskPress }) => {
     );
 };
 
-export default DailyTaskSection;
+export default React.memo(DailyTaskSection);

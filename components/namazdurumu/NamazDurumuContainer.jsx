@@ -13,6 +13,63 @@ const fontFamily = 'Plus Jakarta Sans';
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
 
+const PrayerItem = React.memo(({ prayer, toggle, disabled, isLast, fontFamily }) => {
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={() => toggle(prayer.key)}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingVertical: 12,
+          paddingHorizontal: 12,
+          backgroundColor: prayer.isCurrent ? 'rgba(255, 186, 74, 0.08)' : 'transparent',
+          opacity: disabled ? 0.45 : 1,
+        }}
+        activeOpacity={0.7}
+        disabled={disabled}
+      >
+        <Text
+          style={{
+            fontFamily,
+            fontSize: 14,
+            fontWeight: '300',
+            color: '#FFFFFF',
+          }}
+        >
+          {prayer.label}
+        </Text>
+
+        <View
+          style={{
+            width: 18,
+            height: 18,
+            borderRadius: 9,
+            borderWidth: 1,
+            borderColor: prayer.completed ? '#8CD7C0' : 'rgba(255, 255, 255, 0.5)',
+            backgroundColor: prayer.completed ? '#8CD7C0' : 'transparent',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {prayer.completed && <Ionicons name="checkmark" size={12} color="#FFFFFF" />}
+        </View>
+      </TouchableOpacity>
+
+      {!isLast && (
+        <View
+          style={{
+            width: '100%',
+            height: 0.5,
+            backgroundColor: 'rgba(217, 217, 217, 0.5)',
+          }}
+        />
+      )}
+    </View>
+  );
+});
+
 export default function NamazDurumuContainer() {
   const insets = useSafeAreaInsets();
   const { user, loading, items, completedCount, totalCount, toggle } = useNamazDurumu();
@@ -69,63 +126,16 @@ export default function NamazDurumuContainer() {
               opacity: loading ? 0.7 : 1,
             }}
           >
-            {items.map((prayer, index) => {
-              const disabled = !user?.uid || !prayer.enabled || loading;
-              return (
-                <View key={prayer.key}>
-                  <TouchableOpacity
-                    onPress={() => toggle(prayer.key)}
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      paddingVertical: 12,
-                      paddingHorizontal: 12,
-                      backgroundColor: prayer.isCurrent ? 'rgba(255, 186, 74, 0.08)' : 'transparent',
-                      opacity: disabled ? 0.45 : 1,
-                    }}
-                    activeOpacity={0.7}
-                    disabled={disabled}
-                  >
-                    <Text
-                      style={{
-                        fontFamily,
-                        fontSize: 14,
-                        fontWeight: '300',
-                        color: '#FFFFFF',
-                      }}
-                    >
-                      {prayer.label}
-                    </Text>
-
-                    <View
-                      style={{
-                        width: 18,
-                        height: 18,
-                        borderRadius: 9,
-                        borderWidth: 1,
-                        borderColor: prayer.completed ? '#8CD7C0' : 'rgba(255, 255, 255, 0.5)',
-                        backgroundColor: prayer.completed ? '#8CD7C0' : 'transparent',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      {prayer.completed && <Ionicons name="checkmark" size={12} color="#FFFFFF" />}
-                    </View>
-                  </TouchableOpacity>
-
-                  {index < items.length - 1 && (
-                    <View
-                      style={{
-                        width: '100%',
-                        height: 0.5,
-                        backgroundColor: 'rgba(217, 217, 217, 0.5)',
-                      }}
-                    />
-                  )}
-                </View>
-              );
-            })}
+            {items.map((prayer, index) => (
+              <PrayerItem
+                key={prayer.key}
+                prayer={prayer}
+                toggle={toggle}
+                disabled={!user?.uid || !prayer.enabled || loading}
+                isLast={index === items.length - 1}
+                fontFamily={fontFamily}
+              />
+            ))}
           </View>
 
           {/* Status */}

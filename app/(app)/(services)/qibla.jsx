@@ -6,8 +6,16 @@ import * as Location from 'expo-location';
 import Svg, { Path, Circle, Text as SvgText, Line } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
 import QiblaBgSvg from '../../../assets/images/home-bg.svg';
-import KaabaSvg from '../../../assets/images/kaaba.svg'; 
+import KaabaSvg from '../../../assets/images/kaaba.svg';
 import { useLocation } from '../../../contexts/LocationContext';
+import Animated, {
+    useSharedValue,
+    useAnimatedStyle,
+    withTiming,
+    useAnimatedReaction,
+    runOnJS,
+    Easing
+} from 'react-native-reanimated';
 
 const { width, height } = Dimensions.get('window');
 const COMPASS_SIZE = width * 0.75;
@@ -16,15 +24,15 @@ const COMPASS_SIZE = width * 0.75;
 const KAABA_LAT = 21.4225;
 const KAABA_LNG = 39.8262;
 
-// Arka Plan Deseni
-const BackgroundPattern = () => (
+// Arka Plan Deseni - Memoized
+const BackgroundPattern = React.memo(() => (
     <View style={styles.patternContainer}>
         <QiblaBgSvg width={width} height={height} preserveAspectRatio="xMidYMid slice" />
     </View>
-);
+));
 
-// Pusula Yüzü Çizimi
-const CompassFace = ({ size }) => {
+// Pusula Yüzü Çizimi - Memoized
+const CompassFace = React.memo(({ size }) => {
     const center = size / 2;
     const outerR = size / 2 - 10;
     const innerR = outerR - 30;
@@ -54,17 +62,17 @@ const CompassFace = ({ size }) => {
             <Circle cx={center} cy={center} r={innerR - 45} fill="#E8F4F8" stroke="#B8D8D8" strokeWidth={2} />
         </Svg>
     );
-};
+});
 
-// İğne Çizimi
-const CompassNeedle = ({ size }) => (
+// İğne Çizimi - Memoized
+const CompassNeedle = React.memo(({ size }) => (
     <Svg width={size * 0.35} height={size * 0.35} viewBox="0 0 100 100">
         <Path d="M50 15 L58 48 L50 44 L42 48 Z" fill="#E74C3C" />
         <Path d="M50 85 L58 52 L50 56 L42 52 Z" fill="#CCCCCC" />
         <Circle cx="50" cy="50" r="6" fill="#444" />
         <Circle cx="50" cy="50" r="3" fill="#888" />
     </Svg>
-);
+));
 
 // İzin Ekranı
 const LocationPermissionRequired = ({ onRetry, router }) => (
@@ -100,13 +108,18 @@ export default function QiblaScreen() {
     const router = useRouter();
     const { location: userLocation, city: userCity, district: userDistrict, hasPermission, isLoading: locationLoading, retryPermission } = useLocation();
 
-    const [heading, setHeading] = useState(0);
+    // Reanimated Shared Values
+    const headingSv = useSharedValue(0);
+    const smoothedHeading = useSharedValue(0);
+
+    // JS State 
+    const [displayHeading, setDisplayHeading] = useState(0);
     const [qiblaAngle, setQiblaAngle] = useState(null);
     const [distance, setDistance] = useState(null);
     const [isQiblaDirection, setIsQiblaDirection] = useState(false);
     const [currentTime, setCurrentTime] = useState('');
     const [compassStarted, setCompassStarted] = useState(false);
-    
+
     const subscriptionRef = useRef(null);
     const lastVibration = useRef(0);
 
@@ -119,7 +132,7 @@ export default function QiblaScreen() {
             setCurrentTime(`${h}:${m}`);
         };
         updateTime();
-        const timer = setInterval(updateTime, 1000);
+        const timer = setInterval(updateTime, 10000);
         return () => {
             stopCompass();
             clearInterval(timer);
@@ -132,22 +145,38 @@ export default function QiblaScreen() {
         }
     }, [hasPermission, userLocation, compassStarted]);
 
-    // Kıble Yönü Kontrolü
+    // Kıble açısı değişimini izleme (sadece JS tarafı için gerekirse)
     useEffect(() => {
-        if (qiblaAngle !== null) {
-            const displayedQibla = Math.round(qiblaAngle);
-            let diff = Math.abs(heading - displayedQibla);
+        // ...
+    }, [qiblaAngle]);
+
+    // Reanimated Reaction: Heading değiştiğinde kıble kontrolü yap
+    useAnimatedReaction(
+        () => headingSv.value,
+        (currentHeading) => {
+            const rounded = Math.round(currentHeading);
+            runOnJS(updateUIState)(rounded, qiblaAngle);
+        },
+        [qiblaAngle]
+    );
+
+    const updateUIState = (roundedHeading, targetAngle) => {
+        setDisplayHeading(roundedHeading);
+
+        if (targetAngle !== null) {
+            let diff = Math.abs(roundedHeading - targetAngle);
             if (diff > 180) diff = 360 - diff;
-            
-            const isOnQibla = diff <= 2;
-            setIsQiblaDirection(isOnQibla);
-            
-            if (isOnQibla && Date.now() - lastVibration.current > 1000) {
-                Vibration.vibrate(100);
-                lastVibration.current = Date.now();
+
+            const isOn = diff <= 2;
+            if (isOn !== isQiblaDirection) {
+                setIsQiblaDirection(isOn);
+                if (isOn && Date.now() - lastVibration.current > 1000) {
+                    Vibration.vibrate(100);
+                    lastVibration.current = Date.now();
+                }
             }
         }
-    }, [heading, qiblaAngle]);
+    };
 
     const initializeQibla = async () => {
         if (!userLocation) return;
@@ -194,7 +223,9 @@ export default function QiblaScreen() {
     const startCompass = async () => {
         try {
             subscriptionRef.current = await Location.watchHeadingAsync((headingData) => {
-                setHeading(Math.round(headingData.magHeading));
+                const mag = headingData.magHeading;
+                headingSv.value = mag;
+                smoothedHeading.value = withTiming(mag, { duration: 100, easing: Easing.linear });
             });
         } catch (error) {
             console.log('Pusula başlatma hatası:', error);
@@ -208,7 +239,20 @@ export default function QiblaScreen() {
         }
     };
 
-    const qiblaIndicatorRotation = qiblaAngle !== null ? qiblaAngle - heading : 0;
+    const compassStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{ rotate: `-${smoothedHeading.value}deg` }]
+        };
+    });
+
+    const kabeStyle = useAnimatedStyle(() => {
+        if (qiblaAngle === null) return { opacity: 0 };
+        const rotation = qiblaAngle - smoothedHeading.value;
+        return {
+            transform: [{ rotate: `${rotation}deg` }],
+            opacity: 1
+        };
+    });
 
     if (locationLoading) {
         return (
@@ -232,26 +276,29 @@ export default function QiblaScreen() {
             {/* KATMAN 1: PUSULA (TAM EKRAN ORTASI - Absolute Center) */}
             <View style={styles.absoluteCenterLayer}>
                 <View style={styles.outerRing}>
-                    {/* Kabe İkonu - Halkanın Dışında */}
+                    {/* Kabe İkonu - Halkanın Dışında - Reanimated */}
                     {qiblaAngle !== null && (
-                        <View style={[styles.qiblaIndicator, { transform: [{ rotate: `${qiblaIndicatorRotation}deg` }] }]}>
+                        <Animated.View style={[styles.qiblaIndicator, kabeStyle]}>
                             <View style={styles.qiblaIconOuter}>
                                 <KaabaSvg width={40} height={40} />
                             </View>
-                        </View>
+                        </Animated.View>
                     )}
-                    <View style={[styles.compassInner, { transform: [{ rotate: `${-heading}deg` }] }]}>
+
+                    {/* Pusula İçi - Reanimated */}
+                    <Animated.View style={[styles.compassInner, compassStyle]}>
                         <CompassFace size={COMPASS_SIZE} />
-                    </View>
+                    </Animated.View>
+
                     <View style={styles.needleContainer}>
                         <CompassNeedle size={COMPASS_SIZE} />
                     </View>
                 </View>
             </View>
-            
+
             {/* KATMAN 2: ARAYÜZ (HEADER VE BOTTOM FOOTER) */}
             <SafeAreaView edges={['top', 'bottom']} style={styles.safeArea} pointerEvents="box-none">
-                
+
                 {/* Header */}
                 <View pointerEvents="auto">
                     <View style={styles.header}>
@@ -286,7 +333,7 @@ export default function QiblaScreen() {
 
                 {/* ALT KISIM (BİLGİLER + FOOTER) - En Alta Yaslandı */}
                 <View style={styles.bottomSection} pointerEvents="auto">
-                    
+
                     {/* Bilgi Kutusu */}
                     <View style={styles.infoContent}>
                         {isQiblaDirection ? (
@@ -294,17 +341,15 @@ export default function QiblaScreen() {
                                 <Text style={styles.qiblaFoundText}>🕋 Kıble Yönündesiniz</Text>
                             </View>
                         ) : (
-                            <Text style={styles.degree}>{heading}°</Text>
+                            <Text style={styles.degree}>{displayHeading}°</Text>
                         )}
-                        
+
                         {/* Mesafe ve Açı Bilgisi */}
                         {distance && (
                             <View style={{ alignItems: 'center' }}>
-                                {/* Mesafe yazısı Beyaz (#FFFFFF) yapıldı */}
                                 <Text style={[styles.subInfo, { color: '#FFFFFF' }]}>
                                     Kâbe'ye uzaklık: {distance.toLocaleString('tr-TR')} km
                                 </Text>
-                                {/* Kıble Açısı Eklendi */}
                                 {qiblaAngle !== null && (
                                     <Text style={styles.subInfo}>
                                         Kıble Açısı: {Math.round(qiblaAngle)}°
@@ -314,7 +359,7 @@ export default function QiblaScreen() {
                         )}
                     </View>
 
-                    {/* Footer Metni (İki satıra bölündü) */}
+                    {/* Footer Metni */}
                     <View style={styles.footer}>
                         <Text style={styles.footerText}>
                             Kıble, Müslümanların namazda yöneldiği{'\n'}Kâbe istikametidir.
@@ -332,16 +377,14 @@ const styles = StyleSheet.create({
     containerQibla: { backgroundColor: '#0F251F' },
     patternContainer: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
     safeArea: { flex: 1 },
-    
-    // YENİ: Tam Ekran Ortalama Katmanı
+
     absoluteCenterLayer: {
-        ...StyleSheet.absoluteFillObject, 
-        justifyContent: 'center',       
-        alignItems: 'center',           
-        zIndex: 0,                      
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 0,
     },
 
-    // Header & Şehir
     header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingTop: 8, paddingBottom: 8 },
     backButton: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
     title: { fontFamily: 'Cinzel-Black', color: '#FFFFFF', fontSize: 24, textAlign: 'center', letterSpacing: -2 },
@@ -352,7 +395,6 @@ const styles = StyleSheet.create({
     infoRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
     infoRowText: { fontSize: 13, color: '#8BA89E' },
 
-    // Pusula Bileşenleri
     outerRing: {
         width: COMPASS_SIZE + 50,
         height: COMPASS_SIZE + 50,
@@ -369,27 +411,24 @@ const styles = StyleSheet.create({
         elevation: 20,
     },
     qiblaIndicator: { position: 'absolute', width: COMPASS_SIZE + 50, height: COMPASS_SIZE + 50, alignItems: 'center', zIndex: 10 },
-    // İkon Halka Dışında (top: -15)
-    qiblaIconOuter: { 
-        position: 'absolute', 
-        top: -15, 
-        alignItems: 'center', 
-        justifyContent: 'center' 
+    qiblaIconOuter: {
+        position: 'absolute',
+        top: -15,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     compassInner: { width: COMPASS_SIZE, height: COMPASS_SIZE },
     needleContainer: { position: 'absolute', alignItems: 'center', justifyContent: 'center' },
 
-    // ALT BÖLÜM
     bottomSection: {
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'flex-end', // İçeriği en alta it
-    // Alt kenardan güvenli boşluk
+        justifyContent: 'flex-end',
         marginBottom: 5,
     },
     infoContent: {
         alignItems: 'center',
-        marginBottom: 8, // Footer ile bilgi arası boşluk
+        marginBottom: 8,
         minHeight: 80,
         justifyContent: 'flex-end',
     },
@@ -412,12 +451,10 @@ const styles = StyleSheet.create({
     },
     qiblaFoundText: { fontSize: 14, fontWeight: '600', color: '#4CAF50' },
     subInfo: { fontSize: 13, color: '#8BA89E', marginTop: 4 },
-    
-    // Footer Metni
+
     footer: { paddingHorizontal: 40, alignItems: 'center' },
     footerText: { fontSize: 14, color: '#5A7A70', textAlign: 'center', lineHeight: 20 },
 
-    // İzin Ekranı vs.
     loadingContainer: { justifyContent: 'center', alignItems: 'center' },
     loadingText: { color: '#8BA89E', fontSize: 18 },
     permissionContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 40 },
@@ -427,5 +464,6 @@ const styles = StyleSheet.create({
     retryButton: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#4ECDC4', paddingVertical: 16, paddingHorizontal: 32, borderRadius: 30, gap: 10, marginBottom: 16 },
     retryButtonText: { fontSize: 16, fontWeight: '600', color: '#fff' },
     backHomeButton: { paddingVertical: 12, paddingHorizontal: 24 },
+    backHomeButtonText: { fontSize: 14, color: '#8BA89E' },
     backHomeButtonText: { fontSize: 14, color: '#8BA89E' },
 });

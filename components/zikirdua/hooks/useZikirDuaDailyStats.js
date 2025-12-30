@@ -180,8 +180,7 @@ export const useZikirDuaDailyStats = () => {
     pendingDhikrRef.current += 1;
     setLocalDhikrDelta((d) => d + 1);
 
-    // Her adet girmeli: Anında flush dene (zaten flushingRef koruması var)
-    void flushDhikr();
+    // Constant context updates causing lag. Flushing is now handled by interval.
   }, [flushDhikr, todayKey, user?.uid]);
 
   const consumeDuaRight = useCallback(async () => {

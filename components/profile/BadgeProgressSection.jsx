@@ -122,4 +122,4 @@ export const BadgeProgressSection = ({ badgeCount, categoryLevels }) => {
     );
 };
 
-export default BadgeProgressSection;
+export default React.memo(BadgeProgressSection);

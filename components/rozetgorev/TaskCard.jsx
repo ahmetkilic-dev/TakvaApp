@@ -70,4 +70,4 @@ export const TaskCard = ({ text, label, icon, progress, target, onPress }) => {
     );
 };
 
-export default TaskCard;
+export default React.memo(TaskCard);

@@ -13,7 +13,9 @@ const STREAM_SOURCES = [
    'https://radio.alukah.net/ulumalquran.mp3'   // Alukah Quran - Yedek 2
 ];
 
-export default function QuranSection() {
+import React from 'react';
+
+const QuranSection = React.memo(() => {
    const router = useRouter();
    const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
    const [isPlaying, setIsPlaying] = useState(false);
@@ -133,7 +135,9 @@ export default function QuranSection() {
          </View>
       </View>
    );
-}
+});
+
+export default QuranSection;
 
 const styles = StyleSheet.create({
    container: {

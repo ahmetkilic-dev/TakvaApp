@@ -5,7 +5,9 @@ import { esmaNames } from '../../constants/esmaData';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-export default function EsmaSlider() {
+import React from 'react';
+
+const EsmaSlider = React.memo(() => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
 
@@ -64,7 +66,9 @@ export default function EsmaSlider() {
       </View>
     </View>
   );
-}
+});
+
+export default EsmaSlider;
 
 const styles = StyleSheet.create({
   container: {

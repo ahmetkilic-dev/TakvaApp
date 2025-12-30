@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Svg, { Circle } from 'react-native-svg';
@@ -22,42 +23,32 @@ const stages = [
   { name: 'Feyz', min: 2500, max: 5000, titleColor: '#F5D76E', barColor: '#F5D76E' },
 ];
 
-// Zikir metni
+// Zikir metni (Moved outside or memoized)
 const dhikrData = {
   arabic: 'Sübhanallah',
   meaning: "Allah'ı tüm noksan sıfatlardan tenzih ederim.",
 };
 
-export default function ZikirCounter() {
+const ZikirCounter = React.memo(() => {
   const { dhikrCount: count, incrementDhikr } = useZikirDuaDailyStats();
 
   // Mevcut aşamayı bul
-  const getCurrentStage = () => {
-    if (count >= 5000) {
-      return stages[4]; // Feyz - son aşama
-    }
+  const currentStage = useMemo(() => {
+    if (count >= 5000) return stages[4];
     for (let i = stages.length - 1; i >= 0; i--) {
-      if (count >= stages[i].min) {
-        return stages[i];
-      }
+      if (count >= stages[i].min) return stages[i];
     }
-    return stages[0]; // Huzur - başlangıç
-  };
+    return stages[0];
+  }, [count]);
 
-  const currentStage = getCurrentStage();
-
-  // Progress calculation for current stage
-  const calculateStageProgress = () => {
-    if (count >= currentStage.max) {
-      return 100; // Aşama tamamlandı
-    }
+  // Progress calculation
+  const stageProgress = useMemo(() => {
+    if (count >= currentStage.max) return 100;
     return ((count - currentStage.min) / (currentStage.max - currentStage.min)) * 100;
-  };
+  }, [count, currentStage]);
 
-  const stageProgress = calculateStageProgress();
-
-  // Progress circle'ları render et
-  const renderProgressCircles = () => {
+  // Progress circle'ları render et - Memoized
+  const renderedCircles = useMemo(() => {
     const circles = [];
     const currentStageIndex = stages.findIndex(s => s === currentStage);
 
@@ -100,11 +91,7 @@ export default function ZikirCounter() {
     );
 
     return circles;
-  };
-
-  const handleZikirPress = () => {
-    incrementDhikr?.();
-  };
+  }, [currentStage, stageProgress]);
 
   return (
     <View
@@ -123,15 +110,7 @@ export default function ZikirCounter() {
     >
       {/* Left Arrow */}
       <TouchableOpacity
-        style={{
-          width: 22,
-          height: 35,
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-          left: -16 - 22,
-          bottom: 16,
-        }}
+        style={{ width: 22, height: 35, alignItems: 'center', justifyContent: 'center', position: 'absolute', left: -38, bottom: 16 }}
       >
         <Ionicons name="chevron-back" size={16} color="#FFFFFF" />
       </TouchableOpacity>
@@ -149,29 +128,13 @@ export default function ZikirCounter() {
               strokeWidth={strokeWidth}
               fill="transparent"
             />
-            {/* Progress circles */}
-            {renderProgressCircles()}
+            {renderedCircles}
           </Svg>
           <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
-            <Text
-              style={{
-                fontFamily,
-                fontSize: isSmallScreen ? 16 : 18,
-                fontWeight: '600',
-                color: '#FFFFFF',
-                marginBottom: 2,
-              }}
-            >
+            <Text style={{ fontFamily, fontSize: isSmallScreen ? 16 : 18, fontWeight: '600', color: '#FFFFFF', marginBottom: 2 }}>
               {count}
             </Text>
-            <Text
-              style={{
-                fontFamily,
-                fontSize: isSmallScreen ? 11 : 12,
-                fontWeight: '500',
-                color: '#AAA9A9',
-              }}
-            >
+            <Text style={{ fontFamily, fontSize: isSmallScreen ? 11 : 12, fontWeight: '500', color: '#AAA9A9' }}>
               {count >= 5000 ? `${count}/5000+` : `${count}/${currentStage.max}`}
             </Text>
           </View>
@@ -179,65 +142,23 @@ export default function ZikirCounter() {
 
         {/* Right Content */}
         <View style={{ flex: 1 }}>
-          <Text
-            style={{
-              fontFamily,
-              fontSize: 14,
-              fontWeight: '600',
-              color: currentStage.titleColor,
-              letterSpacing: 1.4,
-              marginBottom: 8,
-            }}
-          >
+          <Text style={{ fontFamily, fontSize: 14, fontWeight: '600', color: currentStage.titleColor, letterSpacing: 1.4, marginBottom: 8 }}>
             {currentStage.name}
           </Text>
-          <Text
-            style={{
-              fontFamily,
-              fontSize: 12,
-              fontWeight: '300',
-              color: '#FFFFFF',
-              marginBottom: 4,
-            }}
-          >
+          <Text style={{ fontFamily, fontSize: 12, fontWeight: '300', color: '#FFFFFF', marginBottom: 4 }}>
             {dhikrData.arabic}
           </Text>
-          <Text
-            style={{
-              fontFamily,
-              fontSize: 12,
-              fontWeight: '300',
-              color: '#898989',
-              marginBottom: 12,
-              lineHeight: 16,
-            }}
-          >
+          <Text style={{ fontFamily, fontSize: 12, fontWeight: '300', color: '#898989', marginBottom: 12, lineHeight: 16 }}>
             {dhikrData.meaning}
           </Text>
 
           {/* Zikir çek Button */}
           <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
             <TouchableOpacity
-              onPress={handleZikirPress}
-              style={{
-                width: 90,
-                height: 35,
-                borderRadius: 10,
-                borderWidth: 1,
-                borderColor: currentStage.titleColor,
-                backgroundColor: '#1C1C1C',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+              onPress={incrementDhikr}
+              style={{ width: 90, height: 35, borderRadius: 10, borderWidth: 1, borderColor: currentStage.titleColor, backgroundColor: '#1C1C1C', alignItems: 'center', justifyContent: 'center' }}
             >
-              <Text
-                style={{
-                  fontFamily,
-                  fontSize: 14,
-                  fontWeight: '300',
-                  color: '#FFFFFF',
-                }}
-              >
+              <Text style={{ fontFamily, fontSize: 14, fontWeight: '300', color: '#FFFFFF' }}>
                 Zikir çek
               </Text>
             </TouchableOpacity>
@@ -247,19 +168,13 @@ export default function ZikirCounter() {
 
       {/* Right Arrow */}
       <TouchableOpacity
-        style={{
-          width: 22,
-          height: 35,
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-          right: -16 - 22,
-          bottom: 16,
-        }}
+        style={{ width: 22, height: 35, alignItems: 'center', justifyContent: 'center', position: 'absolute', right: -38, bottom: 16 }}
       >
         <Ionicons name="chevron-forward" size={16} color="#FFFFFF" />
       </TouchableOpacity>
     </View>
   );
-}
+});
+
+export default ZikirCounter;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { StyleSheet, TouchableOpacity, View, Dimensions } from 'react-native';
 import { useRouter, useSegments } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -24,20 +24,25 @@ function getActiveTabFromSegments(segments) {
   return 'home'; // services ekranlarında default: home
 }
 
-export default function BottomNavBar({ activeTab }) {
+const BottomNavBar = React.memo(({ activeTab }) => {
   const router = useRouter();
   const segments = useSegments();
   const insets = useSafeAreaInsets();
 
   const resolvedActive = activeTab || getActiveTabFromSegments(segments);
 
-  const items = [
+  const items = useMemo(() => [
     { key: 'kelam', Icon: IcKelam, to: '/(app)/(tabs)/kelam' },
     { key: 'namaz', Icon: IcNamaz, to: '/(app)/(tabs)/namaz' },
     { key: 'home', Icon: IcHome, to: '/(app)/(tabs)/home' },
     { key: 'tasks', Icon: IcTasks, to: '/(app)/(tabs)/tasks' },
     { key: 'profile', Icon: IcProfile, to: '/(app)/(tabs)/profile' },
-  ];
+  ], []);
+
+  const handlePress = useCallback((to) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.replace(to);
+  }, [router]);
 
   return (
     <View style={[styles.container, { height: 50 + insets.bottom, paddingBottom: insets.bottom }]} pointerEvents="auto">
@@ -47,11 +52,7 @@ export default function BottomNavBar({ activeTab }) {
           <TouchableOpacity
             key={key}
             activeOpacity={0.8}
-            onPress={() => {
-              // Home tab bar davranışıyla aynı: hafif titreşim
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              router.replace(to);
-            }}
+            onPress={() => handlePress(to)}
             style={styles.item}
           >
             <View style={[styles.iconWrap, { opacity: focused ? 1 : 0.5 }]}>
@@ -62,7 +63,9 @@ export default function BottomNavBar({ activeTab }) {
       })}
     </View>
   );
-}
+});
+
+export default BottomNavBar;
 
 const styles = StyleSheet.create({
   container: {

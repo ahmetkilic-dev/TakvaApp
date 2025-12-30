@@ -186,4 +186,4 @@ export const BadgeCategorySection = ({ stats, onTaskPress }) => {
     );
 };
 
-export default BadgeCategorySection;
+export default React.memo(BadgeCategorySection);

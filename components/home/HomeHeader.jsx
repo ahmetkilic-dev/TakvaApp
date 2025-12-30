@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocation } from '../../contexts/LocationContext';
@@ -34,7 +34,7 @@ const getHijriDate = () => {
   }
 };
 
-export default function HomeHeader() {
+const HomeHeader = React.memo(() => {
   const router = useRouter();
   const fontFamily = 'Plus Jakarta Sans';
   const ACTIVE_COLOR = '#FFBA4A';
@@ -54,6 +54,7 @@ export default function HomeHeader() {
 
   // 1. API İsteği - Konum değiştiğinde güncelle (CACHE ile optimize edildi)
   useEffect(() => {
+    let mounted = true;
     const fetchTimes = async () => {
       try {
         const now = new Date();
@@ -73,12 +74,12 @@ export default function HomeHeader() {
           // Varsayılan olarak İstanbul kullan
           cacheKey = `@prayer_times_${dateStr}_istanbul`;
           finalUrl = `${API_BASE}/${dateStr}?city=Istanbul&country=Turkey&method=13`;
-          setDisplayCity('İstanbul');
+          if (mounted) setDisplayCity('İstanbul');
         }
 
         // Önce cache'i kontrol et
         const cached = await AsyncStorage.getItem(cacheKey);
-        if (cached) {
+        if (cached && mounted) {
           const parsedCache = JSON.parse(cached);
           setPrayerTimes(parsedCache);
           return; // Cache varsa API çağrısı yapma
@@ -92,7 +93,7 @@ export default function HomeHeader() {
         const response = await fetch(finalUrl);
         const result = await response.json();
 
-        if (result.data && result.data.timings) {
+        if (mounted && result.data && result.data.timings) {
           const t = result.data.timings;
           const mapping = [
             { label: 'İmsak', time: t.Fajr },
@@ -105,11 +106,11 @@ export default function HomeHeader() {
           setPrayerTimes(mapping);
           // Cache'e kaydet
           await AsyncStorage.setItem(cacheKey, JSON.stringify(mapping));
-        } else {
+        } else if (mounted) {
           useFallbackData();
         }
       } catch (error) {
-        useFallbackData();
+        if (mounted) useFallbackData();
       }
     };
 
@@ -126,13 +127,14 @@ export default function HomeHeader() {
     if (!locationLoading) {
       fetchTimes();
     }
+    return () => { mounted = false; };
   }, [userLocation, hasPermission, userCity, locationLoading]);
 
-  // 2. Geri Sayım
+  // 2. Geri Sayım - Optimize Edilmiş
   useEffect(() => {
     if (prayerTimes.length === 0) return;
 
-    const timer = setInterval(() => {
+    const updateTimer = () => {
       const now = new Date();
       let nextIndex = -1;
       let targetDate = null;
@@ -157,27 +159,45 @@ export default function HomeHeader() {
       const h = String(Math.floor(diff / 3600)).padStart(2, '0');
       const m = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
       const s = String(diff % 60).padStart(2, '0');
+      const remainingTime = `${h}:${m}:${s}`;
 
-      setDisplayData({
-        nextPrayerName: prayerTimes[nextIndex].label,
-        remainingTime: `${h}:${m}:${s}`,
-        activeVakitIndex: nextIndex
+      setDisplayData(prev => {
+        // Sadece saniye değiştiğinde re-render olmaması için kontrol (gerekirse)
+        // Ancak bu bir saat olduğu için her saniye render mecburi.
+        // Fakat index değişmediyse activeVakitIndex'i koru
+        if (prev.remainingTime === remainingTime && prev.activeVakitIndex === nextIndex) return prev;
+
+        return {
+          nextPrayerName: prayerTimes[nextIndex].label,
+          remainingTime,
+          activeVakitIndex: nextIndex
+        };
       });
+    };
 
-    }, 1000);
+    // İlk hesap
+    updateTimer();
+    const timer = setInterval(updateTimer, 1000);
 
     return () => clearInterval(timer);
   }, [prayerTimes]);
 
   const [hours, minutes, seconds] = displayData.remainingTime.split(':');
 
-  const menuItems = [
-    { image: icHatirlatici, label: 'Hatırlatıcı', onPress: () => router.push('/(app)/(services)/hatirlatici') },
-    { image: icIlim, label: 'İlim', onPress: () => router.push('/(app)/(services)/ilim') },
-    { image: icKible, label: 'Kıble', onPress: () => router.push('/(app)/(services)/qibla') },
-    { image: icTakvim, label: 'Takvim', onPress: () => router.push('/(app)/(services)/diniGunler') },
-    { image: icDahaFazla, label: 'Daha fazlası', onPress: () => router.push('/(app)/(services)/guide-detail') },
-  ];
+  const handleMenuPress = useCallback((path) => {
+    router.push(path);
+  }, [router]);
+
+  const menuItems = useMemo(() => [
+    { image: icHatirlatici, label: 'Hatırlatıcı', path: '/(app)/(services)/hatirlatici' },
+    { image: icIlim, label: 'İlim', path: '/(app)/(services)/ilim' },
+    { image: icKible, label: 'Kıble', path: '/(app)/(services)/qibla' },
+    { image: icTakvim, label: 'Takvim', path: '/(app)/(services)/diniGunler' },
+    { image: icDahaFazla, label: 'Daha fazlası', path: '/(app)/(services)/guide-detail' },
+  ], []);
+
+  const hijriDate = useMemo(() => getHijriDate(), []);
+  const todayDate = useMemo(() => new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }), []);
 
   return (
     <View className="px-4 pt-6 pb-6">
@@ -192,7 +212,6 @@ export default function HomeHeader() {
         </Text>
 
         {/* MERKEZİ SAYAÇ ALANI */}
-        {/* Bu View ekranın ortasındadır */}
         <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: -4 }}>
 
           {/* SAAT, DAKİKA ve SANİYE KUTUSU */}
@@ -261,8 +280,7 @@ export default function HomeHeader() {
       {/* 3. TARİH ALANI */}
       <View className="items-center mb-8 pt-2 w-full self-center">
         <Text style={{ fontFamily, fontSize: 14, fontWeight: '400', color: '#FFFFFF' }} className="tracking-wide">
-          {getHijriDate()} /
-          {' ' + new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
+          {hijriDate} / {todayDate}
         </Text>
       </View>
 
@@ -272,7 +290,7 @@ export default function HomeHeader() {
           <View key={index} className="items-center" style={{ gap: 8 }}>
             <TouchableOpacity
               activeOpacity={0.7}
-              onPress={item.onPress}
+              onPress={() => handleMenuPress(item.path)}
               style={{
                 width: 50, height: 50, borderRadius: 25,
                 backgroundColor: 'rgba(250, 183, 75, 0.07)',
@@ -292,4 +310,6 @@ export default function HomeHeader() {
 
     </View>
   );
-}
+});
+
+export default HomeHeader;

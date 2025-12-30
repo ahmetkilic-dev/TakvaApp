@@ -168,8 +168,8 @@ export const useSalavatCounters = () => {
     pendingRef.current += 1;
     setLocalDelta((d) => d + 1);
 
-    // Her adet girmeli: Anında flush dene
-    void flushPending();
+    // Immediate flush removed to prevent global context re-renders on every tap.
+    // The interval will handle the sync.
   }, [flushPending, todayKey, user?.uid]);
 
   const displayGlobalTotal = globalTotalBase + localDelta;

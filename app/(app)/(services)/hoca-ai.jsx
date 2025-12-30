@@ -3,10 +3,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { Image } from 'react-native';
 import { askHoca } from '../../../services/geminiService';
 import { useUserStats } from '../../../contexts/UserStatsContext';
+import React from 'react';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -27,6 +28,29 @@ const suggestedQuestions = [
   'Kader nedir?',
   'Sadaka ile zekât arasındaki fark nedir?',
 ];
+
+// Memoized Message Item
+const MessageItem = React.memo(({ item }) => {
+  const isUser = item.sender === 'user';
+  return (
+    <View style={{
+      alignSelf: isUser ? 'flex-end' : 'flex-start',
+      maxWidth: '80%',
+      marginVertical: 4,
+      padding: 12,
+      borderRadius: 16,
+      borderBottomRightRadius: isUser ? 2 : 16,
+      borderBottomLeftRadius: isUser ? 16 : 2,
+      backgroundColor: isUser ? '#4E7060' : 'rgba(24, 39, 35, 0.8)',
+      borderWidth: isUser ? 0 : 0.5,
+      borderColor: 'rgba(255, 255, 255, 0.2)'
+    }}>
+      <Text style={{ fontFamily, color: '#FFFFFF', fontSize: 14, lineHeight: 20 }}>
+        {item.text}
+      </Text>
+    </View>
+  );
+});
 
 export default function HocaAIScreen() {
   const router = useRouter();
@@ -70,27 +94,9 @@ export default function HocaAIScreen() {
     setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
   };
 
-  const renderMessage = ({ item }) => {
-    const isUser = item.sender === 'user';
-    return (
-      <View style={{
-        alignSelf: isUser ? 'flex-end' : 'flex-start',
-        maxWidth: '80%',
-        marginVertical: 4,
-        padding: 12,
-        borderRadius: 16,
-        borderBottomRightRadius: isUser ? 2 : 16,
-        borderBottomLeftRadius: isUser ? 16 : 2,
-        backgroundColor: isUser ? '#4E7060' : 'rgba(24, 39, 35, 0.8)',
-        borderWidth: isUser ? 0 : 0.5,
-        borderColor: 'rgba(255, 255, 255, 0.2)'
-      }}>
-        <Text style={{ fontFamily, color: '#FFFFFF', fontSize: 14, lineHeight: 20 }}>
-          {item.text}
-        </Text>
-      </View>
-    );
-  };
+  const renderMessage = useCallback(({ item }) => {
+    return <MessageItem item={item} />;
+  }, []);
 
   const renderWelcomeScreen = () => (
     <ScrollView

@@ -77,4 +77,4 @@ export const PersonalStatsGrid = ({ stats }) => {
     );
 };
 
-export default PersonalStatsGrid;
+export default React.memo(PersonalStatsGrid);
