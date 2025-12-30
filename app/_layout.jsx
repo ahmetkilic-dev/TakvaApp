@@ -14,6 +14,7 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import { LocationProvider } from '../contexts/LocationContext';
 import { DayChangeProvider } from '../contexts/DayChangeContext';
+import { UserStatsProvider } from '../contexts/UserStatsContext';
 // 👇 BU SATIR EKLENMELİ
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -86,8 +87,10 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <LocationProvider>
         <DayChangeProvider>
-          <AuthGuard />
-          <StatusBar style="light" />
+          <UserStatsProvider>
+            <AuthGuard />
+            <StatusBar style="light" />
+          </UserStatsProvider>
         </DayChangeProvider>
       </LocationProvider>
     </GestureHandlerRootView>

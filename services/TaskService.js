@@ -72,7 +72,7 @@ const TaskService = {
             });
 
             await AsyncStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(data));
-            console.log(`✅ Task [${taskId}] progress +${amount}`);
+
             return data.tasks;
         } catch (e) {
             console.error('TaskService.incrementTaskProgress error:', e);

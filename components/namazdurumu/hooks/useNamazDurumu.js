@@ -8,6 +8,8 @@ import { useDailyPrayerTimes } from '../../../hooks/useDailyPrayerTimes';
 import { rolloverNamazIfNeeded } from '../../../utils/namazRollover';
 import TaskService from '../../../services/TaskService';
 
+import { useUserStats } from '../../../contexts/UserStatsContext';
+
 const PRAYER_KEYS = ['sabah', 'ogle', 'ikindi', 'aksam', 'yatsi'];
 
 const emptyCompleted = () => ({
@@ -27,8 +29,8 @@ const parseDayKey = (dayKey) => {
 
 export function useNamazDurumu() {
   const { todayKey, arrived, currentPrayerKey, loading: timesLoading } = useDailyPrayerTimes();
+  const { user, incrementTask } = useUserStats();
 
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(() => ({
     dateKey: todayKey,
@@ -38,31 +40,23 @@ export function useNamazDurumu() {
   const appStateRef = useRef(AppState.currentState);
   const midnightTimerRef = useRef(null);
 
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => setUser(firebaseUser));
-    return unsub;
-  }, []);
-
   const ensureUserDoc = useCallback(async (uid) => {
     // Profil ve kaza sayaçlarını kontrol et ve eksikse oluştur
-    const { data: profile } = await supabase.from('profiles').select('id').eq('id', uid).single();
-    if (!profile) {
-      await supabase.from('profiles').insert({ id: uid });
-    }
+    const [pResult, kResult, sResult] = await Promise.all([
+      supabase.from('profiles').select('id').eq('id', uid).maybeSingle(),
+      supabase.from('kaza_counters').select('user_id').eq('user_id', uid).maybeSingle(),
+      supabase.from('user_stats').select('user_id').eq('user_id', uid).maybeSingle()
+    ]);
 
-    const { data: kaza } = await supabase.from('kaza_counters').select('user_id').eq('user_id', uid).single();
-    if (!kaza) {
+    if (!pResult.data) await supabase.from('profiles').insert({ id: uid });
+    if (!kResult.data) {
       await supabase.from('kaza_counters').insert({
         user_id: uid,
         namaz_counts: { sabah: 0, ogle: 0, ikindi: 0, aksam: 0, yatsi: 0, vitir: 0 },
         oruc_counts: { oruc: 0 }
       });
     }
-
-    const { data: stats } = await supabase.from('user_stats').select('user_id').eq('user_id', uid).single();
-    if (!stats) {
-      await supabase.from('user_stats').insert({ user_id: uid });
-    }
+    if (!sResult.data) await supabase.from('user_stats').insert({ user_id: uid });
   }, []);
 
   const rolloverIfNeeded = useCallback(
@@ -72,22 +66,15 @@ export function useNamazDurumu() {
 
   const refreshFromSupabase = useCallback(
     async (uid) => {
-      console.log('🔄 refreshFromSupabase: Başladı');
-      const { data: nd, error } = await supabase
+      const { data: nd } = await supabase
         .from('namaz_durumu')
         .select('*')
         .eq('user_id', uid)
         .eq('date_key', todayKey)
-        .single();
-
-      console.log('📊 Supabase namazDurumu:', nd);
+        .maybeSingle();
 
       const completed = { ...emptyCompleted(), ...(nd?.completed || {}) };
-      const newState = { dateKey: nd?.dateKey || todayKey, completed };
-
-      console.log('🔄 Yeni state set ediliyor:', newState);
-      setState(newState);
-      console.log('✅ refreshFromSupabase: Tamamlandı');
+      setState({ dateKey: nd?.dateKey || todayKey, completed });
     },
     [todayKey]
   );
@@ -96,10 +83,6 @@ export function useNamazDurumu() {
   useEffect(() => {
     let alive = true;
     (async () => {
-      console.log('🔍 useNamazDurumu: useEffect çalıştı');
-      console.log('👤 User:', user?.uid ? `Giriş yapılmış (${user.uid})` : 'Giriş yapılmamış');
-      console.log('📅 Today Key:', todayKey);
-
       if (!user?.uid) {
         // Giriş yapmamış kullanıcılar için AsyncStorage'dan yükle
         try {
@@ -187,7 +170,6 @@ export function useNamazDurumu() {
       setState(newState);
 
       if (user?.uid) {
-        console.log('☁️ Supabase\'e kaydediliyor...');
         await supabase.from('namaz_durumu').upsert({
           user_id: user.uid,
           date_key: todayKey,
@@ -195,9 +177,9 @@ export function useNamazDurumu() {
           updated_at: new Date().toISOString()
         });
 
-        // 5. Günlük görev ilerlemesini yerelde güncelle (Sadece işaretlendiğinde)
+        // 5. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
         if (next) {
-          await TaskService.incrementTaskProgress(5, 1);
+          await incrementTask(5, 1);
         }
 
         // Toplam hanesini güncelle (Kumulatif)
@@ -214,7 +196,7 @@ export function useNamazDurumu() {
         }
       }
     },
-    [arrived, state, user?.uid, todayKey]
+    [arrived, state, user?.uid, todayKey, incrementTask]
   );
 
   const items = useMemo(() => {

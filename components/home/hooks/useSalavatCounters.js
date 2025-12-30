@@ -16,14 +16,16 @@ const toDayKeyLocal = (date) => {
 
 export const useSalavatCounters = () => {
   const { getToday, isLoading: dayLoading } = useDayChange();
+  const { user, stats, incrementTask } = useUserStats();
 
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Base values from Supabase
+  // Base values (merged from context stats)
   const [globalTotalBase, setGlobalTotalBase] = useState(0);
   const [globalTodayBase, setGlobalTodayBase] = useState(0);
-  const [userTotalBase, setUserTotalBase] = useState(0);
+
+  // User total from context is more reliable
+  const userTotalBase = stats.total_salavat || 0;
 
   // Local delta for instant UI (not yet flushed)
   const [localDelta, setLocalDelta] = useState(0);
@@ -50,38 +52,24 @@ export const useSalavatCounters = () => {
     }
   }, [todayKey]);
 
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => setUser(firebaseUser));
-    return unsub;
-  }, []);
-
   const readCounts = useCallback(
-    async (uid) => {
+    async () => {
       try {
-        // Global total
-        const { data: gTotal, error: e1 } = await supabase.from('global_stats').select('total').eq('type', 'salavat').maybeSingle();
+        // Global total (still need to fetch these as they aren't in user_stats)
+        const { data: gTotal } = await supabase.from('global_stats').select('total').eq('type', 'salavat').maybeSingle();
 
-        // Global daily - Try date_key first, but handle missing rows gracefully
-        const { data: gDaily, error: e2 } = await supabase
+        const { data: gDaily } = await supabase
           .from('daily_stats')
           .select('total')
           .eq('type', 'salavat')
           .eq('date_key', todayKey)
           .maybeSingle();
 
-        // User total
-        let uTotal = 0;
-        if (uid) {
-          const { data: stats } = await supabase.from('user_stats').select('total_salavat').eq('user_id', uid).single();
-          uTotal = stats?.total_salavat || 0;
-        }
-
         if (gTotal) setGlobalTotalBase(gTotal.total || 0);
         if (gDaily) setGlobalTodayBase(gDaily.total || 0);
-        else setGlobalTodayBase(0); // Row might not exist yet for new day
-        setUserTotalBase(uTotal);
+        else setGlobalTodayBase(0);
       } catch (err) {
-        console.warn('📿 Salavat readCounts detailed error:', err);
+        console.warn('📿 Salavat readCounts error:', err);
       }
     },
     [todayKey]
@@ -100,16 +88,13 @@ export const useSalavatCounters = () => {
 
       try {
         // 1. Update Global Total
-        const { error: err1 } = await supabase.rpc('increment_global_stat', { stat_type: 'salavat', increment_by: pending });
-        if (err1) throw new Error(`Global RPC: ${err1.message}`);
+        await supabase.rpc('increment_global_stat', { stat_type: 'salavat', increment_by: pending });
 
         // 2. Update Global Daily
-        const { error: err2 } = await supabase.rpc('increment_daily_stat', { stat_type: 'salavat', day_key: dayKeyToUse, increment_by: pending });
-        if (err2) throw new Error(`Daily RPC: ${err2.message}`);
+        await supabase.rpc('increment_daily_stat', { stat_type: 'salavat', day_key: dayKeyToUse, increment_by: pending });
 
-        // 3. Update User Total
-        const { error: err3 } = await supabase.rpc('increment_user_stat', { target_user_id: user.uid, column_name: 'total_salavat', increment_by: pending });
-        if (err3) throw new Error(`User RPC: ${err3.message}`);
+        // 3. Update User Total (This will trigger real-time update in Context)
+        await supabase.rpc('increment_user_stat', { target_user_id: user.uid, column_name: 'total_salavat', increment_by: pending });
 
         // Atomik olarak sayaçlardan düş
         pendingRef.current -= pending;
@@ -117,19 +102,16 @@ export const useSalavatCounters = () => {
 
         setGlobalTotalBase((v) => v + pending);
         if (dayKeyToUse === todayKey) setGlobalTodayBase((v) => v + pending);
-        setUserTotalBase((v) => v + pending);
 
-        console.log(`📿 Salavat flushed successfully: ${pending}`);
-
-        // 4. Günlük görev ilerlemesini yerelde güncelle
-        await TaskService.incrementTaskProgress(4, pending);
+        // 4. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
+        await incrementTask(4, pending);
       } catch (e) {
         console.warn('📿 Salavat flush failed:', e?.message || e);
       } finally {
         flushingRef.current = false;
       }
     },
-    [todayKey, user?.uid]
+    [todayKey, user?.uid, incrementTask]
   );
 
   useEffect(() => {
@@ -138,7 +120,7 @@ export const useSalavatCounters = () => {
       try {
         if (!alive) return;
         setLoading(true);
-        await readCounts(user?.uid);
+        await readCounts();
       } catch (e) {
         console.warn('📿 Salavat read failed:', e?.message || e);
       } finally {
@@ -148,7 +130,7 @@ export const useSalavatCounters = () => {
     return () => {
       alive = false;
     };
-  }, [readCounts, todayKey, user?.uid]);
+  }, [readCounts, todayKey]);
 
   useEffect(() => {
     if (flushTimerRef.current) clearInterval(flushTimerRef.current);

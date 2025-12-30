@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
-import TaskService from '../../../services/TaskService';
+import { useUserStats } from '../../../contexts/UserStatsContext';
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const toDayKeyLocal = (date) => {
@@ -17,7 +17,9 @@ const toDayKeyLocal = (date) => {
  * Gün değiştiğinde otomatik sıfırlanır
  */
 export const useVersesDailyStats = () => {
-  const { user, getToday, isLoading: dayLoading, isDayChanged } = useDayChangeContext();
+  const { user: dayUser, getToday, isLoading: dayLoading, isDayChanged } = useDayChangeContext();
+  const { incrementTask } = useUserStats();
+  const user = dayUser || auth.currentUser;
 
   const [loading, setLoading] = useState(true);
   const [verseRevealed, setVerseRevealed] = useState(false); // Bugün ayet gösterildi mi?
@@ -128,8 +130,8 @@ export const useVersesDailyStats = () => {
         setVerseRevealed(true);
         setCurrentVerseData(verseData);
 
-        // 1. Günlük görev tamamlama
-        await TaskService.completeTask(1);
+        // 1. Günlük görev tamamlama (CONTEXT üzerinden)
+        await incrementTask(1, 1);
 
         console.log(`📖 Ayet gösterildi ve kaydedildi (${todayKey}): ${verseData.reference}`);
         return { success: true, message: 'Ayet gösterildi' };

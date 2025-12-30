@@ -6,7 +6,7 @@ import ScreenBackground from '../../../components/common/ScreenBackground';
 import { useState, useRef, useEffect } from 'react';
 import { Image } from 'react-native';
 import { askHoca } from '../../../services/geminiService';
-import TaskService from '../../../services/TaskService';
+import { useUserStats } from '../../../contexts/UserStatsContext';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -30,6 +30,7 @@ const suggestedQuestions = [
 
 export default function HocaAIScreen() {
   const router = useRouter();
+  const { incrementTask } = useUserStats();
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -62,8 +63,8 @@ export default function HocaAIScreen() {
     setMessages(prev => [...prev, botMessage]);
     setLoading(false);
 
-    // 7. Günlük görev ilerlemesini yerelde güncelle
-    await TaskService.incrementTaskProgress(7, 1);
+    // 7. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
+    await incrementTask(7, 1);
 
     // Otomatik kaydır
     setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);

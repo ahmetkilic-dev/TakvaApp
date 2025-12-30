@@ -8,7 +8,7 @@ import PageNavigation from './PageNavigation';
 import VerseContent from './VerseContent';
 import { usePageVerses } from './hooks/useQuran';
 import { useReadingProgress } from './hooks/useReadingProgress';
-import TaskService from '../../services/TaskService';
+import { useUserStats } from '../../contexts/UserStatsContext';
 
 const TOTAL_PAGES = 604;
 
@@ -17,6 +17,7 @@ export default function QuranPageContainer() {
   const params = useLocalSearchParams();
   const [activeTab, setActiveTab] = useState('Kur\'an');
   const { saveProgress } = useReadingProgress();
+  const { incrementTask } = useUserStats();
 
   // Her zaman page olarak işle
   const pageNumber = params.number ? parseInt(params.number, 10) : 1;
@@ -63,7 +64,7 @@ export default function QuranPageContainer() {
   // Günlük görev ilerlemesini güncelle (Ayet okuma)
   useEffect(() => {
     if (verses && verses.length > 0 && !loading && lastTrackedPageRef.current !== currentPage) {
-      TaskService.incrementTaskProgress(2, verses.length);
+      incrementTask(2, verses.length);
       lastTrackedPageRef.current = currentPage;
     }
   }, [verses, loading, currentPage]);

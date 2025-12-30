@@ -4,6 +4,8 @@ import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
 import TaskService from '../../../services/TaskService';
 
+import { useUserStats } from '../../../contexts/UserStatsContext';
+
 const DEFAULT_DUA_RIGHTS = 3;
 
 const pad2 = (n) => String(n).padStart(2, '0');
@@ -15,7 +17,8 @@ const toDayKeyLocal = (date) => {
 };
 
 export const useZikirDuaDailyStats = () => {
-  const { user, getToday, isLoading: dayLoading } = useDayChangeContext();
+  const { getToday, isLoading: dayLoading } = useDayChangeContext();
+  const { user, incrementTask } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [dhikrBase, setDhikrBase] = useState(0);
@@ -51,7 +54,7 @@ export const useZikirDuaDailyStats = () => {
           increment_by: pending
         });
 
-        // 2. Günlük kullanıcı istatistiğini güncelle (Eğer RPC yoksa fail edebilir, catch içinde koruyoruz)
+        // 2. Günlük kullanıcı istatistiğini güncelle
         try {
           await supabase.rpc('increment_daily_user_stat', {
             target_user_id: user.uid,
@@ -60,27 +63,27 @@ export const useZikirDuaDailyStats = () => {
             increment_by: pending
           });
         } catch (dailyErr) {
-          console.warn('🧿 Daily zikir update failed (RPC might be missing):', dailyErr.message);
+          console.warn('🧿 Daily zikir update failed:', dailyErr.message);
         }
 
-        // 3. Günlük görev ilerlemesini yerelde güncelle
-        await TaskService.incrementTaskProgress(3, pending);
+        // 3. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
+        await incrementTask(3, pending);
 
-        // Atomik olarak sayaçlardan düş (Request sırasında çekilenleri korumak için)
+        // Atomik olarak sayaçlardan düş
         pendingDhikrRef.current -= pending;
         setLocalDhikrDelta((prev) => Math.max(0, prev - pending));
 
         if (dayKeyToUse === todayKey) {
           setDhikrBase((v) => v + pending);
         }
-        console.log(`🧿 Dhikr flushed successfully: ${pending} added to profile and ${dayKeyToUse}`);
+
       } catch (e) {
         console.error('🧿 Dhikr flush failed:', e?.message || e);
       } finally {
         flushingRef.current = false;
       }
     },
-    [todayKey, user?.uid]
+    [todayKey, user?.uid, incrementTask]
   );
 
   useEffect(() => {
