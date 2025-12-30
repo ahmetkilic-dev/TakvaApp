@@ -1,39 +1,60 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, Platform, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Platform, TextInput, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ScreenBackground from '../../../components/common/ScreenBackground';
+import { useHesap } from '../../../components/profile/hooks/useHesap';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
 
-// Responsive calculations
 const horizontalPadding = 20;
-const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
 
 export default function HesapScreen() {
   const router = useRouter();
+  const {
+    profile,
+    loading: hesapLoading,
+    updatePhone,
+    updateEmail,
+    updateBirthDate,
+    changePassword,
+    deleteAccount
+  } = useHesap();
+
   const [expandedSections, setExpandedSections] = useState({
     telefon: false,
     email: false,
     dogumTarihi: false,
     parola: false,
-    hesapSil: false,
   });
 
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [phoneCode, setPhoneCode] = useState(['', '', '', '', '', '', '']);
-  const [showPhoneCode, setShowPhoneCode] = useState(false);
-  const [email, setEmail] = useState('');
-  const [emailCode, setEmailCode] = useState(['', '', '', '', '', '', '']);
-  const [showEmailCode, setShowEmailCode] = useState(false);
-  const [birthDate, setBirthDate] = useState(null);
+  const [localPhone, setLocalPhone] = useState('');
+  const [localEmail, setLocalEmail] = useState('');
+  const [localBirthDate, setLocalBirthDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
+
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [deletePassword, setDeletePassword] = useState('');
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  useEffect(() => {
+    if (profile) {
+      setLocalPhone(profile.phone || '');
+      setLocalEmail(profile.email || '');
+      if (profile.birth_date) {
+        // GG/AA/YYYY formatını Date objesine çevir
+        const [d, m, y] = profile.birth_date.split('/').map(Number);
+        if (d && m && y) setLocalBirthDate(new Date(y, m - 1, d));
+      }
+    }
+  }, [profile]);
 
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
@@ -42,57 +63,98 @@ export default function HesapScreen() {
     }));
   };
 
-  const handleCodeInput = (index, value, type) => {
-    if (type === 'phone') {
-      const newCode = [...phoneCode];
-      newCode[index] = value;
-      setPhoneCode(newCode);
-    } else {
-      const newCode = [...emailCode];
-      newCode[index] = value;
-      setEmailCode(newCode);
-    }
-  };
-
   const formatDate = (date) => {
     if (!date) return '';
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
-    return `${day}.${month}.${year}`;
+    return `${day}/${month}/${year}`;
   };
 
   const onDateChange = (event, selectedDate) => {
     if (Platform.OS === 'android') {
       setShowDatePicker(false);
       if (event.type === 'set' && selectedDate) {
-        setBirthDate(selectedDate);
+        setLocalBirthDate(selectedDate);
       }
     } else {
-      // iOS'ta sadece tarihi güncelle, picker'ı kapatma (sadece butonlarla kapanacak)
-      if (selectedDate) {
-        setBirthDate(selectedDate);
-      }
+      if (selectedDate) setLocalBirthDate(selectedDate);
     }
   };
 
-  const handleSaveBirthDate = () => {
-    // Burada doğum tarihini kaydetme işlemi yapılacak
-    console.log('Doğum tarihi kaydedildi:', birthDate);
-    // API çağrısı veya state güncellemesi burada yapılabilir
+  const handleUpdatePhone = async () => {
+    if (!localPhone) return;
+    setIsUpdating(true);
+    const res = await updatePhone(localPhone);
+    setIsUpdating(false);
+    if (res.success) {
+      Alert.alert('Başarılı', 'Telefon numaranız güncellendi.');
+      toggleSection('telefon');
+    } else {
+      Alert.alert('Hata', res.error || 'Güncelleme başarısız.');
+    }
   };
 
-  const handleSavePassword = () => {
-    // Burada şifre değiştirme işlemi yapılacak
+  const handleUpdateEmail = async () => {
+    if (!localEmail) return;
+    setIsUpdating(true);
+    const res = await updateEmail(localEmail);
+    setIsUpdating(false);
+    if (res.success) {
+      Alert.alert('Başarılı', 'E-posta adresiniz güncellendi.');
+      toggleSection('email');
+    } else {
+      Alert.alert('Hata', res.error || 'Güncelleme başarısız.');
+    }
+  };
+
+  const handleUpdateBirthDate = async () => {
+    if (!localBirthDate) return;
+    setIsUpdating(true);
+    const res = await updateBirthDate(formatDate(localBirthDate));
+    setIsUpdating(false);
+    if (res.success) {
+      Alert.alert('Başarılı', 'Doğum tarihiniz güncellendi.');
+      toggleSection('dogumTarihi');
+    } else {
+      Alert.alert('Hata', res.error || 'Güncelleme başarısız.');
+    }
+  };
+
+  const handleUpdatePassword = async () => {
     if (newPassword !== confirmPassword) {
-      alert('Yeni parolalar eşleşmiyor!');
+      Alert.alert('Hata', 'Yeni parolalar eşleşmiyor!');
       return;
     }
-    console.log('Şifre değiştirildi');
-    // API çağrısı burada yapılabilir
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
+    setIsUpdating(true);
+    const res = await changePassword(currentPassword, newPassword);
+    setIsUpdating(false);
+    if (res.success) {
+      Alert.alert('Başarılı', 'Parolanız güncellendi.');
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      toggleSection('parola');
+    } else {
+      Alert.alert('Hata', res.error || 'Güncelleme başarısız.');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!deletePassword) {
+      Alert.alert('Hata', 'İşlemi onaylamak için parolanızı girmelisiniz.');
+      return;
+    }
+
+    setIsUpdating(true);
+    const res = await deleteAccount(deletePassword);
+    setIsUpdating(false);
+    if (res.success) {
+      setIsDeleteModalVisible(false);
+      router.replace('/(auth)/login');
+    } else {
+      Alert.alert('Hata', res.error || 'Hesap silinemedi. Lütfen parolanızı kontrol edin.');
+    }
   };
 
   const sections = [
@@ -122,13 +184,23 @@ export default function HesapScreen() {
     },
   ];
 
+  if (hesapLoading) {
+    return (
+      <ScreenBackground>
+        <SafeAreaView className="flex-1 justify-center items-center">
+          <ActivityIndicator size="large" color="#FFBA4A" />
+        </SafeAreaView>
+      </ScreenBackground>
+    );
+  }
+
   return (
     <ScreenBackground>
       <SafeAreaView edges={['top']} className="flex-1">
         {/* Header */}
         <View className="flex-row items-center justify-between px-4 pt-2 pb-2">
-          <TouchableOpacity 
-            onPress={() => router.back()} 
+          <TouchableOpacity
+            onPress={() => router.back()}
             className="w-9 h-9 items-center justify-center"
           >
             <Ionicons name="chevron-back" size={28} color="#FFFFFF" />
@@ -142,7 +214,7 @@ export default function HesapScreen() {
               letterSpacing: -2,
             }}
           >
-            PROFİL
+            HESAP
           </Text>
           <View className="w-9" />
         </View>
@@ -152,38 +224,11 @@ export default function HesapScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: 0,
+            paddingBottom: 40,
           }}
         >
           {/* Hesap Section */}
           <View style={{ marginBottom: 32, alignItems: 'center' }}>
-            <Text
-              style={{
-                fontFamily,
-                fontSize: 16,
-                fontWeight: '700',
-                color: '#FFFFFF',
-                marginBottom: 8,
-                textAlign: 'center',
-              }}
-            >
-              Hesap
-            </Text>
-            <Text
-              style={{
-                fontFamily,
-                fontSize: 10,
-                fontWeight: '400',
-                color: 'rgba(255, 255, 255, 0.6)',
-                marginBottom: 24,
-                lineHeight: 13,
-                textAlign: 'center',
-              }}
-            >
-              Hesap bilgilerini görüntüleyebilir, güncelleyebilir ve yönetebilirsin.
-            </Text>
-
-            {/* Collapsible Sections */}
             <View
               style={{
                 width: '100%',
@@ -239,16 +284,10 @@ export default function HesapScreen() {
 
                   {/* Expanded Content */}
                   {section.expanded && (
-                    <View
-                      style={{
-                        paddingHorizontal: 16,
-                        paddingBottom: 16,
-                      }}
-                    >
-                    {/* Telefon Numarası */}
-                    {section.id === 'telefon' && (
-                      <>
-                        <View style={{ marginBottom: 16, position: 'relative' }}>
+                    <View style={{ paddingHorizontal: 16, paddingBottom: 16 }}>
+                      {/* Telefon Numarası */}
+                      {section.id === 'telefon' && (
+                        <>
                           <TextInput
                             style={{
                               width: '100%',
@@ -258,98 +297,40 @@ export default function HesapScreen() {
                               borderColor: 'rgba(255, 255, 255, 0.7)',
                               backgroundColor: '#15221E',
                               paddingHorizontal: 15,
-                              paddingRight: 90,
                               color: '#FFFFFF',
                               fontFamily,
                               fontSize: 12,
+                              marginBottom: 12,
                             }}
-                            placeholder="Telefon numaranızı giriniz"
+                            placeholder="Yeni telefon numaranızı giriniz"
                             placeholderTextColor="rgba(255, 255, 255, 0.5)"
-                            value={phoneNumber}
-                            onChangeText={setPhoneNumber}
+                            value={localPhone}
+                            onChangeText={setLocalPhone}
                             keyboardType="phone-pad"
                           />
                           <TouchableOpacity
-                            onPress={() => setShowPhoneCode(true)}
+                            onPress={handleUpdatePhone}
+                            disabled={isUpdating}
                             style={{
-                              position: 'absolute',
-                              right: 15,
-                              top: 0,
+                              width: '100%',
                               height: 42,
+                              borderRadius: 10,
+                              backgroundColor: '#15614D',
+                              alignItems: 'center',
                               justifyContent: 'center',
+                              opacity: isUpdating ? 0.7 : 1,
                             }}
                           >
-                            <Text
-                              style={{
-                                fontFamily,
-                                fontSize: 10,
-                                fontWeight: '400',
-                                color: '#FFFFFF',
-                              }}
-                            >
-                              Kodu gönder
-                            </Text>
+                            {isUpdating ? <ActivityIndicator size="small" color="#FFF" /> : (
+                              <Text style={{ fontFamily, fontSize: 14, fontWeight: '600', color: '#FFFFFF' }}>Güncelle</Text>
+                            )}
                           </TouchableOpacity>
-                        </View>
-                        {/* Code Input Boxes */}
-                        {showPhoneCode && (
-                          <>
-                            <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center', marginBottom: 16 }}>
-                              {phoneCode.map((digit, idx) => (
-                                <TextInput
-                                  key={idx}
-                                  style={{
-                                    width: 40,
-                                    height: 43,
-                                    borderRadius: 10,
-                                    borderWidth: 1,
-                                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                                    backgroundColor: '#15221E',
-                                    textAlign: 'center',
-                                    color: '#FFFFFF',
-                                    fontFamily,
-                                    fontSize: 20,
-                                    fontWeight: '400',
-                                  }}
-                                  value={digit}
-                                  onChangeText={(value) => handleCodeInput(idx, value, 'phone')}
-                                  keyboardType="number-pad"
-                                  maxLength={1}
-                                />
-                              ))}
-                            </View>
-                            <TouchableOpacity
-                              style={{
-                                width: '100%',
-                                height: 42,
-                                borderRadius: 10,
-                                borderWidth: 1,
-                                borderColor: 'rgba(255, 255, 255, 0.5)',
-                                backgroundColor: '#15221E',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontFamily,
-                                  fontSize: 18,
-                                  fontWeight: '500',
-                                  color: '#FFFFFF',
-                                }}
-                              >
-                                Kaydet
-                              </Text>
-                            </TouchableOpacity>
-                          </>
-                        )}
-                      </>
-                    )}
+                        </>
+                      )}
 
-                    {/* E-posta Adresi */}
-                    {section.id === 'email' && (
-                      <>
-                        <View style={{ marginBottom: 16, position: 'relative' }}>
+                      {/* E-posta Adresi */}
+                      {section.id === 'email' && (
+                        <>
                           <TextInput
                             style={{
                               width: '100%',
@@ -359,429 +340,318 @@ export default function HesapScreen() {
                               borderColor: 'rgba(255, 255, 255, 0.7)',
                               backgroundColor: '#15221E',
                               paddingHorizontal: 15,
-                              paddingRight: 90,
                               color: '#FFFFFF',
                               fontFamily,
                               fontSize: 12,
+                              marginBottom: 12,
                             }}
-                            placeholder="E-postanızı giriniz"
+                            placeholder="Yeni e-postanızı giriniz"
                             placeholderTextColor="rgba(255, 255, 255, 0.5)"
-                            value={email}
-                            onChangeText={setEmail}
+                            value={localEmail}
+                            onChangeText={setLocalEmail}
                             keyboardType="email-address"
                             autoCapitalize="none"
                           />
                           <TouchableOpacity
-                            onPress={() => setShowEmailCode(true)}
+                            onPress={handleUpdateEmail}
+                            disabled={isUpdating}
                             style={{
-                              position: 'absolute',
-                              right: 15,
-                              top: 0,
+                              width: '100%',
                               height: 42,
+                              borderRadius: 10,
+                              backgroundColor: '#15614D',
+                              alignItems: 'center',
                               justifyContent: 'center',
+                              opacity: isUpdating ? 0.7 : 1,
                             }}
                           >
-                            <Text
-                              style={{
-                                fontFamily,
-                                fontSize: 10,
-                                fontWeight: '400',
-                                color: '#FFFFFF',
-                              }}
-                            >
-                              Kodu gönder
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                        {/* Code Input Boxes */}
-                        {showEmailCode && (
-                          <>
-                            <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center', marginBottom: 16 }}>
-                              {emailCode.map((digit, idx) => (
-                                <TextInput
-                                  key={idx}
-                                  style={{
-                                    width: 40,
-                                    height: 43,
-                                    borderRadius: 10,
-                                    borderWidth: 1,
-                                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                                    backgroundColor: '#15221E',
-                                    textAlign: 'center',
-                                    color: '#FFFFFF',
-                                    fontFamily,
-                                    fontSize: 20,
-                                    fontWeight: '400',
-                                  }}
-                                  value={digit}
-                                  onChangeText={(value) => handleCodeInput(idx, value, 'email')}
-                                  keyboardType="number-pad"
-                                  maxLength={1}
-                                />
-                              ))}
-                            </View>
-                            <TouchableOpacity
-                              style={{
-                                width: '100%',
-                                height: 42,
-                                borderRadius: 10,
-                                borderWidth: 1,
-                                borderColor: 'rgba(255, 255, 255, 0.5)',
-                                backgroundColor: '#15221E',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontFamily,
-                                  fontSize: 18,
-                                  fontWeight: '500',
-                                  color: '#FFFFFF',
-                                }}
-                              >
-                                Kaydet
-                              </Text>
-                            </TouchableOpacity>
-                          </>
-                        )}
-                      </>
-                    )}
-
-                    {/* Doğum Tarihi */}
-                    {section.id === 'dogumTarihi' && (
-                      <>
-                        <TouchableOpacity
-                          onPress={() => setShowDatePicker(true)}
-                          style={{
-                            width: '100%',
-                            height: 42,
-                            borderRadius: 10,
-                            borderWidth: 1,
-                            borderColor: 'rgba(255, 255, 255, 0.7)',
-                            backgroundColor: '#15221E',
-                            paddingHorizontal: 15,
-                            justifyContent: 'center',
-                            marginBottom: 16,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              fontFamily,
-                              fontSize: 12,
-                              color: birthDate ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
-                            }}
-                          >
-                            {birthDate ? formatDate(birthDate) : 'Doğum tarihini giriniz'}
-                          </Text>
-                        </TouchableOpacity>
-                        {showDatePicker && (
-                          <>
-                            <DateTimePicker
-                              value={birthDate || new Date()}
-                              mode="date"
-                              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                              onChange={onDateChange}
-                              maximumDate={new Date()}
-                              minimumDate={new Date(1900, 0, 1)}
-                              locale="tr-TR"
-                              textColor="#FFFFFF"
-                              themeVariant="dark"
-                            />
-                            {Platform.OS === 'ios' && (
-                              <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
-                                <TouchableOpacity
-                                  onPress={() => setShowDatePicker(false)}
-                                  style={{
-                                    flex: 1,
-                                    height: 42,
-                                    borderRadius: 10,
-                                    borderWidth: 1,
-                                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                                    backgroundColor: '#15221E',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                  }}
-                                >
-                                  <Text
-                                    style={{
-                                      fontFamily,
-                                      fontSize: 14,
-                                      fontWeight: '500',
-                                      color: '#FFFFFF',
-                                    }}
-                                  >
-                                    İptal
-                                  </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                  onPress={() => {
-                                    if (!birthDate) setBirthDate(new Date());
-                                    setShowDatePicker(false);
-                                  }}
-                                  style={{
-                                    flex: 1,
-                                    height: 42,
-                                    borderRadius: 10,
-                                    borderWidth: 1,
-                                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                                    backgroundColor: '#15221E',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                  }}
-                                >
-                                  <Text
-                                    style={{
-                                      fontFamily,
-                                      fontSize: 14,
-                                      fontWeight: '500',
-                                      color: '#FFFFFF',
-                                    }}
-                                  >
-                                    Tamam
-                                  </Text>
-                                </TouchableOpacity>
-                              </View>
+                            {isUpdating ? <ActivityIndicator size="small" color="#FFF" /> : (
+                              <Text style={{ fontFamily, fontSize: 14, fontWeight: '600', color: '#FFFFFF' }}>Güncelle</Text>
                             )}
-                            <TouchableOpacity
-                              onPress={() => {
-                                handleSaveBirthDate();
-                                setShowDatePicker(false);
-                              }}
-                              disabled={!birthDate}
-                              style={{
-                                width: '100%',
-                                height: 42,
-                                borderRadius: 10,
-                                borderWidth: 1,
-                                borderColor: 'rgba(255, 255, 255, 0.5)',
-                                backgroundColor: birthDate ? '#15221E' : 'rgba(21, 34, 30, 0.5)',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                opacity: birthDate ? 1 : 0.5,
-                                marginTop: 8,
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontFamily,
-                                  fontSize: 18,
-                                  fontWeight: '500',
-                                  color: '#FFFFFF',
-                                }}
-                              >
-                                Kaydet
-                              </Text>
-                            </TouchableOpacity>
-                          </>
-                        )}
-                        {!showDatePicker && (
+                          </TouchableOpacity>
+                        </>
+                      )}
+
+                      {/* Doğum Tarihi */}
+                      {section.id === 'dogumTarihi' && (
+                        <>
                           <TouchableOpacity
-                            onPress={handleSaveBirthDate}
-                            disabled={!birthDate}
+                            onPress={() => setShowDatePicker(true)}
                             style={{
                               width: '100%',
                               height: 42,
                               borderRadius: 10,
                               borderWidth: 1,
-                              borderColor: 'rgba(255, 255, 255, 0.5)',
-                              backgroundColor: birthDate ? '#15221E' : 'rgba(21, 34, 30, 0.5)',
-                              alignItems: 'center',
+                              borderColor: 'rgba(255, 255, 255, 0.7)',
+                              backgroundColor: '#15221E',
+                              paddingHorizontal: 15,
                               justifyContent: 'center',
-                              opacity: birthDate ? 1 : 0.5,
+                              marginBottom: 12,
                             }}
                           >
-                            <Text
-                              style={{
-                                fontFamily,
-                                fontSize: 18,
-                                fontWeight: '500',
-                                color: '#FFFFFF',
-                              }}
-                            >
-                              Kaydet
+                            <Text style={{ fontFamily, fontSize: 12, color: localBirthDate ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)' }}>
+                              {localBirthDate ? formatDate(localBirthDate) : 'Doğum tarihini seçiniz'}
                             </Text>
                           </TouchableOpacity>
-                        )}
-                      </>
-                    )}
 
-                    {/* Parola Değiştir */}
-                    {section.id === 'parola' && (
-                      <>
-                        <TextInput
-                          style={{
-                            width: '100%',
-                            height: 42,
-                            borderRadius: 10,
-                            borderWidth: 1,
-                            borderColor: 'rgba(255, 255, 255, 0.7)',
-                            backgroundColor: '#15221E',
-                            paddingHorizontal: 15,
-                            color: '#FFFFFF',
-                            fontFamily,
-                            fontSize: 12,
-                            marginBottom: 12,
-                          }}
-                          placeholder="Mevcut parolanızı giriniz"
-                          placeholderTextColor="rgba(255, 255, 255, 0.5)"
-                          value={currentPassword}
-                          onChangeText={setCurrentPassword}
-                          secureTextEntry
-                        />
-                        <TextInput
-                          style={{
-                            width: '100%',
-                            height: 42,
-                            borderRadius: 10,
-                            borderWidth: 1,
-                            borderColor: 'rgba(255, 255, 255, 0.7)',
-                            backgroundColor: '#15221E',
-                            paddingHorizontal: 15,
-                            color: '#FFFFFF',
-                            fontFamily,
-                            fontSize: 12,
-                            marginBottom: 12,
-                          }}
-                          placeholder="Yeni parolanızı giriniz"
-                          placeholderTextColor="rgba(255, 255, 255, 0.5)"
-                          value={newPassword}
-                          onChangeText={setNewPassword}
-                          secureTextEntry
-                        />
-                        <TextInput
-                          style={{
-                            width: '100%',
-                            height: 42,
-                            borderRadius: 10,
-                            borderWidth: 1,
-                            borderColor: 'rgba(255, 255, 255, 0.7)',
-                            backgroundColor: '#15221E',
-                            paddingHorizontal: 15,
-                            color: '#FFFFFF',
-                            fontFamily,
-                            fontSize: 12,
-                            marginBottom: 16,
-                          }}
-                          placeholder="Yeni parolanızı tekrar giriniz"
-                          placeholderTextColor="rgba(255, 255, 255, 0.5)"
-                          value={confirmPassword}
-                          onChangeText={setConfirmPassword}
-                          secureTextEntry
-                        />
-                        <TouchableOpacity
-                          onPress={handleSavePassword}
-                          disabled={!currentPassword || !newPassword || !confirmPassword}
-                          style={{
-                            width: '100%',
-                            height: 42,
-                            borderRadius: 10,
-                            borderWidth: 1,
-                            borderColor: 'rgba(255, 255, 255, 0.5)',
-                            backgroundColor: (currentPassword && newPassword && confirmPassword) ? '#15221E' : 'rgba(21, 34, 30, 0.5)',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            opacity: (currentPassword && newPassword && confirmPassword) ? 1 : 0.5,
-                          }}
-                        >
-                          <Text
+                          {showDatePicker && (
+                            <View>
+                              <DateTimePicker
+                                value={localBirthDate || new Date()}
+                                mode="date"
+                                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                onChange={onDateChange}
+                                maximumDate={new Date()}
+                                minimumDate={new Date(1900, 0, 1)}
+                                locale="tr-TR"
+                                textColor="#FFFFFF"
+                                themeVariant="dark"
+                              />
+                              {Platform.OS === 'ios' && (
+                                <TouchableOpacity
+                                  onPress={() => setShowDatePicker(false)}
+                                  style={{ padding: 10, alignItems: 'center' }}
+                                >
+                                  <Text style={{ color: '#FFF' }}>Tamam</Text>
+                                </TouchableOpacity>
+                              )}
+                            </View>
+                          )}
+
+                          <TouchableOpacity
+                            onPress={handleUpdateBirthDate}
+                            disabled={isUpdating || !localBirthDate}
                             style={{
-                              fontFamily,
-                              fontSize: 18,
-                              fontWeight: '500',
-                              color: '#FFFFFF',
+                              width: '100%',
+                              height: 42,
+                              borderRadius: 10,
+                              backgroundColor: '#15614D',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              opacity: (isUpdating || !localBirthDate) ? 0.7 : 1,
                             }}
                           >
-                            Kaydet
-                          </Text>
-                        </TouchableOpacity>
-                      </>
-                    )}
+                            {isUpdating ? <ActivityIndicator size="small" color="#FFF" /> : (
+                              <Text style={{ fontFamily, fontSize: 14, fontWeight: '600', color: '#FFFFFF' }}>Güncelle</Text>
+                            )}
+                          </TouchableOpacity>
+                        </>
+                      )}
 
+                      {/* Parola Değiştir */}
+                      {section.id === 'parola' && (
+                        <>
+                          <TextInput
+                            style={{
+                              width: '100%',
+                              height: 42,
+                              borderRadius: 10,
+                              borderWidth: 1,
+                              borderColor: 'rgba(255, 255, 255, 0.7)',
+                              backgroundColor: '#15221E',
+                              paddingHorizontal: 15,
+                              color: '#FFFFFF',
+                              fontFamily,
+                              fontSize: 12,
+                              marginBottom: 12,
+                            }}
+                            placeholder="Mevcut parolanızı giriniz"
+                            placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                            value={currentPassword}
+                            onChangeText={setCurrentPassword}
+                            secureTextEntry
+                          />
+                          <TextInput
+                            style={{
+                              width: '100%',
+                              height: 42,
+                              borderRadius: 10,
+                              borderWidth: 1,
+                              borderColor: 'rgba(255, 255, 255, 0.7)',
+                              backgroundColor: '#15221E',
+                              paddingHorizontal: 15,
+                              color: '#FFFFFF',
+                              fontFamily,
+                              fontSize: 12,
+                              marginBottom: 12,
+                            }}
+                            placeholder="Yeni parolanızı giriniz"
+                            placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                            value={newPassword}
+                            onChangeText={setNewPassword}
+                            secureTextEntry
+                          />
+                          <TextInput
+                            style={{
+                              width: '100%',
+                              height: 42,
+                              borderRadius: 10,
+                              borderWidth: 1,
+                              borderColor: 'rgba(255, 255, 255, 0.7)',
+                              backgroundColor: '#15221E',
+                              paddingHorizontal: 15,
+                              color: '#FFFFFF',
+                              fontFamily,
+                              fontSize: 12,
+                              marginBottom: 12,
+                            }}
+                            placeholder="Yeni parolanızı tekrar giriniz"
+                            placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                            value={confirmPassword}
+                            onChangeText={setConfirmPassword}
+                            secureTextEntry
+                          />
+                          <TouchableOpacity
+                            onPress={handleUpdatePassword}
+                            disabled={isUpdating || !currentPassword || !newPassword}
+                            style={{
+                              width: '100%',
+                              height: 42,
+                              borderRadius: 10,
+                              backgroundColor: '#15614D',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              opacity: (isUpdating || !currentPassword || !newPassword) ? 0.7 : 1,
+                            }}
+                          >
+                            {isUpdating ? <ActivityIndicator size="small" color="#FFF" /> : (
+                              <Text style={{ fontFamily, fontSize: 14, fontWeight: '600', color: '#FFFFFF' }}>Parolayı Güncelle</Text>
+                            )}
+                          </TouchableOpacity>
+                        </>
+                      )}
                     </View>
                   )}
-                  
-                  {/* Divider Line */}
-                  {index < sections.length - 1 && (
-                    <View
-                      style={{
-                        width: '100%',
-                        height: 0.5,
-                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                        marginLeft: 16,
-                      }}
-                    />
+
+                  {index < sections.length && (
+                    <View style={{ width: '100%', height: 0.5, backgroundColor: 'rgba(255, 255, 255, 0.5)', marginLeft: 16 }} />
                   )}
                 </View>
               ))}
 
-              {/* Divider before Hesabı Sil */}
-              <View
-                style={{
-                  width: '100%',
-                  height: 0.5,
-                  backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                  marginLeft: 16,
-                }}
-              />
-
-              {/* Hesabı Sil Section - Always Visible, Inside Main Box */}
-              <View
-                style={{
-                  width: '100%',
-                  paddingVertical: 16,
-                  paddingHorizontal: 16,
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily,
-                    fontSize: 16,
-                    fontWeight: '500',
-                    color: '#FFFFFF',
-                    marginBottom: 4,
-                  }}
-                >
-                  Hesabı Sil
-                </Text>
-                <Text
-                  style={{
-                    fontFamily,
-                    fontSize: 10,
-                    fontWeight: '400',
-                    color: 'rgba(255, 255, 255, 0.8)',
-                    marginBottom: 16,
-                  }}
-                >
+              {/* Hesabı Sil Section */}
+              <View style={{ width: '100%', paddingVertical: 16, paddingHorizontal: 16 }}>
+                <Text style={{ fontFamily, fontSize: 16, fontWeight: '500', color: '#FFFFFF', marginBottom: 4 }}>Hesabı Sil</Text>
+                <Text style={{ fontFamily, fontSize: 10, fontWeight: '400', color: 'rgba(255, 255, 255, 0.8)', marginBottom: 16 }}>
                   Hesabını kalıcı olarak silmek tüm verilerini geri döndürülemez şekilde kaldırır.
                 </Text>
+
                 <TouchableOpacity
+                  onPress={() => setIsDeleteModalVisible(true)}
+                  disabled={isUpdating}
                   style={{
                     width: 100,
-                    height: 30,
+                    height: 35,
                     borderRadius: 10,
-                    borderWidth: 0.5,
-                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                    backgroundColor: 'transparent',
+                    borderWidth: 1,
+                    borderColor: '#E74C3C',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    opacity: isUpdating ? 0.7 : 1,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontFamily,
-                      fontSize: 14,
-                      fontWeight: '500',
-                      color: '#E74C3C',
-                    }}
-                  >
-                    Hesabı Sil
-                  </Text>
+                  <Text style={{ fontFamily, fontSize: 14, fontWeight: '500', color: '#E74C3C' }}>Hesabı Sil</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </ScrollView>
+
+        {/* Delete Confirmation Modal */}
+        {isDeleteModalVisible && (
+          <View
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: 20,
+              zIndex: 1000,
+            }}
+          >
+            <View
+              style={{
+                width: '100%',
+                backgroundColor: '#15221E',
+                borderRadius: 20,
+                padding: 24,
+                borderWidth: 1,
+                borderColor: 'rgba(255, 255, 255, 0.2)',
+              }}
+            >
+              <Text style={{ fontFamily: 'Cinzel-Black', color: '#FFFFFF', fontSize: 20, marginBottom: 12, textAlign: 'center' }}>
+                HESABI SİL
+              </Text>
+              <Text style={{ fontFamily, color: 'rgba(255, 255, 255, 0.7)', fontSize: 13, marginBottom: 20, textAlign: 'center', lineHeight: 18 }}>
+                Hesabınızı kalıcı olarak silmek üzeresiniz. Bu işlem geri alınamaz. Lütfen onaylamak için parolanızı girin.
+              </Text>
+
+              <TextInput
+                style={{
+                  width: '100%',
+                  height: 48,
+                  borderRadius: 12,
+                  borderWidth: 1,
+                  borderColor: 'rgba(255, 255, 255, 0.3)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  paddingHorizontal: 16,
+                  color: '#FFFFFF',
+                  fontFamily,
+                  fontSize: 14,
+                  marginBottom: 20,
+                }}
+                placeholder="Parolanız"
+                placeholderTextColor="rgba(255, 255, 255, 0.4)"
+                value={deletePassword}
+                onChangeText={setDeletePassword}
+                secureTextEntry
+                autoFocus
+              />
+
+              <View style={{ flexDirection: 'row', gap: 12 }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setIsDeleteModalVisible(false);
+                    setDeletePassword('');
+                  }}
+                  style={{
+                    flex: 1,
+                    height: 45,
+                    borderRadius: 12,
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Text style={{ fontFamily, color: '#FFFFFF', fontWeight: '600' }}>İptal</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleDeleteAccount}
+                  disabled={isUpdating || !deletePassword}
+                  style={{
+                    flex: 1,
+                    height: 45,
+                    borderRadius: 12,
+                    backgroundColor: '#E74C3C',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: (isUpdating || !deletePassword) ? 0.6 : 1,
+                  }}
+                >
+                  {isUpdating ? (
+                    <ActivityIndicator size="small" color="#FFFFFF" />
+                  ) : (
+                    <Text style={{ fontFamily, color: '#FFFFFF', fontWeight: '700' }}>Evet, Sil</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        )}
       </SafeAreaView>
     </ScreenBackground>
   );

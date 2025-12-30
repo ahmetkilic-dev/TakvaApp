@@ -6,6 +6,7 @@ import ScreenBackground from '../../../components/common/ScreenBackground';
 import { useState, useRef, useEffect } from 'react';
 import { Image } from 'react-native';
 import { askHoca } from '../../../services/geminiService';
+import TaskService from '../../../services/TaskService';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -60,6 +61,9 @@ export default function HocaAIScreen() {
     const botMessage = { id: (Date.now() + 1).toString(), text: finalAnswer, sender: 'bot' };
     setMessages(prev => [...prev, botMessage]);
     setLoading(false);
+
+    // 7. Günlük görev ilerlemesini yerelde güncelle
+    await TaskService.incrementTaskProgress(7, 1);
 
     // Otomatik kaydır
     setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);

@@ -83,15 +83,18 @@ export const BadgeCategorySection = ({ stats, onTaskPress }) => {
         {
             category: 'Zikir & Salavat Görevleri',
             iconKey: 'zksl',
-            tasks: [
-                { text: 'Toplam 100 zikir veya salavat yap.', label: 'Niyet', icon: 1, target: 100, progress: stats.dhikrCount, route: '/(app)/(services)/dhikr' },
-                { text: 'Toplam 500 zikir veya salavat yap.', label: 'Adanış', icon: 2, target: 500, progress: stats.dhikrCount, route: '/(app)/(services)/dhikr' },
-                { text: 'Toplam 1.000 zikir veya salavat yap.', label: 'Teskin', icon: 3, target: 1000, progress: stats.dhikrCount, route: '/(app)/(services)/dhikr' },
-                { text: 'Toplam 5.000 zikir veya salavat yap.', label: 'Sabr', icon: 4, target: 5000, progress: stats.dhikrCount, route: '/(app)/(services)/dhikr' },
-                { text: 'Toplam 10.000 zikir veya salavat yap.', label: 'Sevda', icon: 5, target: 10000, progress: stats.dhikrCount, route: '/(app)/(services)/dhikr' },
-                { text: 'Toplam 25.000 zikir veya salavat yap.', label: 'Rahmet', icon: 6, target: 25000, progress: stats.dhikrCount, route: '/(app)/(services)/dhikr' },
-                { text: 'Toplam 50.000 zikir veya salavat yap.', label: 'Feyz', icon: 7, target: 50000, progress: stats.dhikrCount, route: '/(app)/(services)/dhikr' },
-            ],
+            tasks: (() => {
+                const zkslProgress = Math.max(stats.dhikrCount || 0, stats.salavatCount || 0);
+                return [
+                    { text: 'Toplam 100 zikir veya salavat yap.', label: 'Niyet', icon: 1, target: 100, progress: zkslProgress, route: '/(app)/(services)/dhikr' },
+                    { text: 'Toplam 500 zikir veya salavat yap.', label: 'Adanış', icon: 2, target: 500, progress: zkslProgress, route: '/(app)/(services)/dhikr' },
+                    { text: 'Toplam 1.000 zikir veya salavat yap.', label: 'Teskin', icon: 3, target: 1000, progress: zkslProgress, route: '/(app)/(services)/dhikr' },
+                    { text: 'Toplam 5.000 zikir veya salavat yap.', label: 'Sabr', icon: 4, target: 5000, progress: zkslProgress, route: '/(app)/(services)/dhikr' },
+                    { text: 'Toplam 10.000 zikir veya salavat yap.', label: 'Sevda', icon: 5, target: 10000, progress: zkslProgress, route: '/(app)/(services)/dhikr' },
+                    { text: 'Toplam 25.000 zikir veya salavat yap.', label: 'Rahmet', icon: 6, target: 25000, progress: zkslProgress, route: '/(app)/(services)/dhikr' },
+                    { text: 'Toplam 50.000 zikir veya salavat yap.', label: 'Feyz', icon: 7, target: 50000, progress: zkslProgress, route: '/(app)/(services)/dhikr' },
+                ];
+            })(),
         },
         {
             category: 'İlim Görevleri',

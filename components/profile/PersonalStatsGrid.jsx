@@ -35,24 +35,29 @@ export const PersonalStatsGrid = ({ stats }) => {
                         end={{ x: 1, y: 1 }}
                         style={{
                             width: (contentWidth - 12) / 2,
-                            height: 50,
+                            height: 60,
                             borderRadius: 10,
                             borderWidth: 0.5,
                             borderColor: 'rgba(216, 196, 158, 0.5)',
-                            padding: 16,
+                            paddingVertical: 6,
+                            paddingHorizontal: 8,
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}
                     >
-                        <Text style={{
-                            fontFamily,
-                            fontSize: 12,
-                            fontWeight: '400',
-                            color: '#D8C49E',
-                            marginBottom: 4,
-                            letterSpacing: 0.24,
-                            textAlign: 'center'
-                        }}>
+                        <Text
+                            numberOfLines={2}
+                            adjustsFontSizeToFit
+                            style={{
+                                fontFamily,
+                                fontSize: 11,
+                                fontWeight: '400',
+                                color: '#D8C49E',
+                                marginBottom: 2,
+                                letterSpacing: 0.24,
+                                textAlign: 'center'
+                            }}
+                        >
                             {stat.title}
                         </Text>
                         <Text style={{

@@ -67,7 +67,7 @@ export default function TasksScreen() {
 
           {/* Daily Tasks Section */}
           <DailyTaskSection
-            tasks={tasksData.daily.tasks}
+            tasks={tasksData.daily || []}
             onTaskPress={navigateToTask}
           />
 

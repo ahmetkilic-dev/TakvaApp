@@ -6,6 +6,7 @@ import { auth } from '../../../firebaseConfig';
 import { supabase } from '../../../lib/supabase';
 import { useDailyPrayerTimes } from '../../../hooks/useDailyPrayerTimes';
 import { rolloverNamazIfNeeded } from '../../../utils/namazRollover';
+import TaskService from '../../../services/TaskService';
 
 const PRAYER_KEYS = ['sabah', 'ogle', 'ikindi', 'aksam', 'yatsi'];
 
@@ -192,6 +193,18 @@ export function useNamazDurumu() {
           date_key: todayKey,
           completed: newState.completed,
           updated_at: new Date().toISOString()
+        });
+
+        // 5. Günlük görev ilerlemesini yerelde güncelle (Sadece işaretlendiğinde)
+        if (next) {
+          await TaskService.incrementTaskProgress(5, 1);
+        }
+
+        // Toplam hanesini güncelle (Kumulatif)
+        await supabase.rpc('increment_user_stat', {
+          target_user_id: user.uid,
+          column_name: 'total_prayers',
+          increment_by: next ? 1 : -1
         });
       } else {
         try {

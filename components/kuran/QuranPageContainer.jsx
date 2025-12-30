@@ -1,6 +1,6 @@
 import { View, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import KuranHeader from './KuranHeader';
 import SuraTitle from './SuraTitle';
@@ -8,6 +8,7 @@ import PageNavigation from './PageNavigation';
 import VerseContent from './VerseContent';
 import { usePageVerses } from './hooks/useQuran';
 import { useReadingProgress } from './hooks/useReadingProgress';
+import TaskService from '../../services/TaskService';
 
 const TOTAL_PAGES = 604;
 
@@ -16,10 +17,11 @@ export default function QuranPageContainer() {
   const params = useLocalSearchParams();
   const [activeTab, setActiveTab] = useState('Kur\'an');
   const { saveProgress } = useReadingProgress();
-  
+
   // Her zaman page olarak işle
   const pageNumber = params.number ? parseInt(params.number, 10) : 1;
   const [currentPage, setCurrentPage] = useState(pageNumber);
+  const lastTrackedPageRef = useRef(null);
 
   // params.number değiştiğinde currentPage'i güncelle
   useEffect(() => {
@@ -58,32 +60,39 @@ export default function QuranPageContainer() {
     }
   }, [currentPage, saveProgress]);
 
+  // Günlük görev ilerlemesini güncelle (Ayet okuma)
+  useEffect(() => {
+    if (verses && verses.length > 0 && !loading && lastTrackedPageRef.current !== currentPage) {
+      TaskService.incrementTaskProgress(2, verses.length);
+      lastTrackedPageRef.current = currentPage;
+    }
+  }, [verses, loading, currentPage]);
+
   return (
     <SafeAreaView edges={['top']} className="flex-1">
-        <KuranHeader />
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 0 }}
-        >
-          <SuraTitle title={`Sayfa ${currentPage}`} />
-          
-          <PageNavigation
-            currentPage={currentPage}
-            totalPages={TOTAL_PAGES}
-            onPageChange={handlePageChange}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-            showPageNumbers={true}
-          />
+      <KuranHeader />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 0 }}
+      >
+        <SuraTitle title={`Sayfa ${currentPage}`} />
 
-          <VerseContent
-            verses={verses}
-            activeTab={activeTab}
-            loading={loading}
-            error={error}
-          />
-        </ScrollView>
-      </SafeAreaView>
+        <PageNavigation
+          currentPage={currentPage}
+          totalPages={TOTAL_PAGES}
+          onPageChange={handlePageChange}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          showPageNumbers={true}
+        />
+
+        <VerseContent
+          verses={verses}
+          activeTab={activeTab}
+          loading={loading}
+          error={error}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-

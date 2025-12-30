@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
+import TaskService from '../../../services/TaskService';
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const toDayKeyLocal = (date) => {
@@ -99,7 +100,7 @@ export const useVersesDailyStats = () => {
       }
 
       try {
-        // Supabase'e kaydet
+        // Supabase'e kaydet (Günlük bazda)
         await supabase.from('daily_user_stats').upsert({
           user_id: user.uid,
           date_key: todayKey,
@@ -116,9 +117,19 @@ export const useVersesDailyStats = () => {
           updated_at: new Date().toISOString()
         });
 
+        // Toplam hanesine de bir tane ekle (Kumulatif / Hesap bazlı)
+        await supabase.rpc('increment_user_stat', {
+          target_user_id: user.uid,
+          column_name: 'total_verses',
+          increment_by: 1
+        });
+
         // State güncelle
         setVerseRevealed(true);
         setCurrentVerseData(verseData);
+
+        // 1. Günlük görev tamamlama
+        await TaskService.completeTask(1);
 
         console.log(`📖 Ayet gösterildi ve kaydedildi (${todayKey}): ${verseData.reference}`);
         return { success: true, message: 'Ayet gösterildi' };
@@ -142,4 +153,5 @@ export const useVersesDailyStats = () => {
 };
 
 export default useVersesDailyStats;
+
 

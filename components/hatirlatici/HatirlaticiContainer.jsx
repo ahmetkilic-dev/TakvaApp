@@ -26,7 +26,7 @@ export default function HatirlaticiContainer() {
     updateCustomReminder,
     deleteCustomReminder,
     toggleCustomReminder,
-  } = useReminderSettings(prayerTimes);
+  } = useReminderSettings();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [customModalVisible, setCustomModalVisible] = useState(false);

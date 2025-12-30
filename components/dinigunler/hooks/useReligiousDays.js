@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 
 // 2026 Dini Günler ve Geceler (Görseldeki kesin listeye göre güncellendi)
-const STATIC_RELIGIOUS_DAYS_2026 = [
+export const STATIC_RELIGIOUS_DAYS_2026 = [
   {
     id: 'mirac_2026',
     key: 'mirac',

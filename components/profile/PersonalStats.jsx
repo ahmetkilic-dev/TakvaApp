@@ -95,23 +95,25 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 70,
         borderRadius: 10,
-        paddingVertical: 12,
-        paddingHorizontal: 16,
+        paddingVertical: 8,
+        paddingHorizontal: 8,
         justifyContent: 'center',
         alignItems: 'center',
     },
     statCardLabel: {
-        fontSize: 13,
+        fontSize: 11,
         color: '#D8C49E',
-        marginBottom: 4,
+        marginBottom: 2,
         textAlign: 'center',
     },
     statCardValue: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: '700',
         color: '#D8C49E',
     },
 });
+
+
 
 export default PersonalStats;
 

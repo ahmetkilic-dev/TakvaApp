@@ -48,8 +48,8 @@ export default function GününAyetiContainer() {
   const handleVideoEnd = useCallback(async () => {
     try {
       // Video bitti, artık rastgele ayet seç
-      const newVerse = getRandomVerse();
-      
+      const newVerse = await getRandomVerse();
+
       if (!newVerse) {
         console.error('📖 Rastgele ayet seçilemedi');
         setIsVideoPlaying(false);
@@ -85,7 +85,7 @@ export default function GününAyetiContainer() {
   return (
     <SafeAreaView edges={['top']} className="flex-1">
       <GününAyetiHeader />
-      
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
@@ -109,8 +109,8 @@ export default function GününAyetiContainer() {
         )}
 
         {/* Navigation Slider - Sadece bugün ayet gösterilmediyse aktif */}
-        <VerseSlider 
-          onComplete={handleSliderComplete} 
+        <VerseSlider
+          onComplete={handleSliderComplete}
           disabled={!canRevealVerse}
           message={!canRevealVerse ? "Bugün kaydırma hakkınız bitti." : null}
         />

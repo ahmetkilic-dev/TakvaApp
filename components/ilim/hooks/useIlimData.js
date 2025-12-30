@@ -21,6 +21,7 @@ export const useIlimData = () => {
   const [lastDailyReset, setLastDailyReset] = useState(null);
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [currentQuestionId, setCurrentQuestionId] = useState(null);
+  const [quizCount, setQuizCount] = useState(0); // Toplam doğru cevap sayısı
 
   // Auth state dinle
   useEffect(() => {
@@ -79,6 +80,7 @@ export const useIlimData = () => {
         setLastDailyReset(stats.ilim_last_daily_reset ? new Date(stats.ilim_last_daily_reset) : null);
         setAnsweredQuestions(stats.ilim_answered_questions || []);
         setCurrentQuestionId(stats.ilim_current_question_id || null);
+        setQuizCount(stats.quiz_count || 0);
       } else {
         await initializeUserData(userId);
       }
@@ -103,6 +105,7 @@ export const useIlimData = () => {
         ilim_last_daily_reset: now,
         ilim_answered_questions: [],
         ilim_current_question_id: null,
+        quiz_count: 0,
         updated_at: now
       });
 
@@ -112,6 +115,7 @@ export const useIlimData = () => {
       setLastDailyReset(new Date(now));
       setAnsweredQuestions([]);
       setCurrentQuestionId(null);
+      setQuizCount(0);
     } catch (err) {
       setError(err.message);
     }
@@ -127,6 +131,7 @@ export const useIlimData = () => {
       if (isCorrect) {
         const newTotalPoints = totalPoints + points;
         const newDailyPoints = dailyPoints + points;
+        const newQuizCount = quizCount + 1;
         const updatedCategoryStats = { ...categoryStats };
 
         if (!updatedCategoryStats[categoryKey]) {
@@ -140,12 +145,14 @@ export const useIlimData = () => {
           ilim_total_points: newTotalPoints,
           ilim_daily_points: newDailyPoints,
           ilim_category_stats: { ...categoryStats, [categoryKey]: updatedCategoryStats[categoryKey] },
+          quiz_count: newQuizCount,
           updated_at: new Date().toISOString()
         });
 
         setTotalPoints(newTotalPoints);
         setDailyPoints(newDailyPoints);
         setCategoryStats(updatedCategoryStats);
+        setQuizCount(newQuizCount);
       } else {
         const updatedCategoryStats = { ...categoryStats };
         if (!updatedCategoryStats[categoryKey]) {
@@ -235,6 +242,7 @@ export const useIlimData = () => {
     error,
     totalPoints,
     dailyPoints,
+    quizCount,
     categoryStats,
     answeredQuestions,
     currentQuestionId,

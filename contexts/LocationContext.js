@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import * as Location from 'expo-location';
 import { Alert, Linking, Platform, AppState } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LocationContext = createContext(null);
 
@@ -12,7 +13,7 @@ export function LocationProvider({ children }) {
     const [permissionStatus, setPermissionStatus] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [permissionChecked, setPermissionChecked] = useState(false);
-    
+
     const appState = useRef(AppState.currentState);
 
     // Konum bilgisini al
@@ -22,11 +23,14 @@ export function LocationProvider({ children }) {
             const position = await Location.getCurrentPositionAsync({
                 accuracy: Location.Accuracy.Balanced
             });
-            
+
             const { latitude, longitude } = position.coords;
             console.log('📍 Konum alındı:', latitude, longitude);
             setLocation({ latitude, longitude });
-            
+
+            // Persist location for background tasks or notification workers
+            await AsyncStorage.setItem('@user_location', JSON.stringify({ latitude, longitude }));
+
             // Şehir bilgisini al
             try {
                 const geocode = await Location.reverseGeocodeAsync({ latitude, longitude });
@@ -40,7 +44,7 @@ export function LocationProvider({ children }) {
             } catch (e) {
                 console.log('Geocode hatası:', e);
             }
-            
+
             return { latitude, longitude };
         } catch (error) {
             console.log('Konum alma hatası:', error);
@@ -52,12 +56,12 @@ export function LocationProvider({ children }) {
     const checkAndRequestPermission = async () => {
         console.log('🔍 Konum izni kontrol ediliyor...');
         setIsLoading(true);
-        
+
         try {
             // Mevcut izin durumunu kontrol et
             const { status: existingStatus } = await Location.getForegroundPermissionsAsync();
             console.log('📋 Mevcut izin durumu:', existingStatus);
-            
+
             if (existingStatus === 'granted') {
                 console.log('✅ Konum izni verildi');
                 setPermissionStatus('granted');
@@ -70,7 +74,7 @@ export function LocationProvider({ children }) {
                 console.log('🔔 İzin durumu:', status);
                 setPermissionStatus(status);
                 setPermissionChecked(true);
-                
+
                 if (status === 'granted') {
                     await fetchLocation();
                 }
@@ -101,12 +105,12 @@ export function LocationProvider({ children }) {
             // Uygulama arka plandan ön plana geldiğinde
             if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
                 console.log('📱 Uygulama aktif oldu, izin kontrol ediliyor...');
-                
+
                 // Sadece izin denied ise tekrar kontrol et
                 if (permissionStatus === 'denied') {
                     const { status } = await Location.getForegroundPermissionsAsync();
                     console.log('📋 Güncel izin durumu:', status);
-                    
+
                     if (status === 'granted') {
                         console.log('✅ İzin ayarlardan verildi!');
                         setPermissionStatus('granted');
@@ -125,9 +129,9 @@ export function LocationProvider({ children }) {
     // Konum iznini tekrar iste / Ayarlara yönlendir
     const retryPermission = async () => {
         console.log('🔄 Konum izni tekrar isteniyor...');
-        
+
         const { status } = await Location.getForegroundPermissionsAsync();
-        
+
         if (status === 'denied') {
             // iOS'ta bir kez denied olduktan sonra tekrar popup çıkmaz
             // Ayarlara yönlendir
@@ -136,8 +140,8 @@ export function LocationProvider({ children }) {
                 'Kıble yönünü bulmak ve namaz vakitlerini göstermek için konum izni gereklidir.\n\nLütfen ayarlardan konum iznini etkinleştirin.',
                 [
                     { text: 'İptal', style: 'cancel' },
-                    { 
-                        text: 'Ayarlara Git', 
+                    {
+                        text: 'Ayarlara Git',
                         onPress: () => {
                             if (Platform.OS === 'ios') {
                                 Linking.openURL('app-settings:');

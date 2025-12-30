@@ -92,6 +92,7 @@ export default function ProfilScreen() {
 
           <BadgeProgressSection
             badgeCount={profileData.badgeCount}
+            categoryLevels={profileData.categoryLevels}
           />
 
           <PersonalStatsGrid

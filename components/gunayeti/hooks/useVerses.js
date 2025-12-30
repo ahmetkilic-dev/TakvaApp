@@ -1,147 +1,77 @@
 import { useState, useEffect, useCallback } from 'react';
 
-// Al Quran Cloud API - Arapça ve Türkçe çeviri
-const API_BASE_ARABIC = 'https://api.alquran.cloud/v1/quran/quran-uthmani';
-const API_BASE_TURKISH = 'https://api.alquran.cloud/v1/quran/tr.yazir'; // Türkçe çeviri (Yazır)
+// Al Quran Cloud API - Tek bir ayeti hem Arapça hem de Türkçe mealiyle getirmek için
+const GET_AYAH_URL = (index) => `https://api.alquran.cloud/v1/ayah/${index}/editions/quran-uthmani,tr.yazir`;
+
+const TOTAL_AYHS = 6236; // Kuran'daki toplam ayet sayısı
 
 /**
- * Kuran ayetleri hook'u
- * Tüm ayetleri çeker ve rastgele ayet getirme fonksiyonu sağlar
- * Production-ready, optimize edilmiş
+ * Kuran ayetleri hook'u - OPTİMİZE EDİLDİ
+ * Sadece ihtiyaç duyulan ayeti çeker, tüm Kuran'ı yüklemez.
  */
 export const useVerses = () => {
-  const [allVerses, setAllVerses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentVerse, setCurrentVerse] = useState(null);
-  const [usedIndices, setUsedIndices] = useState(new Set());
 
-  // Tüm ayetleri çek (Arapça + Türkçe)
-  useEffect(() => {
-    const fetchAllVerses = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  // Rastgele bir ayet getir (API'den tekil çekim)
+  const fetchSingleRandomVerse = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        console.log('📖 Ayetler yükleniyor...');
-        
-        // Arapça ve Türkçe metinleri paralel çek
-        const [arabicResponse, turkishResponse] = await Promise.all([
-          fetch(API_BASE_ARABIC),
-          fetch(API_BASE_TURKISH),
-        ]);
+      // 1 ile 6236 arasında rastgele bir ayet indexi
+      const randomIndex = Math.floor(Math.random() * TOTAL_AYHS) + 1;
 
-        const arabicResult = await arabicResponse.json();
-        const turkishResult = await turkishResponse.json();
+      console.log(`📖 Ayet çekiliyor (Index: ${randomIndex})...`);
 
-        if (
-          arabicResult.code === 200 && arabicResult.data && arabicResult.data.surahs &&
-          turkishResult.code === 200 && turkishResult.data && turkishResult.data.surahs
-        ) {
-          const verses = [];
-          const arabicSurahs = arabicResult.data.surahs;
-          const turkishSurahs = turkishResult.data.surahs;
+      const response = await fetch(GET_AYAH_URL(randomIndex));
+      const result = await response.json();
 
-          // Her sure için ayetleri birleştir
-          arabicSurahs.forEach((arabicSurah, surahIndex) => {
-            const turkishSurah = turkishSurahs[surahIndex];
-            
-            if (arabicSurah.ayahs && turkishSurah.ayahs && 
-                Array.isArray(arabicSurah.ayahs) && Array.isArray(turkishSurah.ayahs)) {
-              
-              // Ayetleri eşleştir (numberInSurah'e göre)
-              arabicSurah.ayahs.forEach((arabicAyah) => {
-                // Türkçe çeviriyi numberInSurah'e göre bul
-                const turkishAyah = turkishSurah.ayahs.find(
-                  ayah => ayah.numberInSurah === arabicAyah.numberInSurah
-                );
-                
-                if (turkishAyah && arabicAyah.text && turkishAyah.text) {
-                  // Türkçe sure ismi için englishName kullan (Hucurat, Bakara gibi)
-                  const surahNameTR = arabicSurah.englishName || turkishSurah.englishName || arabicSurah.name;
-                  
-                  // Arapça ve Türkçe metinleri al
-                  const arabicText = arabicAyah.text.trim();
-                  const turkishText = turkishAyah.text.trim();
-                  
-                  verses.push({
-                    id: `${arabicSurah.number}-${arabicAyah.numberInSurah}`,
-                    arabic: arabicText, // Arapça metin (en üstte gösterilecek)
-                    turkish: turkishText, // Türkçe meali (altında gösterilecek)
-                    surahNumber: arabicSurah.number,
-                    surahName: surahNameTR,
-                    surahNameEnglish: arabicSurah.englishName,
-                    ayahNumber: arabicAyah.numberInSurah,
-                    reference: `${surahNameTR} ${arabicAyah.numberInSurah}.Ayet`, // Örnek: "Hucurat 13.Ayet" (boşluksuz)
-                  });
-                }
-              });
-            }
-          });
+      if (result.code === 200 && result.data && Array.isArray(result.data)) {
+        // [0] Arapça, [1] Türkçe (tr.yazir)
+        const arabicData = result.data[0];
+        const turkishData = result.data[1];
 
-          if (verses.length > 0) {
-            setAllVerses(verses);
-            // İlk rastgele ayeti seç
-            const randomIndex = Math.floor(Math.random() * verses.length);
-            setCurrentVerse(verses[randomIndex]);
-            setUsedIndices(new Set([randomIndex]));
-            console.log(`✅ ${verses.length} ayet yüklendi`);
-          } else {
-            setError('Ayetler bulunamadı');
-          }
-        } else {
-          setError('Ayetler yüklenemedi');
-        }
-      } catch (err) {
-        console.error('📖 Ayet çekme hatası:', err);
-        setError('Ayetler yüklenirken bir hata oluştu');
-      } finally {
-        setLoading(false);
+        const surahNameTR = arabicData.surah.englishName || turkishData.surah.englishName || arabicData.surah.name;
+
+        const mappedVerse = {
+          id: `${arabicData.surah.number}-${arabicData.numberInSurah}`,
+          arabic: arabicData.text.trim(),
+          turkish: turkishData.text.trim(),
+          surahNumber: arabicData.surah.number,
+          surahName: surahNameTR,
+          surahNameEnglish: arabicData.surah.englishName,
+          ayahNumber: arabicData.numberInSurah,
+          reference: `${surahNameTR} ${arabicData.numberInSurah}.Ayet`,
+        };
+
+        setCurrentVerse(mappedVerse);
+        console.log(`✅ Ayet yüklendi: ${mappedVerse.reference}`);
+        return mappedVerse;
+      } else {
+        throw new Error('API verisi eksik veya hatalı');
       }
-    };
-
-    fetchAllVerses();
+    } catch (err) {
+      console.error('📖 Ayet çekme hatası:', err);
+      setError('Ayet yüklenirken bir hata oluştu');
+      return null;
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  // Rastgele yeni ayet getir
-  const getRandomVerse = useCallback(() => {
-    if (allVerses.length === 0) {
-      console.warn('📖 Ayetler henüz yüklenmedi');
-      return null;
-    }
-
-    let randomIndex;
-    let attempts = 0;
-    const maxAttempts = 100;
-
-    // Kullanılmayan bir index bul
-    do {
-      randomIndex = Math.floor(Math.random() * allVerses.length);
-      attempts++;
-      
-      // Eğer tüm ayetler kullanıldıysa, set'i sıfırla ve yeniden başla
-      if (usedIndices.size >= allVerses.length) {
-        setUsedIndices(new Set());
-        randomIndex = Math.floor(Math.random() * allVerses.length);
-        break;
-      }
-    } while (usedIndices.has(randomIndex) && attempts < maxAttempts);
-
-    const newVerse = allVerses[randomIndex];
-    setCurrentVerse(newVerse);
-    setUsedIndices(prev => new Set([...prev, randomIndex]));
-    
-    console.log(`📖 Yeni ayet seçildi: ${newVerse.reference}`);
-    return newVerse;
-  }, [allVerses, usedIndices]);
+  // Not: Artık mount anında otomatik çekmiyoruz, getRandomVerse çağrıldığında çekilecek
+  // Bu sayede eğer ayet zaten gösterilmişse boşuna API isteği atmıyoruz.
 
   return {
-    allVerses,
     currentVerse,
     loading,
     error,
-    getRandomVerse,
-    totalVerses: allVerses.length,
+    getRandomVerse: fetchSingleRandomVerse,
+    totalVerses: TOTAL_AYHS,
   };
 };
+
+
 

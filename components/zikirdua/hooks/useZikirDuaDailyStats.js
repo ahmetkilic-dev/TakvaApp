@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
+import TaskService from '../../../services/TaskService';
 
 const DEFAULT_DUA_RIGHTS = 3;
 
@@ -36,27 +37,45 @@ export const useZikirDuaDailyStats = () => {
       if (!user?.uid) return;
 
       const pending = pendingDhikrRef.current;
-      if (!pending || pending <= 0) return;
+      if (pending <= 0) return;
+
+      flushingRef.current = true;
 
       const dayKeyToUse = dayKeyOverride || dayKeyRef.current || todayKey;
 
-      flushingRef.current = true;
       try {
-        await supabase.rpc('increment_daily_user_stat', {
+        // 1. Her zaman en önemli olanı, yani HESAP TOPLAMINI önce güncelle
+        await supabase.rpc('increment_user_stat', {
           target_user_id: user.uid,
-          day_key: dayKeyToUse,
-          column_name: 'dhikr_count',
+          column_name: 'total_dhikr',
           increment_by: pending
         });
 
-        pendingDhikrRef.current = 0;
-        setLocalDhikrDelta(0);
+        // 2. Günlük kullanıcı istatistiğini güncelle (Eğer RPC yoksa fail edebilir, catch içinde koruyoruz)
+        try {
+          await supabase.rpc('increment_daily_user_stat', {
+            target_user_id: user.uid,
+            day_key: dayKeyToUse,
+            column_name: 'dhikr_count',
+            increment_by: pending
+          });
+        } catch (dailyErr) {
+          console.warn('🧿 Daily zikir update failed (RPC might be missing):', dailyErr.message);
+        }
+
+        // 3. Günlük görev ilerlemesini yerelde güncelle
+        await TaskService.incrementTaskProgress(3, pending);
+
+        // Atomik olarak sayaçlardan düş (Request sırasında çekilenleri korumak için)
+        pendingDhikrRef.current -= pending;
+        setLocalDhikrDelta((prev) => Math.max(0, prev - pending));
 
         if (dayKeyToUse === todayKey) {
           setDhikrBase((v) => v + pending);
         }
+        console.log(`🧿 Dhikr flushed successfully: ${pending} added to profile and ${dayKeyToUse}`);
       } catch (e) {
-        console.warn('🧿 Dhikr flush failed:', e?.message || e);
+        console.error('🧿 Dhikr flush failed:', e?.message || e);
       } finally {
         flushingRef.current = false;
       }
@@ -126,7 +145,7 @@ export const useZikirDuaDailyStats = () => {
     if (flushTimerRef.current) clearInterval(flushTimerRef.current);
     flushTimerRef.current = setInterval(() => {
       if (pendingDhikrRef.current > 0) void flushDhikr();
-    }, 5000);
+    }, 1000);
     return () => {
       if (flushTimerRef.current) clearInterval(flushTimerRef.current);
       flushTimerRef.current = null;
@@ -155,9 +174,8 @@ export const useZikirDuaDailyStats = () => {
     pendingDhikrRef.current += 1;
     setLocalDhikrDelta((d) => d + 1);
 
-    if (pendingDhikrRef.current >= 10) {
-      void flushDhikr();
-    }
+    // Her adet girmeli: Anında flush dene (zaten flushingRef koruması var)
+    void flushDhikr();
   }, [flushDhikr, todayKey, user?.uid]);
 
   const consumeDuaRight = useCallback(async () => {

@@ -20,6 +20,10 @@
       "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Namaz vakitlerini doğru hesaplamak için konumunuz gereklidir.",
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification"
+        ],
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
         }
@@ -27,7 +31,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./adaptive-icon.png",
         "backgroundColor": "#04100D"
       },
       "edgeToEdgeEnabled": true,
@@ -36,7 +40,9 @@
         "INTERNET",
         "ACCESS_FINE_LOCATION",
         "POST_NOTIFICATIONS",
-        "SCHEDULE_EXACT_ALARM"
+        "SCHEDULE_EXACT_ALARM",
+        "RECEIVE_BOOT_COMPLETED",
+        "WAKE_LOCK"
       ]
     },
     "web": {
@@ -47,6 +53,8 @@
       "expo-font",
       "@react-native-community/datetimepicker",
       "expo-apple-authentication",
+      "expo-task-manager",
+      "expo-background-fetch",
       [
         "@react-native-google-signin/google-signin",
         {
