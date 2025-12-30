@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useState, useEffect, useRef } from 'react';
-import { Audio, InterruptionModeIOS, InterruptionModeAndroid } from 'expo-av';
+import { useState, useEffect } from 'react';
+import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import { Ionicons } from '@expo/vector-icons';
 import QuranCta from '../../assets/images/quran-cta.png';
 import HeadphoneIcon from '../../assets/images/headphone.svg';
@@ -15,106 +15,52 @@ const STREAM_SOURCES = [
 
 export default function QuranSection() {
    const router = useRouter();
-   const [isPlaying, setIsPlaying] = useState(false);
-   const [isLoading, setIsLoading] = useState(false);
-   const [sound, setSound] = useState(null);
    const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
+   const [isPlaying, setIsPlaying] = useState(false);
+
    const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
 
-   // Ses ayarlarını bir kez yapılandır
+   // Initialize the audio player
+   const player = useAudioPlayer(STREAM_SOURCES[currentSourceIndex]);
+   const status = useAudioPlayerStatus(player);
+
+   const isLoading = status.buffering || (isPlaying && !status.playing && !status.isLoaded);
+
    useEffect(() => {
-      const setupAudio = async () => {
-         try {
-            await Audio.setAudioModeAsync({
-               allowsRecordingIOS: false,
-               interruptionModeIOS: InterruptionModeIOS.DoNotMix,
-               playsInSilentModeIOS: true,
-               shouldDuckAndroid: true,
-               interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
-               playThroughEarpieceAndroid: false,
-               staysActiveInBackground: true,
-            });
-         } catch (e) {
-            console.log('Audio setup error:', e);
-         }
-      };
-      setupAudio();
-   }, []);
-
-   async function togglePlayback() {
-      if (sound) {
-         try {
-            if (isPlaying) {
-               await sound.pauseAsync();
-               setIsPlaying(false);
-            } else {
-               setIsLoading(true);
-               await sound.playAsync();
-               setIsPlaying(true);
-               setIsLoading(false);
-            }
-         } catch (error) {
-            console.error('Playback Error:', error);
-            setSound(null);
-            setIsPlaying(false);
-            setIsLoading(false);
-            // Hata durumunda bir sonraki kaynağı dene
-            tryNextSource(currentSourceIndex);
-         }
-         return;
-      }
-
-      // İlk kez yükleme
-      await tryNextSource(0);
-   }
-
-   async function tryNextSource(index) {
-      if (index >= STREAM_SOURCES.length) {
-         console.error('All sources failed');
-         setIsLoading(false);
+      if (status.didJustFinish) {
          setIsPlaying(false);
-         setCurrentSourceIndex(0); // Başa dön
-         return;
       }
 
-      setIsLoading(true);
-      setCurrentSourceIndex(index);
+      // Handle errors and try next source
+      if (status.error) {
+         console.error(`Source ${currentSourceIndex} Error:`, status.error);
+         tryNextSource();
+      }
+   }, [status]);
 
-      try {
-         const { sound: newSound } = await Audio.Sound.createAsync(
-            { uri: STREAM_SOURCES[index] },
-            { shouldPlay: true, isLooping: false, volume: 1.0 }
-         );
+   const tryNextSource = () => {
+      const nextIndex = currentSourceIndex + 1;
+      if (nextIndex < STREAM_SOURCES.length) {
+         setCurrentSourceIndex(nextIndex);
+         player.replace(STREAM_SOURCES[nextIndex]);
+         if (isPlaying) player.play();
+      } else {
+         console.error('All sources failed');
+         setIsPlaying(false);
+         setCurrentSourceIndex(0);
+         player.replace(STREAM_SOURCES[0]);
+      }
+   };
 
-         setSound(newSound);
+   const togglePlayback = () => {
+      if (player.playing) {
+         player.pause();
+         setIsPlaying(false);
+      } else {
+         player.play();
          setIsPlaying(true);
-         setIsLoading(false);
-
-         newSound.setOnPlaybackStatusUpdate((status) => {
-            if (status.isLoaded) {
-               if (status.didJustFinish) setIsPlaying(false);
-            }
-            if (status.error) {
-               console.error(`Source ${index} Playback Error:`, status.error);
-               setIsPlaying(false);
-               setSound(null);
-               tryNextSource(index + 1);
-            }
-         });
-      } catch (error) {
-         console.error(`Source ${index} Loading Error:`, error);
-         // Bir sonraki kaynağı dene
-         await tryNextSource(index + 1);
       }
-   }
-
-   useEffect(() => {
-      return () => {
-         if (sound) {
-            sound.unloadAsync();
-         }
-      };
-   }, [sound]);
+   };
 
    return (
       <View style={styles.container}>
