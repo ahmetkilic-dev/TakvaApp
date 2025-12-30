@@ -1,0 +1,83 @@
+[
+  {
+    "id": 3540,
+    "arabic": "وَإِذْ أَخَذْنَا مِنَ ٱلنَّبِيِّۦنَ مِيثَٰقَهُمْ وَمِنكَ وَمِن نُّوحٍۢ وَإِبْرَٰهِيمَ وَمُوسَىٰ وَعِيسَى ٱبْنِ مَرْيَمَ ۖ وَأَخَذْنَا مِنْهُم مِّيثَٰقًا غَلِيظًۭا",
+    "turkish": "Unutma o peygamberlerden mîsaklarını (kesin sözlerini) aldığımız vakti! Hele senden, Nuh, İbrahim, Musa ve Meryemoğlu İsa'dan ki onlardan ağır bir mîsak (sağlam bir söz) aldık.",
+    "verseNumber": 7,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  },
+  {
+    "id": 3541,
+    "arabic": "لِّيَسْـَٔلَ ٱلصَّٰدِقِينَ عَن صِدْقِهِمْ ۚ وَأَعَدَّ لِلْكَٰفِرِينَ عَذَابًا أَلِيمًۭا",
+    "turkish": "(Bunu Allah), sadıklara sadakatlerinden sormak için yaptı. Kâfirler için ise acı verecek bir azab hazırladı.",
+    "verseNumber": 8,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  },
+  {
+    "id": 3542,
+    "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ ٱذْكُرُوا۟ نِعْمَةَ ٱللَّهِ عَلَيْكُمْ إِذْ جَآءَتْكُمْ جُنُودٌۭ فَأَرْسَلْنَا عَلَيْهِمْ رِيحًۭا وَجُنُودًۭا لَّمْ تَرَوْهَا ۚ وَكَانَ ٱللَّهُ بِمَا تَعْمَلُونَ بَصِيرًا",
+    "turkish": "Ey iman edenler! Allah'ın üzerinizdeki nimetini anın. Hani size ordular gelmişti de üzerlerine bir rüzgâr ve sizin görmediğiniz ordular salıvermiştik. Allah ne yaptığınızı görüyordu.",
+    "verseNumber": 9,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  },
+  {
+    "id": 3543,
+    "arabic": "إِذْ جَآءُوكُم مِّن فَوْقِكُمْ وَمِنْ أَسْفَلَ مِنكُمْ وَإِذْ زَاغَتِ ٱلْأَبْصَٰرُ وَبَلَغَتِ ٱلْقُلُوبُ ٱلْحَنَاجِرَ وَتَظُنُّونَ بِٱللَّهِ ٱلظُّنُونَا۠",
+    "turkish": "O zaman onlar, hem üstünüzden gelmişlerdi, hem aşağı tarafınızdan, ve o vakit gözler kaymış, yürekler gırtlaklara dayanmıştı. Siz Allah'a türlü türlü zanlarda bulunuyordunuz.",
+    "verseNumber": 10,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  },
+  {
+    "id": 3544,
+    "arabic": "هُنَالِكَ ٱبْتُلِىَ ٱلْمُؤْمِنُونَ وَزُلْزِلُوا۟ زِلْزَالًۭا شَدِيدًۭا",
+    "turkish": "İşte burada müminler imtihan edilmiş ve şiddetli bir sarsıntı ile sarsılmışlardı.",
+    "verseNumber": 11,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  },
+  {
+    "id": 3545,
+    "arabic": "وَإِذْ يَقُولُ ٱلْمُنَٰفِقُونَ وَٱلَّذِينَ فِى قُلُوبِهِم مَّرَضٌۭ مَّا وَعَدَنَا ٱللَّهُ وَرَسُولُهُۥٓ إِلَّا غُرُورًۭا",
+    "turkish": "O vakit münâfıklar ve kalblerinde bir hastalık bulunanlar: \"Allah ve Resulü bize bir aldanıştan başka bir vaad yapmamış.\" diyorlardı.",
+    "verseNumber": 12,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  },
+  {
+    "id": 3546,
+    "arabic": "وَإِذْ قَالَت طَّآئِفَةٌۭ مِّنْهُمْ يَٰٓأَهْلَ يَثْرِبَ لَا مُقَامَ لَكُمْ فَٱرْجِعُوا۟ ۚ وَيَسْتَـْٔذِنُ فَرِيقٌۭ مِّنْهُمُ ٱلنَّبِىَّ يَقُولُونَ إِنَّ بُيُوتَنَا عَوْرَةٌۭ وَمَا هِىَ بِعَوْرَةٍ ۖ إِن يُرِيدُونَ إِلَّا فِرَارًۭا",
+    "turkish": "O vakit bunlardan bir grup: \"Ey Medine halkı! Sizin için duracak yer yok, hemen dönün.\" diyorlardı. Yine onlardan bir kısmı da Peygamberden izin istiyor, evlerimiz gerçekten (düşmana) açıktır.\" diyorlardı, halbuki açık değildi, sadece kaçmak istiyorlardı.",
+    "verseNumber": 13,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  },
+  {
+    "id": 3547,
+    "arabic": "وَلَوْ دُخِلَتْ عَلَيْهِم مِّنْ أَقْطَارِهَا ثُمَّ سُئِلُوا۟ ٱلْفِتْنَةَ لَءَاتَوْهَا وَمَا تَلَبَّثُوا۟ بِهَآ إِلَّا يَسِيرًۭا",
+    "turkish": "Eğer onların her tarafından üzerlerine girilse de sonra fitne çıkarmaları istenilse derhal onu yapacaklardı. Ama onunla da pek az duracaklardı.",
+    "verseNumber": 14,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  },
+  {
+    "id": 3548,
+    "arabic": "وَلَقَدْ كَانُوا۟ عَٰهَدُوا۟ ٱللَّهَ مِن قَبْلُ لَا يُوَلُّونَ ٱلْأَدْبَٰرَ ۚ وَكَانَ عَهْدُ ٱللَّهِ مَسْـُٔولًۭا",
+    "turkish": "Halbuki bundan önce Allah'a ahid vermişlerdi. Arkalarını dönmeyeceklerdi. Allah'a verilen ahid ise mesuliyetlidir, mutlaka sorulur.",
+    "verseNumber": 15,
+    "surahNumber": 33,
+    "surahName": "سُورَةُ الأَحۡزَابِ",
+    "englishName": "Al-Ahzaab"
+  }
+]

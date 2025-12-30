@@ -15,7 +15,8 @@ import { getSurahStartPage, getJuzStartPage } from './hooks/useSurahPageMapping'
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
-const fontFamily = 'Plus Jakarta Sans';
+const fontFamily = 'PlusJakartaSans-Light';
+const boldFontFamily = 'PlusJakartaSans-Bold';
 
 export default function KuranContainer() {
   const router = useRouter();
@@ -95,11 +96,11 @@ export default function KuranContainer() {
     <View>
       <KuranYolculuğu />
       <OkumayaDevamEt />
-      
+
       {/* Kuran Section Header */}
       <View style={{ paddingHorizontal: horizontalPadding, marginBottom: 16 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text style={{ fontFamily, fontSize: 16, fontWeight: '700', color: '#FFFFFF' }}>
+          <Text style={{ fontFamily: boldFontFamily, fontSize: 16, color: '#FFFFFF' }}>
             Kuran
           </Text>
           <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />

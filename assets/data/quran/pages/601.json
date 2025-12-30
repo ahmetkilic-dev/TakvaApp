@@ -1,0 +1,155 @@
+[
+  {
+    "id": 6177,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلْعَصْرِ",
+    "turkish": "Asra yemin olsun ki,",
+    "verseNumber": 1,
+    "surahNumber": 103,
+    "surahName": "سُورَةُ العَصۡرِ",
+    "englishName": "Al-Asr"
+  },
+  {
+    "id": 6178,
+    "arabic": "إِنَّ ٱلْإِنسَٰنَ لَفِى خُسْرٍ",
+    "turkish": "İnsan mutlaka ziyandadır.",
+    "verseNumber": 2,
+    "surahNumber": 103,
+    "surahName": "سُورَةُ العَصۡرِ",
+    "englishName": "Al-Asr"
+  },
+  {
+    "id": 6179,
+    "arabic": "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّٰلِحَٰتِ وَتَوَاصَوْا۟ بِٱلْحَقِّ وَتَوَاصَوْا۟ بِٱلصَّبْرِ",
+    "turkish": "Ancak iman edenler, salih amel (iyi işler) işleyenler, birbirlerine hakkı tavsiye eden ve sabrı tavsiye edenler bunun dışındadır",
+    "verseNumber": 3,
+    "surahNumber": 103,
+    "surahName": "سُورَةُ العَصۡرِ",
+    "englishName": "Al-Asr"
+  },
+  {
+    "id": 6180,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَيْلٌۭ لِّكُلِّ هُمَزَةٍۢ لُّمَزَةٍ",
+    "turkish": "Mal toplayıp onu tekrar tekrar sayan, insanları arkadan çekiştirip, kaş göz hareketleriyle alay edenlerin (hümeze ve lümezenin) vay haline!",
+    "verseNumber": 1,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6181,
+    "arabic": "ٱلَّذِى جَمَعَ مَالًۭا وَعَدَّدَهُۥ",
+    "turkish": "Mal toplayıp onu tekrar tekrar sayan, insanları arkadan çekiştirip, kaş göz hareketleriyle alay edenlerin (hümeze ve lümezenin) vay haline!",
+    "verseNumber": 2,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6182,
+    "arabic": "يَحْسَبُ أَنَّ مَالَهُۥٓ أَخْلَدَهُۥ",
+    "turkish": "Malının, kendisini ebedi yaşatacağını sanır.",
+    "verseNumber": 3,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6183,
+    "arabic": "كَلَّا ۖ لَيُنۢبَذَنَّ فِى ٱلْحُطَمَةِ",
+    "turkish": "Hayır, andolsun ki, o hutame (cehennem)ye atılacaktır.",
+    "verseNumber": 4,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6184,
+    "arabic": "وَمَآ أَدْرَىٰكَ مَا ٱلْحُطَمَةُ",
+    "turkish": "Hutame'nin ne olduğunu bilir misin?",
+    "verseNumber": 5,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6185,
+    "arabic": "نَارُ ٱللَّهِ ٱلْمُوقَدَةُ",
+    "turkish": "O, kalplerin içine işleyecek, Allah'ın tutuşturulmuş bir ateşidir.",
+    "verseNumber": 6,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6186,
+    "arabic": "ٱلَّتِى تَطَّلِعُ عَلَى ٱلْأَفْـِٔدَةِ",
+    "turkish": "O, kalplerin içine işleyecek, Allah'ın tutuşturulmuş bir ateşidir.",
+    "verseNumber": 7,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6187,
+    "arabic": "إِنَّهَا عَلَيْهِم مُّؤْصَدَةٌۭ",
+    "turkish": "Cehennemlikler, dikilmiş direklere bağlı oldukları halde, o ateşin kapıları üzerlerine kapatılacaktır.",
+    "verseNumber": 8,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6188,
+    "arabic": "فِى عَمَدٍۢ مُّمَدَّدَةٍۭ",
+    "turkish": "Cehennemlikler, dikilmiş direklere bağlı oldukları halde, o ateşin kapıları üzerlerine kapatılacaktır.",
+    "verseNumber": 9,
+    "surahNumber": 104,
+    "surahName": "سُورَةُ الهُمَزَةِ",
+    "englishName": "Al-Humaza"
+  },
+  {
+    "id": 6189,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَٰبِ ٱلْفِيلِ",
+    "turkish": "Görmedin mi Rabb'in fil sahiplerine ne yaptı?",
+    "verseNumber": 1,
+    "surahNumber": 105,
+    "surahName": "سُورَةُ الفِيلِ",
+    "englishName": "Al-Fil"
+  },
+  {
+    "id": 6190,
+    "arabic": "أَلَمْ يَجْعَلْ كَيْدَهُمْ فِى تَضْلِيلٍۢ",
+    "turkish": "Onların tuzaklarını boşa çıkarmadı mı?",
+    "verseNumber": 2,
+    "surahNumber": 105,
+    "surahName": "سُورَةُ الفِيلِ",
+    "englishName": "Al-Fil"
+  },
+  {
+    "id": 6191,
+    "arabic": "وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ",
+    "turkish": "Üzerlerine sürü sürü kuşlar gönderdi.",
+    "verseNumber": 3,
+    "surahNumber": 105,
+    "surahName": "سُورَةُ الفِيلِ",
+    "englishName": "Al-Fil"
+  },
+  {
+    "id": 6192,
+    "arabic": "تَرْمِيهِم بِحِجَارَةٍۢ مِّن سِجِّيلٍۢ",
+    "turkish": "Onlara çamurdan sertleşmiş taşlar atıyorlardı.",
+    "verseNumber": 4,
+    "surahNumber": 105,
+    "surahName": "سُورَةُ الفِيلِ",
+    "englishName": "Al-Fil"
+  },
+  {
+    "id": 6193,
+    "arabic": "فَجَعَلَهُمْ كَعَصْفٍۢ مَّأْكُولٍۭ",
+    "turkish": "Ve onları, yenilmiş ekin yaprağı gibi yaptı.",
+    "verseNumber": 5,
+    "surahNumber": 105,
+    "surahName": "سُورَةُ الفِيلِ",
+    "englishName": "Al-Fil"
+  }
+]

@@ -1,0 +1,236 @@
+[
+  {
+    "id": 5571,
+    "arabic": "كَلَّا بَلْ تُحِبُّونَ ٱلْعَاجِلَةَ",
+    "turkish": "Hayır, siz peşin olanı (dünyayı) seviyorsunuz da",
+    "verseNumber": 20,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5572,
+    "arabic": "وَتَذَرُونَ ٱلْءَاخِرَةَ",
+    "turkish": "Ahireti bırakıyorsunuz.",
+    "verseNumber": 21,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5573,
+    "arabic": "وُجُوهٌۭ يَوْمَئِذٍۢ نَّاضِرَةٌ",
+    "turkish": "Yüzler var ki o gün ışıl ışıl parlar.",
+    "verseNumber": 22,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5574,
+    "arabic": "إِلَىٰ رَبِّهَا نَاظِرَةٌۭ",
+    "turkish": "Rabbine bakar.",
+    "verseNumber": 23,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5575,
+    "arabic": "وَوُجُوهٌۭ يَوْمَئِذٍۭ بَاسِرَةٌۭ",
+    "turkish": "Yüzler de var ki o gün asıktır.",
+    "verseNumber": 24,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5576,
+    "arabic": "تَظُنُّ أَن يُفْعَلَ بِهَا فَاقِرَةٌۭ",
+    "turkish": "Anlar ki kendisine belkıran (bel kemiklerini kıran belalı bir iş) yapılır.",
+    "verseNumber": 25,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5577,
+    "arabic": "كَلَّآ إِذَا بَلَغَتِ ٱلتَّرَاقِىَ",
+    "turkish": "Hayır hayır, ne zaman ki can köprücük kemiklerine dayanır,",
+    "verseNumber": 26,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5578,
+    "arabic": "وَقِيلَ مَنْ ۜ رَاقٍۢ",
+    "turkish": "\"Tedavi edebilecek kimdir?\" denilir.",
+    "verseNumber": 27,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5579,
+    "arabic": "وَظَنَّ أَنَّهُ ٱلْفِرَاقُ",
+    "turkish": "Can çekişen bunun o ayrılık anı olduğunu anlar.",
+    "verseNumber": 28,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5580,
+    "arabic": "وَٱلْتَفَّتِ ٱلسَّاقُ بِٱلسَّاقِ",
+    "turkish": "Bacak bacağa dolaşır..",
+    "verseNumber": 29,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5581,
+    "arabic": "إِلَىٰ رَبِّكَ يَوْمَئِذٍ ٱلْمَسَاقُ",
+    "turkish": "İşte o gün sevk, ancak Rabbinedir.",
+    "verseNumber": 30,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5582,
+    "arabic": "فَلَا صَدَّقَ وَلَا صَلَّىٰ",
+    "turkish": "Fakat o, ne sadaka verdi, ne namaz kıldı.",
+    "verseNumber": 31,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5583,
+    "arabic": "وَلَٰكِن كَذَّبَ وَتَوَلَّىٰ",
+    "turkish": "Fakat yalanladı ve döndü.",
+    "verseNumber": 32,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5584,
+    "arabic": "ثُمَّ ذَهَبَ إِلَىٰٓ أَهْلِهِۦ يَتَمَطَّىٰٓ",
+    "turkish": "Sonra da çalım sata sata ailesine gitti.",
+    "verseNumber": 33,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5585,
+    "arabic": "أَوْلَىٰ لَكَ فَأَوْلَىٰ",
+    "turkish": "Gerektir o bela sana, gerek.",
+    "verseNumber": 34,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5586,
+    "arabic": "ثُمَّ أَوْلَىٰ لَكَ فَأَوْلَىٰٓ",
+    "turkish": "Evet, gerektir o bela sana gerek.",
+    "verseNumber": 35,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5587,
+    "arabic": "أَيَحْسَبُ ٱلْإِنسَٰنُ أَن يُتْرَكَ سُدًى",
+    "turkish": "İnsan başıboş bırakılacağını mı sanır?",
+    "verseNumber": 36,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5588,
+    "arabic": "أَلَمْ يَكُ نُطْفَةًۭ مِّن مَّنِىٍّۢ يُمْنَىٰ",
+    "turkish": "O, dökülen erlik suyundan bir damla (sperm) değil miydi?",
+    "verseNumber": 37,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5589,
+    "arabic": "ثُمَّ كَانَ عَلَقَةًۭ فَخَلَقَ فَسَوَّىٰ",
+    "turkish": "Sonra bir aleka (embriyon) oldu da Rabbi onu biçime koydu, sonra şekil verdi.",
+    "verseNumber": 38,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5590,
+    "arabic": "فَجَعَلَ مِنْهُ ٱلزَّوْجَيْنِ ٱلذَّكَرَ وَٱلْأُنثَىٰٓ",
+    "turkish": "Ondan da iki cinsi; erkek ve dişiyi var etti.",
+    "verseNumber": 39,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5591,
+    "arabic": "أَلَيْسَ ذَٰلِكَ بِقَٰدِرٍ عَلَىٰٓ أَن يُحْۦِىَ ٱلْمَوْتَىٰ",
+    "turkish": "Peki, bunu yapanın ölüleri diriltmeye gücü yetmez mi?",
+    "verseNumber": 40,
+    "surahNumber": 75,
+    "surahName": "سُورَةُ القِيَامَةِ",
+    "englishName": "Al-Qiyaama"
+  },
+  {
+    "id": 5592,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ هَلْ أَتَىٰ عَلَى ٱلْإِنسَٰنِ حِينٌۭ مِّنَ ٱلدَّهْرِ لَمْ يَكُن شَيْـًۭٔا مَّذْكُورًا",
+    "turkish": "Gerçekten insan üzerine dehirden (zamandan) öyle bir müddet geldi ki o zaman o, anılmaya değer bir şey değildi.",
+    "verseNumber": 1,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5593,
+    "arabic": "إِنَّا خَلَقْنَا ٱلْإِنسَٰنَ مِن نُّطْفَةٍ أَمْشَاجٍۢ نَّبْتَلِيهِ فَجَعَلْنَٰهُ سَمِيعًۢا بَصِيرًا",
+    "turkish": "Doğrusu biz insanı, imtihan etmek için karışık bir nutfeden (erkek ve kadın sularından) yarattık da onu işitici, görücü yaptık.",
+    "verseNumber": 2,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5594,
+    "arabic": "إِنَّا هَدَيْنَٰهُ ٱلسَّبِيلَ إِمَّا شَاكِرًۭا وَإِمَّا كَفُورًا",
+    "turkish": "Kuşkusuz biz ona yolu gösterdik; ister şükredici olsun, ister nankör.",
+    "verseNumber": 3,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5595,
+    "arabic": "إِنَّآ أَعْتَدْنَا لِلْكَٰفِرِينَ سَلَٰسِلَا۟ وَأَغْلَٰلًۭا وَسَعِيرًا",
+    "turkish": "Çünkü biz, kâfirler için zincirler, demir halkalar ve alevli bir ateş hazırlamışızdır.",
+    "verseNumber": 4,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5596,
+    "arabic": "إِنَّ ٱلْأَبْرَارَ يَشْرَبُونَ مِن كَأْسٍۢ كَانَ مِزَاجُهَا كَافُورًا",
+    "turkish": "Kuşkusuz iyiler de karışımı kâfûr olan dolgun bir kadehten içerler.",
+    "verseNumber": 5,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  }
+]

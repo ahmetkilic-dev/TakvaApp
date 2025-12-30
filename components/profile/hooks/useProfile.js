@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { auth, db } from '../../../firebaseConfig';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { auth } from '../../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
+import { supabase } from '../../../lib/supabase';
 
 export function useProfile() {
     const [user, setUser] = useState(auth.currentUser);
@@ -31,6 +31,7 @@ export function useProfile() {
                 setLoading(false);
                 // Reset to zeros if no user
                 setProfileData({
+                    name: '',
                     stats: { totalVerses: 0, totalSalavat: 0, totalDhikr: 0, totalPrayers: 0, quizCount: 0, completedTasks: 0 },
                     followingCount: 0, badgeCount: 0, isPremium: false, following: [], badges: []
                 });
@@ -39,67 +40,90 @@ export function useProfile() {
         return unsub;
     }, []);
 
-    // Data Listener (Realtime)
-    useEffect(() => {
-        if (!user) return;
-
+    // Data Fetcher
+    const fetchProfileData = useCallback(async (uid) => {
+        if (!uid) return;
         setLoading(true);
-        const userRef = doc(db, 'users', user.uid);
-        const tasksRef = doc(db, 'users', user.uid, 'tasks', 'progress');
 
-        // Main user doc for basic info and stats
-        const unsubUser = onSnapshot(userRef, (snap) => {
-            if (snap.exists()) {
-                const data = snap.data();
+        try {
+            // Profile data fetch
+            const { data: profile, error: pError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', uid)
+                .single();
+
+            if (profile) {
                 setProfileData(prev => ({
                     ...prev,
-                    name: data.name || data.displayName || '',
-                    isPremium: data.isPremium || false,
-                    following: data.following || [],
-                    followingCount: (data.following || []).length,
+                    name: profile.name || '',
+                    isPremium: profile.is_premium || false,
+                    following: profile.following || [],
+                    followingCount: (profile.following || []).length,
                 }));
             }
-        });
 
-        // Sub-document for task progress and detailed stats
-        const unsubTasks = onSnapshot(tasksRef, (snap) => {
-            if (snap.exists()) {
-                const data = snap.data();
-                const stats = data.stats || {};
+            // Stats data fetch
+            const { data: stats, error: sError } = await supabase
+                .from('user_stats')
+                .select('*')
+                .eq('user_id', uid)
+                .single();
 
-                // Calculate completed badge tasks (Example logic based on badgeTasks definitions)
-                // This would normally be a more complex calculation based on targets
+            if (stats) {
                 const completedCount = calculateCompletedBadges(stats);
-
                 setProfileData(prev => ({
                     ...prev,
                     stats: {
-                        totalVerses: stats.totalVerses || 0,
-                        totalSalavat: stats.totalSalavat || 0,
-                        totalDhikr: stats.dhikrCount || 0,
-                        totalPrayers: stats.totalPrayers || 0,
-                        quizCount: stats.quizCount || 0,
+                        totalVerses: stats.total_verses || 0,
+                        totalSalavat: stats.total_salavat || 0,
+                        totalDhikr: stats.dhikr_count || 0,
+                        totalPrayers: stats.total_prayers || 0,
+                        quizCount: stats.quiz_count || 0,
                         completedTasks: completedCount,
                     },
                     badgeCount: completedCount,
                     badges: getEarnedBadges(stats),
                 }));
-                setLoading(false);
-            } else {
-                setLoading(false);
             }
-        });
+        } catch (error) {
+            console.error('Error fetching profile data from Supabase:', error);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
-        return () => {
-            unsubUser();
-            unsubTasks();
-        };
-    }, [user]);
+    useEffect(() => {
+        if (user) {
+            fetchProfileData(user.uid);
+
+            // Set up realtime subscription for updates
+            const profileSub = supabase
+                .channel(`profile:${user.uid}`)
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles', filter: `id=eq.${user.uid}` }, () => {
+                    fetchProfileData(user.uid);
+                })
+                .subscribe();
+
+            const statsSub = supabase
+                .channel(`stats:${user.uid}`)
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'user_stats', filter: `user_id=eq.${user.uid}` }, () => {
+                    fetchProfileData(user.uid);
+                })
+                .subscribe();
+
+            return () => {
+                supabase.removeChannel(profileSub);
+                supabase.removeChannel(statsSub);
+            };
+        }
+    }, [user, fetchProfileData]);
 
     return {
         user,
         loading,
         profileData,
+        refreshProfile: () => fetchProfileData(user?.uid)
     };
 }
 

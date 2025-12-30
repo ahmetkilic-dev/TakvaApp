@@ -1,0 +1,173 @@
+[
+  {
+    "id": 1854,
+    "arabic": "إِذْ دَخَلُوا۟ عَلَيْهِ فَقَالُوا۟ سَلَٰمًۭا قَالَ إِنَّا مِنكُمْ وَجِلُونَ",
+    "turkish": "Hani melekler, İbrahim'in yanına girdikleri zaman, \"selam\" demişler, İbrahim de onlara: \"Biz sizden korkuyoruz\" demişti.",
+    "verseNumber": 52,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1855,
+    "arabic": "قَالُوا۟ لَا تَوْجَلْ إِنَّا نُبَشِّرُكَ بِغُلَٰمٍ عَلِيمٍۢ",
+    "turkish": "Melekler: \"Korkma! Gerçekten biz sana bilgin bir oğul müjdeliyoruz\" dediler.",
+    "verseNumber": 53,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1856,
+    "arabic": "قَالَ أَبَشَّرْتُمُونِى عَلَىٰٓ أَن مَّسَّنِىَ ٱلْكِبَرُ فَبِمَ تُبَشِّرُونَ",
+    "turkish": "İbrahim dedi ki: \"Bana ihtiyarlık gelmişken, beni mi müjdeliyorsunuz, neye dayanarak beni müjdeliyorsunuz?\"",
+    "verseNumber": 54,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1857,
+    "arabic": "قَالُوا۟ بَشَّرْنَٰكَ بِٱلْحَقِّ فَلَا تَكُن مِّنَ ٱلْقَٰنِطِينَ",
+    "turkish": "Melekler: \"Seni gerçekle müjdeliyoruz. Sakın Allah'ın rahmetinden ümidini kesenlerden olma!\" dediler.",
+    "verseNumber": 55,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1858,
+    "arabic": "قَالَ وَمَن يَقْنَطُ مِن رَّحْمَةِ رَبِّهِۦٓ إِلَّا ٱلضَّآلُّونَ",
+    "turkish": "İbrahim dedi ki: \"Rabbimin rahmetinden, sapıklardan başka kim ümit keser?\"",
+    "verseNumber": 56,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1859,
+    "arabic": "قَالَ فَمَا خَطْبُكُمْ أَيُّهَا ٱلْمُرْسَلُونَ",
+    "turkish": "\"Ey elçiler! Başka ne işiniz var?\" dedi.",
+    "verseNumber": 57,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1860,
+    "arabic": "قَالُوٓا۟ إِنَّآ أُرْسِلْنَآ إِلَىٰ قَوْمٍۢ مُّجْرِمِينَ",
+    "turkish": "Melekler şöyle dediler: \"Biz suçlu bir kavmi cezalandırmak için gönderildik.",
+    "verseNumber": 58,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1861,
+    "arabic": "إِلَّآ ءَالَ لُوطٍ إِنَّا لَمُنَجُّوهُمْ أَجْمَعِينَ",
+    "turkish": "Ancak Lût ailesi müstesnâdır. Biz, onların hepsini muhakkak kurtaracağız.",
+    "verseNumber": 59,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1862,
+    "arabic": "إِلَّا ٱمْرَأَتَهُۥ قَدَّرْنَآ ۙ إِنَّهَا لَمِنَ ٱلْغَٰبِرِينَ",
+    "turkish": "Yalnız Lût'un karısı müstesnâ, çünkü onun helak edilenlerle birlikte yok edilmesini takdir ettik.",
+    "verseNumber": 60,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1863,
+    "arabic": "فَلَمَّا جَآءَ ءَالَ لُوطٍ ٱلْمُرْسَلُونَ",
+    "turkish": "Melek olan elçiler, Lût kavmine gelince,",
+    "verseNumber": 61,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1864,
+    "arabic": "قَالَ إِنَّكُمْ قَوْمٌۭ مُّنكَرُونَ",
+    "turkish": "Lût dedi ki: \"Doğrusu siz ürkülecek bir kavimsiniz.\"",
+    "verseNumber": 62,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1865,
+    "arabic": "قَالُوا۟ بَلْ جِئْنَٰكَ بِمَا كَانُوا۟ فِيهِ يَمْتَرُونَ",
+    "turkish": "Elçiler dediler ki: \"Bilakis biz sana onların şüphe ettiği azabı getirdik.\"",
+    "verseNumber": 63,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1866,
+    "arabic": "وَأَتَيْنَٰكَ بِٱلْحَقِّ وَإِنَّا لَصَٰدِقُونَ",
+    "turkish": "\"Sana gerçeği getirdik; biz elbette doğru söylüyoruz.\"",
+    "verseNumber": 64,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1867,
+    "arabic": "فَأَسْرِ بِأَهْلِكَ بِقِطْعٍۢ مِّنَ ٱلَّيْلِ وَٱتَّبِعْ أَدْبَٰرَهُمْ وَلَا يَلْتَفِتْ مِنكُمْ أَحَدٌۭ وَٱمْضُوا۟ حَيْثُ تُؤْمَرُونَ",
+    "turkish": "\"Gecenin bir bölümünde aileni yola çıkar, sen de arkalarından yürü ve sizden kimse ardına bakmasın; istenen yere gidin.\"",
+    "verseNumber": 65,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1868,
+    "arabic": "وَقَضَيْنَآ إِلَيْهِ ذَٰلِكَ ٱلْأَمْرَ أَنَّ دَابِرَ هَٰٓؤُلَآءِ مَقْطُوعٌۭ مُّصْبِحِينَ",
+    "turkish": "Biz, Lût'a şu kesin emri vahyettik: \"Bu kâfirler sabaha çıkarken muhakkak kökleri kesilmiş olacaktır.\"",
+    "verseNumber": 66,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1869,
+    "arabic": "وَجَآءَ أَهْلُ ٱلْمَدِينَةِ يَسْتَبْشِرُونَ",
+    "turkish": "Şehir halkı, insan şeklindeki güzel yüzlü melekleri görünce, onlara iğrenç işlerini yapabileceklerini düşünüp sevinerek geldiler.",
+    "verseNumber": 67,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1870,
+    "arabic": "قَالَ إِنَّ هَٰٓؤُلَآءِ ضَيْفِى فَلَا تَفْضَحُونِ",
+    "turkish": "Lût, kavmine şöyle dedi: \"Bunlar benim misafirlerimdir, beni rüsvay etmeyin.\"",
+    "verseNumber": 68,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1871,
+    "arabic": "وَٱتَّقُوا۟ ٱللَّهَ وَلَا تُخْزُونِ",
+    "turkish": "\"Allah'tan korkun! Beni mahcub etmeyin.\"",
+    "verseNumber": 69,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  },
+  {
+    "id": 1872,
+    "arabic": "قَالُوٓا۟ أَوَلَمْ نَنْهَكَ عَنِ ٱلْعَٰلَمِينَ",
+    "turkish": "Lût kavmi şöyle dedi: \"Biz sana kimsenin koruyuculuğunu yapmamanı söylememiş miydik?\"",
+    "verseNumber": 70,
+    "surahNumber": 15,
+    "surahName": "سُورَةُ الحِجۡرِ",
+    "englishName": "Al-Hijr"
+  }
+]

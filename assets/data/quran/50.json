@@ -1,0 +1,369 @@
+{
+  "number": 50,
+  "name": "سُورَةُ قٓ",
+  "englishName": "Qaaf",
+  "englishNameTranslation": "The letter Qaaf",
+  "revelationType": "Meccan",
+  "ayahs": [
+    {
+      "number": 4631,
+      "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ قٓ ۚ وَٱلْقُرْءَانِ ٱلْمَجِيدِ",
+      "numberInSurah": 1,
+      "juz": 26,
+      "page": 518,
+      "translation": "Kâf. Şanlı ve şerefli Kur'an'a andolsun ki,"
+    },
+    {
+      "number": 4632,
+      "text": "بَلْ عَجِبُوٓا۟ أَن جَآءَهُم مُّنذِرٌۭ مِّنْهُمْ فَقَالَ ٱلْكَٰفِرُونَ هَٰذَا شَىْءٌ عَجِيبٌ",
+      "numberInSurah": 2,
+      "juz": 26,
+      "page": 518,
+      "translation": "Doğrusu kâfirler kendi içlerinden uyarıcı bir peygamber geldiğine şaşırdılar da dediler ki: \"Bu şaşılacak bir şeydir!"
+    },
+    {
+      "number": 4633,
+      "text": "أَءِذَا مِتْنَا وَكُنَّا تُرَابًۭا ۖ ذَٰلِكَ رَجْعٌۢ بَعِيدٌۭ",
+      "numberInSurah": 3,
+      "juz": 26,
+      "page": 518,
+      "translation": "Öldüğümüz ve bir toprak olduğumuz vakit mi (tekrar) dirileceğiz? bu dönüş çok uzaktır.\""
+    },
+    {
+      "number": 4634,
+      "text": "قَدْ عَلِمْنَا مَا تَنقُصُ ٱلْأَرْضُ مِنْهُمْ ۖ وَعِندَنَا كِتَٰبٌ حَفِيظٌۢ",
+      "numberInSurah": 4,
+      "juz": 26,
+      "page": 518,
+      "translation": "Fakat biz toprağın onlardan neyi eksilttiğini elbette biliyoruz. Yanımızda herşeyi kaydedip muhafaza eden bir kitap vardır."
+    },
+    {
+      "number": 4635,
+      "text": "بَلْ كَذَّبُوا۟ بِٱلْحَقِّ لَمَّا جَآءَهُمْ فَهُمْ فِىٓ أَمْرٍۢ مَّرِيجٍ",
+      "numberInSurah": 5,
+      "juz": 26,
+      "page": 518,
+      "translation": "Doğrusu hak kendilerine geldiği zaman yalanladılar da şimdi karmakarışık bir ıztırap içindeler."
+    },
+    {
+      "number": 4636,
+      "text": "أَفَلَمْ يَنظُرُوٓا۟ إِلَى ٱلسَّمَآءِ فَوْقَهُمْ كَيْفَ بَنَيْنَٰهَا وَزَيَّنَّٰهَا وَمَا لَهَا مِن فُرُوجٍۢ",
+      "numberInSurah": 6,
+      "juz": 26,
+      "page": 518,
+      "translation": "Artık üstlerindeki göğe bakmazlar mı ki, onu nasıl bina etmiş ve süslemişiz, onun hiç bir çatlağı yoktur."
+    },
+    {
+      "number": 4637,
+      "text": "وَٱلْأَرْضَ مَدَدْنَٰهَا وَأَلْقَيْنَا فِيهَا رَوَٰسِىَ وَأَنۢبَتْنَا فِيهَا مِن كُلِّ زَوْجٍۭ بَهِيجٍۢ",
+      "numberInSurah": 7,
+      "juz": 26,
+      "page": 518,
+      "translation": "Yeri de nasıl uzatmış, üzerine sabit dağlar oturtmuşuz. Orada görünüşü güzel her çeşit bitkiden çiftler yetiştirdik."
+    },
+    {
+      "number": 4638,
+      "text": "تَبْصِرَةًۭ وَذِكْرَىٰ لِكُلِّ عَبْدٍۢ مُّنِيبٍۢ",
+      "numberInSurah": 8,
+      "juz": 26,
+      "page": 518,
+      "translation": "Bunlar, Allah'a yönelen her kula gönül gözünü açmak ve ona ibret vermek içindir."
+    },
+    {
+      "number": 4639,
+      "text": "وَنَزَّلْنَا مِنَ ٱلسَّمَآءِ مَآءًۭ مُّبَٰرَكًۭا فَأَنۢبَتْنَا بِهِۦ جَنَّٰتٍۢ وَحَبَّ ٱلْحَصِيدِ",
+      "numberInSurah": 9,
+      "juz": 26,
+      "page": 518,
+      "translation": "Bir de gökten bereketli bir su indirip de onunla bağlar, bahçeler ve biçilecek taneler bitirmekteyiz."
+    },
+    {
+      "number": 4640,
+      "text": "وَٱلنَّخْلَ بَاسِقَٰتٍۢ لَّهَا طَلْعٌۭ نَّضِيدٌۭ",
+      "numberInSurah": 10,
+      "juz": 26,
+      "page": 518,
+      "translation": "Tomurcukları birbiri üzerine dizilmiş uzun boylu hurma ağaçları yetiştirdik."
+    },
+    {
+      "number": 4641,
+      "text": "رِّزْقًۭا لِّلْعِبَادِ ۖ وَأَحْيَيْنَا بِهِۦ بَلْدَةًۭ مَّيْتًۭا ۚ كَذَٰلِكَ ٱلْخُرُوجُ",
+      "numberInSurah": 11,
+      "juz": 26,
+      "page": 518,
+      "translation": "Bunları kullara rızık olması için (yetiştirmekteyiz). O su ile ölü bir toprağa can verdik, işte hayata çıkış da böyledir."
+    },
+    {
+      "number": 4642,
+      "text": "كَذَّبَتْ قَبْلَهُمْ قَوْمُ نُوحٍۢ وَأَصْحَٰبُ ٱلرَّسِّ وَثَمُودُ",
+      "numberInSurah": 12,
+      "juz": 26,
+      "page": 518,
+      "translation": "Onlardan önce Nuh'un kavmi, Ress halkı ve Semûd da yalanlamıştı."
+    },
+    {
+      "number": 4643,
+      "text": "وَعَادٌۭ وَفِرْعَوْنُ وَإِخْوَٰنُ لُوطٍۢ",
+      "numberInSurah": 13,
+      "juz": 26,
+      "page": 518,
+      "translation": "Âd, Firavun, Lût'un kardeşleri de (yalanladılar)."
+    },
+    {
+      "number": 4644,
+      "text": "وَأَصْحَٰبُ ٱلْأَيْكَةِ وَقَوْمُ تُبَّعٍۢ ۚ كُلٌّۭ كَذَّبَ ٱلرُّسُلَ فَحَقَّ وَعِيدِ",
+      "numberInSurah": 14,
+      "juz": 26,
+      "page": 518,
+      "translation": "Eyke halkı ve Tübbâ kavmi de, bunların hepsi peygamberleri yalanladılar da (onlara) azabım hak oldu."
+    },
+    {
+      "number": 4645,
+      "text": "أَفَعَيِينَا بِٱلْخَلْقِ ٱلْأَوَّلِ ۚ بَلْ هُمْ فِى لَبْسٍۢ مِّنْ خَلْقٍۢ جَدِيدٍۢ",
+      "numberInSurah": 15,
+      "juz": 26,
+      "page": 518,
+      "translation": "Biz ilk yaratmada acizlik mi gösterdik? Doğrusu, onlar yeni bir yaratılıştan şüphe içindedirler."
+    },
+    {
+      "number": 4646,
+      "text": "وَلَقَدْ خَلَقْنَا ٱلْإِنسَٰنَ وَنَعْلَمُ مَا تُوَسْوِسُ بِهِۦ نَفْسُهُۥ ۖ وَنَحْنُ أَقْرَبُ إِلَيْهِ مِنْ حَبْلِ ٱلْوَرِيدِ",
+      "numberInSurah": 16,
+      "juz": 26,
+      "page": 519,
+      "translation": "Andolsun insanı biz yarattık ve nefsinin kendisine fısıldadıklarını biliriz. Ve biz ona şah damarından daha yakınız."
+    },
+    {
+      "number": 4647,
+      "text": "إِذْ يَتَلَقَّى ٱلْمُتَلَقِّيَانِ عَنِ ٱلْيَمِينِ وَعَنِ ٱلشِّمَالِ قَعِيدٌۭ",
+      "numberInSurah": 17,
+      "juz": 26,
+      "page": 519,
+      "translation": "Onun sağında ve solunda oturmuş iki melek zabıt tutarken,"
+    },
+    {
+      "number": 4648,
+      "text": "مَّا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌۭ",
+      "numberInSurah": 18,
+      "juz": 26,
+      "page": 519,
+      "translation": "İnsan hiçbir söz söylemez ki yanında (onu) gözetleyen, dediklerini zapteden bir melek hazır bulunmasın."
+    },
+    {
+      "number": 4649,
+      "text": "وَجَآءَتْ سَكْرَةُ ٱلْمَوْتِ بِٱلْحَقِّ ۖ ذَٰلِكَ مَا كُنتَ مِنْهُ تَحِيدُ",
+      "numberInSurah": 19,
+      "juz": 26,
+      "page": 519,
+      "translation": "Ölüm sarhoşluğu gerçekten geldiğinde, \"Ey insan! İşte bu senin öteden beri kaçtığın şeydir.\" denir."
+    },
+    {
+      "number": 4650,
+      "text": "وَنُفِخَ فِى ٱلصُّورِ ۚ ذَٰلِكَ يَوْمُ ٱلْوَعِيدِ",
+      "numberInSurah": 20,
+      "juz": 26,
+      "page": 519,
+      "translation": "Sur'a üfürülür, işte bu, tehdid(in gerçekleşme) günüdür."
+    },
+    {
+      "number": 4651,
+      "text": "وَجَآءَتْ كُلُّ نَفْسٍۢ مَّعَهَا سَآئِقٌۭ وَشَهِيدٌۭ",
+      "numberInSurah": 21,
+      "juz": 26,
+      "page": 519,
+      "translation": "Her can, kendisiyle beraber bir sevk memuru ve bir şahid bulunduğu halde gelir."
+    },
+    {
+      "number": 4652,
+      "text": "لَّقَدْ كُنتَ فِى غَفْلَةٍۢ مِّنْ هَٰذَا فَكَشَفْنَا عَنكَ غِطَآءَكَ فَبَصَرُكَ ٱلْيَوْمَ حَدِيدٌۭ",
+      "numberInSurah": 22,
+      "juz": 26,
+      "page": 519,
+      "translation": "(Allah ona) \"Andolsun sen bundan gaflet içinde idin. Şimdi senden gaflet perdesini kaldırdık. Bugün artık gözün keskindir.\" der."
+    },
+    {
+      "number": 4653,
+      "text": "وَقَالَ قَرِينُهُۥ هَٰذَا مَا لَدَىَّ عَتِيدٌ",
+      "numberInSurah": 23,
+      "juz": 26,
+      "page": 519,
+      "translation": "Beraberindeki melek \"işte yanımdaki hazır\" der."
+    },
+    {
+      "number": 4654,
+      "text": "أَلْقِيَا فِى جَهَنَّمَ كُلَّ كَفَّارٍ عَنِيدٍۢ",
+      "numberInSurah": 24,
+      "juz": 26,
+      "page": 519,
+      "translation": "(Allah iki meleğe buyurur ki:) \"Haydi ikiniz, atın cehenneme her inatçı nankörü!"
+    },
+    {
+      "number": 4655,
+      "text": "مَّنَّاعٍۢ لِّلْخَيْرِ مُعْتَدٍۢ مُّرِيبٍ",
+      "numberInSurah": 25,
+      "juz": 26,
+      "page": 519,
+      "translation": "İyiliklere (sürekli) engel olan, saldırgan, şüpheciyi."
+    },
+    {
+      "number": 4656,
+      "text": "ٱلَّذِى جَعَلَ مَعَ ٱللَّهِ إِلَٰهًا ءَاخَرَ فَأَلْقِيَاهُ فِى ٱلْعَذَابِ ٱلشَّدِيدِ",
+      "numberInSurah": 26,
+      "juz": 26,
+      "page": 519,
+      "translation": "O ki Allah'ın yanında başka ilâh edinmiştir. Haydi ikiniz birlikte onu şiddetli azaba atın.\""
+    },
+    {
+      "number": 4657,
+      "text": "۞ قَالَ قَرِينُهُۥ رَبَّنَا مَآ أَطْغَيْتُهُۥ وَلَٰكِن كَانَ فِى ضَلَٰلٍۭ بَعِيدٍۢ",
+      "numberInSurah": 27,
+      "juz": 26,
+      "page": 519,
+      "translation": "Yanındaki arkadaşı (şeytan) der ki: \"Rabbimiz! Ben onu azdırmadım. Fakat kendisi derin bir sapıklık içindeydi\"."
+    },
+    {
+      "number": 4658,
+      "text": "قَالَ لَا تَخْتَصِمُوا۟ لَدَىَّ وَقَدْ قَدَّمْتُ إِلَيْكُم بِٱلْوَعِيدِ",
+      "numberInSurah": 28,
+      "juz": 26,
+      "page": 519,
+      "translation": "Allah buyurur ki: \"Huzurumda çekişmeyin! Ben size daha önce uyarıcı göndermiştim.\""
+    },
+    {
+      "number": 4659,
+      "text": "مَا يُبَدَّلُ ٱلْقَوْلُ لَدَىَّ وَمَآ أَنَا۠ بِظَلَّٰمٍۢ لِّلْعَبِيدِ",
+      "numberInSurah": 29,
+      "juz": 26,
+      "page": 519,
+      "translation": "Benim huzurumda söz değiştirilmez. Ve ben kullara asla zulmedici değilim."
+    },
+    {
+      "number": 4660,
+      "text": "يَوْمَ نَقُولُ لِجَهَنَّمَ هَلِ ٱمْتَلَأْتِ وَتَقُولُ هَلْ مِن مَّزِيدٍۢ",
+      "numberInSurah": 30,
+      "juz": 26,
+      "page": 519,
+      "translation": "Biz O gün cehenneme: \"Doldun mu?\" diyeceğiz. O da: \"Daha fazla var mı?\" diyecektir."
+    },
+    {
+      "number": 4661,
+      "text": "وَأُزْلِفَتِ ٱلْجَنَّةُ لِلْمُتَّقِينَ غَيْرَ بَعِيدٍ",
+      "numberInSurah": 31,
+      "juz": 26,
+      "page": 519,
+      "translation": "Cennet de kötülükten sakınanlara yaklaştırılır. Zaten uzak değildir."
+    },
+    {
+      "number": 4662,
+      "text": "هَٰذَا مَا تُوعَدُونَ لِكُلِّ أَوَّابٍ حَفِيظٍۢ",
+      "numberInSurah": 32,
+      "juz": 26,
+      "page": 519,
+      "translation": "Onlara denir ki: \"İşte size vaad edilen bu cennet, Allah'a yönelen, O'nun emirlerine riayet eden, görmediği halde Rahman olan Allah'tan korkan ve O'na yönelen bir kalple gelenlere mahsustur."
+    },
+    {
+      "number": 4663,
+      "text": "مَّنْ خَشِىَ ٱلرَّحْمَٰنَ بِٱلْغَيْبِ وَجَآءَ بِقَلْبٍۢ مُّنِيبٍ",
+      "numberInSurah": 33,
+      "juz": 26,
+      "page": 519,
+      "translation": "Onlara denir ki: \"İşte size vaad edilen bu cennet, Allah'a yönelen, O'nun emirlerine riayet eden, görmediği halde Rahman olan Allah'tan korkan ve O'na yönelen bir kalple gelenlere mahsustur."
+    },
+    {
+      "number": 4664,
+      "text": "ٱدْخُلُوهَا بِسَلَٰمٍۢ ۖ ذَٰلِكَ يَوْمُ ٱلْخُلُودِ",
+      "numberInSurah": 34,
+      "juz": 26,
+      "page": 519,
+      "translation": "\"Şimdi selam ve selametle oraya girin. İşte sonsuzluk günü budur.\""
+    },
+    {
+      "number": 4665,
+      "text": "لَهُم مَّا يَشَآءُونَ فِيهَا وَلَدَيْنَا مَزِيدٌۭ",
+      "numberInSurah": 35,
+      "juz": 26,
+      "page": 519,
+      "translation": "Orada onlara ne isterlerse vardır. Katımızda daha fazlası da vardır."
+    },
+    {
+      "number": 4666,
+      "text": "وَكَمْ أَهْلَكْنَا قَبْلَهُم مِّن قَرْنٍ هُمْ أَشَدُّ مِنْهُم بَطْشًۭا فَنَقَّبُوا۟ فِى ٱلْبِلَٰدِ هَلْ مِن مَّحِيصٍ",
+      "numberInSurah": 36,
+      "juz": 26,
+      "page": 520,
+      "translation": "Ey Muhammed! Biz onlardan önce kendilerinden daha kuvvetli olan ve beldeleri delik deşik eden nice nesilleri helak ettik, hiç kurtuluş var mı?"
+    },
+    {
+      "number": 4667,
+      "text": "إِنَّ فِى ذَٰلِكَ لَذِكْرَىٰ لِمَن كَانَ لَهُۥ قَلْبٌ أَوْ أَلْقَى ٱلسَّمْعَ وَهُوَ شَهِيدٌۭ",
+      "numberInSurah": 37,
+      "juz": 26,
+      "page": 520,
+      "translation": "Şüphesiz ki bunda kalbi olan ve hazır bulunup kulak veren kimse için elbette bir öğüt vardır."
+    },
+    {
+      "number": 4668,
+      "text": "وَلَقَدْ خَلَقْنَا ٱلسَّمَٰوَٰتِ وَٱلْأَرْضَ وَمَا بَيْنَهُمَا فِى سِتَّةِ أَيَّامٍۢ وَمَا مَسَّنَا مِن لُّغُوبٍۢ",
+      "numberInSurah": 38,
+      "juz": 26,
+      "page": 520,
+      "translation": "Andolsun ki biz gökleri, yeri ve ikisi arasındakileri altı günde yarattık, Bize hiçbir yorgunluk da dokunmadı."
+    },
+    {
+      "number": 4669,
+      "text": "فَٱصْبِرْ عَلَىٰ مَا يَقُولُونَ وَسَبِّحْ بِحَمْدِ رَبِّكَ قَبْلَ طُلُوعِ ٱلشَّمْسِ وَقَبْلَ ٱلْغُرُوبِ",
+      "numberInSurah": 39,
+      "juz": 26,
+      "page": 520,
+      "translation": "Ey Muhammed! Onların söylediklerine karşı sabret. Güneşin doğuşundan önce (sabah namazını) ve batışından önce de (öğle ve ikindi namazalarını kılarak) Rabbini Hamd ile tesbih et."
+    },
+    {
+      "number": 4670,
+      "text": "وَمِنَ ٱلَّيْلِ فَسَبِّحْهُ وَأَدْبَٰرَ ٱلسُّجُودِ",
+      "numberInSurah": 40,
+      "juz": 26,
+      "page": 520,
+      "translation": "Geceleyin (akşam ve yatsı namazlarını kılarak), namazlardan sonra da (vitir ve nafile kılarak) O'nu tesbih et."
+    },
+    {
+      "number": 4671,
+      "text": "وَٱسْتَمِعْ يَوْمَ يُنَادِ ٱلْمُنَادِ مِن مَّكَانٍۢ قَرِيبٍۢ",
+      "numberInSurah": 41,
+      "juz": 26,
+      "page": 520,
+      "translation": "Bir münadinin yakın bir yerden sesleneceği güne kulak ver."
+    },
+    {
+      "number": 4672,
+      "text": "يَوْمَ يَسْمَعُونَ ٱلصَّيْحَةَ بِٱلْحَقِّ ۚ ذَٰلِكَ يَوْمُ ٱلْخُرُوجِ",
+      "numberInSurah": 42,
+      "juz": 26,
+      "page": 520,
+      "translation": "O gün insanlar, o çağrıyı gerçek olarak duyarlar. İşte bugün, kabirlerden çıkış günüdür."
+    },
+    {
+      "number": 4673,
+      "text": "إِنَّا نَحْنُ نُحْىِۦ وَنُمِيتُ وَإِلَيْنَا ٱلْمَصِيرُ",
+      "numberInSurah": 43,
+      "juz": 26,
+      "page": 520,
+      "translation": "Gerçekten biz hem yaşatırız, hem öldürürüz. Sonunda dönüş yalnız bizedir."
+    },
+    {
+      "number": 4674,
+      "text": "يَوْمَ تَشَقَّقُ ٱلْأَرْضُ عَنْهُمْ سِرَاعًۭا ۚ ذَٰلِكَ حَشْرٌ عَلَيْنَا يَسِيرٌۭ",
+      "numberInSurah": 44,
+      "juz": 26,
+      "page": 520,
+      "translation": "O gün yer yarılır, insanlar kabirlerinden çabucak çıkarlar. İşte bu, sadece bize göre kolay bir toplanmadır."
+    },
+    {
+      "number": 4675,
+      "text": "نَّحْنُ أَعْلَمُ بِمَا يَقُولُونَ ۖ وَمَآ أَنتَ عَلَيْهِم بِجَبَّارٍۢ ۖ فَذَكِّرْ بِٱلْقُرْءَانِ مَن يَخَافُ وَعِيدِ",
+      "numberInSurah": 45,
+      "juz": 26,
+      "page": 520,
+      "translation": "Biz onların söylediklerini daha iyi biliriz. Sen onlara karşı zor kullanacak değilsin. O halde sen, benim tehdidimden korkanlara bu Kur'ân ile öğüt ver."
+    }
+  ]
+}

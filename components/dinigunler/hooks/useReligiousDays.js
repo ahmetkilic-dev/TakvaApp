@@ -1,236 +1,206 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 
-// Aladhan API for Hijri calendar
-const API_BASE = 'https://api.aladhan.com/v1';
-
-// Islamic month names in Turkish
-const HIJRI_MONTHS = {
-  1: 'Muharrem',
-  2: 'Safer',
-  3: 'Rebiülevvel',
-  4: 'Rebiülahir',
-  5: 'Cemaziyelevvel',
-  6: 'Cemaziyelahir',
-  7: 'Recep',
-  8: 'Şaban',
-  9: 'Ramazan',
-  10: 'Şevval',
-  11: 'Zilkade',
-  12: 'Zilhicce',
-};
-
-// Gregorian month names in Turkish
-const GREGORIAN_MONTHS = [
-  'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
-  'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
-];
-
-// Religious days definitions with their Hijri dates
-const RELIGIOUS_DAYS_DEFINITIONS = [
+// 2026 Dini Günler ve Geceler (Görseldeki kesin listeye göre güncellendi)
+const STATIC_RELIGIOUS_DAYS_2026 = [
   {
-    key: 'mevlid',
-    name: 'Mevlid Kandili',
-    description: 'Peygamberimizin doğum\ngünü mübarek gecesi.',
-    hijriMonth: 3, // Rebiülevvel
-    hijriDay: 12,
-    icon: 'heart',
-    type: 'kandil',
-  },
-  {
-    key: 'regaip',
-    name: 'Regaip Kandili',
-    description: 'Recep ayının ilk Cuma\ngecesi, mübarek kandil.',
-    hijriMonth: 7, // Recep
-    hijriDay: null, // First Friday night (calculated)
-    icon: 'sparkles',
-    type: 'kandil',
-    isRegaip: true,
-  },
-  {
+    id: 'mirac_2026',
     key: 'mirac',
     name: 'Miraç Kandili',
-    description: 'Peygamberimizin göklere\nyükseldiği mübarek gece.',
-    hijriMonth: 7, // Recep
-    hijriDay: 27,
+    description: 'Peygamberimizin göklere yükseldiği mübarek gece.',
     icon: 'rocket',
     type: 'kandil',
+    gregorianDate: '15 Ocak 2026',
+    hijriDate: '26 Receb 1447',
+    dateObj: new Date(2026, 0, 15),
   },
   {
+    id: 'berat_2026',
     key: 'berat',
     name: 'Berat Kandili',
-    description: 'Günahların affı ve kaderin\nyazıldığı mübarek gece.',
-    hijriMonth: 8, // Şaban
-    hijriDay: 15,
+    description: 'Günahların affı ve kaderin yazıldığı mübarek gece.',
     icon: 'moon',
     type: 'kandil',
+    gregorianDate: '2 Şubat 2026',
+    hijriDate: '14 Şaban 1447',
+    dateObj: new Date(2026, 1, 2),
   },
   {
+    id: 'ramazan_baslangic_2026',
     key: 'ramazan_baslangic',
-    name: 'Ramazan Başlangıcı',
-    description: 'Oruç tutma ayının başladığı\nmübarek gün.',
-    hijriMonth: 9, // Ramazan
-    hijriDay: 1,
+    name: 'Ramazan-ı Şerif Başlangıcı',
+    description: 'Oruç tutma ayının başladığı mübarek gün.',
     icon: 'calendar',
     type: 'ozel',
+    gregorianDate: '19 Şubat 2026',
+    hijriDate: '1 Ramazan 1447',
+    dateObj: new Date(2026, 1, 19),
   },
   {
+    id: 'kadir_2026',
     key: 'kadir',
     name: 'Kadir Gecesi',
-    description: 'Bin aydan daha hayırlı olan\nmübarek gece.',
-    hijriMonth: 9, // Ramazan
-    hijriDay: 27,
+    description: 'Bin aydan daha hayırlı olan mübarek gece.',
     icon: 'star',
     type: 'kandil',
+    gregorianDate: '16 Mart 2026',
+    hijriDate: '26 Ramazan 1447',
+    dateObj: new Date(2026, 2, 16),
   },
   {
-    key: 'ramazan_bayrami',
-    name: 'Ramazan Bayramı',
-    description: 'Üç gün süren sevinç ve\nkutlama günleri.',
-    hijriMonth: 10, // Şevval
-    hijriDay: 1,
-    icon: 'sunny',
-    type: 'bayram',
-    duration: 3,
-  },
-  {
-    key: 'arefe_kurban',
-    name: 'Arefe Günü',
-    description: "Kurban Bayramı'ndan önceki\nmübarek gün.",
-    hijriMonth: 12, // Zilhicce
-    hijriDay: 9,
+    id: 'ramazan_arefe_2026',
+    key: 'arefe',
+    name: 'Ramazan Bayramı Arefesi',
+    description: "Ramazan Bayramı'ndan önceki mübarek gün.",
     icon: 'time',
     type: 'ozel',
+    gregorianDate: '19 Mart 2026',
+    hijriDate: '29 Ramazan 1447',
+    dateObj: new Date(2026, 2, 19),
   },
   {
+    id: 'ramazan_bayrami_1_2026',
+    key: 'ramazan_bayrami',
+    name: 'Ramazan Bayramı 1. Gün',
+    description: 'Bayramın ilk günü, sevinç ve kutlama.',
+    icon: 'sunny',
+    type: 'bayram',
+    gregorianDate: '20 Mart 2026',
+    hijriDate: '1 Şevval 1447',
+    dateObj: new Date(2026, 2, 20),
+  },
+  {
+    id: 'ramazan_bayrami_2_2026',
+    key: 'ramazan_bayrami',
+    name: 'Ramazan Bayramı 2. Gün',
+    description: 'Bayramın ikinci günü.',
+    icon: 'sunny',
+    type: 'bayram',
+    gregorianDate: '21 Mart 2026',
+    hijriDate: '2 Şevval 1447',
+    dateObj: new Date(2026, 2, 21),
+  },
+  {
+    id: 'ramazan_bayrami_3_2026',
+    key: 'ramazan_bayrami',
+    name: 'Ramazan Bayramı 3. Gün',
+    description: 'Bayramın üçüncü günü.',
+    icon: 'sunny',
+    type: 'bayram',
+    gregorianDate: '22 Mart 2026',
+    hijriDate: '3 Şevval 1447',
+    dateObj: new Date(2026, 2, 22),
+  },
+  {
+    id: 'kurban_arefe_2026',
+    key: 'arefe',
+    name: 'Kurban Bayramı Arefesi',
+    description: "Kurban Bayramı'ndan önceki mübarek gün.",
+    icon: 'time',
+    type: 'ozel',
+    gregorianDate: '26 Mayıs 2026',
+    hijriDate: '9 Zilhicce 1447',
+    dateObj: new Date(2026, 4, 26),
+  },
+  {
+    id: 'kurban_bayrami_1_2026',
     key: 'kurban_bayrami',
-    name: 'Kurban Bayramı',
-    description: 'Dört gün süren kurban\nkesme bayramı.',
-    hijriMonth: 12, // Zilhicce
-    hijriDay: 10,
+    name: 'Kurban Bayramı 1. Gün',
+    description: 'Dört gün süren kurban kesme bayramı.',
     icon: 'gift',
     type: 'bayram',
-    duration: 4,
+    gregorianDate: '27 Mayıs 2026',
+    hijriDate: '10 Zilhicce 1447',
+    dateObj: new Date(2026, 4, 27),
   },
   {
+    id: 'kurban_bayrami_2_2026',
+    key: 'kurban_bayrami',
+    name: 'Kurban Bayramı 2. Gün',
+    description: 'Bayramın ikinci günü.',
+    icon: 'gift',
+    type: 'bayram',
+    gregorianDate: '28 Mayıs 2026',
+    hijriDate: '11 Zilhicce 1447',
+    dateObj: new Date(2026, 4, 28),
+  },
+  {
+    id: 'kurban_bayrami_3_2026',
+    key: 'kurban_bayrami',
+    name: 'Kurban Bayramı 3. Gün',
+    description: 'Bayramın üçüncü günü.',
+    icon: 'gift',
+    type: 'bayram',
+    gregorianDate: '29 Mayıs 2026',
+    hijriDate: '12 Zilhicce 1447',
+    dateObj: new Date(2026, 4, 29),
+  },
+  {
+    id: 'kurban_bayrami_4_2026',
+    key: 'kurban_bayrami',
+    name: 'Kurban Bayramı 4. Gün',
+    description: 'Bayramın dördüncü günü.',
+    icon: 'gift',
+    type: 'bayram',
+    gregorianDate: '30 Mayıs 2026',
+    hijriDate: '13 Zilhicce 1447',
+    dateObj: new Date(2026, 4, 30),
+  },
+  {
+    id: 'hicri_yilbasi_2026',
+    key: 'hicri_yilbasi',
+    name: 'Hicri Yılbaşı',
+    description: 'Yeni Hicri yılın ilk günü.',
+    icon: 'calendar',
+    type: 'ozel',
+    gregorianDate: '16 Haziran 2026',
+    hijriDate: '1 Muharrem 1448',
+    dateObj: new Date(2026, 5, 16),
+  },
+  {
+    id: 'asure_2026',
     key: 'asure',
     name: 'Aşure Günü',
-    description: "Hz. Nuh'un gemiden inişi,\nHz. Musa'nın kurtuluşu günü.",
-    hijriMonth: 1, // Muharrem
-    hijriDay: 10,
+    description: "Hz. Nuh'un gemiden inişi ve diğer mübarek olayların günü.",
     icon: 'water',
     type: 'ozel',
+    gregorianDate: '25 Haziran 2026',
+    hijriDate: '10 Muharrem 1448',
+    dateObj: new Date(2026, 5, 25),
+  },
+  {
+    id: 'mevlid_2026',
+    key: 'mevlid',
+    name: 'Mevlid Kandili',
+    description: 'Peygamberimizin doğum günü mübarek gecesi.',
+    icon: 'heart',
+    type: 'kandil',
+    gregorianDate: '24 Ağustos 2026',
+    hijriDate: '11 Rebiülevvel 1448',
+    dateObj: new Date(2026, 7, 24),
+  },
+  {
+    id: 'uc_aylar_2026',
+    key: 'uc_aylar',
+    name: 'Üç Ayların Başlangıcı',
+    description: 'Mübarek üç ayların (Recep, Şaban, Ramazan) başlangıcı.',
+    icon: 'sparkles',
+    type: 'ozel',
+    gregorianDate: '10 Aralık 2026',
+    hijriDate: '1 Receb 1448',
+    dateObj: new Date(2026, 11, 10),
+  },
+  {
+    id: 'regaip_2026',
+    key: 'regaip',
+    name: 'Regaip Kandili',
+    description: 'Recep ayının ilk Cuma gecesi, mübarek kandil.',
+    icon: 'sparkles',
+    type: 'kandil',
+    gregorianDate: '10 Aralık 2026',
+    hijriDate: '1 Receb 1448',
+    dateObj: new Date(2026, 11, 10),
   },
 ];
-
-// Cache for API responses
-const apiCache = new Map();
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
-
-/**
- * Fetch with caching
- */
-const fetchWithCache = async (url) => {
-  const cached = apiCache.get(url);
-  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-    return cached.data;
-  }
-
-  const response = await fetch(url);
-  const data = await response.json();
-  
-  apiCache.set(url, { data, timestamp: Date.now() });
-  return data;
-};
-
-/**
- * Convert Hijri date to Gregorian using Aladhan API
- */
-const hijriToGregorian = async (hijriDay, hijriMonth, hijriYear) => {
-  try {
-    const url = `${API_BASE}/hToG/${hijriDay}-${hijriMonth}-${hijriYear}`;
-    const result = await fetchWithCache(url);
-    
-    if (result.code === 200 && result.data) {
-      const { day, month, year } = result.data.gregorian;
-      return new Date(parseInt(year), parseInt(month.number) - 1, parseInt(day));
-    }
-    return null;
-  } catch (error) {
-    console.error('Hijri to Gregorian conversion error:', error);
-    return null;
-  }
-};
-
-/**
- * Get current Hijri date
- */
-const getCurrentHijriDate = async () => {
-  try {
-    const now = new Date();
-    const dateStr = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
-    const url = `${API_BASE}/gToH/${dateStr}`;
-    const result = await fetchWithCache(url);
-    
-    if (result.code === 200 && result.data && result.data.hijri) {
-      return {
-        day: parseInt(result.data.hijri.day),
-        month: parseInt(result.data.hijri.month.number),
-        year: parseInt(result.data.hijri.year),
-      };
-    }
-    return null;
-  } catch (error) {
-    console.error('Get current Hijri date error:', error);
-    return null;
-  }
-};
-
-/**
- * Calculate Regaip Kandili (First Thursday night of Rajab/Recep)
- */
-const calculateRegaipDate = async (hijriYear) => {
-  try {
-    // Get the first day of Recep
-    const firstOfRajab = await hijriToGregorian(1, 7, hijriYear);
-    if (!firstOfRajab) return null;
-
-    // Find the first Friday (Regaip is the night before, Thursday night)
-    // In Islamic tradition, the night belongs to the next day
-    // So Regaip is Thursday evening = Friday's night in Hijri
-    let current = new Date(firstOfRajab);
-    
-    // Find first Friday of Rajab
-    while (current.getDay() !== 5) { // 5 = Friday
-      current.setDate(current.getDate() + 1);
-    }
-    
-    // Regaip is the night before (Thursday evening)
-    current.setDate(current.getDate() - 1);
-    
-    return current;
-  } catch (error) {
-    console.error('Calculate Regaip date error:', error);
-    return null;
-  }
-};
-
-/**
- * Format Gregorian date to Turkish string
- */
-const formatGregorianDate = (date) => {
-  if (!date) return '';
-  const day = date.getDate();
-  const month = GREGORIAN_MONTHS[date.getMonth()];
-  const year = date.getFullYear();
-  return `${day} ${month} ${year}`;
-};
-
-/**
- * Format Hijri date to Turkish string
- */
-const formatHijriDate = (day, month, year) => {
-  return `${day} ${HIJRI_MONTHS[month]} ${year}`;
-};
 
 /**
  * Calculate remaining days from today
@@ -246,138 +216,46 @@ const calculateRemainingDays = (targetDate) => {
   return diffDays;
 };
 
-/**
- * Main hook for fetching and managing religious days
- */
 export const useReligiousDays = () => {
   const [religiousDays, setReligiousDays] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [currentHijriDate, setCurrentHijriDate] = useState(null);
 
-  // Memoize today's date (reset at midnight)
   const today = useMemo(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
     return date;
   }, []);
 
-  // Calculate one year from now
-  const oneYearLater = useMemo(() => {
-    const date = new Date(today);
-    date.setFullYear(date.getFullYear() + 1);
-    return date;
-  }, [today]);
+  const calculateDays = useCallback(() => {
+    setLoading(true);
 
-  const fetchReligiousDays = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
+    const mappedDays = STATIC_RELIGIOUS_DAYS_2026.map(day => {
+      const remainingDays = calculateRemainingDays(day.dateObj);
+      return {
+        ...day,
+        remainingDays,
+        gregorianDateObj: day.dateObj, // compat with old code
+      };
+    })
+      .filter(day => day.remainingDays >= 0)
+      .sort((a, b) => a.dateObj - b.dateObj);
 
-      console.log('📅 Dini günler yükleniyor...');
+    setReligiousDays(mappedDays);
+    setLoading(false);
+  }, []);
 
-      // Get current Hijri date
-      const hijri = await getCurrentHijriDate();
-      if (!hijri) {
-        throw new Error('Hicri takvim bilgisi alınamadı');
-      }
-      
-      setCurrentHijriDate(hijri);
-      console.log('📅 Şu anki Hicri tarih:', hijri);
-
-      // We need to check both current and next Hijri year
-      const hijriYears = [hijri.year, hijri.year + 1];
-      
-      const allDays = [];
-      const processedKeys = new Set();
-
-      // Process all religious days for both years
-      for (const hijriYear of hijriYears) {
-        for (const dayDef of RELIGIOUS_DAYS_DEFINITIONS) {
-          const uniqueKey = `${dayDef.key}-${hijriYear}`;
-          
-          if (processedKeys.has(uniqueKey)) continue;
-
-          let gregorianDate;
-          let hijriDay = dayDef.hijriDay;
-          let hijriMonth = dayDef.hijriMonth;
-
-          // Special handling for Regaip (calculated date)
-          if (dayDef.isRegaip) {
-            gregorianDate = await calculateRegaipDate(hijriYear);
-            if (gregorianDate) {
-              // Get the Hijri date for the calculated Gregorian date
-              const dateStr = `${String(gregorianDate.getDate()).padStart(2, '0')}-${String(gregorianDate.getMonth() + 1).padStart(2, '0')}-${gregorianDate.getFullYear()}`;
-              try {
-                const hijriResult = await fetchWithCache(`${API_BASE}/gToH/${dateStr}`);
-                if (hijriResult.code === 200 && hijriResult.data && hijriResult.data.hijri) {
-                  hijriDay = parseInt(hijriResult.data.hijri.day);
-                  hijriMonth = parseInt(hijriResult.data.hijri.month.number);
-                }
-              } catch (e) {
-                console.warn('Regaip Hijri date fetch failed:', e);
-              }
-            }
-          } else {
-            gregorianDate = await hijriToGregorian(dayDef.hijriDay, dayDef.hijriMonth, hijriYear);
-          }
-
-          if (!gregorianDate) continue;
-
-          const remainingDays = calculateRemainingDays(gregorianDate);
-          
-          // Only include days that are in the future and within one year
-          if (remainingDays >= 0 && gregorianDate <= oneYearLater) {
-            processedKeys.add(uniqueKey);
-            
-            allDays.push({
-              id: uniqueKey,
-              key: dayDef.key,
-              name: dayDef.name,
-              description: dayDef.description,
-              icon: dayDef.icon,
-              type: dayDef.type,
-              duration: dayDef.duration,
-              hijriDate: formatHijriDate(hijriDay, hijriMonth, hijriYear),
-              gregorianDate: formatGregorianDate(gregorianDate),
-              gregorianDateObj: gregorianDate,
-              remainingDays,
-              hijriYear,
-            });
-          }
-        }
-      }
-
-      // Sort by date (closest first)
-      allDays.sort((a, b) => a.gregorianDateObj - b.gregorianDateObj);
-
-      console.log('📅 Dini günler yüklendi:', allDays.length, 'gün');
-      setReligiousDays(allDays);
-    } catch (err) {
-      console.error('📅 Dini günler yükleme hatası:', err);
-      setError(err.message || 'Dini günler yüklenemedi');
-    } finally {
-      setLoading(false);
-    }
-  }, [today, oneYearLater]);
-
-  // Fetch on mount
   useEffect(() => {
-    fetchReligiousDays();
-  }, [fetchReligiousDays]);
+    calculateDays();
+  }, [calculateDays]);
 
-  // Refresh function for pull-to-refresh
   const refresh = useCallback(() => {
-    // Clear cache for fresh data
-    apiCache.clear();
-    return fetchReligiousDays();
-  }, [fetchReligiousDays]);
+    calculateDays();
+  }, [calculateDays]);
 
   return {
     religiousDays,
     loading,
-    error,
-    currentHijriDate,
+    error: null,
     refresh,
     today,
   };

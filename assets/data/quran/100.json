@@ -1,0 +1,97 @@
+{
+  "number": 100,
+  "name": "سُورَةُ العَادِيَاتِ",
+  "englishName": "Al-Aadiyaat",
+  "englishNameTranslation": "The Chargers",
+  "revelationType": "Meccan",
+  "ayahs": [
+    {
+      "number": 6147,
+      "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلْعَٰدِيَٰتِ ضَبْحًۭا",
+      "numberInSurah": 1,
+      "juz": 30,
+      "page": 599,
+      "translation": "O harıl harıl (savaşa) koşanlara,"
+    },
+    {
+      "number": 6148,
+      "text": "فَٱلْمُورِيَٰتِ قَدْحًۭا",
+      "numberInSurah": 2,
+      "juz": 30,
+      "page": 599,
+      "translation": "(Tırnaklarıyla yerden) ateş çıkaranlara,"
+    },
+    {
+      "number": 6149,
+      "text": "فَٱلْمُغِيرَٰتِ صُبْحًۭا",
+      "numberInSurah": 3,
+      "juz": 30,
+      "page": 599,
+      "translation": "Sabahleyin akın edenlere,"
+    },
+    {
+      "number": 6150,
+      "text": "فَأَثَرْنَ بِهِۦ نَقْعًۭا",
+      "numberInSurah": 4,
+      "juz": 30,
+      "page": 599,
+      "translation": "Tozu dumana karıştıranlara,"
+    },
+    {
+      "number": 6151,
+      "text": "فَوَسَطْنَ بِهِۦ جَمْعًا",
+      "numberInSurah": 5,
+      "juz": 30,
+      "page": 599,
+      "translation": "Derken bir topluluğun ortasına dalanlara yemin ederim ki,"
+    },
+    {
+      "number": 6152,
+      "text": "إِنَّ ٱلْإِنسَٰنَ لِرَبِّهِۦ لَكَنُودٌۭ",
+      "numberInSurah": 6,
+      "juz": 30,
+      "page": 599,
+      "translation": "Şüphesiz insan, Rabbine karşı çok nankördür."
+    },
+    {
+      "number": 6153,
+      "text": "وَإِنَّهُۥ عَلَىٰ ذَٰلِكَ لَشَهِيدٌۭ",
+      "numberInSurah": 7,
+      "juz": 30,
+      "page": 599,
+      "translation": "Ve kendisi de buna şahittir."
+    },
+    {
+      "number": 6154,
+      "text": "وَإِنَّهُۥ لِحُبِّ ٱلْخَيْرِ لَشَدِيدٌ",
+      "numberInSurah": 8,
+      "juz": 30,
+      "page": 599,
+      "translation": "Gerçekten o dünya malını çok sevdiği için katıdır."
+    },
+    {
+      "number": 6155,
+      "text": "۞ أَفَلَا يَعْلَمُ إِذَا بُعْثِرَ مَا فِى ٱلْقُبُورِ",
+      "numberInSurah": 9,
+      "juz": 30,
+      "page": 599,
+      "translation": "Bilmiyor mu ki, kabirlerin içindekiler fırlatılacak."
+    },
+    {
+      "number": 6156,
+      "text": "وَحُصِّلَ مَا فِى ٱلصُّدُورِ",
+      "numberInSurah": 10,
+      "juz": 30,
+      "page": 600,
+      "translation": "Ve sinelerin içindekiler derlenecek."
+    },
+    {
+      "number": 6157,
+      "text": "إِنَّ رَبَّهُم بِهِمْ يَوْمَئِذٍۢ لَّخَبِيرٌۢ",
+      "numberInSurah": 11,
+      "juz": 30,
+      "page": 600,
+      "translation": "O gün Rableri onların bütün yaptıklarından haberdardır"
+    }
+  ]
+}

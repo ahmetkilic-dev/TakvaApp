@@ -6,10 +6,10 @@ import { useState, useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
-// Firebase
-import { auth, db } from '../../firebaseConfig';
+// Firebase/Supabase
+import { auth } from '../../firebaseConfig';
+import { supabase } from '../../lib/supabase';
 import { signInWithEmailAndPassword, OAuthProvider, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
-import { collection, query, where, getDocs, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 // Apple Auth & Crypto
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -27,7 +27,7 @@ import googleLogo from '../../assets/images/google-logo.png';
 export default function LoginScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  
+
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -40,15 +40,15 @@ export default function LoginScreen() {
     GoogleSignin.configure({
       // BURAYA Google Cloud Console > Credentials > Web Client ID kısmındaki ID'yi yapıştırın.
       // Genelde '...apps.googleusercontent.com' ile biter.
-      webClientId: '1063960456618-f5clq2ujmacf5dvaf7efqg6jpc6ie0d9.apps.googleusercontent.com', 
+      webClientId: '1063960456618-f5clq2ujmacf5dvaf7efqg6jpc6ie0d9.apps.googleusercontent.com',
     });
   }, []);
 
   // Görsel olarak +90 ekle
   const handleIdentifierChange = (text) => {
     if (/^[0-9]/.test(text) && !text.startsWith('+')) {
-        setIdentifier('+90' + text);
-        return;
+      setIdentifier('+90' + text);
+      return;
     }
     if (text === '+90') { setIdentifier(''); return; }
     setIdentifier(text);
@@ -61,18 +61,19 @@ export default function LoginScreen() {
     }
 
     setLoading(true);
-    let loginEmail = identifier; 
+    let loginEmail = identifier;
 
     try {
       if (!identifier.includes('@')) {
-        const cleanPhone = identifier.replace(/\s/g, ''); 
-        const usersRef = collection(db, "users");
-        const q = query(usersRef, where("phone", "==", cleanPhone));
-        const querySnapshot = await getDocs(q);
+        const cleanPhone = identifier.replace(/\s/g, '');
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('email')
+          .eq('phone', cleanPhone)
+          .single();
 
-        if (!querySnapshot.empty) {
-          const userDoc = querySnapshot.docs[0].data();
-          loginEmail = userDoc.email;
+        if (data) {
+          loginEmail = data.email;
         } else {
           setLoading(false);
           return Alert.alert("Hesap Bulunamadı", "Bu numara ile kayıtlı kullanıcı bulunamadı.");
@@ -80,9 +81,9 @@ export default function LoginScreen() {
       }
 
       await signInWithEmailAndPassword(auth, loginEmail, password);
-      
+
       setLoading(false);
-      router.replace('/(app)/(tabs)/home'); 
+      router.replace('/(app)/(tabs)/home');
 
     } catch (error) {
       setLoading(false);
@@ -116,25 +117,21 @@ export default function LoginScreen() {
       const userCredential = await signInWithCredential(auth, credential);
       const user = userCredential.user;
 
-      let fullName = user.displayName; 
+      let fullName = user.displayName;
       if (appleCredential.fullName?.givenName) {
         fullName = `${appleCredential.fullName.givenName} ${appleCredential.fullName.familyName || ''}`.trim();
       }
 
       const userData = {
-        uid: user.uid,
+        id: user.uid,
         email: user.email,
         name: fullName || "Apple Kullanıcısı",
         role: 'user',
-        lastLogin: serverTimestamp(),
+        updated_at: new Date().toISOString()
       };
 
-      if (userCredential._tokenResponse?.isNewUser) {
-          userData.createdAt = serverTimestamp();
-      }
+      await supabase.from('profiles').upsert(userData);
 
-      await setDoc(doc(db, "users", user.uid), userData, { merge: true });
-      
       setLoading(false);
       router.replace('/(app)/(tabs)/home');
 
@@ -150,13 +147,13 @@ export default function LoginScreen() {
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
-      
+
       // 1. Play Services Kontrolü
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      
+
       // 2. Google'dan Giriş İzni ve Token Alma
       const { data: { idToken } } = await GoogleSignin.signIn();
-      
+
       if (!idToken) throw new Error('Google ID Token alınamadı.');
 
       // 3. Firebase Kimlik Bilgisi Oluşturma
@@ -166,21 +163,16 @@ export default function LoginScreen() {
       const userCredential = await signInWithCredential(auth, googleCredential);
       const user = userCredential.user;
 
-      // 5. Firestore'a Kaydetme
+      // 5. Supabase'e Kaydetme
       const userData = {
-        uid: user.uid,
+        id: user.uid,
         email: user.email,
         name: user.displayName || "Google Kullanıcısı",
-        photoURL: user.photoURL,
         role: 'user',
-        lastLogin: serverTimestamp(),
+        updated_at: new Date().toISOString(),
       };
 
-      if (userCredential._tokenResponse?.isNewUser) {
-        userData.createdAt = serverTimestamp();
-      }
-
-      await setDoc(doc(db, "users", user.uid), userData, { merge: true });
+      await supabase.from('profiles').upsert(userData);
 
       setLoading(false);
       router.replace('/(app)/(tabs)/home');
@@ -188,7 +180,7 @@ export default function LoginScreen() {
     } catch (error) {
       setLoading(false);
       if (error.code === '12501') { // Kullanıcı iptal etti
-        return; 
+        return;
       }
       console.error(error);
       Alert.alert("Hata", "Google ile giriş yapılamadı.");
@@ -202,7 +194,7 @@ export default function LoginScreen() {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className="flex-1">
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false} bounces={false}>
           <View className="flex-1 px-6" style={{ paddingTop: insets.top, paddingBottom: insets.bottom + 20 }}>
-            
+
             <View className="flex-row items-center justify-between mt-2 mb-10">
               <TouchableOpacity onPress={() => router.back()} className="p-2 -ml-2 active:opacity-60">
                 <Ionicons name="chevron-back" size={28} color="white" />
@@ -214,37 +206,37 @@ export default function LoginScreen() {
             <Text style={fontStyle} className="text-white text-2xl font-bold text-center mb-8 -mt-6">Giriş yap</Text>
 
             <View className="gap-y-4">
-                <TextInput style={fontStyle} placeholder="E-posta veya telefon numarası" placeholderTextColor="#9CA3AF" keyboardType="email-address" autoCapitalize="none" className="w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 text-white text-[15px]" value={identifier} onChangeText={handleIdentifierChange} />
-                <View className="mb-4">
-                    <View className="w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 flex-row items-center">
-                        <TextInput style={{...fontStyle, flex: 1}} placeholder="Şifre" placeholderTextColor="#9CA3AF" secureTextEntry={!showPassword} className="text-white text-[15px]" value={password} onChangeText={setPassword} />
-                        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}><Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="#9CA3AF" /></TouchableOpacity>
-                    </View>
-                    <TouchableOpacity onPress={() => handleNotImplemented('Şifre Sıfırlama')} className="mt-4 self-start"><Text style={fontStyle} className="text-white text-[13px] font-medium">Şifremi unuttum</Text></TouchableOpacity>
+              <TextInput style={fontStyle} placeholder="E-posta veya telefon numarası" placeholderTextColor="#9CA3AF" keyboardType="email-address" autoCapitalize="none" className="w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 text-white text-[15px]" value={identifier} onChangeText={handleIdentifierChange} />
+              <View className="mb-4">
+                <View className="w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 flex-row items-center">
+                  <TextInput style={{ ...fontStyle, flex: 1 }} placeholder="Şifre" placeholderTextColor="#9CA3AF" secureTextEntry={!showPassword} className="text-white text-[15px]" value={password} onChangeText={setPassword} />
+                  <TouchableOpacity onPress={() => setShowPassword(!showPassword)}><Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="#9CA3AF" /></TouchableOpacity>
                 </View>
+                <TouchableOpacity onPress={() => handleNotImplemented('Şifre Sıfırlama')} className="mt-4 self-start"><Text style={fontStyle} className="text-white text-[13px] font-medium">Şifremi unuttum</Text></TouchableOpacity>
+              </View>
             </View>
 
-            <View className="mt-8 gap-y-4"> 
-                <View className="flex-row w-full gap-3 mb-1">
-                    <TouchableOpacity onPress={handleAppleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
-                        <View className="w-[20%] ml-2 h-full items-center justify-center"><Image source={appleLogo} className="w-7 h-7" resizeMode="contain" /></View>
-                        <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular mr-4 text-[12px] leading-tight">Apple ile devam et</Text></View>
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity onPress={handleGoogleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
-                        <View className="w-[20%] h-full ml-2 items-center justify-center"><Image source={googleLogo} className="w-7 h-7" resizeMode="contain" /></View>
-                        <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular text-[12px] leading-tight">Google ile devam et</Text></View>
-                    </TouchableOpacity>
-                </View>
-                <TouchableOpacity onPress={handleLogin} disabled={loading} className={`w-full py-4 bg-[#15221E] border border-white/80 rounded-[10px] flex-row items-center justify-center active:opacity-90 ${loading ? 'opacity-70' : ''}`}>
-                    {loading ? <ActivityIndicator color="white" /> : <Text style={fontStyle} className="text-white text-[15px] font-medium">Giriş yap</Text>}
+            <View className="mt-8 gap-y-4">
+              <View className="flex-row w-full gap-3 mb-1">
+                <TouchableOpacity onPress={handleAppleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
+                  <View className="w-[20%] ml-2 h-full items-center justify-center"><Image source={appleLogo} className="w-7 h-7" resizeMode="contain" /></View>
+                  <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular mr-4 text-[12px] leading-tight">Apple ile devam et</Text></View>
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleGoogleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
+                  <View className="w-[20%] h-full ml-2 items-center justify-center"><Image source={googleLogo} className="w-7 h-7" resizeMode="contain" /></View>
+                  <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular text-[12px] leading-tight">Google ile devam et</Text></View>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity onPress={handleLogin} disabled={loading} className={`w-full py-4 bg-[#15221E] border border-white/80 rounded-[10px] flex-row items-center justify-center active:opacity-90 ${loading ? 'opacity-70' : ''}`}>
+                {loading ? <ActivityIndicator color="white" /> : <Text style={fontStyle} className="text-white text-[15px] font-medium">Giriş yap</Text>}
+              </TouchableOpacity>
             </View>
 
             <View className="mt-auto pt-6">
-                <TouchableOpacity onPress={() => router.push('/create-account')} className="w-full py-4 bg-white rounded-[10px] items-center justify-center active:opacity-80 shadow-lg">
-                  <Text style={fontStyle} className="text-black font-regular text-[15px]">Yeni hesap oluştur</Text>
-                </TouchableOpacity>
+              <TouchableOpacity onPress={() => router.push('/(auth)/create-account')} className="w-full py-4 bg-white rounded-[10px] items-center justify-center active:opacity-80 shadow-lg">
+                <Text style={fontStyle} className="text-black font-regular text-[15px]">Yeni hesap oluştur</Text>
+              </TouchableOpacity>
             </View>
 
           </View>

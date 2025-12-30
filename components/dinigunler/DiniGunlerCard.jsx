@@ -49,7 +49,7 @@ const getIconName = (iconKey) => {
 const DiniGunlerCard = memo(({ day }) => {
   // Get current window dimensions for responsive sizing
   const { width: screenWidth } = useWindowDimensions();
-  
+
   // Responsive calculations
   const scale = screenWidth / DESIGN_WIDTH;
   const cardWidth = screenWidth - (DESIGN_PADDING * 2); // Full width minus padding
@@ -59,10 +59,10 @@ const DiniGunlerCard = memo(({ day }) => {
   const lineWidth = Math.min(60, screenWidth * 0.15);
   const kalanSureFontSize = Math.max(13, Math.min(16, 14 * scale));
   const gunSayisiFontSize = Math.max(22, Math.min(28, 26 * scale));
-  
+
   // Memoize icon to prevent unnecessary lookups
   const iconName = useMemo(() => getIconName(day.icon), [day.icon]);
-  
+
   // Memoize remaining days text
   const remainingText = useMemo(
     () => formatRemainingDays(day.remainingDays),
@@ -123,7 +123,7 @@ const DiniGunlerCard = memo(({ day }) => {
         {/* Title Row */}
         <View style={styles.titleRow}>
           <Ionicons name={iconName} size={ICON_SIZE} color="#FFFFFF" />
-          <Text style={styles.dayTitle} numberOfLines={1}>
+          <Text style={styles.dayTitle} numberOfLines={2}>
             {day.name}
           </Text>
         </View>

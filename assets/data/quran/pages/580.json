@@ -1,0 +1,227 @@
+[
+  {
+    "id": 5617,
+    "arabic": "وَمِنَ ٱلَّيْلِ فَٱسْجُدْ لَهُۥ وَسَبِّحْهُ لَيْلًۭا طَوِيلًا",
+    "turkish": "Gecenin bir bölümünde de O'na secde et (akşam ve yatsı namazlarını kıl). Hem de O'nu uzun bir gece tesbih et (teheccüd namazı kıl).",
+    "verseNumber": 26,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5618,
+    "arabic": "إِنَّ هَٰٓؤُلَآءِ يُحِبُّونَ ٱلْعَاجِلَةَ وَيَذَرُونَ وَرَآءَهُمْ يَوْمًۭا ثَقِيلًۭا",
+    "turkish": "Çünkü onlar bu dünyayı seviyorlar ve önlerindeki ağır bir günü arkaya atıyorlar.",
+    "verseNumber": 27,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5619,
+    "arabic": "نَّحْنُ خَلَقْنَٰهُمْ وَشَدَدْنَآ أَسْرَهُمْ ۖ وَإِذَا شِئْنَا بَدَّلْنَآ أَمْثَٰلَهُمْ تَبْدِيلًا",
+    "turkish": "Onları biz yarattık ve mafsallarını sımsıkı bağladık. Dilediğimiz vakit de kılıklarını değiştiririz.",
+    "verseNumber": 28,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5620,
+    "arabic": "إِنَّ هَٰذِهِۦ تَذْكِرَةٌۭ ۖ فَمَن شَآءَ ٱتَّخَذَ إِلَىٰ رَبِّهِۦ سَبِيلًۭا",
+    "turkish": "İşte bu bir öğüttür. Dileyen Rabbine giden yolu tutar.",
+    "verseNumber": 29,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5621,
+    "arabic": "وَمَا تَشَآءُونَ إِلَّآ أَن يَشَآءَ ٱللَّهُ ۚ إِنَّ ٱللَّهَ كَانَ عَلِيمًا حَكِيمًۭا",
+    "turkish": "Allah dilemedikçe siz dileyemezsiniz. Kuşkusuz Allah, bilendir, hüküm ve hikmet sahibidir.",
+    "verseNumber": 30,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5622,
+    "arabic": "يُدْخِلُ مَن يَشَآءُ فِى رَحْمَتِهِۦ ۚ وَٱلظَّٰلِمِينَ أَعَدَّ لَهُمْ عَذَابًا أَلِيمًۢا",
+    "turkish": "Allah dilediğini rahmetine sokar. Zalimlere ise, acıklı bir azap hazırlamıştır.",
+    "verseNumber": 31,
+    "surahNumber": 76,
+    "surahName": "سُورَةُ الإِنسَانِ",
+    "englishName": "Al-Insaan"
+  },
+  {
+    "id": 5623,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلْمُرْسَلَٰتِ عُرْفًۭا",
+    "turkish": "Andolsun birbiri ardınca gönderilenlere,",
+    "verseNumber": 1,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5624,
+    "arabic": "فَٱلْعَٰصِفَٰتِ عَصْفًۭا",
+    "turkish": "Büküp devirenlere,",
+    "verseNumber": 2,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5625,
+    "arabic": "وَٱلنَّٰشِرَٰتِ نَشْرًۭا",
+    "turkish": "Yaydıkça yayanlara,",
+    "verseNumber": 3,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5626,
+    "arabic": "فَٱلْفَٰرِقَٰتِ فَرْقًۭا",
+    "turkish": "Seçip ayıranlara,",
+    "verseNumber": 4,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5627,
+    "arabic": "فَٱلْمُلْقِيَٰتِ ذِكْرًا",
+    "turkish": "Bir öğüt bırakanlara,",
+    "verseNumber": 5,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5628,
+    "arabic": "عُذْرًا أَوْ نُذْرًا",
+    "turkish": "Gerek özür için olsun, gerek uyarı için,",
+    "verseNumber": 6,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5629,
+    "arabic": "إِنَّمَا تُوعَدُونَ لَوَٰقِعٌۭ",
+    "turkish": "Herhalde size vaad olunan kesinlikle olacaktır.",
+    "verseNumber": 7,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5630,
+    "arabic": "فَإِذَا ٱلنُّجُومُ طُمِسَتْ",
+    "turkish": "Hani o yıldızlar silindiği zaman,",
+    "verseNumber": 8,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5631,
+    "arabic": "وَإِذَا ٱلسَّمَآءُ فُرِجَتْ",
+    "turkish": "Gök yarıldığı zaman,",
+    "verseNumber": 9,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5632,
+    "arabic": "وَإِذَا ٱلْجِبَالُ نُسِفَتْ",
+    "turkish": "Dağlar savrulduğu zaman,",
+    "verseNumber": 10,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5633,
+    "arabic": "وَإِذَا ٱلرُّسُلُ أُقِّتَتْ",
+    "turkish": "Elçiler, tayin edilen vakitlerine erdirildikleri zaman,",
+    "verseNumber": 11,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5634,
+    "arabic": "لِأَىِّ يَوْمٍ أُجِّلَتْ",
+    "turkish": "Bunlar hangi güne ertelendiler?",
+    "verseNumber": 12,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5635,
+    "arabic": "لِيَوْمِ ٱلْفَصْلِ",
+    "turkish": "Hüküm gününe..",
+    "verseNumber": 13,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5636,
+    "arabic": "وَمَآ أَدْرَىٰكَ مَا يَوْمُ ٱلْفَصْلِ",
+    "turkish": "Bildin mi, nedir o hüküm günü?",
+    "verseNumber": 14,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5637,
+    "arabic": "وَيْلٌۭ يَوْمَئِذٍۢ لِّلْمُكَذِّبِينَ",
+    "turkish": "O gün yalanlayanların vay haline!",
+    "verseNumber": 15,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5638,
+    "arabic": "أَلَمْ نُهْلِكِ ٱلْأَوَّلِينَ",
+    "turkish": "Biz, öncekileri helak etmedik mi?",
+    "verseNumber": 16,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5639,
+    "arabic": "ثُمَّ نُتْبِعُهُمُ ٱلْءَاخِرِينَ",
+    "turkish": "Sonra geridekileri de onlara katarız.",
+    "verseNumber": 17,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5640,
+    "arabic": "كَذَٰلِكَ نَفْعَلُ بِٱلْمُجْرِمِينَ",
+    "turkish": "Biz suçlulara böyle yaparız.",
+    "verseNumber": 18,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  },
+  {
+    "id": 5641,
+    "arabic": "وَيْلٌۭ يَوْمَئِذٍۢ لِّلْمُكَذِّبِينَ",
+    "turkish": "O gün yalanlayanların vah haline!",
+    "verseNumber": 19,
+    "surahNumber": 77,
+    "surahName": "سُورَةُ المُرۡسَلَاتِ",
+    "englishName": "Al-Mursalaat"
+  }
+]

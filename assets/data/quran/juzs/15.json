@@ -1,0 +1,1667 @@
+[
+  {
+    "id": 2030,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ سُبْحَٰنَ ٱلَّذِىٓ أَسْرَىٰ بِعَبْدِهِۦ لَيْلًۭا مِّنَ ٱلْمَسْجِدِ ٱلْحَرَامِ إِلَى ٱلْمَسْجِدِ ٱلْأَقْصَا ٱلَّذِى بَٰرَكْنَا حَوْلَهُۥ لِنُرِيَهُۥ مِنْ ءَايَٰتِنَآ ۚ إِنَّهُۥ هُوَ ٱلسَّمِيعُ ٱلْبَصِيرُ",
+    "turkish": "Kulu Muhammed'i geceleyin, Mescidi Haram'dan kendisine bazı âyetlerimizi göstermek için, etrafını mübarek kıldığımız Mescidi Aksâ'ya götüren Allah, her türlü noksan sıfatlardan münezzehtir. Şüphesiz ki her şeyi hakkıyla işiten, hakkıyla gören O'dur.",
+    "verseNumber": 1,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2031,
+    "arabic": "وَءَاتَيْنَا مُوسَى ٱلْكِتَٰبَ وَجَعَلْنَٰهُ هُدًۭى لِّبَنِىٓ إِسْرَٰٓءِيلَ أَلَّا تَتَّخِذُوا۟ مِن دُونِى وَكِيلًۭا",
+    "turkish": "Musa'ya da kitap verdik ve beni bırakıp başkasını vekil edinmeyiniz diye onu İsrail oğulları için bir hidayet rehberi kıldık.",
+    "verseNumber": 2,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2032,
+    "arabic": "ذُرِّيَّةَ مَنْ حَمَلْنَا مَعَ نُوحٍ ۚ إِنَّهُۥ كَانَ عَبْدًۭا شَكُورًۭا",
+    "turkish": "Ey Nuh'la beraber gemiye taşıyarak kurtardığımız kimselerin soyundan olanlar! Doğrusu o çok şükredici bir kuldu.",
+    "verseNumber": 3,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2033,
+    "arabic": "وَقَضَيْنَآ إِلَىٰ بَنِىٓ إِسْرَٰٓءِيلَ فِى ٱلْكِتَٰبِ لَتُفْسِدُنَّ فِى ٱلْأَرْضِ مَرَّتَيْنِ وَلَتَعْلُنَّ عُلُوًّۭا كَبِيرًۭا",
+    "turkish": "Biz İsrailoğulları'na Tevrat'ta şu hükmü verdik: \"Muhakkak siz, yeryüzünde iki defa fesat çıkaracaksınız ve muhakkak büyük bir yükselişle yükseleceksiniz.\"",
+    "verseNumber": 4,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2034,
+    "arabic": "فَإِذَا جَآءَ وَعْدُ أُولَىٰهُمَا بَعَثْنَا عَلَيْكُمْ عِبَادًۭا لَّنَآ أُو۟لِى بَأْسٍۢ شَدِيدٍۢ فَجَاسُوا۟ خِلَٰلَ ٱلدِّيَارِ ۚ وَكَانَ وَعْدًۭا مَّفْعُولًۭا",
+    "turkish": "Birincisinin zamanı gelince, üzerinize güçlü kuvvetli kullarımızı gönderdik. Onlar, evlerin aralarına girip araştırdılar. Bu yerine getirilmesi gereken bir vaad idi.",
+    "verseNumber": 5,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2035,
+    "arabic": "ثُمَّ رَدَدْنَا لَكُمُ ٱلْكَرَّةَ عَلَيْهِمْ وَأَمْدَدْنَٰكُم بِأَمْوَٰلٍۢ وَبَنِينَ وَجَعَلْنَٰكُمْ أَكْثَرَ نَفِيرًا",
+    "turkish": "Sonra sizi tekrar o istilacılar üzerine galip kıldık ve size mallarla ve oğullarla yardım ettik. Ve toplum olarak sizin sayınızı artırdık.",
+    "verseNumber": 6,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2036,
+    "arabic": "إِنْ أَحْسَنتُمْ أَحْسَنتُمْ لِأَنفُسِكُمْ ۖ وَإِنْ أَسَأْتُمْ فَلَهَا ۚ فَإِذَا جَآءَ وَعْدُ ٱلْءَاخِرَةِ لِيَسُۥٓـُٔوا۟ وُجُوهَكُمْ وَلِيَدْخُلُوا۟ ٱلْمَسْجِدَ كَمَا دَخَلُوهُ أَوَّلَ مَرَّةٍۢ وَلِيُتَبِّرُوا۟ مَا عَلَوْا۟ تَتْبِيرًا",
+    "turkish": "Eğer iyilik ederseniz, kendinize iyilik etmiş olursunuz ve eğer kötülük ederseniz yine kendinizedir. Artık diğer fesadınızın zamanı gelince, yüzlerinizi üzüntüye sokmaları, kötülük yapmaları ve ilk kez girdikleri gibi yine Beyti Makdis'e girmeleri, ele geçirdikleri yerleri mahvetmeleri için onları tekrar göndereceğiz.",
+    "verseNumber": 7,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2037,
+    "arabic": "عَسَىٰ رَبُّكُمْ أَن يَرْحَمَكُمْ ۚ وَإِنْ عُدتُّمْ عُدْنَا ۘ وَجَعَلْنَا جَهَنَّمَ لِلْكَٰفِرِينَ حَصِيرًا",
+    "turkish": "Olur ki Rabbiniz size merhamet eder. Ama siz tekrar dönerseniz biz de döneriz. Cehennemi, kâfirler için kuşatıcı bir zindan yaptık.",
+    "verseNumber": 8,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2038,
+    "arabic": "إِنَّ هَٰذَا ٱلْقُرْءَانَ يَهْدِى لِلَّتِى هِىَ أَقْوَمُ وَيُبَشِّرُ ٱلْمُؤْمِنِينَ ٱلَّذِينَ يَعْمَلُونَ ٱلصَّٰلِحَٰتِ أَنَّ لَهُمْ أَجْرًۭا كَبِيرًۭا",
+    "turkish": "Şüphesiz ki bu Kur'ân, insanları en doğru ve en sağlam yola iletir ve salih amel işleyen müminlere büyük bir ecir olduğunu müjdeler.",
+    "verseNumber": 9,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2039,
+    "arabic": "وَأَنَّ ٱلَّذِينَ لَا يُؤْمِنُونَ بِٱلْءَاخِرَةِ أَعْتَدْنَا لَهُمْ عَذَابًا أَلِيمًۭا",
+    "turkish": "Ahirete inanmayanlara da can yakıcı bir azab hazırlamışızdır.",
+    "verseNumber": 10,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2040,
+    "arabic": "وَيَدْعُ ٱلْإِنسَٰنُ بِٱلشَّرِّ دُعَآءَهُۥ بِٱلْخَيْرِ ۖ وَكَانَ ٱلْإِنسَٰنُ عَجُولًۭا",
+    "turkish": "İnsan, hayrın gelmesine dua ettiği gibi kötülüğün gelmesine de dua eder. İnsan pek acelecidir.",
+    "verseNumber": 11,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2041,
+    "arabic": "وَجَعَلْنَا ٱلَّيْلَ وَٱلنَّهَارَ ءَايَتَيْنِ ۖ فَمَحَوْنَآ ءَايَةَ ٱلَّيْلِ وَجَعَلْنَآ ءَايَةَ ٱلنَّهَارِ مُبْصِرَةًۭ لِّتَبْتَغُوا۟ فَضْلًۭا مِّن رَّبِّكُمْ وَلِتَعْلَمُوا۟ عَدَدَ ٱلسِّنِينَ وَٱلْحِسَابَ ۚ وَكُلَّ شَىْءٍۢ فَصَّلْنَٰهُ تَفْصِيلًۭا",
+    "turkish": "Biz geceyi ve gündüzü varlığımıza delalet eden birer delil kıldık. Sonra Rabbinizden bir lütuf aramanız, yılların sayısını ve hesabını bilmeniz için gecenin karanlığını silip (yerine) eşyayı aydınlatan gündüzün aydınlığını getirdik. İşte biz her şeyi uzun uzadıya anlattık.",
+    "verseNumber": 12,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2042,
+    "arabic": "وَكُلَّ إِنسَٰنٍ أَلْزَمْنَٰهُ طَٰٓئِرَهُۥ فِى عُنُقِهِۦ ۖ وَنُخْرِجُ لَهُۥ يَوْمَ ٱلْقِيَٰمَةِ كِتَٰبًۭا يَلْقَىٰهُ مَنشُورًا",
+    "turkish": "Her insanın amel defterini boynuna doladık, kıyamet günü açılmış bulacağı kitabı önüne çıkarırız.",
+    "verseNumber": 13,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2043,
+    "arabic": "ٱقْرَأْ كِتَٰبَكَ كَفَىٰ بِنَفْسِكَ ٱلْيَوْمَ عَلَيْكَ حَسِيبًۭا",
+    "turkish": "\"Kitabını oku! Bugün hesap görücü olarak sana nefsin yeter!\" deriz.",
+    "verseNumber": 14,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2044,
+    "arabic": "مَّنِ ٱهْتَدَىٰ فَإِنَّمَا يَهْتَدِى لِنَفْسِهِۦ ۖ وَمَن ضَلَّ فَإِنَّمَا يَضِلُّ عَلَيْهَا ۚ وَلَا تَزِرُ وَازِرَةٌۭ وِزْرَ أُخْرَىٰ ۗ وَمَا كُنَّا مُعَذِّبِينَ حَتَّىٰ نَبْعَثَ رَسُولًۭا",
+    "turkish": "Kim doğru yola gelirse sırf kendi iyiliği için gelir. Kim de saparsa ancak kendi aleyhine sapar. Hiçbir günahkar başkasının günah yükünü çekmez. Biz bir Peygamber göndermedikçe, hiç kimseye azab edecek değiliz.",
+    "verseNumber": 15,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2045,
+    "arabic": "وَإِذَآ أَرَدْنَآ أَن نُّهْلِكَ قَرْيَةً أَمَرْنَا مُتْرَفِيهَا فَفَسَقُوا۟ فِيهَا فَحَقَّ عَلَيْهَا ٱلْقَوْلُ فَدَمَّرْنَٰهَا تَدْمِيرًۭا",
+    "turkish": "Biz bir ülkeyi yok etmek istediğimiz zaman, şımarık varlıklılarına emrederiz, onlar itaat etmeyip orada kötülük işlerler. Böylece, o ülke helaka müstahak olur, biz de onu yerle bir ederiz.",
+    "verseNumber": 16,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2046,
+    "arabic": "وَكَمْ أَهْلَكْنَا مِنَ ٱلْقُرُونِ مِنۢ بَعْدِ نُوحٍۢ ۗ وَكَفَىٰ بِرَبِّكَ بِذُنُوبِ عِبَادِهِۦ خَبِيرًۢا بَصِيرًۭا",
+    "turkish": "Hem Nuh'tan sonra nice nesilleri helak ettik. Kullarının günahlarını bilmek ve görmekte Rabbin yeter.",
+    "verseNumber": 17,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2047,
+    "arabic": "مَّن كَانَ يُرِيدُ ٱلْعَاجِلَةَ عَجَّلْنَا لَهُۥ فِيهَا مَا نَشَآءُ لِمَن نُّرِيدُ ثُمَّ جَعَلْنَا لَهُۥ جَهَنَّمَ يَصْلَىٰهَا مَذْمُومًۭا مَّدْحُورًۭا",
+    "turkish": "Her kim peşin isterse, dünyada ona, istediğimiz kimseye, dilediğimiz kadarını peşin veririz. Sonra ona cehennemi hazırlarız; kınanmış ve (rahmetimizden) kovulmuş olarak oraya girer.",
+    "verseNumber": 18,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2048,
+    "arabic": "وَمَنْ أَرَادَ ٱلْءَاخِرَةَ وَسَعَىٰ لَهَا سَعْيَهَا وَهُوَ مُؤْمِنٌۭ فَأُو۟لَٰٓئِكَ كَانَ سَعْيُهُم مَّشْكُورًۭا",
+    "turkish": "Kim de ahireti isterse ve mümin olarak kendine yaraşır bir çaba ile onun için çalışırsa, öylelerinin çalışmalarının karşılığı verilir.",
+    "verseNumber": 19,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2049,
+    "arabic": "كُلًّۭا نُّمِدُّ هَٰٓؤُلَآءِ وَهَٰٓؤُلَآءِ مِنْ عَطَآءِ رَبِّكَ ۚ وَمَا كَانَ عَطَآءُ رَبِّكَ مَحْظُورًا",
+    "turkish": "Hepsine; (dünyayı isteyenlere de, ahireti isteyenlere de) Rabbinin ihsanından veririz. Rabbinin ihsanı kısıtlanmış değildir.",
+    "verseNumber": 20,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2050,
+    "arabic": "ٱنظُرْ كَيْفَ فَضَّلْنَا بَعْضَهُمْ عَلَىٰ بَعْضٍۢ ۚ وَلَلْءَاخِرَةُ أَكْبَرُ دَرَجَٰتٍۢ وَأَكْبَرُ تَفْضِيلًۭا",
+    "turkish": "Bak! Onların bir kısmını diğerine nasıl üstün kıldık! Elbette ahiret, hem dereceler bakımından daha büyüktür, hem de üstünlük bakımından daha büyüktür.",
+    "verseNumber": 21,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2051,
+    "arabic": "لَّا تَجْعَلْ مَعَ ٱللَّهِ إِلَٰهًا ءَاخَرَ فَتَقْعُدَ مَذْمُومًۭا مَّخْذُولًۭا",
+    "turkish": "Allah ile birlikte başka bir ilâh edinme! Yoksa kınanmış ve yalnız başına bırakılmış olarak oturup kalırsın.",
+    "verseNumber": 22,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2052,
+    "arabic": "۞ وَقَضَىٰ رَبُّكَ أَلَّا تَعْبُدُوٓا۟ إِلَّآ إِيَّاهُ وَبِٱلْوَٰلِدَيْنِ إِحْسَٰنًا ۚ إِمَّا يَبْلُغَنَّ عِندَكَ ٱلْكِبَرَ أَحَدُهُمَآ أَوْ كِلَاهُمَا فَلَا تَقُل لَّهُمَآ أُفٍّۢ وَلَا تَنْهَرْهُمَا وَقُل لَّهُمَا قَوْلًۭا كَرِيمًۭا",
+    "turkish": "Rabbin kesin olarak şunları emretti: Ancak kendisine ibadet edin, anne ve babaya iyilik edin. Onlardan biri veya her ikisi senin yanında yaşlanırsa, sakın onlara \"öf\" bile deme ve onları azarlama. İkisine de tatlı ve güzel söz söyle.",
+    "verseNumber": 23,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2053,
+    "arabic": "وَٱخْفِضْ لَهُمَا جَنَاحَ ٱلذُّلِّ مِنَ ٱلرَّحْمَةِ وَقُل رَّبِّ ٱرْحَمْهُمَا كَمَا رَبَّيَانِى صَغِيرًۭا",
+    "turkish": "İkisine de acıyarak tevazu kanatlarını indir. Ve şöyle de: \"Ey Rabbim! Onların beni küçükten terbiye edip yetiştirdikleri gibi, sen de kendilerine merhamet et.\"",
+    "verseNumber": 24,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2054,
+    "arabic": "رَّبُّكُمْ أَعْلَمُ بِمَا فِى نُفُوسِكُمْ ۚ إِن تَكُونُوا۟ صَٰلِحِينَ فَإِنَّهُۥ كَانَ لِلْأَوَّٰبِينَ غَفُورًۭا",
+    "turkish": "Rabbiniz içinizden geçenleri çok iyi bilir. Eğer iyi kimseler olursanız elbette Allah çok tevbe edenleri bağışlayıcıdır.",
+    "verseNumber": 25,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2055,
+    "arabic": "وَءَاتِ ذَا ٱلْقُرْبَىٰ حَقَّهُۥ وَٱلْمِسْكِينَ وَٱبْنَ ٱلسَّبِيلِ وَلَا تُبَذِّرْ تَبْذِيرًا",
+    "turkish": "Akrabaya, yoksula ve yolda kalmışa hakkını ver. Bununla beraber malını saçıp savurma.",
+    "verseNumber": 26,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2056,
+    "arabic": "إِنَّ ٱلْمُبَذِّرِينَ كَانُوٓا۟ إِخْوَٰنَ ٱلشَّيَٰطِينِ ۖ وَكَانَ ٱلشَّيْطَٰنُ لِرَبِّهِۦ كَفُورًۭا",
+    "turkish": "Çünkü (malını) saçıp savuranlar, şeytanların kardeşleridir. Şeytan ise Rabbine karşı çok nankördür.",
+    "verseNumber": 27,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2057,
+    "arabic": "وَإِمَّا تُعْرِضَنَّ عَنْهُمُ ٱبْتِغَآءَ رَحْمَةٍۢ مِّن رَّبِّكَ تَرْجُوهَا فَقُل لَّهُمْ قَوْلًۭا مَّيْسُورًۭا",
+    "turkish": "Eğer Rabbinden beklediğin bir rahmet (rızık) için, onlardan yüz çevirmek mecburiyetinde kalırsan, o vakit de onlara yumuşak ve tatlı bir söz söyle.",
+    "verseNumber": 28,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2058,
+    "arabic": "وَلَا تَجْعَلْ يَدَكَ مَغْلُولَةً إِلَىٰ عُنُقِكَ وَلَا تَبْسُطْهَا كُلَّ ٱلْبَسْطِ فَتَقْعُدَ مَلُومًۭا مَّحْسُورًا",
+    "turkish": "Elini boynuna asıp bağlama (cimri olma), hem de onu büsbütün açıp saçma (israf etme); aksi halde kınanmış olursun ve eli boş açıkta kalırsın.",
+    "verseNumber": 29,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2059,
+    "arabic": "إِنَّ رَبَّكَ يَبْسُطُ ٱلرِّزْقَ لِمَن يَشَآءُ وَيَقْدِرُ ۚ إِنَّهُۥ كَانَ بِعِبَادِهِۦ خَبِيرًۢا بَصِيرًۭا",
+    "turkish": "Gerçekten senin Rabbin, kullarından dilediğinin rızkını genişletir ve dilediğini kısar. Şüphesiz ki Allah, kullarının durumlarından haberdardır, her şeyi görendir.",
+    "verseNumber": 30,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2060,
+    "arabic": "وَلَا تَقْتُلُوٓا۟ أَوْلَٰدَكُمْ خَشْيَةَ إِمْلَٰقٍۢ ۖ نَّحْنُ نَرْزُقُهُمْ وَإِيَّاكُمْ ۚ إِنَّ قَتْلَهُمْ كَانَ خِطْـًۭٔا كَبِيرًۭا",
+    "turkish": "Bir de geçim korkusuyla çocuklarınızı öldürmeyin, onlara da, size de rızkı biz veririz. Şüphesiz ki onları öldürmek, çok büyük bir suçtur.",
+    "verseNumber": 31,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2061,
+    "arabic": "وَلَا تَقْرَبُوا۟ ٱلزِّنَىٰٓ ۖ إِنَّهُۥ كَانَ فَٰحِشَةًۭ وَسَآءَ سَبِيلًۭا",
+    "turkish": "Zinaya da yaklaşmayın, çünkü o pek çirkindir ve kötü bir yoldur.",
+    "verseNumber": 32,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2062,
+    "arabic": "وَلَا تَقْتُلُوا۟ ٱلنَّفْسَ ٱلَّتِى حَرَّمَ ٱللَّهُ إِلَّا بِٱلْحَقِّ ۗ وَمَن قُتِلَ مَظْلُومًۭا فَقَدْ جَعَلْنَا لِوَلِيِّهِۦ سُلْطَٰنًۭا فَلَا يُسْرِف فِّى ٱلْقَتْلِ ۖ إِنَّهُۥ كَانَ مَنصُورًۭا",
+    "turkish": "Haklı bir sebep olmadıkça, Allah'ın öldürülmesini haram kıldığı canı öldürmeyin. Kim haksız yere öldürülürse, biz onun velisine bir yetki verdik. O da öldürmede aşırı gitmesin. Çünkü ona (dinin kendisine verdiği yetki ile) yardım olunmuştur.",
+    "verseNumber": 33,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2063,
+    "arabic": "وَلَا تَقْرَبُوا۟ مَالَ ٱلْيَتِيمِ إِلَّا بِٱلَّتِى هِىَ أَحْسَنُ حَتَّىٰ يَبْلُغَ أَشُدَّهُۥ ۚ وَأَوْفُوا۟ بِٱلْعَهْدِ ۖ إِنَّ ٱلْعَهْدَ كَانَ مَسْـُٔولًۭا",
+    "turkish": "Yetimin malına da yaklaşmayın. Ancak rüşdüne erinceye kadar en güzel bir şekilde yaklaşabilirsiniz. Ahdi de yerine getirin. Çünkü verilen sözde elbette sorumluluk bulunuyor.",
+    "verseNumber": 34,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2064,
+    "arabic": "وَأَوْفُوا۟ ٱلْكَيْلَ إِذَا كِلْتُمْ وَزِنُوا۟ بِٱلْقِسْطَاسِ ٱلْمُسْتَقِيمِ ۚ ذَٰلِكَ خَيْرٌۭ وَأَحْسَنُ تَأْوِيلًۭا",
+    "turkish": "Ölçtüğünüz zaman tam ölçün ve doğru terazi ile tartın. Bu hem daha hayırlıdır ve sonuç itibariyle de daha güzeldir.",
+    "verseNumber": 35,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2065,
+    "arabic": "وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِۦ عِلْمٌ ۚ إِنَّ ٱلسَّمْعَ وَٱلْبَصَرَ وَٱلْفُؤَادَ كُلُّ أُو۟لَٰٓئِكَ كَانَ عَنْهُ مَسْـُٔولًۭا",
+    "turkish": "Bir de hiç bilmediğin bir şeyin ardına düşme! Çünkü kulak, göz, gönül, bunların her biri yaptıklarından sorumludurlar.",
+    "verseNumber": 36,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2066,
+    "arabic": "وَلَا تَمْشِ فِى ٱلْأَرْضِ مَرَحًا ۖ إِنَّكَ لَن تَخْرِقَ ٱلْأَرْضَ وَلَن تَبْلُغَ ٱلْجِبَالَ طُولًۭا",
+    "turkish": "Yeryüzünde kibir ve azametle yürüme! Çünkü sen asla yeri yaramazsın ve boyca da dağlara erişemezsin.",
+    "verseNumber": 37,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2067,
+    "arabic": "كُلُّ ذَٰلِكَ كَانَ سَيِّئُهُۥ عِندَ رَبِّكَ مَكْرُوهًۭا",
+    "turkish": "Kötü olan bütün bu yasaklar, Rabbinizin sevmediği şeylerdir.",
+    "verseNumber": 38,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2068,
+    "arabic": "ذَٰلِكَ مِمَّآ أَوْحَىٰٓ إِلَيْكَ رَبُّكَ مِنَ ٱلْحِكْمَةِ ۗ وَلَا تَجْعَلْ مَعَ ٱللَّهِ إِلَٰهًا ءَاخَرَ فَتُلْقَىٰ فِى جَهَنَّمَ مَلُومًۭا مَّدْحُورًا",
+    "turkish": "İşte bunlar, Rabbinin sana vahyettiği hikmetlerdendir. Sakın Allah'la beraber başka bir ilâh uydurma. Aksi halde kötülenmiş ve Allah'ın rahmetinden uzaklaştırılmış olarak cehenneme atılırsın.",
+    "verseNumber": 39,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2069,
+    "arabic": "أَفَأَصْفَىٰكُمْ رَبُّكُم بِٱلْبَنِينَ وَٱتَّخَذَ مِنَ ٱلْمَلَٰٓئِكَةِ إِنَٰثًا ۚ إِنَّكُمْ لَتَقُولُونَ قَوْلًا عَظِيمًۭا",
+    "turkish": "Rabbiniz, size oğulları tahsis etti de, kendisi meleklerden dişiler mi edindi? Gerçekten siz çok büyük bir söz söylüyorsunuz.",
+    "verseNumber": 40,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2070,
+    "arabic": "وَلَقَدْ صَرَّفْنَا فِى هَٰذَا ٱلْقُرْءَانِ لِيَذَّكَّرُوا۟ وَمَا يَزِيدُهُمْ إِلَّا نُفُورًۭا",
+    "turkish": "Biz, bu Kur'ân'da akıllarını başlarına almaları için türlü şekillerde (ikaz ve ihtarı) açıkladık. Fakat bu açıklamalar ancak onların nefretini artırmıştır.",
+    "verseNumber": 41,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2071,
+    "arabic": "قُل لَّوْ كَانَ مَعَهُۥٓ ءَالِهَةٌۭ كَمَا يَقُولُونَ إِذًۭا لَّٱبْتَغَوْا۟ إِلَىٰ ذِى ٱلْعَرْشِ سَبِيلًۭا",
+    "turkish": "(Ey Muhammed!) De ki: \"Eğer dedikleri gibi Allah ile birlikte ilâhlar olsaydı, o zaman bu ilâhlar Arş'ın sahibine bir yol ararlardı.\"",
+    "verseNumber": 42,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2072,
+    "arabic": "سُبْحَٰنَهُۥ وَتَعَٰلَىٰ عَمَّا يَقُولُونَ عُلُوًّۭا كَبِيرًۭا",
+    "turkish": "Allah, onların dediklerinden çok münezzeh ve çok yüksek, hem pek büyük bir yükseklikle yücedir.",
+    "verseNumber": 43,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2073,
+    "arabic": "تُسَبِّحُ لَهُ ٱلسَّمَٰوَٰتُ ٱلسَّبْعُ وَٱلْأَرْضُ وَمَن فِيهِنَّ ۚ وَإِن مِّن شَىْءٍ إِلَّا يُسَبِّحُ بِحَمْدِهِۦ وَلَٰكِن لَّا تَفْقَهُونَ تَسْبِيحَهُمْ ۗ إِنَّهُۥ كَانَ حَلِيمًا غَفُورًۭا",
+    "turkish": "Yedi gök, yer ve bunların içinde bulunanlar, Allah'ı tesbih ederler. O'nu hamd ile tesbih etmeyen hiçbir varlık yoktur. Fakat siz, onların tesbihlerini iyi anlamazsınız. Şüphesiz O, halimdir çok bağışlayandır.",
+    "verseNumber": 44,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2074,
+    "arabic": "وَإِذَا قَرَأْتَ ٱلْقُرْءَانَ جَعَلْنَا بَيْنَكَ وَبَيْنَ ٱلَّذِينَ لَا يُؤْمِنُونَ بِٱلْءَاخِرَةِ حِجَابًۭا مَّسْتُورًۭا",
+    "turkish": "Sen Kur'ân'ı okuduğun zaman biz, seninle ahirete inanmayanların arasına görünmez bir perde çekeriz.",
+    "verseNumber": 45,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2075,
+    "arabic": "وَجَعَلْنَا عَلَىٰ قُلُوبِهِمْ أَكِنَّةً أَن يَفْقَهُوهُ وَفِىٓ ءَاذَانِهِمْ وَقْرًۭا ۚ وَإِذَا ذَكَرْتَ رَبَّكَ فِى ٱلْقُرْءَانِ وَحْدَهُۥ وَلَّوْا۟ عَلَىٰٓ أَدْبَٰرِهِمْ نُفُورًۭا",
+    "turkish": "Ve kalblerinin üzerine, Kur'ân'ı anlamalarına engel perdeler geçiririz ve kulaklarına bir ağırlık veririz. Rabbini Kur'ân'da bir tek olarak andığın zaman da ürkerek arkalarına döner kaçarlar.",
+    "verseNumber": 46,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2076,
+    "arabic": "نَّحْنُ أَعْلَمُ بِمَا يَسْتَمِعُونَ بِهِۦٓ إِذْ يَسْتَمِعُونَ إِلَيْكَ وَإِذْ هُمْ نَجْوَىٰٓ إِذْ يَقُولُ ٱلظَّٰلِمُونَ إِن تَتَّبِعُونَ إِلَّا رَجُلًۭا مَّسْحُورًا",
+    "turkish": "Biz onların, seni dinlerken nasıl dinlediklerini çok iyi biliriz. Birbiriyle fısıldaşırlarken de o zalimlerin: \"Siz büyülenmiş bir adamdan başkasına uymuyorsunuz!\" dediklerini biz çok iyi biliriz.",
+    "verseNumber": 47,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2077,
+    "arabic": "ٱنظُرْ كَيْفَ ضَرَبُوا۟ لَكَ ٱلْأَمْثَالَ فَضَلُّوا۟ فَلَا يَسْتَطِيعُونَ سَبِيلًۭا",
+    "turkish": "Bak senin için nasıl misaller verdiler de bu yüzden nasıl sapıklığa düştüler! Artık hak yolu bulmaya güçleri yetmez.",
+    "verseNumber": 48,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2078,
+    "arabic": "وَقَالُوٓا۟ أَءِذَا كُنَّا عِظَٰمًۭا وَرُفَٰتًا أَءِنَّا لَمَبْعُوثُونَ خَلْقًۭا جَدِيدًۭا",
+    "turkish": "Bir de onlar dediler ki: \"Biz, bir kemik yığını olduğumuz ve ufalanıp toz olduğumuz vakit mi, gerçekten biz mi, yeni bir yaratılışla diriltileceğiz?",
+    "verseNumber": 49,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2079,
+    "arabic": "۞ قُلْ كُونُوا۟ حِجَارَةً أَوْ حَدِيدًا",
+    "turkish": "De ki: \"İster taş olun, ister demir...\"",
+    "verseNumber": 50,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2080,
+    "arabic": "أَوْ خَلْقًۭا مِّمَّا يَكْبُرُ فِى صُدُورِكُمْ ۚ فَسَيَقُولُونَ مَن يُعِيدُنَا ۖ قُلِ ٱلَّذِى فَطَرَكُمْ أَوَّلَ مَرَّةٍۢ ۚ فَسَيُنْغِضُونَ إِلَيْكَ رُءُوسَهُمْ وَيَقُولُونَ مَتَىٰ هُوَ ۖ قُلْ عَسَىٰٓ أَن يَكُونَ قَرِيبًۭا",
+    "turkish": "\"İsterse gönlünüzde büyüyen başka bir yaratık olun, (Muhakkak öldürülecek ve diriltileceksiniz.) \"Onlar: \"Bizi kim tekrar diriltecek?\" diyecekler. De ki: \"Sizi ilk defa yaratmış olan o kudret sahibi.\" Sana başlarını sallayarak: \"Ne zamandır bu.\" diyecekler. De ki: \"Yakın olması gerekir!\".",
+    "verseNumber": 51,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2081,
+    "arabic": "يَوْمَ يَدْعُوكُمْ فَتَسْتَجِيبُونَ بِحَمْدِهِۦ وَتَظُنُّونَ إِن لَّبِثْتُمْ إِلَّا قَلِيلًۭا",
+    "turkish": "(Allah) sizi çağıracağı gün, tam bir hürmetle onun emrine koşacaksınız ve zannedeceksiniz ki, kabirlerinizde pek az bir müddet kaldınız.",
+    "verseNumber": 52,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2082,
+    "arabic": "وَقُل لِّعِبَادِى يَقُولُوا۟ ٱلَّتِى هِىَ أَحْسَنُ ۚ إِنَّ ٱلشَّيْطَٰنَ يَنزَغُ بَيْنَهُمْ ۚ إِنَّ ٱلشَّيْطَٰنَ كَانَ لِلْإِنسَٰنِ عَدُوًّۭا مُّبِينًۭا",
+    "turkish": "Mümin kullarıma söyle de (kâfirlere) en güzel olan sözü söylesinler. Çünkü şeytan aralarına fesat sokar. Şüphesiz şeytan, insan için apaçık bir düşmandır.",
+    "verseNumber": 53,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2083,
+    "arabic": "رَّبُّكُمْ أَعْلَمُ بِكُمْ ۖ إِن يَشَأْ يَرْحَمْكُمْ أَوْ إِن يَشَأْ يُعَذِّبْكُمْ ۚ وَمَآ أَرْسَلْنَٰكَ عَلَيْهِمْ وَكِيلًۭا",
+    "turkish": "Rabbiniz sizi çok daha iyi bilir. Dilerse tevbeniz sebebiyle size merhamet eder, dilerse azab eder. Seni de onların üzerine vekil göndermedik.",
+    "verseNumber": 54,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2084,
+    "arabic": "وَرَبُّكَ أَعْلَمُ بِمَن فِى ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ ۗ وَلَقَدْ فَضَّلْنَا بَعْضَ ٱلنَّبِيِّۦنَ عَلَىٰ بَعْضٍۢ ۖ وَءَاتَيْنَا دَاوُۥدَ زَبُورًۭا",
+    "turkish": "Rabbin göklerde ve yerde olan kimselerin hepsini en iyi bilendir. Andolsun ki biz, peygamberlerin kimini kimine üstün kıldık. Davud'a da Zebur'u verdik.",
+    "verseNumber": 55,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2085,
+    "arabic": "قُلِ ٱدْعُوا۟ ٱلَّذِينَ زَعَمْتُم مِّن دُونِهِۦ فَلَا يَمْلِكُونَ كَشْفَ ٱلضُّرِّ عَنكُمْ وَلَا تَحْوِيلًا",
+    "turkish": "De ki: \"Allah'tan başka, ilâh olduğunu sandığınız şeyleri çağırın, size yardım etsinler. Onlar, ne sizden sıkıntıyı kaldırabilirler, ne de değiştirebilirler.",
+    "verseNumber": 56,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2086,
+    "arabic": "أُو۟لَٰٓئِكَ ٱلَّذِينَ يَدْعُونَ يَبْتَغُونَ إِلَىٰ رَبِّهِمُ ٱلْوَسِيلَةَ أَيُّهُمْ أَقْرَبُ وَيَرْجُونَ رَحْمَتَهُۥ وَيَخَافُونَ عَذَابَهُۥٓ ۚ إِنَّ عَذَابَ رَبِّكَ كَانَ مَحْذُورًۭا",
+    "turkish": "Onların yalvardıkları da, Rablerine daha yakın olmak için vesile ararlar. Ve O'nun merhametini umarlar, azabından korkarlar. Çünkü Rabbinin azabı korkunçtur.",
+    "verseNumber": 57,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2087,
+    "arabic": "وَإِن مِّن قَرْيَةٍ إِلَّا نَحْنُ مُهْلِكُوهَا قَبْلَ يَوْمِ ٱلْقِيَٰمَةِ أَوْ مُعَذِّبُوهَا عَذَابًۭا شَدِيدًۭا ۚ كَانَ ذَٰلِكَ فِى ٱلْكِتَٰبِ مَسْطُورًۭا",
+    "turkish": "Hiç bir şehir (halkı) yoktur ki, kıyamet gününden önce biz onu helak etmeyelim, yahut şiddetli bir azab ile azablandırmayalım. Bu, Kitap'ta (Levhi Mahfuzda) yazılıdır.",
+    "verseNumber": 58,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2088,
+    "arabic": "وَمَا مَنَعَنَآ أَن نُّرْسِلَ بِٱلْءَايَٰتِ إِلَّآ أَن كَذَّبَ بِهَا ٱلْأَوَّلُونَ ۚ وَءَاتَيْنَا ثَمُودَ ٱلنَّاقَةَ مُبْصِرَةًۭ فَظَلَمُوا۟ بِهَا ۚ وَمَا نُرْسِلُ بِٱلْءَايَٰتِ إِلَّا تَخْوِيفًۭا",
+    "turkish": "Bizi, âyetler (mucizeler) ve peygamber göndermekten alıkoyan şey, ancak öncekilerin onları yalanlamış olmalarıdır. Semûd'a, açık bir mucize olarak o dişi deveyi vermiştik de ona zulmetmişlerdi (deveyi boğazlayarak kendilerine yazık etmişlerdi). Oysa biz, o mucizeleri ancak korkutmak için göndeririz.",
+    "verseNumber": 59,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2089,
+    "arabic": "وَإِذْ قُلْنَا لَكَ إِنَّ رَبَّكَ أَحَاطَ بِٱلنَّاسِ ۚ وَمَا جَعَلْنَا ٱلرُّءْيَا ٱلَّتِىٓ أَرَيْنَٰكَ إِلَّا فِتْنَةًۭ لِّلنَّاسِ وَٱلشَّجَرَةَ ٱلْمَلْعُونَةَ فِى ٱلْقُرْءَانِ ۚ وَنُخَوِّفُهُمْ فَمَا يَزِيدُهُمْ إِلَّا طُغْيَٰنًۭا كَبِيرًۭا",
+    "turkish": "Vaktiyle sana şöyle vahyettiğimizi hatırla: \"Şüphesiz Rabbin insanları kuşatmıştır.\" (İsrâ gecesi) sana açıkça gösterdiğimiz o temâşâyı ve Kur'ân'da lanet edilen ağacı da, yalnız insanlara bir imtihan için yapmışızdır. Biz onları, korkutuyoruz, fakat bu onlara ancak büyük bir taşkınlıktan başka bir sonuç vermiyor.",
+    "verseNumber": 60,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2090,
+    "arabic": "وَإِذْ قُلْنَا لِلْمَلَٰٓئِكَةِ ٱسْجُدُوا۟ لِءَادَمَ فَسَجَدُوٓا۟ إِلَّآ إِبْلِيسَ قَالَ ءَأَسْجُدُ لِمَنْ خَلَقْتَ طِينًۭا",
+    "turkish": "(Yine unutma ki) Bir vakit meleklere: \"Âdem'e secde edin\" demiştik. İblis'ten başka hepsi secde ettiler. O ise: \"Ben bir çamurdan yarattığın kimseye mi secde ederim?\" demişti.",
+    "verseNumber": 61,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2091,
+    "arabic": "قَالَ أَرَءَيْتَكَ هَٰذَا ٱلَّذِى كَرَّمْتَ عَلَىَّ لَئِنْ أَخَّرْتَنِ إِلَىٰ يَوْمِ ٱلْقِيَٰمَةِ لَأَحْتَنِكَنَّ ذُرِّيَّتَهُۥٓ إِلَّا قَلِيلًۭا",
+    "turkish": "(Yine İblis) dedi ki: \"Şu benden üstün kıldığını gördün mü? Yemin ederim ki, eğer beni kıyamet gününe kadar ertelersen, pek azı hariç, onun zürriyetini kendi buyruğum altına alacağım.\"",
+    "verseNumber": 62,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2092,
+    "arabic": "قَالَ ٱذْهَبْ فَمَن تَبِعَكَ مِنْهُمْ فَإِنَّ جَهَنَّمَ جَزَآؤُكُمْ جَزَآءًۭ مَّوْفُورًۭا",
+    "turkish": "Allah buyurdu ki: \"Haydi git! Onlardan kim sana uyarsa, şüphesiz ki, cezanız cehennemdir, hem de mükemmel bir ceza. \"",
+    "verseNumber": 63,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2093,
+    "arabic": "وَٱسْتَفْزِزْ مَنِ ٱسْتَطَعْتَ مِنْهُم بِصَوْتِكَ وَأَجْلِبْ عَلَيْهِم بِخَيْلِكَ وَرَجِلِكَ وَشَارِكْهُمْ فِى ٱلْأَمْوَٰلِ وَٱلْأَوْلَٰدِ وَعِدْهُمْ ۚ وَمَا يَعِدُهُمُ ٱلشَّيْطَٰنُ إِلَّا غُرُورًا",
+    "turkish": "\"Onlardan gücünün yettiğini yerinden oynat. Atlıların ve yayalarınla onların üzerine yaygarayı bas! Mallarda ve çocuklarda onlara ortak ol! Ve onlara vaadlerde bulun.\" Fakat şeytan onlara aldatmadan başka bir şey vaad etmez.",
+    "verseNumber": 64,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2094,
+    "arabic": "إِنَّ عِبَادِى لَيْسَ لَكَ عَلَيْهِمْ سُلْطَٰنٌۭ ۚ وَكَفَىٰ بِرَبِّكَ وَكِيلًۭا",
+    "turkish": "Doğrusu benim (ihlaslı) kullarım üzerinde senin hiçbir hakimiyetin yoktur. Vekil olarak Rabbin yeter.",
+    "verseNumber": 65,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2095,
+    "arabic": "رَّبُّكُمُ ٱلَّذِى يُزْجِى لَكُمُ ٱلْفُلْكَ فِى ٱلْبَحْرِ لِتَبْتَغُوا۟ مِن فَضْلِهِۦٓ ۚ إِنَّهُۥ كَانَ بِكُمْ رَحِيمًۭا",
+    "turkish": "Rabbiniz, lütfundan nasib arayasınız diye, sizin için denizde gemileri yürüten kudret sahibidir. Şüphesiz O, size çok merhametlidir.",
+    "verseNumber": 66,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2096,
+    "arabic": "وَإِذَا مَسَّكُمُ ٱلضُّرُّ فِى ٱلْبَحْرِ ضَلَّ مَن تَدْعُونَ إِلَّآ إِيَّاهُ ۖ فَلَمَّا نَجَّىٰكُمْ إِلَى ٱلْبَرِّ أَعْرَضْتُمْ ۚ وَكَانَ ٱلْإِنسَٰنُ كَفُورًا",
+    "turkish": "Denizde başınıza bir felaket geldiği zaman, Allah'tan başka yalvardığınız bütün putlar kaybolur. Allah sizi tehlikeden kurtarıp karaya çıkarınca da yüz çevirirsiniz. Zaten insan çok nankördür.",
+    "verseNumber": 67,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2097,
+    "arabic": "أَفَأَمِنتُمْ أَن يَخْسِفَ بِكُمْ جَانِبَ ٱلْبَرِّ أَوْ يُرْسِلَ عَلَيْكُمْ حَاصِبًۭا ثُمَّ لَا تَجِدُوا۟ لَكُمْ وَكِيلًا",
+    "turkish": "(Denizden karaya çıktığınızda) O'nun sizi karada yerin dibine geçirmeyeceğinden, yahut üzerinize taş yağdıran bir kasırga gördermeyeceğinden emin misiniz? Sonra kendinize bir vekil de bulamazsınız.",
+    "verseNumber": 68,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2098,
+    "arabic": "أَمْ أَمِنتُمْ أَن يُعِيدَكُمْ فِيهِ تَارَةً أُخْرَىٰ فَيُرْسِلَ عَلَيْكُمْ قَاصِفًۭا مِّنَ ٱلرِّيحِ فَيُغْرِقَكُم بِمَا كَفَرْتُمْ ۙ ثُمَّ لَا تَجِدُوا۟ لَكُمْ عَلَيْنَا بِهِۦ تَبِيعًۭا",
+    "turkish": "Yoksa sizi tekrar denize döndürüp de üzerinize kasırgalar göndermeyeceğinden ve böylece ettiğiniz nankörlük sebebiyle sizi boğmayacağından emin misiniz? Sonra bu yaptığımıza karşı, bizim aleyhimize size yardım edecek bir koruyucu bulamazsınız.",
+    "verseNumber": 69,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2099,
+    "arabic": "۞ وَلَقَدْ كَرَّمْنَا بَنِىٓ ءَادَمَ وَحَمَلْنَٰهُمْ فِى ٱلْبَرِّ وَٱلْبَحْرِ وَرَزَقْنَٰهُم مِّنَ ٱلطَّيِّبَٰتِ وَفَضَّلْنَٰهُمْ عَلَىٰ كَثِيرٍۢ مِّمَّنْ خَلَقْنَا تَفْضِيلًۭا",
+    "turkish": "Andolsun ki biz, insanoğlunu şan ve şeref sahibi kıldık. Karada ve denizde taşıtlara yükledik ve temiz yiyeceklerden onları rızıklandırdık. Onları yarattıklarımızın birçoğundan üstün kıldık.",
+    "verseNumber": 70,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2100,
+    "arabic": "يَوْمَ نَدْعُوا۟ كُلَّ أُنَاسٍۭ بِإِمَٰمِهِمْ ۖ فَمَنْ أُوتِىَ كِتَٰبَهُۥ بِيَمِينِهِۦ فَأُو۟لَٰٓئِكَ يَقْرَءُونَ كِتَٰبَهُمْ وَلَا يُظْلَمُونَ فَتِيلًۭا",
+    "turkish": "Kıyamet günü bütün insanları önderleriyle çağıracağız. O gün, kimin amel defteri sağ eline verilirse, işte onlar kitaplarını okuyacaklar ve en küçük bir haksızlığa uğratılmayacaklar.",
+    "verseNumber": 71,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2101,
+    "arabic": "وَمَن كَانَ فِى هَٰذِهِۦٓ أَعْمَىٰ فَهُوَ فِى ٱلْءَاخِرَةِ أَعْمَىٰ وَأَضَلُّ سَبِيلًۭا",
+    "turkish": "Her kim bu dünyada (manen) kör ise ahirette de kördür. Ve gidişçe daha şaşkındır.",
+    "verseNumber": 72,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2102,
+    "arabic": "وَإِن كَادُوا۟ لَيَفْتِنُونَكَ عَنِ ٱلَّذِىٓ أَوْحَيْنَآ إِلَيْكَ لِتَفْتَرِىَ عَلَيْنَا غَيْرَهُۥ ۖ وَإِذًۭا لَّٱتَّخَذُوكَ خَلِيلًۭا",
+    "turkish": "(Ey Muhammed!) Az kalsın seni bile, sana vahyettiğimizden başkasını bize karşı iftira edesin diye, fitneye düşüreceklerdi ve o takdirde seni dost edineceklerdi.",
+    "verseNumber": 73,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2103,
+    "arabic": "وَلَوْلَآ أَن ثَبَّتْنَٰكَ لَقَدْ كِدتَّ تَرْكَنُ إِلَيْهِمْ شَيْـًۭٔا قَلِيلًا",
+    "turkish": "Eğer biz sana sebat vermemiş olsaydık, nerdeyse sen onlara birazcık meyledecektin.",
+    "verseNumber": 74,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2104,
+    "arabic": "إِذًۭا لَّأَذَقْنَٰكَ ضِعْفَ ٱلْحَيَوٰةِ وَضِعْفَ ٱلْمَمَاتِ ثُمَّ لَا تَجِدُ لَكَ عَلَيْنَا نَصِيرًۭا",
+    "turkish": "O takdirde, muhakkak hayatın da, ölümün de azabını sana kat kat tattırırdık. Sonra bize karşı kendin için hiçbir yardımcı bulamazdın.",
+    "verseNumber": 75,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2105,
+    "arabic": "وَإِن كَادُوا۟ لَيَسْتَفِزُّونَكَ مِنَ ٱلْأَرْضِ لِيُخْرِجُوكَ مِنْهَا ۖ وَإِذًۭا لَّا يَلْبَثُونَ خِلَٰفَكَ إِلَّا قَلِيلًۭا",
+    "turkish": "(Ey Muhammed!) Yakında seni yurdundan çıkarmak için, muhakkak ki rahatsız edecekler ve o takdirde onlar da senin ardından pek az kalacaklardır.",
+    "verseNumber": 76,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2106,
+    "arabic": "سُنَّةَ مَن قَدْ أَرْسَلْنَا قَبْلَكَ مِن رُّسُلِنَا ۖ وَلَا تَجِدُ لِسُنَّتِنَا تَحْوِيلًا",
+    "turkish": "Bu, senden önce gönderdiğimiz bütün peygamberlerimiz hakkındaki sünnetimizdir. Bizim sünnetimizde herhangi bir değişme göremezsin.",
+    "verseNumber": 77,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2107,
+    "arabic": "أَقِمِ ٱلصَّلَوٰةَ لِدُلُوكِ ٱلشَّمْسِ إِلَىٰ غَسَقِ ٱلَّيْلِ وَقُرْءَانَ ٱلْفَجْرِ ۖ إِنَّ قُرْءَانَ ٱلْفَجْرِ كَانَ مَشْهُودًۭا",
+    "turkish": "Güneşin batıya kaymasından, gecenin karanlığına kadar (belirli vakitlerde) gereği üzere namazı kıl, bir de sabah namazını kıl. Çünkü sabah namazında, gece ve gündüz melekleri hazır bulunur.",
+    "verseNumber": 78,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2108,
+    "arabic": "وَمِنَ ٱلَّيْلِ فَتَهَجَّدْ بِهِۦ نَافِلَةًۭ لَّكَ عَسَىٰٓ أَن يَبْعَثَكَ رَبُّكَ مَقَامًۭا مَّحْمُودًۭا",
+    "turkish": "Gecenin bir kısmında da sadece sana mahsus bir nafile olmak üzere uykudan kalk, Kur'ân ile teheccüd namazı kıl, Rabbinin seni bir makamı mahmuda (şefaat makamına) göndermesi kesindir.",
+    "verseNumber": 79,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2109,
+    "arabic": "وَقُل رَّبِّ أَدْخِلْنِى مُدْخَلَ صِدْقٍۢ وَأَخْرِجْنِى مُخْرَجَ صِدْقٍۢ وَٱجْعَل لِّى مِن لَّدُنكَ سُلْطَٰنًۭا نَّصِيرًۭا",
+    "turkish": "(Ey Muhammed!) De ki: \"Rabbim! Beni, takdir ettiğin yere gönül rahatlığı ve huzur içinde koy ve çıkacağım yerden de dürüstlükle ve selametle çıkmamı sağla. Bana katından yardım edici bir kuvvet ver.\"",
+    "verseNumber": 80,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2110,
+    "arabic": "وَقُلْ جَآءَ ٱلْحَقُّ وَزَهَقَ ٱلْبَٰطِلُ ۚ إِنَّ ٱلْبَٰطِلَ كَانَ زَهُوقًۭا",
+    "turkish": "(Ey Muhammed!) De ki: \"Hak geldi, batıl yok oldu. Elbette batıl yok olmaya mahkumdur.\"",
+    "verseNumber": 81,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2111,
+    "arabic": "وَنُنَزِّلُ مِنَ ٱلْقُرْءَانِ مَا هُوَ شِفَآءٌۭ وَرَحْمَةٌۭ لِّلْمُؤْمِنِينَ ۙ وَلَا يَزِيدُ ٱلظَّٰلِمِينَ إِلَّا خَسَارًۭا",
+    "turkish": "Biz Kur'ân'dan, iman edenler için bir şifa ve rahmet kaynağı olan âyetler indiriyoruz. Zalimlerin de ancak zararını artırır.",
+    "verseNumber": 82,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2112,
+    "arabic": "وَإِذَآ أَنْعَمْنَا عَلَى ٱلْإِنسَٰنِ أَعْرَضَ وَنَـَٔا بِجَانِبِهِۦ ۖ وَإِذَا مَسَّهُ ٱلشَّرُّ كَانَ يَـُٔوسًۭا",
+    "turkish": "Biz insana nimet verdiğimiz zaman, Allah'ı anmaktan yüz çevirip uzaklaşır. Ona fenalık dokununca da ümitsizliğe kapılır.",
+    "verseNumber": 83,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2113,
+    "arabic": "قُلْ كُلٌّۭ يَعْمَلُ عَلَىٰ شَاكِلَتِهِۦ فَرَبُّكُمْ أَعْلَمُ بِمَنْ هُوَ أَهْدَىٰ سَبِيلًۭا",
+    "turkish": "De ki: \"Herkes bulunduğu hal ve niyetine göre iş yapar. Bu durumda kimin en doğru yolda olduğunu Rabbiniz daha iyi bilir.\"",
+    "verseNumber": 84,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2114,
+    "arabic": "وَيَسْـَٔلُونَكَ عَنِ ٱلرُّوحِ ۖ قُلِ ٱلرُّوحُ مِنْ أَمْرِ رَبِّى وَمَآ أُوتِيتُم مِّنَ ٱلْعِلْمِ إِلَّا قَلِيلًۭا",
+    "turkish": "Ey Muhammed! Sana ruhtan soruyorlar. De ki: \"Ruh Rabbimin bildiği bir iştir ve size ilimden ancak az bir şey verilmiştir.\"",
+    "verseNumber": 85,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2115,
+    "arabic": "وَلَئِن شِئْنَا لَنَذْهَبَنَّ بِٱلَّذِىٓ أَوْحَيْنَآ إِلَيْكَ ثُمَّ لَا تَجِدُ لَكَ بِهِۦ عَلَيْنَا وَكِيلًا",
+    "turkish": "Yemin olsun ki, dilersek sana vahyettiğimizi ortadan kaldırırız; sonra bize karşı kendine bir vekil (koruyucu) bulamazsın.",
+    "verseNumber": 86,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2116,
+    "arabic": "إِلَّا رَحْمَةًۭ مِّن رَّبِّكَ ۚ إِنَّ فَضْلَهُۥ كَانَ عَلَيْكَ كَبِيرًۭا",
+    "turkish": "Fakat Rabbinden bir rahmet olarak (biz bunu yapmadık). Gerçekten O'nun senin üzerindeki lütfu çok büyüktür.",
+    "verseNumber": 87,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2117,
+    "arabic": "قُل لَّئِنِ ٱجْتَمَعَتِ ٱلْإِنسُ وَٱلْجِنُّ عَلَىٰٓ أَن يَأْتُوا۟ بِمِثْلِ هَٰذَا ٱلْقُرْءَانِ لَا يَأْتُونَ بِمِثْلِهِۦ وَلَوْ كَانَ بَعْضُهُمْ لِبَعْضٍۢ ظَهِيرًۭا",
+    "turkish": "Ey Muhammed! De ki: \"Yemin olsun, eğer insanlar ve cinler bu Kur'ân'ın benzerini getirmek üzere toplansalar ve birbirlerine yardımcı olsalar bile, yine onun bir benzerini meydana getiremeyeceklerdir.\"",
+    "verseNumber": 88,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2118,
+    "arabic": "وَلَقَدْ صَرَّفْنَا لِلنَّاسِ فِى هَٰذَا ٱلْقُرْءَانِ مِن كُلِّ مَثَلٍۢ فَأَبَىٰٓ أَكْثَرُ ٱلنَّاسِ إِلَّا كُفُورًۭا",
+    "turkish": "Yemin olsun ki biz bu Kur'ân'da insanlar için çeşitli misaller vermişizdir. Yine de insanların çoğu inkârlarında ısrar ederler.",
+    "verseNumber": 89,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2119,
+    "arabic": "وَقَالُوا۟ لَن نُّؤْمِنَ لَكَ حَتَّىٰ تَفْجُرَ لَنَا مِنَ ٱلْأَرْضِ يَنۢبُوعًا",
+    "turkish": "Kâfirler şöyle dediler: \"Sen, bizim için yerden suyu kesilmeyen bir kaynak fışkırtmadıkça sana asla inanmayacağız.\"",
+    "verseNumber": 90,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2120,
+    "arabic": "أَوْ تَكُونَ لَكَ جَنَّةٌۭ مِّن نَّخِيلٍۢ وَعِنَبٍۢ فَتُفَجِّرَ ٱلْأَنْهَٰرَ خِلَٰلَهَا تَفْجِيرًا",
+    "turkish": "\"Veyahut hurmalıklardan ve üzümlüklerden senin bir bahçen olsun da ortasından şarıl şarıl ırmaklar akıtmalısın.\"",
+    "verseNumber": 91,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2121,
+    "arabic": "أَوْ تُسْقِطَ ٱلسَّمَآءَ كَمَا زَعَمْتَ عَلَيْنَا كِسَفًا أَوْ تَأْتِىَ بِٱللَّهِ وَٱلْمَلَٰٓئِكَةِ قَبِيلًا",
+    "turkish": "\"Yahut söyleyip zannettiğin gibi, göğü başımıza parça parça düşüresin veya Allah'ı ve melekleri söylediğine şahit getiresin. \"",
+    "verseNumber": 92,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2122,
+    "arabic": "أَوْ يَكُونَ لَكَ بَيْتٌۭ مِّن زُخْرُفٍ أَوْ تَرْقَىٰ فِى ٱلسَّمَآءِ وَلَن نُّؤْمِنَ لِرُقِيِّكَ حَتَّىٰ تُنَزِّلَ عَلَيْنَا كِتَٰبًۭا نَّقْرَؤُهُۥ ۗ قُلْ سُبْحَانَ رَبِّى هَلْ كُنتُ إِلَّا بَشَرًۭا رَّسُولًۭا",
+    "turkish": "\"Yahut altından bir evin olsun, ya da göğe çıkmalısın. Ona çıktığına da asla inanmayız. Ta ki bize, okuyacağımız bir kitap indiresin.\" De ki: \"Rabbimi tenzih ederim. Nihayet ben de, peygamber olan bir insandan başka bir şey değilim.\"",
+    "verseNumber": 93,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2123,
+    "arabic": "وَمَا مَنَعَ ٱلنَّاسَ أَن يُؤْمِنُوٓا۟ إِذْ جَآءَهُمُ ٱلْهُدَىٰٓ إِلَّآ أَن قَالُوٓا۟ أَبَعَثَ ٱللَّهُ بَشَرًۭا رَّسُولًۭا",
+    "turkish": "Kendilerine doğru yolu gösteren peygamber gelince, insanların iman etmelerine engel olan sebep sadece: \"Allah bir insanı mı Peygamber gönderdi?\" demeleridir.",
+    "verseNumber": 94,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2124,
+    "arabic": "قُل لَّوْ كَانَ فِى ٱلْأَرْضِ مَلَٰٓئِكَةٌۭ يَمْشُونَ مُطْمَئِنِّينَ لَنَزَّلْنَا عَلَيْهِم مِّنَ ٱلسَّمَآءِ مَلَكًۭا رَّسُولًۭا",
+    "turkish": "(Ey Muhammed! Mekkelilere) şöyle de: \"Eğer yeryüzünde huzur içinde yürüyüp duran melekler olsaydı, elbette onlara gökten peygamber olarak bir melek indirirdik.\"",
+    "verseNumber": 95,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2125,
+    "arabic": "قُلْ كَفَىٰ بِٱللَّهِ شَهِيدًۢا بَيْنِى وَبَيْنَكُمْ ۚ إِنَّهُۥ كَانَ بِعِبَادِهِۦ خَبِيرًۢا بَصِيرًۭا",
+    "turkish": "De ki: \"Benimle sizin aranızda şahit olarak Allah yeter. Çünkü O, kullarının yaptığından haberdardır, yaptıklarını çok iyi görendir.\"",
+    "verseNumber": 96,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2126,
+    "arabic": "وَمَن يَهْدِ ٱللَّهُ فَهُوَ ٱلْمُهْتَدِ ۖ وَمَن يُضْلِلْ فَلَن تَجِدَ لَهُمْ أَوْلِيَآءَ مِن دُونِهِۦ ۖ وَنَحْشُرُهُمْ يَوْمَ ٱلْقِيَٰمَةِ عَلَىٰ وُجُوهِهِمْ عُمْيًۭا وَبُكْمًۭا وَصُمًّۭا ۖ مَّأْوَىٰهُمْ جَهَنَّمُ ۖ كُلَّمَا خَبَتْ زِدْنَٰهُمْ سَعِيرًۭا",
+    "turkish": "Allah kime hidayet verirse, o doğru yoldadır. Kimi de hidayetten uzak tutarsa, artık bunlar için Allah'tan başka hiçbir yardımcı bulamazsın. Ve biz, o kâfirleri kıyamet günü kör, dilsiz ve sağır oldukları halde, yüzleri üstü sürünerek haşredeceğiz. Varacakları yer cehennemdir; ateşi dindikçe onun ateşini artırırız.",
+    "verseNumber": 97,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2127,
+    "arabic": "ذَٰلِكَ جَزَآؤُهُم بِأَنَّهُمْ كَفَرُوا۟ بِـَٔايَٰتِنَا وَقَالُوٓا۟ أَءِذَا كُنَّا عِظَٰمًۭا وَرُفَٰتًا أَءِنَّا لَمَبْعُوثُونَ خَلْقًۭا جَدِيدًا",
+    "turkish": "Bu onların cezasıdır! Çünkü onlar, âyetlerimizi inkâr etmişler ve: \"Sahi bizler, bir yığın kemik ve ufalanmış toz olduğumuz zaman mı, yeni bir yaratılışla diriltilmiş olacağız?\" demişlerdir.",
+    "verseNumber": 98,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2128,
+    "arabic": "۞ أَوَلَمْ يَرَوْا۟ أَنَّ ٱللَّهَ ٱلَّذِى خَلَقَ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضَ قَادِرٌ عَلَىٰٓ أَن يَخْلُقَ مِثْلَهُمْ وَجَعَلَ لَهُمْ أَجَلًۭا لَّا رَيْبَ فِيهِ فَأَبَى ٱلظَّٰلِمُونَ إِلَّا كُفُورًۭا",
+    "turkish": "Onlar, gökleri ve yeri yaratan Allah'ın, kendilerinin aynı olan insanları yaratmaya da kadir olduğunu görüp bilmediler mi? Allah onlar için şüphe edilmeyen bir vâde takdir etmiştir. Fakat zalimler, inkârlarında yine de ısrar ederler.",
+    "verseNumber": 99,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2129,
+    "arabic": "قُل لَّوْ أَنتُمْ تَمْلِكُونَ خَزَآئِنَ رَحْمَةِ رَبِّىٓ إِذًۭا لَّأَمْسَكْتُمْ خَشْيَةَ ٱلْإِنفَاقِ ۚ وَكَانَ ٱلْإِنسَٰنُ قَتُورًۭا",
+    "turkish": "(Ey Muhammed!) De ki: \"Eğer siz Rabbimin rahmet hazinelerine sahip olsaydınız, fakirlik korkusunu yine de elden bırakmazdınız.\" Doğrusu insan çok cimridir.",
+    "verseNumber": 100,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2130,
+    "arabic": "وَلَقَدْ ءَاتَيْنَا مُوسَىٰ تِسْعَ ءَايَٰتٍۭ بَيِّنَٰتٍۢ ۖ فَسْـَٔلْ بَنِىٓ إِسْرَٰٓءِيلَ إِذْ جَآءَهُمْ فَقَالَ لَهُۥ فِرْعَوْنُ إِنِّى لَأَظُنُّكَ يَٰمُوسَىٰ مَسْحُورًۭا",
+    "turkish": "Andolsun biz Musa'ya apaçık dokuz mucize verdik. (Ey Peygamber!) İsrailoğullarına sor, Musa kendilerine geldiğinde Firavun ona: \"Ey Musa! Ben senin büyülenmiş olduğunu sanıyorum\" demişti.",
+    "verseNumber": 101,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2131,
+    "arabic": "قَالَ لَقَدْ عَلِمْتَ مَآ أَنزَلَ هَٰٓؤُلَآءِ إِلَّا رَبُّ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ بَصَآئِرَ وَإِنِّى لَأَظُنُّكَ يَٰفِرْعَوْنُ مَثْبُورًۭا",
+    "turkish": "Musa dedi ki: \"Ey Firavun! Pekâlâ bilirsin ki, bu mucizeleri, birer ibret olmak üzere, ancak göklerin ve yerin Rabbi indirdi. Ey Firavun! Ben de seni helak olmuş zannediyorum.\"",
+    "verseNumber": 102,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2132,
+    "arabic": "فَأَرَادَ أَن يَسْتَفِزَّهُم مِّنَ ٱلْأَرْضِ فَأَغْرَقْنَٰهُ وَمَن مَّعَهُۥ جَمِيعًۭا",
+    "turkish": "Derken Firavun, Musa'yı ve İsrailoğullarını Mısır'dan sürmek istedi. Biz de onu ve beraberindekilerin hepsini suda boğduk.",
+    "verseNumber": 103,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2133,
+    "arabic": "وَقُلْنَا مِنۢ بَعْدِهِۦ لِبَنِىٓ إِسْرَٰٓءِيلَ ٱسْكُنُوا۟ ٱلْأَرْضَ فَإِذَا جَآءَ وَعْدُ ٱلْءَاخِرَةِ جِئْنَا بِكُمْ لَفِيفًۭا",
+    "turkish": "Arkasından İsrailoğullarına şöyle dedik: \"Firavun\"un sizi çıkarmak istediği arazide siz oturun! Sonra ahiret vaadi (kıyamet) geldiği vakit, hepinizi toplayıp bir araya getireceğiz.\"",
+    "verseNumber": 104,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2134,
+    "arabic": "وَبِٱلْحَقِّ أَنزَلْنَٰهُ وَبِٱلْحَقِّ نَزَلَ ۗ وَمَآ أَرْسَلْنَٰكَ إِلَّا مُبَشِّرًۭا وَنَذِيرًۭا",
+    "turkish": "Biz bu Kur'an'ı hak olarak indirdik, O, bütün hakikatleri içinde toplayarak indi. Ey Peygamber! Biz seni ancak müjdeci ve uyarıcı olarak gönderdik.",
+    "verseNumber": 105,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2135,
+    "arabic": "وَقُرْءَانًۭا فَرَقْنَٰهُ لِتَقْرَأَهُۥ عَلَى ٱلنَّاسِ عَلَىٰ مُكْثٍۢ وَنَزَّلْنَٰهُ تَنزِيلًۭا",
+    "turkish": "Sana Kur'ân'ı verdik ve onu insanlara sindire sindire okuyasın diye (kısımlara) ayırdık ve biz onu yavaş yavaş indirdik.",
+    "verseNumber": 106,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2136,
+    "arabic": "قُلْ ءَامِنُوا۟ بِهِۦٓ أَوْ لَا تُؤْمِنُوٓا۟ ۚ إِنَّ ٱلَّذِينَ أُوتُوا۟ ٱلْعِلْمَ مِن قَبْلِهِۦٓ إِذَا يُتْلَىٰ عَلَيْهِمْ يَخِرُّونَ لِلْأَذْقَانِ سُجَّدًۭا",
+    "turkish": "Ey Muhammed! De ki: İster ona (Kur'ân'a) inanın, ister inanmayın; o daha önce kendilerine ilim verilenlere okunduğunda onlar, yüzleri üstü secdeye kapanırlar.",
+    "verseNumber": 107,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2137,
+    "arabic": "وَيَقُولُونَ سُبْحَٰنَ رَبِّنَآ إِن كَانَ وَعْدُ رَبِّنَا لَمَفْعُولًۭا",
+    "turkish": "Ve derler ki: Rabbimizi tenzih ederiz. Şüphesiz ki Rabbimizin vaadi gerçekleşir.",
+    "verseNumber": 108,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2138,
+    "arabic": "وَيَخِرُّونَ لِلْأَذْقَانِ يَبْكُونَ وَيَزِيدُهُمْ خُشُوعًۭا ۩",
+    "turkish": "Ve ağlayarak yüzleri üstü secdeye kapanırlar. Hem de bu Kur'ân'ı işitmek onların Allah'a teslimiyetlerini daha da artırır.",
+    "verseNumber": 109,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2139,
+    "arabic": "قُلِ ٱدْعُوا۟ ٱللَّهَ أَوِ ٱدْعُوا۟ ٱلرَّحْمَٰنَ ۖ أَيًّۭا مَّا تَدْعُوا۟ فَلَهُ ٱلْأَسْمَآءُ ٱلْحُسْنَىٰ ۚ وَلَا تَجْهَرْ بِصَلَاتِكَ وَلَا تُخَافِتْ بِهَا وَٱبْتَغِ بَيْنَ ذَٰلِكَ سَبِيلًۭا",
+    "turkish": "(Sen onlara) de ki: İster \"Allah\" deyin, ister \"Rahmân\" deyin, nasıl çağırırsanız çağırın. En güzel isimler O'nundur. Namazında sesini pek yükseltme, çok da gizli okuma, orta yolu seç.",
+    "verseNumber": 110,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2140,
+    "arabic": "وَقُلِ ٱلْحَمْدُ لِلَّهِ ٱلَّذِى لَمْ يَتَّخِذْ وَلَدًۭا وَلَمْ يَكُن لَّهُۥ شَرِيكٌۭ فِى ٱلْمُلْكِ وَلَمْ يَكُن لَّهُۥ وَلِىٌّۭ مِّنَ ٱلذُّلِّ ۖ وَكَبِّرْهُ تَكْبِيرًۢا",
+    "turkish": "Ve şöyle de: Hamd o Allah'a ki, hiçbir çocuk edinmedi, mülkte ortağı yoktur, aciz olmayıp bir yardımcıya da ihtiyacı yoktur. Tekbir getirerek O'nu noksanlıklardan yücelt de yücelt.",
+    "verseNumber": 111,
+    "surahNumber": 17,
+    "surahName": "سُورَةُ الإِسۡرَاءِ",
+    "englishName": "Al-Israa"
+  },
+  {
+    "id": 2141,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ٱلْحَمْدُ لِلَّهِ ٱلَّذِىٓ أَنزَلَ عَلَىٰ عَبْدِهِ ٱلْكِتَٰبَ وَلَمْ يَجْعَل لَّهُۥ عِوَجَا ۜ",
+    "turkish": "Hamd, o Allah'a mahsustur ki kulu (Muhammed'e) kitabı indirdi ve ona hiçbir eğrilik koymadı.",
+    "verseNumber": 1,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2142,
+    "arabic": "قَيِّمًۭا لِّيُنذِرَ بَأْسًۭا شَدِيدًۭا مِّن لَّدُنْهُ وَيُبَشِّرَ ٱلْمُؤْمِنِينَ ٱلَّذِينَ يَعْمَلُونَ ٱلصَّٰلِحَٰتِ أَنَّ لَهُمْ أَجْرًا حَسَنًۭا",
+    "turkish": "Onu dosdoğru (bir kitap) olarak (indirdi) ki katından gelecek şiddetli azaba karşı (insanları) uyarsın ve yararlı işler yapan müminlere kendileri için güzel bir mükafat bulunduğunu müjdelesin.",
+    "verseNumber": 2,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2143,
+    "arabic": "مَّٰكِثِينَ فِيهِ أَبَدًۭا",
+    "turkish": "Onlar orada sürekli kalacaklardır.",
+    "verseNumber": 3,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2144,
+    "arabic": "وَيُنذِرَ ٱلَّذِينَ قَالُوا۟ ٱتَّخَذَ ٱللَّهُ وَلَدًۭا",
+    "turkish": "Ve \"Allah çocuk edindi\" diyenleri de uyarsın.",
+    "verseNumber": 4,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2145,
+    "arabic": "مَّا لَهُم بِهِۦ مِنْ عِلْمٍۢ وَلَا لِءَابَآئِهِمْ ۚ كَبُرَتْ كَلِمَةًۭ تَخْرُجُ مِنْ أَفْوَٰهِهِمْ ۚ إِن يَقُولُونَ إِلَّا كَذِبًۭا",
+    "turkish": "Bu hususta ne kendilerinin, ne de atalarının hiçbir bilgisi yoktur. Ağızlarından çıkan söz ne büyük bir iftiradır. Onlar, yalandan başka bir şey söylemiyorlar.",
+    "verseNumber": 5,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2146,
+    "arabic": "فَلَعَلَّكَ بَٰخِعٌۭ نَّفْسَكَ عَلَىٰٓ ءَاثَٰرِهِمْ إِن لَّمْ يُؤْمِنُوا۟ بِهَٰذَا ٱلْحَدِيثِ أَسَفًا",
+    "turkish": "(Ey Muhammed!) Demek onlar, bu söze (kitaba) inanmazlarsa, onların peşinde üzüle üzüle kendini helak edeceksin!",
+    "verseNumber": 6,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2147,
+    "arabic": "إِنَّا جَعَلْنَا مَا عَلَى ٱلْأَرْضِ زِينَةًۭ لَّهَا لِنَبْلُوَهُمْ أَيُّهُمْ أَحْسَنُ عَمَلًۭا",
+    "turkish": "Biz yeryüzündeki şeyleri kendisine süs olsun diye yarattık ki, insanların hangisinin daha güzel amel edeceğini deneyelim.",
+    "verseNumber": 7,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2148,
+    "arabic": "وَإِنَّا لَجَٰعِلُونَ مَا عَلَيْهَا صَعِيدًۭا جُرُزًا",
+    "turkish": "Şüphesiz biz, yeryüzünde olanları kupkuru bir toprak yapacağız.",
+    "verseNumber": 8,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2149,
+    "arabic": "أَمْ حَسِبْتَ أَنَّ أَصْحَٰبَ ٱلْكَهْفِ وَٱلرَّقِيمِ كَانُوا۟ مِنْ ءَايَٰتِنَا عَجَبًا",
+    "turkish": "Yoksa sen Ashabı Kehf'i ve Rakim'i (isimlerinin yazılı bulunduğu taş kitabeyi) şaşılacak âyetlerimizden mi sandın?",
+    "verseNumber": 9,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2150,
+    "arabic": "إِذْ أَوَى ٱلْفِتْيَةُ إِلَى ٱلْكَهْفِ فَقَالُوا۟ رَبَّنَآ ءَاتِنَا مِن لَّدُنكَ رَحْمَةًۭ وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًۭا",
+    "turkish": "O gençler mağaraya sığınınca şöyle dediler: \"Rabbimiz! Bize katından bir rahmet ver ve bizim için şu işimizden bir kurtuluş yolu hazırla.\"",
+    "verseNumber": 10,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2151,
+    "arabic": "فَضَرَبْنَا عَلَىٰٓ ءَاذَانِهِمْ فِى ٱلْكَهْفِ سِنِينَ عَدَدًۭا",
+    "turkish": "Bunun üzerine biz de kulaklarını tıkayarak mağarada onları yıllarca uyuttuk.",
+    "verseNumber": 11,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2152,
+    "arabic": "ثُمَّ بَعَثْنَٰهُمْ لِنَعْلَمَ أَىُّ ٱلْحِزْبَيْنِ أَحْصَىٰ لِمَا لَبِثُوٓا۟ أَمَدًۭا",
+    "turkish": "Sonra da iki gruptan hangisinin, onların mağarada kaldıkları süreyi daha iyi hesapladığını anlamak için, onları tekrar uyandırdık.",
+    "verseNumber": 12,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2153,
+    "arabic": "نَّحْنُ نَقُصُّ عَلَيْكَ نَبَأَهُم بِٱلْحَقِّ ۚ إِنَّهُمْ فِتْيَةٌ ءَامَنُوا۟ بِرَبِّهِمْ وَزِدْنَٰهُمْ هُدًۭى",
+    "turkish": "Biz sana onların kıssalarını gerçek olarak anlatacağız. Hakikaten onlar, Rablerine iman eden birkaç genç idi. Biz de onların hidayetlerini artırdık.",
+    "verseNumber": 13,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2154,
+    "arabic": "وَرَبَطْنَا عَلَىٰ قُلُوبِهِمْ إِذْ قَامُوا۟ فَقَالُوا۟ رَبُّنَا رَبُّ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ لَن نَّدْعُوَا۟ مِن دُونِهِۦٓ إِلَٰهًۭا ۖ لَّقَدْ قُلْنَآ إِذًۭا شَطَطًا",
+    "turkish": "(Oranın hükümdarı karşısında) ayağa kalkarak dediler ki: \"Bizim Rabbimiz, göklerin ve yerin Rabbidir. Biz, O'ndan başkasına ilâh deyip tapmayız, yoksa saçma sapan konuşmuş oluruz.",
+    "verseNumber": 14,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2155,
+    "arabic": "هَٰٓؤُلَآءِ قَوْمُنَا ٱتَّخَذُوا۟ مِن دُونِهِۦٓ ءَالِهَةًۭ ۖ لَّوْلَا يَأْتُونَ عَلَيْهِم بِسُلْطَٰنٍۭ بَيِّنٍۢ ۖ فَمَنْ أَظْلَمُ مِمَّنِ ٱفْتَرَىٰ عَلَى ٱللَّهِ كَذِبًۭا",
+    "turkish": "Şu bizim kavmimiz, Allah'tan başka ilâh edindiler. Onların ilâh olduğuna dair açık bir delil getirselerdi ya! Allah'a karşı yalan uydurandan daha zalim kim olabilir?",
+    "verseNumber": 15,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2156,
+    "arabic": "وَإِذِ ٱعْتَزَلْتُمُوهُمْ وَمَا يَعْبُدُونَ إِلَّا ٱللَّهَ فَأْوُۥٓا۟ إِلَى ٱلْكَهْفِ يَنشُرْ لَكُمْ رَبُّكُم مِّن رَّحْمَتِهِۦ وَيُهَيِّئْ لَكُم مِّنْ أَمْرِكُم مِّرْفَقًۭا",
+    "turkish": "(İçlerinden biri şöyle demişti:) \"Mademki siz, onlardan ve Allah'tan başka taptıkları putlardan ayrıldınız, o halde mağaraya sığının ki, Rabbiniz rahmetinden size genişlik versin ve işinizi rast getirip kolaylaştırsın.\"",
+    "verseNumber": 16,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2157,
+    "arabic": "۞ وَتَرَى ٱلشَّمْسَ إِذَا طَلَعَت تَّزَٰوَرُ عَن كَهْفِهِمْ ذَاتَ ٱلْيَمِينِ وَإِذَا غَرَبَت تَّقْرِضُهُمْ ذَاتَ ٱلشِّمَالِ وَهُمْ فِى فَجْوَةٍۢ مِّنْهُ ۚ ذَٰلِكَ مِنْ ءَايَٰتِ ٱللَّهِ ۗ مَن يَهْدِ ٱللَّهُ فَهُوَ ٱلْمُهْتَدِ ۖ وَمَن يُضْلِلْ فَلَن تَجِدَ لَهُۥ وَلِيًّۭا مُّرْشِدًۭا",
+    "turkish": "Ey Muhammed! Baksaydın güneşin doğduğu zaman mağaranın sağ tarafına yöneldiğini, batarken de sol taraftan onları makaslayıp geçtiğini görürdün. Onlar, mağaranın geniş bir yerinde idiler. İşte bu Allah'ın mucizelerindendir. Allah kime hidayet ederse, işte o, hakka ulaşmıştır; kimi de hidayetten mahrum ederse, artık ona doğru yolu gösterecek bir dost bulamazsın.",
+    "verseNumber": 17,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2158,
+    "arabic": "وَتَحْسَبُهُمْ أَيْقَاظًۭا وَهُمْ رُقُودٌۭ ۚ وَنُقَلِّبُهُمْ ذَاتَ ٱلْيَمِينِ وَذَاتَ ٱلشِّمَالِ ۖ وَكَلْبُهُم بَٰسِطٌۭ ذِرَاعَيْهِ بِٱلْوَصِيدِ ۚ لَوِ ٱطَّلَعْتَ عَلَيْهِمْ لَوَلَّيْتَ مِنْهُمْ فِرَارًۭا وَلَمُلِئْتَ مِنْهُمْ رُعْبًۭا",
+    "turkish": "Bir de onları mağarada görseydin uyanık sanırdın. Halbuki onlar uykudadırlar. Biz onları sağa sola çevirirdik. Köpekleri de girişte ön ayaklarını ileri doğru uzatmıştı. Eğer onları görseydin, arkana bakmadan kaçardın ve için korku ile dolardı.",
+    "verseNumber": 18,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2159,
+    "arabic": "وَكَذَٰلِكَ بَعَثْنَٰهُمْ لِيَتَسَآءَلُوا۟ بَيْنَهُمْ ۚ قَالَ قَآئِلٌۭ مِّنْهُمْ كَمْ لَبِثْتُمْ ۖ قَالُوا۟ لَبِثْنَا يَوْمًا أَوْ بَعْضَ يَوْمٍۢ ۚ قَالُوا۟ رَبُّكُمْ أَعْلَمُ بِمَا لَبِثْتُمْ فَٱبْعَثُوٓا۟ أَحَدَكُم بِوَرِقِكُمْ هَٰذِهِۦٓ إِلَى ٱلْمَدِينَةِ فَلْيَنظُرْ أَيُّهَآ أَزْكَىٰ طَعَامًۭا فَلْيَأْتِكُم بِرِزْقٍۢ مِّنْهُ وَلْيَتَلَطَّفْ وَلَا يُشْعِرَنَّ بِكُمْ أَحَدًا",
+    "turkish": "Onları bir mucize olarak uyuttuğumuz gibi, birbirlerine sorsunlar diye kendilerini uyandırdık da içlerinden bir sözcü şöyle dedi: \"Ne kadar durup kaldınız?\" (Kimi) \"Bir gün ya da günün bir parçası kadar kaldık\" dediler. (Kimi de) şöyle dediler: \"Ne kadar durduğunuzu, Rabbiniz daha iyi bilir. Şimdi siz birinizi, bu gümüş paranızla şehre gönderin de baksın, hangi yiyecek daha temiz ise, ondan size azık getirsin. Hem çok dikkatli davransın ve sizi kimseye sezdirmesin.\"",
+    "verseNumber": 19,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2160,
+    "arabic": "إِنَّهُمْ إِن يَظْهَرُوا۟ عَلَيْكُمْ يَرْجُمُوكُمْ أَوْ يُعِيدُوكُمْ فِى مِلَّتِهِمْ وَلَن تُفْلِحُوٓا۟ إِذًا أَبَدًۭا",
+    "turkish": "\"Çünkü şehir halkı, sizi ellerine geçirirlerse muhakkak sizi taşlayarak öldürürler veya kendi dinlerine çevirirler ki, o zaman siz dünyada da ahirette de asla kurtuluşa eremezsiniz.\"",
+    "verseNumber": 20,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2161,
+    "arabic": "وَكَذَٰلِكَ أَعْثَرْنَا عَلَيْهِمْ لِيَعْلَمُوٓا۟ أَنَّ وَعْدَ ٱللَّهِ حَقٌّۭ وَأَنَّ ٱلسَّاعَةَ لَا رَيْبَ فِيهَآ إِذْ يَتَنَٰزَعُونَ بَيْنَهُمْ أَمْرَهُمْ ۖ فَقَالُوا۟ ٱبْنُوا۟ عَلَيْهِم بُنْيَٰنًۭا ۖ رَّبُّهُمْ أَعْلَمُ بِهِمْ ۚ قَالَ ٱلَّذِينَ غَلَبُوا۟ عَلَىٰٓ أَمْرِهِمْ لَنَتَّخِذَنَّ عَلَيْهِم مَّسْجِدًۭا",
+    "turkish": "Böylece insanları onlardan haberdar kıldık ki, öldükten sonra dirilmenin hak olduğunu ve kıyamet gününden şüphe edilemeyeceğini bildirmek için, öylece şehir halkına buldurduk. Onları mağarada bulanlar, aralarında durumlarını tartışıyorlardı. Dedilerki: \"Üstlerine bir bina (kilise) yapın. Bununla beraber Rableri, onları daha iyi bilir.\" Sözlerinde üstün gelen müminler: \"Üzerlerine muhakkak bir mescid yapacağız.\" dediler.",
+    "verseNumber": 21,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2162,
+    "arabic": "سَيَقُولُونَ ثَلَٰثَةٌۭ رَّابِعُهُمْ كَلْبُهُمْ وَيَقُولُونَ خَمْسَةٌۭ سَادِسُهُمْ كَلْبُهُمْ رَجْمًۢا بِٱلْغَيْبِ ۖ وَيَقُولُونَ سَبْعَةٌۭ وَثَامِنُهُمْ كَلْبُهُمْ ۚ قُل رَّبِّىٓ أَعْلَمُ بِعِدَّتِهِم مَّا يَعْلَمُهُمْ إِلَّا قَلِيلٌۭ ۗ فَلَا تُمَارِ فِيهِمْ إِلَّا مِرَآءًۭ ظَٰهِرًۭا وَلَا تَسْتَفْتِ فِيهِم مِّنْهُمْ أَحَدًۭا",
+    "turkish": "Ashabı Kehf'in sayılarında ihtilaf edenlerden bazıları: Onlar, üç kişidir, dördüncüleri köpekleridir\" diyecekler. Diğer bazıları da \"Onlar, beş kişidir, altıncıları köpekleridir \" diyecekler. Her ikisi de bilinmeyen hakkında tahmin yürütmektir. (kimileri de:) \"Onlar, yedi kişidir; sekizincisi köpekleridir\" derler. De ki: \"Onların sayılarını Rabbim daha iyi bilir.\" Onları ancak pek azı bilir, Bu sebeple onlar hakkında bu bildirilenler dışında bir münakaşaya girişme ve bunlar hakkında hiç kimseye de bir şey sorma!",
+    "verseNumber": 22,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2163,
+    "arabic": "وَلَا تَقُولَنَّ لِشَا۟ىْءٍ إِنِّى فَاعِلٌۭ ذَٰلِكَ غَدًا",
+    "turkish": "Hiçbir şey için, Allah'ın dilemesi dışında: \"Ben yarın onu yapacağım deme\"",
+    "verseNumber": 23,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2164,
+    "arabic": "إِلَّآ أَن يَشَآءَ ٱللَّهُ ۚ وَٱذْكُر رَّبَّكَ إِذَا نَسِيتَ وَقُلْ عَسَىٰٓ أَن يَهْدِيَنِ رَبِّى لِأَقْرَبَ مِنْ هَٰذَا رَشَدًۭا",
+    "turkish": "Ancak Allah dilerse (yapacağım de). Ve unuttuğun vakit Allah'ı an ve \"Umarım Rabbim beni, doğruya daha yakın olana eriştirir.\" de.",
+    "verseNumber": 24,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2165,
+    "arabic": "وَلَبِثُوا۟ فِى كَهْفِهِمْ ثَلَٰثَ مِا۟ئَةٍۢ سِنِينَ وَٱزْدَادُوا۟ تِسْعًۭا",
+    "turkish": "Onlar, mağaralarında üçyüz yıl kadar kaldılar ve dokuz yıl da buna ilave etmişlerdir.",
+    "verseNumber": 25,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2166,
+    "arabic": "قُلِ ٱللَّهُ أَعْلَمُ بِمَا لَبِثُوا۟ ۖ لَهُۥ غَيْبُ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ ۖ أَبْصِرْ بِهِۦ وَأَسْمِعْ ۚ مَا لَهُم مِّن دُونِهِۦ مِن وَلِىٍّۢ وَلَا يُشْرِكُ فِى حُكْمِهِۦٓ أَحَدًۭا",
+    "turkish": "De ki: \"Onların ne kadar kaldıklarını Allah daha iyi bilir.\" Göklerin ve yerin gaybı O'na aittir. O ne güzel görendir! O ne mükemmel işitendir! Onların, O'ndan başka bir yardımcısı yoktur. O, kendi hükümranlığına kimseyi ortak etmez.",
+    "verseNumber": 26,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2167,
+    "arabic": "وَٱتْلُ مَآ أُوحِىَ إِلَيْكَ مِن كِتَابِ رَبِّكَ ۖ لَا مُبَدِّلَ لِكَلِمَٰتِهِۦ وَلَن تَجِدَ مِن دُونِهِۦ مُلْتَحَدًۭا",
+    "turkish": "Rabbinin kitabından sana vahyolunanı oku! Onun sözlerini değiştirecek kimse yoktur. Ve O'ndan başka bir sığınılacak da bulamazsın.",
+    "verseNumber": 27,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2168,
+    "arabic": "وَٱصْبِرْ نَفْسَكَ مَعَ ٱلَّذِينَ يَدْعُونَ رَبَّهُم بِٱلْغَدَوٰةِ وَٱلْعَشِىِّ يُرِيدُونَ وَجْهَهُۥ ۖ وَلَا تَعْدُ عَيْنَاكَ عَنْهُمْ تُرِيدُ زِينَةَ ٱلْحَيَوٰةِ ٱلدُّنْيَا ۖ وَلَا تُطِعْ مَنْ أَغْفَلْنَا قَلْبَهُۥ عَن ذِكْرِنَا وَٱتَّبَعَ هَوَىٰهُ وَكَانَ أَمْرُهُۥ فُرُطًۭا",
+    "turkish": "Nefsince de, sabah akşam rızasını isteyerek Rablerine yalvaranlarla beraber candan sabret. Sen dünya hayatının süsünü isteyerek onlardan gözlerini ayırma. Kalbini, bizi anmaktan gafil kıldığımız, nefsinin kötü arzusuna uymuş ve işi hep aşırılık olan kimseye uyma.",
+    "verseNumber": 28,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2169,
+    "arabic": "وَقُلِ ٱلْحَقُّ مِن رَّبِّكُمْ ۖ فَمَن شَآءَ فَلْيُؤْمِن وَمَن شَآءَ فَلْيَكْفُرْ ۚ إِنَّآ أَعْتَدْنَا لِلظَّٰلِمِينَ نَارًا أَحَاطَ بِهِمْ سُرَادِقُهَا ۚ وَإِن يَسْتَغِيثُوا۟ يُغَاثُوا۟ بِمَآءٍۢ كَٱلْمُهْلِ يَشْوِى ٱلْوُجُوهَ ۚ بِئْسَ ٱلشَّرَابُ وَسَآءَتْ مُرْتَفَقًا",
+    "turkish": "Ve de ki: O hak Rabbimizdendir. Artık dileyen iman etsin, dileyen inkâr etsin. Çünkü biz zalimler için öyle bir ateş hazırlamışız ki, duvarları, çepeçevre onları içine alacaktır. Eğer feryad edip yardım isteseler, erimiş maden gibi yüzleri haşlayan bir su ile cevap verilir. O ne kötü bir içecek ve ne kötü bir dayanma yeri!",
+    "verseNumber": 29,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2170,
+    "arabic": "إِنَّ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّٰلِحَٰتِ إِنَّا لَا نُضِيعُ أَجْرَ مَنْ أَحْسَنَ عَمَلًا",
+    "turkish": "İman edip de güzel davranışlarda bulunanlar var ya, şüphe yok ki biz öyle güzel işler yapanların mükafatını zayi etmeyiz.",
+    "verseNumber": 30,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2171,
+    "arabic": "أُو۟لَٰٓئِكَ لَهُمْ جَنَّٰتُ عَدْنٍۢ تَجْرِى مِن تَحْتِهِمُ ٱلْأَنْهَٰرُ يُحَلَّوْنَ فِيهَا مِنْ أَسَاوِرَ مِن ذَهَبٍۢ وَيَلْبَسُونَ ثِيَابًا خُضْرًۭا مِّن سُندُسٍۢ وَإِسْتَبْرَقٍۢ مُّتَّكِـِٔينَ فِيهَا عَلَى ٱلْأَرَآئِكِ ۚ نِعْمَ ٱلثَّوَابُ وَحَسُنَتْ مُرْتَفَقًۭا",
+    "turkish": "İşte onlara Adn cennetleri vardır; altlarından ırmaklar akar, orada altın bileziklerle süslenecekler, ince ve kalın ipekliden yeşil elbiseler giyerek koltuklar üzerine dayanıp kurulacaklar. O ne güzel karşılık ve ne güzel kalma yeri!",
+    "verseNumber": 31,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2172,
+    "arabic": "۞ وَٱضْرِبْ لَهُم مَّثَلًۭا رَّجُلَيْنِ جَعَلْنَا لِأَحَدِهِمَا جَنَّتَيْنِ مِنْ أَعْنَٰبٍۢ وَحَفَفْنَٰهُمَا بِنَخْلٍۢ وَجَعَلْنَا بَيْنَهُمَا زَرْعًۭا",
+    "turkish": "Onlara, şu iki adamı misal olarak anlat: Biz bunlardan birine her türlü üzümden iki bağ vermişiz, her ikisinin etrafını hurmalarla donatmışız, aralarında da bir ekinlik yapmışız.",
+    "verseNumber": 32,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2173,
+    "arabic": "كِلْتَا ٱلْجَنَّتَيْنِ ءَاتَتْ أُكُلَهَا وَلَمْ تَظْلِم مِّنْهُ شَيْـًۭٔا ۚ وَفَجَّرْنَا خِلَٰلَهُمَا نَهَرًۭا",
+    "turkish": "İki bağın ikisi de yemişlerini vermiş, hiçbir şey noksan bırakmamış, ikisinin ortasından bir de nehir akıtmışız.",
+    "verseNumber": 33,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2174,
+    "arabic": "وَكَانَ لَهُۥ ثَمَرٌۭ فَقَالَ لِصَٰحِبِهِۦ وَهُوَ يُحَاوِرُهُۥٓ أَنَا۠ أَكْثَرُ مِنكَ مَالًۭا وَأَعَزُّ نَفَرًۭا",
+    "turkish": "İki bağın sahibinin ayrıca başka geliri vardı. Bundan dolayı bu adam arkadaşıyla münakaşa ederken: \"Ben malca senden daha zengin ve insan sayısı bakımından da senden daha güçlü ve üstünüm\" dedi.",
+    "verseNumber": 34,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2175,
+    "arabic": "وَدَخَلَ جَنَّتَهُۥ وَهُوَ ظَالِمٌۭ لِّنَفْسِهِۦ قَالَ مَآ أَظُنُّ أَن تَبِيدَ هَٰذِهِۦٓ أَبَدًۭا",
+    "turkish": "Adam, bu şekilde kendine zulmederek bağına girdi ve şöyle dedi: \"Bunun hiç yok olacağını sanmıyorum\"",
+    "verseNumber": 35,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2176,
+    "arabic": "وَمَآ أَظُنُّ ٱلسَّاعَةَ قَآئِمَةًۭ وَلَئِن رُّدِدتُّ إِلَىٰ رَبِّى لَأَجِدَنَّ خَيْرًۭا مِّنْهَا مُنقَلَبًۭا",
+    "turkish": "\"Kıyametin kopacağını da zannetmem. Şayet Rabbimin huzuruna götürürlürsem, muhakkak orada bundan daha hayırlı bir sonuç bulurum\".",
+    "verseNumber": 36,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2177,
+    "arabic": "قَالَ لَهُۥ صَاحِبُهُۥ وَهُوَ يُحَاوِرُهُۥٓ أَكَفَرْتَ بِٱلَّذِى خَلَقَكَ مِن تُرَابٍۢ ثُمَّ مِن نُّطْفَةٍۢ ثُمَّ سَوَّىٰكَ رَجُلًۭا",
+    "turkish": "Bunun üzerine kendisiyle münakaşa eden arkadaşı da ona şöyle dedi: \"Seni topraktan, sonra seni bir damla sudan yaratan, daha sonra da seni insan haline getireni mi inkar ediyorsun?",
+    "verseNumber": 37,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2178,
+    "arabic": "لَّٰكِنَّا۠ هُوَ ٱللَّهُ رَبِّى وَلَآ أُشْرِكُ بِرَبِّىٓ أَحَدًۭا",
+    "turkish": "\"Fakat ben iman ederek diyorum ki: O Allah, benim Rabbimdir, ben Rabbime kimseyi ortak koşmam.\"",
+    "verseNumber": 38,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2179,
+    "arabic": "وَلَوْلَآ إِذْ دَخَلْتَ جَنَّتَكَ قُلْتَ مَا شَآءَ ٱللَّهُ لَا قُوَّةَ إِلَّا بِٱللَّهِ ۚ إِن تَرَنِ أَنَا۠ أَقَلَّ مِنكَ مَالًۭا وَوَلَدًۭا",
+    "turkish": "\"Kendi bağına girdiğin zaman: \"Bu Allah'dandır, benim kuvvetimle değil, Allah'ın kuvveti ile olmuştur, deseydin ya! Her ne kadar beni, malca ve evlatça kendinden az görüyorsan da.\"",
+    "verseNumber": 39,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2180,
+    "arabic": "فَعَسَىٰ رَبِّىٓ أَن يُؤْتِيَنِ خَيْرًۭا مِّن جَنَّتِكَ وَيُرْسِلَ عَلَيْهَا حُسْبَانًۭا مِّنَ ٱلسَّمَآءِ فَتُصْبِحَ صَعِيدًۭا زَلَقًا",
+    "turkish": "Belki Rabbim, bana, senin bağından daha hayırlısını verir; senin bağına ise gökten yıldırımlar gönderir de, bağın yalçın bir toprak haline gelir.\"",
+    "verseNumber": 40,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2181,
+    "arabic": "أَوْ يُصْبِحَ مَآؤُهَا غَوْرًۭا فَلَن تَسْتَطِيعَ لَهُۥ طَلَبًۭا",
+    "turkish": "\"Yahut, bağının suyu yerin dibine çekilir de bir daha suyunu çıkarıp bağını sulayamazsın.\"",
+    "verseNumber": 41,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2182,
+    "arabic": "وَأُحِيطَ بِثَمَرِهِۦ فَأَصْبَحَ يُقَلِّبُ كَفَّيْهِ عَلَىٰ مَآ أَنفَقَ فِيهَا وَهِىَ خَاوِيَةٌ عَلَىٰ عُرُوشِهَا وَيَقُولُ يَٰلَيْتَنِى لَمْ أُشْرِكْ بِرَبِّىٓ أَحَدًۭا",
+    "turkish": "Derken serveti yok edildi. Bunun üzerine bağına yaptığı masraflara karşı ellerini oğuşturmaya başladı. Bağ, çardakları üzerine yıkılmış kalmıştı, \"Ah Keşke Rabbime hiçbir şeyi ortak koşmasaydım\" diyordu.",
+    "verseNumber": 42,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2183,
+    "arabic": "وَلَمْ تَكُن لَّهُۥ فِئَةٌۭ يَنصُرُونَهُۥ مِن دُونِ ٱللَّهِ وَمَا كَانَ مُنتَصِرًا",
+    "turkish": "Onun Allah'tan başka yardım edecek adamları yoktur ve Allah'a karşı kendi nefsini de kurtaramadı.",
+    "verseNumber": 43,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2184,
+    "arabic": "هُنَالِكَ ٱلْوَلَٰيَةُ لِلَّهِ ٱلْحَقِّ ۚ هُوَ خَيْرٌۭ ثَوَابًۭا وَخَيْرٌ عُقْبًۭا",
+    "turkish": "İşte burada yardım, yalnız hak olan Allah'a aittir. O'nun verdiği mükâfat da daha hayırlıdır, netice de daha hayırlıdır.",
+    "verseNumber": 44,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2185,
+    "arabic": "وَٱضْرِبْ لَهُم مَّثَلَ ٱلْحَيَوٰةِ ٱلدُّنْيَا كَمَآءٍ أَنزَلْنَٰهُ مِنَ ٱلسَّمَآءِ فَٱخْتَلَطَ بِهِۦ نَبَاتُ ٱلْأَرْضِ فَأَصْبَحَ هَشِيمًۭا تَذْرُوهُ ٱلرِّيَٰحُ ۗ وَكَانَ ٱللَّهُ عَلَىٰ كُلِّ شَىْءٍۢ مُّقْتَدِرًا",
+    "turkish": "Ey Muhammed! Sen onlara dünya hayatının misalini ver. Dünya hayatı, gökten indirdiğimiz bir su gibidir ki, bu su sayesinde yeryüzünün bitkileri (her renk ve çiçekten) birbirine karışmış, nihayet bir çöp kırıntısı olmuştur. Rüzgarlar onu savurur gider. Allah her şeye muktedirdir.",
+    "verseNumber": 45,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2186,
+    "arabic": "ٱلْمَالُ وَٱلْبَنُونَ زِينَةُ ٱلْحَيَوٰةِ ٱلدُّنْيَا ۖ وَٱلْبَٰقِيَٰتُ ٱلصَّٰلِحَٰتُ خَيْرٌ عِندَ رَبِّكَ ثَوَابًۭا وَخَيْرٌ أَمَلًۭا",
+    "turkish": "Mal ve oğullar, dünya hayatının süsüdür. Bakî kalacak olan iyi ameller ise, Rabbinin katında, sevabca da hayırlıdır, ümid yönünden de daha hayırlıdır.",
+    "verseNumber": 46,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2187,
+    "arabic": "وَيَوْمَ نُسَيِّرُ ٱلْجِبَالَ وَتَرَى ٱلْأَرْضَ بَارِزَةًۭ وَحَشَرْنَٰهُمْ فَلَمْ نُغَادِرْ مِنْهُمْ أَحَدًۭا",
+    "turkish": "O kıyamet gününü hatırla ki, dağları yürüteceğiz ve yeryüzünü çırılçıplak göreceksin. Bütün insanları, mahşerde toplayacağız hiçbir kimseyi bırakmayacağız.",
+    "verseNumber": 47,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2188,
+    "arabic": "وَعُرِضُوا۟ عَلَىٰ رَبِّكَ صَفًّۭا لَّقَدْ جِئْتُمُونَا كَمَا خَلَقْنَٰكُمْ أَوَّلَ مَرَّةٍۭ ۚ بَلْ زَعَمْتُمْ أَلَّن نَّجْعَلَ لَكُم مَّوْعِدًۭا",
+    "turkish": "Onlar, saf halinde Rabbine arz edilmişlerdir. Allah, onlara şöyle diyecektir: \"Şüphesiz sizi ilk önce yarattığımız gibi bize geldiniz. Fakat, size kıyamet için yaptığımız vaadi yerine getirmeyeceğimizi sanmıştınız, değil mi?",
+    "verseNumber": 48,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2189,
+    "arabic": "وَوُضِعَ ٱلْكِتَٰبُ فَتَرَى ٱلْمُجْرِمِينَ مُشْفِقِينَ مِمَّا فِيهِ وَيَقُولُونَ يَٰوَيْلَتَنَا مَالِ هَٰذَا ٱلْكِتَٰبِ لَا يُغَادِرُ صَغِيرَةًۭ وَلَا كَبِيرَةً إِلَّآ أَحْصَىٰهَا ۚ وَوَجَدُوا۟ مَا عَمِلُوا۟ حَاضِرًۭا ۗ وَلَا يَظْلِمُ رَبُّكَ أَحَدًۭا",
+    "turkish": "O gün herkesin amel defteri ortaya konulmuştur. Ey Muhammed! Günahkârların, amel defterlerinden korkarak: \"Eyvah bize! Bu nasıl deftermiş ki, büyük küçük hiçbir şey bırakmadan hepsini saymış dökmüş\" dediklerini görürsün. Onlar, bütün yaptıklarını hazır bulmuşlardır. Senin Rabbin hiç kimseye zulmetmez.",
+    "verseNumber": 49,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2190,
+    "arabic": "وَإِذْ قُلْنَا لِلْمَلَٰٓئِكَةِ ٱسْجُدُوا۟ لِءَادَمَ فَسَجَدُوٓا۟ إِلَّآ إِبْلِيسَ كَانَ مِنَ ٱلْجِنِّ فَفَسَقَ عَنْ أَمْرِ رَبِّهِۦٓ ۗ أَفَتَتَّخِذُونَهُۥ وَذُرِّيَّتَهُۥٓ أَوْلِيَآءَ مِن دُونِى وَهُمْ لَكُمْ عَدُوٌّۢ ۚ بِئْسَ لِلظَّٰلِمِينَ بَدَلًۭا",
+    "turkish": "Yine o vakti hatırla ki biz, meleklere: \"Âdem'e secde edin!\" demiştik. İblis hariç olmak üzere onlar hemen secde ettiler. İblis cinlerdendi, Rabbinin emrinden dışarı çıktı. Şimdi siz beni bırakıp da İblis'i ve soyunu dostlar mı ediniyorsunuz? Halbuki onlar sizin düşmanınızdır. Zalimler için bu ne kötü bir değişmedir.",
+    "verseNumber": 50,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2191,
+    "arabic": "۞ مَّآ أَشْهَدتُّهُمْ خَلْقَ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ وَلَا خَلْقَ أَنفُسِهِمْ وَمَا كُنتُ مُتَّخِذَ ٱلْمُضِلِّينَ عَضُدًۭا",
+    "turkish": "Ben, onları (İblis ve soyunu) ne göklerin ve yerin yaratılışında, ne de kendilerinin yaratılışında şahit tutmadım ve hiçbir zaman doğru yoldan çıkanları yardımcı edinmiş değilim.",
+    "verseNumber": 51,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2192,
+    "arabic": "وَيَوْمَ يَقُولُ نَادُوا۟ شُرَكَآءِىَ ٱلَّذِينَ زَعَمْتُمْ فَدَعَوْهُمْ فَلَمْ يَسْتَجِيبُوا۟ لَهُمْ وَجَعَلْنَا بَيْنَهُم مَّوْبِقًۭا",
+    "turkish": "Ve o (kıyamet) günü Allah kâfirlere şöyle buyuracak: \"Ortaklarım ve şefaatçılarınız diye zannettiğiniz putlarınızı çağırın.\" Müşrikler onları çağırırlar, fakat kendilerine cevap vermezler. Biz, kâfirlerle ilâhları arasına ateşten bir engel koymuşuzdur.",
+    "verseNumber": 52,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2193,
+    "arabic": "وَرَءَا ٱلْمُجْرِمُونَ ٱلنَّارَ فَظَنُّوٓا۟ أَنَّهُم مُّوَاقِعُوهَا وَلَمْ يَجِدُوا۟ عَنْهَا مَصْرِفًۭا",
+    "turkish": "Günahkârlar ateşi görmüşler de artık ona düşeceklerini anlamışlardır. Fakat ondan kaçıp sığınacak bir yer bulamazlar.",
+    "verseNumber": 53,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2194,
+    "arabic": "وَلَقَدْ صَرَّفْنَا فِى هَٰذَا ٱلْقُرْءَانِ لِلنَّاسِ مِن كُلِّ مَثَلٍۢ ۚ وَكَانَ ٱلْإِنسَٰنُ أَكْثَرَ شَىْءٍۢ جَدَلًۭا",
+    "turkish": "Şüphesiz biz, bu Kur'ân'da insanlara çeşitli mânâları türlü misallerle açık olarak verdik. İnsan ise, her şeyden çok mücadelecidir.",
+    "verseNumber": 54,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2195,
+    "arabic": "وَمَا مَنَعَ ٱلنَّاسَ أَن يُؤْمِنُوٓا۟ إِذْ جَآءَهُمُ ٱلْهُدَىٰ وَيَسْتَغْفِرُوا۟ رَبَّهُمْ إِلَّآ أَن تَأْتِيَهُمْ سُنَّةُ ٱلْأَوَّلِينَ أَوْ يَأْتِيَهُمُ ٱلْعَذَابُ قُبُلًۭا",
+    "turkish": "Kendilerine doğru yolu gösteren peygamber geldiğinde insanları, iman etmekten ve Rabblerinden günahlarının mağfiretini istemekten alıkoyan şey sadece geçmiş milletlerin başlarına gelen felaketlerin kendilerine de gelmesini veya ahiret azabının ansızın göz göre göre gelip çatmasını beklemek olmuştur.",
+    "verseNumber": 55,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2196,
+    "arabic": "وَمَا نُرْسِلُ ٱلْمُرْسَلِينَ إِلَّا مُبَشِّرِينَ وَمُنذِرِينَ ۚ وَيُجَٰدِلُ ٱلَّذِينَ كَفَرُوا۟ بِٱلْبَٰطِلِ لِيُدْحِضُوا۟ بِهِ ٱلْحَقَّ ۖ وَٱتَّخَذُوٓا۟ ءَايَٰتِى وَمَآ أُنذِرُوا۟ هُزُوًۭا",
+    "turkish": "Halbuki biz peygamberleri ancak müjdeciler ve uyarıcılar olarak göndeririz. Kâfir olanlar ise hakkı, batılla ortadan kaldırmak için mücadele ediyorlar. Onlar, âyetlerimizi ve korkutuldukları azabı da alaya almışlardır.",
+    "verseNumber": 56,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2197,
+    "arabic": "وَمَنْ أَظْلَمُ مِمَّن ذُكِّرَ بِـَٔايَٰتِ رَبِّهِۦ فَأَعْرَضَ عَنْهَا وَنَسِىَ مَا قَدَّمَتْ يَدَاهُ ۚ إِنَّا جَعَلْنَا عَلَىٰ قُلُوبِهِمْ أَكِنَّةً أَن يَفْقَهُوهُ وَفِىٓ ءَاذَانِهِمْ وَقْرًۭا ۖ وَإِن تَدْعُهُمْ إِلَى ٱلْهُدَىٰ فَلَن يَهْتَدُوٓا۟ إِذًا أَبَدًۭا",
+    "turkish": "Rabbinin âyetleriyle nasihat edilip de onlardan yüz çeviren ve daha önce işlediği günahları unutandan daha zalim kim olabilir? Biz onların kalbleri üzerine (Kur'ân'ı) anlamalarına engel olan bir ağırlık, kulaklarına da sağırlık verdik. Ey Muhammed! Sen onları doğru yola çağırsan da onlar asla hidayete ermezler.",
+    "verseNumber": 57,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2198,
+    "arabic": "وَرَبُّكَ ٱلْغَفُورُ ذُو ٱلرَّحْمَةِ ۖ لَوْ يُؤَاخِذُهُم بِمَا كَسَبُوا۟ لَعَجَّلَ لَهُمُ ٱلْعَذَابَ ۚ بَل لَّهُم مَّوْعِدٌۭ لَّن يَجِدُوا۟ مِن دُونِهِۦ مَوْئِلًۭا",
+    "turkish": "Bununla beraber rahmet sahibi olan Rabbin çok bağışlayıcıdır, tevbe eden kullarına rahmeti boldur. Eğer Allah, işledikleri günahlar yüzünden onları hemen cezalandıracak olsaydı, onlara hemen azab ederdi. Fakat onlara vaad edilen bir zaman vardır ki, o geldiğinde Allah'ın azabından bir kurtuluş yeri bulamazlar.",
+    "verseNumber": 58,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2199,
+    "arabic": "وَتِلْكَ ٱلْقُرَىٰٓ أَهْلَكْنَٰهُمْ لَمَّا ظَلَمُوا۟ وَجَعَلْنَا لِمَهْلِكِهِم مَّوْعِدًۭا",
+    "turkish": "İşte zulmettikleri için helak ettiğimiz şehirler! Biz onların helâkleri için de belirli bir zaman tayin etmiştik.",
+    "verseNumber": 59,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2200,
+    "arabic": "وَإِذْ قَالَ مُوسَىٰ لِفَتَىٰهُ لَآ أَبْرَحُ حَتَّىٰٓ أَبْلُغَ مَجْمَعَ ٱلْبَحْرَيْنِ أَوْ أَمْضِىَ حُقُبًۭا",
+    "turkish": "Ey Muhammed! Bir vakit Musa genç adamına demişti ki: \"İki denizin birleştiği yere ulaşıncaya kadar gideceğim, yahut senelerce gideceğim.\"",
+    "verseNumber": 60,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2201,
+    "arabic": "فَلَمَّا بَلَغَا مَجْمَعَ بَيْنِهِمَا نَسِيَا حُوتَهُمَا فَٱتَّخَذَ سَبِيلَهُۥ فِى ٱلْبَحْرِ سَرَبًۭا",
+    "turkish": "Bunun üzerine ikisi de iki denizin birleştiği yere vardıklarında balıklarını unuttular. Bu arada balık, denizde yolunu bulup kaybolmuştu.",
+    "verseNumber": 61,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2202,
+    "arabic": "فَلَمَّا جَاوَزَا قَالَ لِفَتَىٰهُ ءَاتِنَا غَدَآءَنَا لَقَدْ لَقِينَا مِن سَفَرِنَا هَٰذَا نَصَبًۭا",
+    "turkish": "İki denizin birleştiği yeri geçtikleri zaman, Musa genç arkadaşına: \"Kuşluk yemeğimizi getir. Gerçekten biz bu yolculuğumuzda epey yorulduk\" dedi.",
+    "verseNumber": 62,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2203,
+    "arabic": "قَالَ أَرَءَيْتَ إِذْ أَوَيْنَآ إِلَى ٱلصَّخْرَةِ فَإِنِّى نَسِيتُ ٱلْحُوتَ وَمَآ أَنسَىٰنِيهُ إِلَّا ٱلشَّيْطَٰنُ أَنْ أَذْكُرَهُۥ ۚ وَٱتَّخَذَ سَبِيلَهُۥ فِى ٱلْبَحْرِ عَجَبًۭا",
+    "turkish": "Adam: \"Gördün mü! dedi. Kayaya sığındığımız vakit doğrusu ben balığı unutmuşum. Onu hatırlamamı, muhakkak şeytan bana unutturdu. O denizde garip bir yol tutup gitmişti.\"",
+    "verseNumber": 63,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2204,
+    "arabic": "قَالَ ذَٰلِكَ مَا كُنَّا نَبْغِ ۚ فَٱرْتَدَّا عَلَىٰٓ ءَاثَارِهِمَا قَصَصًۭا",
+    "turkish": "Musa da demişti ki: \"İşte aradığımız o idi.\" Bunun üzerine izlerine dönüp gerisin geri gittiler.",
+    "verseNumber": 64,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2205,
+    "arabic": "فَوَجَدَا عَبْدًۭا مِّنْ عِبَادِنَآ ءَاتَيْنَٰهُ رَحْمَةًۭ مِّنْ عِندِنَا وَعَلَّمْنَٰهُ مِن لَّدُنَّا عِلْمًۭا",
+    "turkish": "Nihayet kullarımızdan bir kul buldular ki, biz ona katımızdan bir rahmet vermiş ve tarafımızdan bir ilim öğretmiştik.",
+    "verseNumber": 65,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2206,
+    "arabic": "قَالَ لَهُۥ مُوسَىٰ هَلْ أَتَّبِعُكَ عَلَىٰٓ أَن تُعَلِّمَنِ مِمَّا عُلِّمْتَ رُشْدًۭا",
+    "turkish": "Musa ona: \"Allah'ın sana öğrettiği ilim ve hikmetten bana da öğretmen için sana tabi olabilir miyim?\" dedi.",
+    "verseNumber": 66,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2207,
+    "arabic": "قَالَ إِنَّكَ لَن تَسْتَطِيعَ مَعِىَ صَبْرًۭا",
+    "turkish": "(Hızır) dedi ki: \"Doğrusu sen benimle asla sabredemezsin.",
+    "verseNumber": 67,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2208,
+    "arabic": "وَكَيْفَ تَصْبِرُ عَلَىٰ مَا لَمْ تُحِطْ بِهِۦ خُبْرًۭا",
+    "turkish": "\"İçyüzünü kavrayamadığın şeye nasıl sabredeceksin?\"",
+    "verseNumber": 68,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2209,
+    "arabic": "قَالَ سَتَجِدُنِىٓ إِن شَآءَ ٱللَّهُ صَابِرًۭا وَلَآ أَعْصِى لَكَ أَمْرًۭا",
+    "turkish": "Musa: \"İnşaallah beni sabırlı bulacaksın ve senin hiçbir işine karşı gelmeyeceğim\" dedi.",
+    "verseNumber": 69,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2210,
+    "arabic": "قَالَ فَإِنِ ٱتَّبَعْتَنِى فَلَا تَسْـَٔلْنِى عَن شَىْءٍ حَتَّىٰٓ أُحْدِثَ لَكَ مِنْهُ ذِكْرًۭا",
+    "turkish": "(Hızır) dedi ki: \"O halde bana tabi olacaksın; ben sana sırrını anlatmadıkça, hiçbir şey hakkında bana soru sorma!\"",
+    "verseNumber": 70,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2211,
+    "arabic": "فَٱنطَلَقَا حَتَّىٰٓ إِذَا رَكِبَا فِى ٱلسَّفِينَةِ خَرَقَهَا ۖ قَالَ أَخَرَقْتَهَا لِتُغْرِقَ أَهْلَهَا لَقَدْ جِئْتَ شَيْـًٔا إِمْرًۭا",
+    "turkish": "Bunun üzerine ikisi beraber yürüdüler. Nihayet gemiye bindikleri zaman, o kul (Hızır) gemiyi deldi. Musa, ona şöyle dedi: \"Geminin içindekileri boğmak için mi deldin? Doğrusu çok kötü bir iş yaptın.\"",
+    "verseNumber": 71,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2212,
+    "arabic": "قَالَ أَلَمْ أَقُلْ إِنَّكَ لَن تَسْتَطِيعَ مَعِىَ صَبْرًۭا",
+    "turkish": "(Hızır:) \"Sen benimle asla sabredemezsin, demedim mi?\" dedi.",
+    "verseNumber": 72,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2213,
+    "arabic": "قَالَ لَا تُؤَاخِذْنِى بِمَا نَسِيتُ وَلَا تُرْهِقْنِى مِنْ أَمْرِى عُسْرًۭا",
+    "turkish": "Musa dedi ki: \"Unuttuğum şeyden dolayı beni suçlama ve bu işimden dolayı bana bir güçlük çıkarma.\"",
+    "verseNumber": 73,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  },
+  {
+    "id": 2214,
+    "arabic": "فَٱنطَلَقَا حَتَّىٰٓ إِذَا لَقِيَا غُلَٰمًۭا فَقَتَلَهُۥ قَالَ أَقَتَلْتَ نَفْسًۭا زَكِيَّةًۢ بِغَيْرِ نَفْسٍۢ لَّقَدْ جِئْتَ شَيْـًۭٔا نُّكْرًۭا",
+    "turkish": "Yine gittiler. Nihayet bir erkek çocuğa rastladıklarında Hızır hemen onu öldürdü. Musa: \"Kısas olmadan masum bir cana nasıl kıyarsın? Doğrusu sen çok fena bir şey yaptın\" dedi.",
+    "verseNumber": 74,
+    "surahNumber": 18,
+    "surahName": "سُورَةُ الكَهۡفِ",
+    "englishName": "Al-Kahf"
+  }
+]

@@ -1,0 +1,263 @@
+[
+  {
+    "id": 6044,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلشَّمْسِ وَضُحَىٰهَا",
+    "turkish": "Güneş'e ve onun parıltısına,",
+    "verseNumber": 1,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6045,
+    "arabic": "وَٱلْقَمَرِ إِذَا تَلَىٰهَا",
+    "turkish": "Güneş'in ardından gelen Ay'a,",
+    "verseNumber": 2,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6046,
+    "arabic": "وَٱلنَّهَارِ إِذَا جَلَّىٰهَا",
+    "turkish": "Güneş'i açıp ortaya çıkaran gündüze,",
+    "verseNumber": 3,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6047,
+    "arabic": "وَٱلَّيْلِ إِذَا يَغْشَىٰهَا",
+    "turkish": "Onu örten geceye,",
+    "verseNumber": 4,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6048,
+    "arabic": "وَٱلسَّمَآءِ وَمَا بَنَىٰهَا",
+    "turkish": "Göğe ve onu bina edene,",
+    "verseNumber": 5,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6049,
+    "arabic": "وَٱلْأَرْضِ وَمَا طَحَىٰهَا",
+    "turkish": "Yere ve onu döşeyene,",
+    "verseNumber": 6,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6050,
+    "arabic": "وَنَفْسٍۢ وَمَا سَوَّىٰهَا",
+    "turkish": "Nefse ve onu biçimlendirene,",
+    "verseNumber": 7,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6051,
+    "arabic": "فَأَلْهَمَهَا فُجُورَهَا وَتَقْوَىٰهَا",
+    "turkish": "Sonra da ona kötülük ve takva kabiliyetini verene yemin olsun ki,",
+    "verseNumber": 8,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6052,
+    "arabic": "قَدْ أَفْلَحَ مَن زَكَّىٰهَا",
+    "turkish": "Elbette nefsini temizleyip parlatan kurtulmuştur.",
+    "verseNumber": 9,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6053,
+    "arabic": "وَقَدْ خَابَ مَن دَسَّىٰهَا",
+    "turkish": "Onu kirletip gömen de ziyan etmiştir.",
+    "verseNumber": 10,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6054,
+    "arabic": "كَذَّبَتْ ثَمُودُ بِطَغْوَىٰهَآ",
+    "turkish": "Semud, azgınlığıyla Hakk'ı yalanladı,",
+    "verseNumber": 11,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6055,
+    "arabic": "إِذِ ٱنۢبَعَثَ أَشْقَىٰهَا",
+    "turkish": "En azgınları ileri atılınca,",
+    "verseNumber": 12,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6056,
+    "arabic": "فَقَالَ لَهُمْ رَسُولُ ٱللَّهِ نَاقَةَ ٱللَّهِ وَسُقْيَٰهَا",
+    "turkish": "Allah'ın Rasulü (Salih peygamber) onlara: \"Allah'ın devesini ve onun su nöbetini gözetin.\" demişti.",
+    "verseNumber": 13,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6057,
+    "arabic": "فَكَذَّبُوهُ فَعَقَرُوهَا فَدَمْدَمَ عَلَيْهِمْ رَبُّهُم بِذَنۢبِهِمْ فَسَوَّىٰهَا",
+    "turkish": "Fakat onlar peygamberi yalanlayıp deveyi kestiler. Rableri de günahlarını başlarına geçiriverdi de orayı dümdüz etti.",
+    "verseNumber": 14,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6058,
+    "arabic": "وَلَا يَخَافُ عُقْبَٰهَا",
+    "turkish": "Öyle ya, Allah bu işin sonundan korkacak değil ya.",
+    "verseNumber": 15,
+    "surahNumber": 91,
+    "surahName": "سُورَةُ الشَّمۡسِ",
+    "englishName": "Ash-Shams"
+  },
+  {
+    "id": 6059,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلَّيْلِ إِذَا يَغْشَىٰ",
+    "turkish": "Örttüğü zaman geceye,",
+    "verseNumber": 1,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6060,
+    "arabic": "وَٱلنَّهَارِ إِذَا تَجَلَّىٰ",
+    "turkish": "Açıldığı zaman gündüze,",
+    "verseNumber": 2,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6061,
+    "arabic": "وَمَا خَلَقَ ٱلذَّكَرَ وَٱلْأُنثَىٰٓ",
+    "turkish": "Erkeği ve dişiyi yaratana and olsun ki,",
+    "verseNumber": 3,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6062,
+    "arabic": "إِنَّ سَعْيَكُمْ لَشَتَّىٰ",
+    "turkish": "Gerçekten sizin işiniz başka başkadır.",
+    "verseNumber": 4,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6063,
+    "arabic": "فَأَمَّا مَنْ أَعْطَىٰ وَٱتَّقَىٰ",
+    "turkish": "Bundan böyle her kim malını hayır için verir ve korunursa,",
+    "verseNumber": 5,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6064,
+    "arabic": "وَصَدَّقَ بِٱلْحُسْنَىٰ",
+    "turkish": "Ve en güzel olanı doğrularsa,",
+    "verseNumber": 6,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6065,
+    "arabic": "فَسَنُيَسِّرُهُۥ لِلْيُسْرَىٰ",
+    "turkish": "Biz onu en kolay yola muvaffak kılacağız.",
+    "verseNumber": 7,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6066,
+    "arabic": "وَأَمَّا مَنۢ بَخِلَ وَٱسْتَغْنَىٰ",
+    "turkish": "Kim de cimrilik eder ve kendini hiçbir şeye ihtiyacı kalmamış görür.",
+    "verseNumber": 8,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6067,
+    "arabic": "وَكَذَّبَ بِٱلْحُسْنَىٰ",
+    "turkish": "Ve en güzeli de yalanlarsa,",
+    "verseNumber": 9,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6068,
+    "arabic": "فَسَنُيَسِّرُهُۥ لِلْعُسْرَىٰ",
+    "turkish": "Onu da en zor yola hazırlarız.",
+    "verseNumber": 10,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6069,
+    "arabic": "وَمَا يُغْنِى عَنْهُ مَالُهُۥٓ إِذَا تَرَدَّىٰٓ",
+    "turkish": "Çukura yuvarlandığı zaman malı onu kurtaramayacak.",
+    "verseNumber": 11,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6070,
+    "arabic": "إِنَّ عَلَيْنَا لَلْهُدَىٰ",
+    "turkish": "Doğru yolu göstermek muhakkak bize aittir.",
+    "verseNumber": 12,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6071,
+    "arabic": "وَإِنَّ لَنَا لَلْءَاخِرَةَ وَٱلْأُولَىٰ",
+    "turkish": "Kuşkusuz ahiret de dünya da bizimdir.",
+    "verseNumber": 13,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  },
+  {
+    "id": 6072,
+    "arabic": "فَأَنذَرْتُكُمْ نَارًۭا تَلَظَّىٰ",
+    "turkish": "Ben sizi köpürdükçe köpüren bir ateşe karşı uyardım.",
+    "verseNumber": 14,
+    "surahNumber": 92,
+    "surahName": "سُورَةُ اللَّيۡلِ",
+    "englishName": "Al-Lail"
+  }
+]

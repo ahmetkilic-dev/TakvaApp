@@ -1,0 +1,101 @@
+[
+  {
+    "id": 955,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ الٓمٓصٓ",
+    "turkish": "Elif, lâm, mîm, sâd.",
+    "verseNumber": 1,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 956,
+    "arabic": "كِتَٰبٌ أُنزِلَ إِلَيْكَ فَلَا يَكُن فِى صَدْرِكَ حَرَجٌۭ مِّنْهُ لِتُنذِرَ بِهِۦ وَذِكْرَىٰ لِلْمُؤْمِنِينَ",
+    "turkish": "(Bu,) sana indirilen bir Kitab'tır. Onunla (insanları) uyarman ve inananlara öğüt (vermen) hususunda göğsünde bir sıkıntı olmasın.",
+    "verseNumber": 2,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 957,
+    "arabic": "ٱتَّبِعُوا۟ مَآ أُنزِلَ إِلَيْكُم مِّن رَّبِّكُمْ وَلَا تَتَّبِعُوا۟ مِن دُونِهِۦٓ أَوْلِيَآءَ ۗ قَلِيلًۭا مَّا تَذَكَّرُونَ",
+    "turkish": "(Ey insanlar) Rabbinizden, size indirilene uyun ve O'ndan başka dostlara uymayın. Ne kadar da az öğüt alıyorsunuz!",
+    "verseNumber": 3,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 958,
+    "arabic": "وَكَم مِّن قَرْيَةٍ أَهْلَكْنَٰهَا فَجَآءَهَا بَأْسُنَا بَيَٰتًا أَوْ هُمْ قَآئِلُونَ",
+    "turkish": "Nice kentler helak ettik. Gece yatarlarken, yahut gündüz uyurlarken, azabımız onlara geliverdi.",
+    "verseNumber": 4,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 959,
+    "arabic": "فَمَا كَانَ دَعْوَىٰهُمْ إِذْ جَآءَهُم بَأْسُنَآ إِلَّآ أَن قَالُوٓا۟ إِنَّا كُنَّا ظَٰلِمِينَ",
+    "turkish": "Azabımız onlara geldiğinde \"Biz gerçekten zalimlermişiz!\" demelerinden başka yalvarışları kalmadı.",
+    "verseNumber": 5,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 960,
+    "arabic": "فَلَنَسْـَٔلَنَّ ٱلَّذِينَ أُرْسِلَ إِلَيْهِمْ وَلَنَسْـَٔلَنَّ ٱلْمُرْسَلِينَ",
+    "turkish": "Kendilerine elçi gönderilmiş olanlara da soracağız, gönderilen elçilere de soracağız.",
+    "verseNumber": 6,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 961,
+    "arabic": "فَلَنَقُصَّنَّ عَلَيْهِم بِعِلْمٍۢ ۖ وَمَا كُنَّا غَآئِبِينَ",
+    "turkish": "Ve elbette onlara, olanbiten herşeyi bir bilgi ile anlatacağız; çünkü biz onlardan uzak değiliz.",
+    "verseNumber": 7,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 962,
+    "arabic": "وَٱلْوَزْنُ يَوْمَئِذٍ ٱلْحَقُّ ۚ فَمَن ثَقُلَتْ مَوَٰزِينُهُۥ فَأُو۟لَٰٓئِكَ هُمُ ٱلْمُفْلِحُونَ",
+    "turkish": "O gün (amelleri tartacak) terazi haktır. Kimin (sevap) tartıları ağır gelirse, işte onlar kurtulanlardır.",
+    "verseNumber": 8,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 963,
+    "arabic": "وَمَنْ خَفَّتْ مَوَٰزِينُهُۥ فَأُو۟لَٰٓئِكَ ٱلَّذِينَ خَسِرُوٓا۟ أَنفُسَهُم بِمَا كَانُوا۟ بِـَٔايَٰتِنَا يَظْلِمُونَ",
+    "turkish": "Kimin (sevap) tartıları hafif gelirse, işte onlar da âyetlerimize haksızlık etmelerinden ötürü kendilerini ziyana sokanlardır.",
+    "verseNumber": 9,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 964,
+    "arabic": "وَلَقَدْ مَكَّنَّٰكُمْ فِى ٱلْأَرْضِ وَجَعَلْنَا لَكُمْ فِيهَا مَعَٰيِشَ ۗ قَلِيلًۭا مَّا تَشْكُرُونَ",
+    "turkish": "Doğrusu Biz sizi yeryüzünde, yerleştirdik, orada size geçimlikler verdik; ne kadar da az şükrediyorsunuz!",
+    "verseNumber": 10,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 965,
+    "arabic": "وَلَقَدْ خَلَقْنَٰكُمْ ثُمَّ صَوَّرْنَٰكُمْ ثُمَّ قُلْنَا لِلْمَلَٰٓئِكَةِ ٱسْجُدُوا۟ لِءَادَمَ فَسَجَدُوٓا۟ إِلَّآ إِبْلِيسَ لَمْ يَكُن مِّنَ ٱلسَّٰجِدِينَ",
+    "turkish": "Sizi yarattık, sonra size biçim verdik, sonra da meleklere: \"Âdem'e secde edin\" dedik; hepsi secde ettiler, yalnız İblis, secde edenlerden olmadı.",
+    "verseNumber": 11,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  }
+]

@@ -3,9 +3,14 @@ import { Slot, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebaseConfig'; 
+import { auth } from '../firebaseConfig';
 import { View, ActivityIndicator } from 'react-native';
 import { useFonts, Cinzel_900Black } from '@expo-google-fonts/cinzel';
+import {
+  PlusJakartaSans_300Light,
+  PlusJakartaSans_400Regular,
+  PlusJakartaSans_700Bold
+} from '@expo-google-fonts/plus-jakarta-sans';
 import * as SplashScreen from 'expo-splash-screen';
 import { LocationProvider } from '../contexts/LocationContext';
 import { DayChangeProvider } from '../contexts/DayChangeContext';
@@ -21,26 +26,26 @@ const InitialLoader = () => (
 );
 
 function AuthGuard() {
-  const [user, setUser] = useState(undefined); 
+  const [user, setUser] = useState(undefined);
   const [initialRoute, setInitialRoute] = useState(false);
   const segments = useSegments();
   const router = useRouter();
-  
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser); 
+      setUser(firebaseUser);
     });
     return unsubscribe;
   }, []);
 
   useEffect(() => {
-    if (user === undefined) return; 
-    
+    if (user === undefined) return;
+
     const inAuthFlow = segments[0] === '(auth)' || segments[0] === '' || segments[0] === undefined || segments.length === 0;
     const inApp = segments[0] === '(app)';
 
     if (user && !inApp) {
-      router.replace('/(app)/(tabs)/home'); 
+      router.replace('/(app)/(tabs)/home');
       setInitialRoute(true);
     } else if (!user && inApp) {
       router.replace('/(auth)/login');
@@ -61,6 +66,9 @@ export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     'Cinzel-Black': Cinzel_900Black,
     'Cinzel-Bold': require('../assets/font/Cinzel-Bold.ttf'),
+    'PlusJakartaSans-Light': PlusJakartaSans_300Light,
+    'PlusJakartaSans-Regular': PlusJakartaSans_400Regular,
+    'PlusJakartaSans-Bold': PlusJakartaSans_700Bold,
   });
 
   useEffect(() => {
@@ -78,7 +86,7 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <LocationProvider>
         <DayChangeProvider>
-          <AuthGuard /> 
+          <AuthGuard />
           <StatusBar style="light" />
         </DayChangeProvider>
       </LocationProvider>

@@ -1,0 +1,137 @@
+[
+  {
+    "id": 2763,
+    "arabic": "بَلْ أَتَيْنَٰهُم بِٱلْحَقِّ وَإِنَّهُمْ لَكَٰذِبُونَ",
+    "turkish": "Doğrusu biz onlara hakkı getirdik; onlar ise cidden yalancıdırlar.",
+    "verseNumber": 90,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2764,
+    "arabic": "مَا ٱتَّخَذَ ٱللَّهُ مِن وَلَدٍۢ وَمَا كَانَ مَعَهُۥ مِنْ إِلَٰهٍ ۚ إِذًۭا لَّذَهَبَ كُلُّ إِلَٰهٍۭ بِمَا خَلَقَ وَلَعَلَا بَعْضُهُمْ عَلَىٰ بَعْضٍۢ ۚ سُبْحَٰنَ ٱللَّهِ عَمَّا يَصِفُونَ",
+    "turkish": "Allah evlat edinmemiştir; O'nunla beraber hiçbir ilâh da yoktur. Aksi takdirde her ilâh kendi yarattığını sevk ve idare eder ve bir gün mutlaka onlardan biri diğerine galip gelirdi. Allah, onların yakıştırdıkları şeylerden münezzehtir.",
+    "verseNumber": 91,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2765,
+    "arabic": "عَٰلِمِ ٱلْغَيْبِ وَٱلشَّهَٰدَةِ فَتَعَٰلَىٰ عَمَّا يُشْرِكُونَ",
+    "turkish": "Allah, gaybı da, açık olanı da bilir. O, müşriklerin ortak koştukları şeylerden çok yüce ve münezzehtir.",
+    "verseNumber": 92,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2766,
+    "arabic": "قُل رَّبِّ إِمَّا تُرِيَنِّى مَا يُوعَدُونَ",
+    "turkish": "(Resulüm!) De ki: Rabbim! Eğer onlara yöneltilen tehdidi (dünyevî sıkıntıyı ve uhrevî azabı) mutlaka göstereceksen,",
+    "verseNumber": 93,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2767,
+    "arabic": "رَبِّ فَلَا تَجْعَلْنِى فِى ٱلْقَوْمِ ٱلظَّٰلِمِينَ",
+    "turkish": "Bu durumda beni, o zalimler topluluğunda bulundurma, Rabbim!",
+    "verseNumber": 94,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2768,
+    "arabic": "وَإِنَّا عَلَىٰٓ أَن نُّرِيَكَ مَا نَعِدُهُمْ لَقَٰدِرُونَ",
+    "turkish": "Biz, onlara yönelttiğimiz tehdidi sana göstermeye elbette ki kadiriz.",
+    "verseNumber": 95,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2769,
+    "arabic": "ٱدْفَعْ بِٱلَّتِى هِىَ أَحْسَنُ ٱلسَّيِّئَةَ ۚ نَحْنُ أَعْلَمُ بِمَا يَصِفُونَ",
+    "turkish": "Sen, kötülüğü en güzel bir tutumla sav, çünkü biz onların yakıştırmakta oldukları şeyi çok iyi bilmekteyiz.",
+    "verseNumber": 96,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2770,
+    "arabic": "وَقُل رَّبِّ أَعُوذُ بِكَ مِنْ هَمَزَٰتِ ٱلشَّيَٰطِينِ",
+    "turkish": "Ve de ki: Rabbim! Şeytanların kışkırtmalarından sana sığınırım!",
+    "verseNumber": 97,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2771,
+    "arabic": "وَأَعُوذُ بِكَ رَبِّ أَن يَحْضُرُونِ",
+    "turkish": "Onların yanımda bulunmalarından da sana sığınırım.",
+    "verseNumber": 98,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2772,
+    "arabic": "حَتَّىٰٓ إِذَا جَآءَ أَحَدَهُمُ ٱلْمَوْتُ قَالَ رَبِّ ٱرْجِعُونِ",
+    "turkish": "Nihayet onlardan (müşriklerden) birine ölüm gelip çattığında, \"Rabbim, der, lütfen beni (dünyaya) geri gönder,\"",
+    "verseNumber": 99,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2773,
+    "arabic": "لَعَلِّىٓ أَعْمَلُ صَٰلِحًۭا فِيمَا تَرَكْتُ ۚ كَلَّآ ۚ إِنَّهَا كَلِمَةٌ هُوَ قَآئِلُهَا ۖ وَمِن وَرَآئِهِم بَرْزَخٌ إِلَىٰ يَوْمِ يُبْعَثُونَ",
+    "turkish": "\"Ta ki, boşa geçirdiğim dünyada iyi iş (ve hareketler) yapayım.\" Hayır! Onun söylediği bu söz (boş) laftan ibarettir. Onların gerisinde ise, yeniden dirilecekleri güne kadar (süren) bir berzah vardır.",
+    "verseNumber": 100,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2774,
+    "arabic": "فَإِذَا نُفِخَ فِى ٱلصُّورِ فَلَآ أَنسَابَ بَيْنَهُمْ يَوْمَئِذٍۢ وَلَا يَتَسَآءَلُونَ",
+    "turkish": "Sûr'a üflendiği zaman aralarında artık ne soysop (çekişmesi) vardır, ne de birbirlerini soruşturacaklardır.",
+    "verseNumber": 101,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2775,
+    "arabic": "فَمَن ثَقُلَتْ مَوَٰزِينُهُۥ فَأُو۟لَٰٓئِكَ هُمُ ٱلْمُفْلِحُونَ",
+    "turkish": "Böylece kimlerin tartıları ağır basarsa, işte asıl bunlar kurtuluşa erenlerdir.",
+    "verseNumber": 102,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2776,
+    "arabic": "وَمَنْ خَفَّتْ مَوَٰزِينُهُۥ فَأُو۟لَٰٓئِكَ ٱلَّذِينَ خَسِرُوٓا۟ أَنفُسَهُمْ فِى جَهَنَّمَ خَٰلِدُونَ",
+    "turkish": "Kimlerin de tartıları hafif gelirse, artık bunlar da kendilerine yazık etmişlerdir; (çünkü onlar) ebedî cehennemdedirler.",
+    "verseNumber": 103,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  },
+  {
+    "id": 2777,
+    "arabic": "تَلْفَحُ وُجُوهَهُمُ ٱلنَّارُ وَهُمْ فِيهَا كَٰلِحُونَ",
+    "turkish": "Orada dişleri sırıtır halde iken ateş yüzlerini yalar.",
+    "verseNumber": 104,
+    "surahNumber": 23,
+    "surahName": "سُورَةُ المُؤۡمِنُونَ",
+    "englishName": "Al-Muminoon"
+  }
+]

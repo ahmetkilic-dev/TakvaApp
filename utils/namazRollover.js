@@ -1,4 +1,4 @@
-import { doc, runTransaction, serverTimestamp } from 'firebase/firestore';
+import { supabase } from '../lib/supabase';
 
 const PRAYER_KEYS = ['sabah', 'ogle', 'ikindi', 'aksam', 'yatsi'];
 
@@ -32,36 +32,28 @@ const dayDiff = (fromKey, toKey) => {
  *   - Aradaki günleri (app'e girilmediyse) tüm vakitler kaçırılmış kabul edip ekler
  *   - Bugün için namazDurumu.completed sıfırlanır
  */
-export async function rolloverNamazIfNeeded({ db, uid, todayKey }) {
-  if (!db || !uid || !todayKey) return;
+export async function rolloverNamazIfNeeded({ uid, todayKey }) {
+  if (!uid || !todayKey) return;
 
-  const userRef = doc(db, 'users', uid);
+  try {
+    // 1. Get latest namaz_durumu record
+    const { data: latestRecord, error: lError } = await supabase
+      .from('namaz_durumu')
+      .select('*')
+      .eq('user_id', uid)
+      .order('date_key', { ascending: false })
+      .limit(1)
+      .single();
 
-  await runTransaction(db, async (tx) => {
-    const snap = await tx.get(userRef);
-    const data = snap.exists() ? snap.data() : {};
-
-    const prev = data?.namazDurumu || {};
-    const prevDayKey = prev?.dateKey || todayKey;
-    const prevCompleted = { ...emptyCompleted(), ...(prev?.completed || {}) };
+    const prevDayKey = latestRecord?.date_key || todayKey;
+    const prevCompleted = latestRecord?.completed || emptyCompleted();
 
     const diffDays = dayDiff(prevDayKey, todayKey);
     if (diffDays <= 0) {
-      // aynı gün: normalize
-      tx.set(
-        userRef,
-        {
-          namazDurumu: {
-            dateKey: todayKey,
-            completed: prevCompleted,
-            updatedAt: serverTimestamp(),
-          },
-        },
-        { merge: true }
-      );
       return;
     }
 
+    // 2. Calculate missed prayers
     const inc = { sabah: 0, ogle: 0, ikindi: 0, aksam: 0, yatsi: 0 };
     for (const key of PRAYER_KEYS) {
       inc[key] += prevCompleted[key] ? 0 : 1;
@@ -74,7 +66,14 @@ export async function rolloverNamazIfNeeded({ db, uid, todayKey }) {
       }
     }
 
-    const currentKaza = data?.kazaNamazlari || {};
+    // 3. Get current kaza counters
+    const { data: kazaData, error: kError } = await supabase
+      .from('kaza_counters')
+      .select('*')
+      .eq('user_id', uid)
+      .single();
+
+    const currentKaza = kazaData?.namaz_counts || { sabah: 0, ogle: 0, ikindi: 0, aksam: 0, yatsi: 0, vitir: 0 };
     const nextKaza = {
       ...currentKaza,
       sabah: Math.max(0, Number(currentKaza.sabah || 0) + inc.sabah),
@@ -84,21 +83,23 @@ export async function rolloverNamazIfNeeded({ db, uid, todayKey }) {
       yatsi: Math.max(0, Number(currentKaza.yatsi || 0) + inc.yatsi),
     };
 
-    tx.set(
-      userRef,
-      {
-        kazaNamazlari: nextKaza,
-        namazDurumu: {
-          dateKey: todayKey,
-          completed: emptyCompleted(),
-          rolledFrom: prevDayKey,
-          rolledDays: diffDays,
-          updatedAt: serverTimestamp(),
-        },
-      },
-      { merge: true }
-    );
-  });
+    // 4. Update kaza_counters and insert today's namaz_durumu
+    await supabase.from('kaza_counters').upsert({
+      user_id: uid,
+      namaz_counts: nextKaza,
+      updated_at: new Date().toISOString()
+    });
+
+    await supabase.from('namaz_durumu').upsert({
+      user_id: uid,
+      date_key: todayKey,
+      completed: emptyCompleted(),
+      updated_at: new Date().toISOString()
+    });
+
+  } catch (error) {
+    console.error('Error during namaz rollover:', error);
+  }
 }
 
 

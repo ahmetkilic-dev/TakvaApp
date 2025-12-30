@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, runTransaction, serverTimestamp, setDoc } from 'firebase/firestore';
-import { auth, db } from '../../../firebaseConfig';
+import { auth } from '../../../firebaseConfig';
+import { supabase } from '../../../lib/supabase';
 import { getTodayKeyLocal } from '../../../utils/dateKey';
 import { rolloverNamazIfNeeded } from '../../../utils/namazRollover';
 
@@ -28,16 +28,20 @@ export function useKazaCounters() {
   }, []);
 
   const ensureUserDoc = useCallback(async (uid) => {
-    const userRef = doc(db, 'users', uid);
-    await setDoc(
-      userRef,
-      {
-        kazaNamazlari: DEFAULT_KAZA_NAMAZ,
-        kazaOruclari: DEFAULT_KAZA_ORUC,
-        kazaUpdatedAt: serverTimestamp(),
-      },
-      { merge: true }
-    );
+    const { data: profile } = await supabase.from('profiles').select('id').eq('id', uid).single();
+    if (!profile) {
+      await supabase.from('profiles').insert({ id: uid });
+    }
+
+    const { data: kaza } = await supabase.from('kaza_counters').select('user_id').eq('user_id', uid).single();
+    if (!kaza) {
+      await supabase.from('kaza_counters').insert({
+        user_id: uid,
+        namaz_counts: DEFAULT_KAZA_NAMAZ,
+        oruc_counts: DEFAULT_KAZA_ORUC,
+        updated_at: new Date().toISOString()
+      });
+    }
   }, []);
 
   const refresh = useCallback(async () => {
@@ -52,12 +56,20 @@ export function useKazaCounters() {
     try {
       await ensureUserDoc(user.uid);
       // Gün atladıysa kaza sayaçlarını otomatik artır (hesap bazlı)
-      await rolloverNamazIfNeeded({ db, uid: user.uid, todayKey: getTodayKeyLocal() });
-      const userRef = doc(db, 'users', user.uid);
-      const snap = await getDoc(userRef);
-      const data = snap.exists() ? snap.data() : {};
-      setKazaNamazlari({ ...DEFAULT_KAZA_NAMAZ, ...(data?.kazaNamazlari || {}) });
-      setKazaOruclari({ ...DEFAULT_KAZA_ORUC, ...(data?.kazaOruclari || {}) });
+      await rolloverNamazIfNeeded({ uid: user.uid, todayKey: getTodayKeyLocal() });
+
+      const { data: kazaData } = await supabase
+        .from('kaza_counters')
+        .select('*')
+        .eq('user_id', user.uid)
+        .single();
+
+      if (kazaData) {
+        setKazaNamazlari({ ...DEFAULT_KAZA_NAMAZ, ...(kazaData.namaz_counts || {}) });
+        setKazaOruclari({ ...DEFAULT_KAZA_ORUC, ...(kazaData.oruc_counts || {}) });
+      }
+    } catch (error) {
+      console.error('Error refreshing kaza counters from Supabase:', error);
     } finally {
       setLoading(false);
     }
@@ -70,52 +82,50 @@ export function useKazaCounters() {
   const updateNamaz = useCallback(
     async (type, delta) => {
       if (!user?.uid) return;
-      const userRef = doc(db, 'users', user.uid);
 
-      await runTransaction(db, async (tx) => {
-        const snap = await tx.get(userRef);
-        const data = snap.exists() ? snap.data() : {};
-        const current = Number(data?.kazaNamazlari?.[type] || 0);
-        const next = Math.max(0, current + delta);
-        tx.set(
-          userRef,
-          {
-            kazaNamazlari: { [type]: next },
-            kazaUpdatedAt: serverTimestamp(),
-          },
-          { merge: true }
-        );
-      });
+      const nextNamaz = {
+        ...kazaNamazlari,
+        [type]: Math.max(0, Number(kazaNamazlari[type] || 0) + delta)
+      };
 
-      // UI sync
-      setKazaNamazlari((prev) => ({ ...prev, [type]: Math.max(0, Number(prev[type] || 0) + delta) }));
+      // UI sync first for responsiveness
+      setKazaNamazlari(nextNamaz);
+
+      try {
+        await supabase.from('kaza_counters').upsert({
+          user_id: user.uid,
+          namaz_counts: nextNamaz,
+          updated_at: new Date().toISOString()
+        });
+      } catch (error) {
+        console.error('Error updating kaza namaz in Supabase:', error);
+      }
     },
-    [user?.uid]
+    [user?.uid, kazaNamazlari]
   );
 
   const updateOruc = useCallback(
     async (type, delta) => {
       if (!user?.uid) return;
-      const userRef = doc(db, 'users', user.uid);
 
-      await runTransaction(db, async (tx) => {
-        const snap = await tx.get(userRef);
-        const data = snap.exists() ? snap.data() : {};
-        const current = Number(data?.kazaOruclari?.[type] || 0);
-        const next = Math.max(0, current + delta);
-        tx.set(
-          userRef,
-          {
-            kazaOruclari: { [type]: next },
-            kazaUpdatedAt: serverTimestamp(),
-          },
-          { merge: true }
-        );
-      });
+      const nextOruc = {
+        ...kazaOruclari,
+        [type]: Math.max(0, Number(kazaOruclari[type] || 0) + delta)
+      };
 
-      setKazaOruclari((prev) => ({ ...prev, [type]: Math.max(0, Number(prev[type] || 0) + delta) }));
+      setKazaOruclari(nextOruc);
+
+      try {
+        await supabase.from('kaza_counters').upsert({
+          user_id: user.uid,
+          oruc_counts: nextOruc,
+          updated_at: new Date().toISOString()
+        });
+      } catch (error) {
+        console.error('Error updating kaza oruc in Supabase:', error);
+      }
     },
-    [user?.uid]
+    [user?.uid, kazaOruclari]
   );
 
   const canEdit = useMemo(() => !!user?.uid, [user?.uid]);

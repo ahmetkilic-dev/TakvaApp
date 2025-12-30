@@ -1,0 +1,236 @@
+[
+  {
+    "id": 3865,
+    "arabic": "وَجَعَلْنَا ذُرِّيَّتَهُۥ هُمُ ٱلْبَاقِينَ",
+    "turkish": "Hem onun neslini bâki kalanlar kıldık.",
+    "verseNumber": 77,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3866,
+    "arabic": "وَتَرَكْنَا عَلَيْهِ فِى ٱلْءَاخِرِينَ",
+    "turkish": "Hem de sonradan gelenler içinde güzel bir namını bıraktık.",
+    "verseNumber": 78,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3867,
+    "arabic": "سَلَٰمٌ عَلَىٰ نُوحٍۢ فِى ٱلْعَٰلَمِينَ",
+    "turkish": "Bütün âlemler içinde Nuh'a selam olsun.",
+    "verseNumber": 79,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3868,
+    "arabic": "إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
+    "turkish": "İşte biz iyilik yapanları böyle mükafatlandırırız.",
+    "verseNumber": 80,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3869,
+    "arabic": "إِنَّهُۥ مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
+    "turkish": "Çünkü o bizim mümin kullarımızdandı.",
+    "verseNumber": 81,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3870,
+    "arabic": "ثُمَّ أَغْرَقْنَا ٱلْءَاخَرِينَ",
+    "turkish": "Sonra diğerlerini suda boğduk.",
+    "verseNumber": 82,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3871,
+    "arabic": "۞ وَإِنَّ مِن شِيعَتِهِۦ لَإِبْرَٰهِيمَ",
+    "turkish": "Şüphesiz ki İbrahim de onun kolundandı.",
+    "verseNumber": 83,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3872,
+    "arabic": "إِذْ جَآءَ رَبَّهُۥ بِقَلْبٍۢ سَلِيمٍ",
+    "turkish": "Çünkü o, Rabbine tertemiz bir kalb ile gelmişti.",
+    "verseNumber": 84,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3873,
+    "arabic": "إِذْ قَالَ لِأَبِيهِ وَقَوْمِهِۦ مَاذَا تَعْبُدُونَ",
+    "turkish": "O babasına ve kavmine şöyle demişti: \"Siz nelere tapıyorsunuz?\"",
+    "verseNumber": 85,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3874,
+    "arabic": "أَئِفْكًا ءَالِهَةًۭ دُونَ ٱللَّهِ تُرِيدُونَ",
+    "turkish": "\"Yalancılık etmek için mi Allah'tan başka ilâhlar istiyorsunuz?\"",
+    "verseNumber": 86,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3875,
+    "arabic": "فَمَا ظَنُّكُم بِرَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Siz âlemlerin Rabbini ne zannediyorsunuz?\"",
+    "verseNumber": 87,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3876,
+    "arabic": "فَنَظَرَ نَظْرَةًۭ فِى ٱلنُّجُومِ",
+    "turkish": "Derken yıldızlara bir baktı da: \"Ben gerçekten hastayım\" dedi.",
+    "verseNumber": 88,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3877,
+    "arabic": "فَقَالَ إِنِّى سَقِيمٌۭ",
+    "turkish": "Derken yıldızlara bir baktı da: \"Ben gerçekten hastayım\" dedi.",
+    "verseNumber": 89,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3878,
+    "arabic": "فَتَوَلَّوْا۟ عَنْهُ مُدْبِرِينَ",
+    "turkish": "O zaman arkalarını dönerek başından kaçışıverdiler.",
+    "verseNumber": 90,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3879,
+    "arabic": "فَرَاغَ إِلَىٰٓ ءَالِهَتِهِمْ فَقَالَ أَلَا تَأْكُلُونَ",
+    "turkish": "Derken bir kurnazlıkla onların ilâhlarına vardı da, \"Buyursanıza, yemez misiniz?\" dedi.",
+    "verseNumber": 91,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3880,
+    "arabic": "مَا لَكُمْ لَا تَنطِقُونَ",
+    "turkish": "(Cevap vermediklerini görünce de): \"Neyiniz var da konuşmuyorsunuz?\" (dedi).",
+    "verseNumber": 92,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3881,
+    "arabic": "فَرَاغَ عَلَيْهِمْ ضَرْبًۢا بِٱلْيَمِينِ",
+    "turkish": "Nihayet bir yolunu bulup onlara kuvvetli bir darbe indirdi.",
+    "verseNumber": 93,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3882,
+    "arabic": "فَأَقْبَلُوٓا۟ إِلَيْهِ يَزِفُّونَ",
+    "turkish": "Bunun üzerine birbirlerine girerek ona yürüdüler.",
+    "verseNumber": 94,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3883,
+    "arabic": "قَالَ أَتَعْبُدُونَ مَا تَنْحِتُونَ",
+    "turkish": "İbrahim dedi ki: \"A, siz kendi yonttuğunuz şeylere mi tapıyorsunuz?\"",
+    "verseNumber": 95,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3884,
+    "arabic": "وَٱللَّهُ خَلَقَكُمْ وَمَا تَعْمَلُونَ",
+    "turkish": "\"Halbuki sizi de yaptıklarınızı da Allah yaratmıştır.\"",
+    "verseNumber": 96,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3885,
+    "arabic": "قَالُوا۟ ٱبْنُوا۟ لَهُۥ بُنْيَٰنًۭا فَأَلْقُوهُ فِى ٱلْجَحِيمِ",
+    "turkish": "Onlar: \"Haydin onun için bir yapı yapın da onu ateşe atın.\" dediler.",
+    "verseNumber": 97,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3886,
+    "arabic": "فَأَرَادُوا۟ بِهِۦ كَيْدًۭا فَجَعَلْنَٰهُمُ ٱلْأَسْفَلِينَ",
+    "turkish": "Böylece ona bir tuzak kurmak istediler. Biz de kendilerini daha alçak düşürdük.",
+    "verseNumber": 98,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3887,
+    "arabic": "وَقَالَ إِنِّى ذَاهِبٌ إِلَىٰ رَبِّى سَيَهْدِينِ",
+    "turkish": "Bir de dedi ki: \"Ben Rabbime gidiyorum, o bana yolunu gösterir.\"",
+    "verseNumber": 99,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3888,
+    "arabic": "رَبِّ هَبْ لِى مِنَ ٱلصَّٰلِحِينَ",
+    "turkish": "\"Ey Rabbim! Bana salihlerden (bir oğul) ihsan et!\"",
+    "verseNumber": 100,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3889,
+    "arabic": "فَبَشَّرْنَٰهُ بِغُلَٰمٍ حَلِيمٍۢ",
+    "turkish": "Biz de kendisine yumuşak huylu bir oğul müjdeledik.",
+    "verseNumber": 101,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  },
+  {
+    "id": 3890,
+    "arabic": "فَلَمَّا بَلَغَ مَعَهُ ٱلسَّعْىَ قَالَ يَٰبُنَىَّ إِنِّىٓ أَرَىٰ فِى ٱلْمَنَامِ أَنِّىٓ أَذْبَحُكَ فَٱنظُرْ مَاذَا تَرَىٰ ۚ قَالَ يَٰٓأَبَتِ ٱفْعَلْ مَا تُؤْمَرُ ۖ سَتَجِدُنِىٓ إِن شَآءَ ٱللَّهُ مِنَ ٱلصَّٰبِرِينَ",
+    "turkish": "Oğlu, yanında koşacak çağa gelince: \"Ey oğlum! Ben seni rüyamda boğazladığımı görüyorum. Artık bak, ne düşünürsün?\" dedi. Çocuk da: \"Babacığım sana ne emrediliyorsa yap, inşaallah beni sabredenlerden bulacaksın\" dedi.",
+    "verseNumber": 102,
+    "surahNumber": 37,
+    "surahName": "سُورَةُ الصَّافَّاتِ",
+    "englishName": "As-Saaffaat"
+  }
+]

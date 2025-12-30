@@ -1,0 +1,38 @@
+[
+  {
+    "id": 149,
+    "arabic": "۞ سَيَقُولُ ٱلسُّفَهَآءُ مِنَ ٱلنَّاسِ مَا وَلَّىٰهُمْ عَن قِبْلَتِهِمُ ٱلَّتِى كَانُوا۟ عَلَيْهَا ۚ قُل لِّلَّهِ ٱلْمَشْرِقُ وَٱلْمَغْرِبُ ۚ يَهْدِى مَن يَشَآءُ إِلَىٰ صِرَٰطٍۢ مُّسْتَقِيمٍۢ",
+    "turkish": "İnsanlar içinde bir kısım beyinsizler takımı, \"Bunları bulundukları kıbleden çeviren nedir?\" diyecekler. De ki: \"Doğu da, batı da Allah'ındır. O, kimi dilerse onu hidayete erdirir.\"",
+    "verseNumber": 142,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 150,
+    "arabic": "وَكَذَٰلِكَ جَعَلْنَٰكُمْ أُمَّةًۭ وَسَطًۭا لِّتَكُونُوا۟ شُهَدَآءَ عَلَى ٱلنَّاسِ وَيَكُونَ ٱلرَّسُولُ عَلَيْكُمْ شَهِيدًۭا ۗ وَمَا جَعَلْنَا ٱلْقِبْلَةَ ٱلَّتِى كُنتَ عَلَيْهَآ إِلَّا لِنَعْلَمَ مَن يَتَّبِعُ ٱلرَّسُولَ مِمَّن يَنقَلِبُ عَلَىٰ عَقِبَيْهِ ۚ وَإِن كَانَتْ لَكَبِيرَةً إِلَّا عَلَى ٱلَّذِينَ هَدَى ٱللَّهُ ۗ وَمَا كَانَ ٱللَّهُ لِيُضِيعَ إِيمَٰنَكُمْ ۚ إِنَّ ٱللَّهَ بِٱلنَّاسِ لَرَءُوفٌۭ رَّحِيمٌۭ",
+    "turkish": "Ve işte böyle, sizi ortada yürüyen bir ümmet kıldık ki, siz bütün insanlar üzerine adalet örneği ve hakkın şahitleri olasınız, Peygamber de sizin üzerinize şahit olsun. Daha önce içinde durduğun Kâ'be'yi kıble yapmamız da şunun içindir: Peygamber'in izince gidecekleri, iki ökçesi üzerinde geri döneceklerden ayıralım. Bu iş elbette Allah'ın hidayet ettiği kimselerin dışındakilere çok ağır gelecekti. Allah imanınızı kaybedecek değildir. Hiç şüphesiz Allah, bütün insanlara çok şefkatlidir, çok merhametlidir.",
+    "verseNumber": 143,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 151,
+    "arabic": "قَدْ نَرَىٰ تَقَلُّبَ وَجْهِكَ فِى ٱلسَّمَآءِ ۖ فَلَنُوَلِّيَنَّكَ قِبْلَةًۭ تَرْضَىٰهَا ۚ فَوَلِّ وَجْهَكَ شَطْرَ ٱلْمَسْجِدِ ٱلْحَرَامِ ۚ وَحَيْثُ مَا كُنتُمْ فَوَلُّوا۟ وُجُوهَكُمْ شَطْرَهُۥ ۗ وَإِنَّ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَٰبَ لَيَعْلَمُونَ أَنَّهُ ٱلْحَقُّ مِن رَّبِّهِمْ ۗ وَمَا ٱللَّهُ بِغَٰفِلٍ عَمَّا يَعْمَلُونَ",
+    "turkish": "Doğrusu, biz, yüzünün semaya yöneldiğini, orada şekilden şekile geçerek, aranıp durduğunu görüyorduk. Artık seni hoşnud olacağın bir kıbleye çevireceğiz. Haydi bakalım, yüzünü Mescidi Haram'a doğru çevir. Siz de ey müminler, nerede olursanız olun, yüzünüzü o tarafa doğru çevirin! Kendilerine kitap verilmiş olanlar da kesinlikle bilirler ki, Rabblerinden gelen o emir haktır. Ve Allah, onların yaptıklarından ve yapmakta olduklarından gafil değildir.",
+    "verseNumber": 144,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 152,
+    "arabic": "وَلَئِنْ أَتَيْتَ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَٰبَ بِكُلِّ ءَايَةٍۢ مَّا تَبِعُوا۟ قِبْلَتَكَ ۚ وَمَآ أَنتَ بِتَابِعٍۢ قِبْلَتَهُمْ ۚ وَمَا بَعْضُهُم بِتَابِعٍۢ قِبْلَةَ بَعْضٍۢ ۚ وَلَئِنِ ٱتَّبَعْتَ أَهْوَآءَهُم مِّنۢ بَعْدِ مَا جَآءَكَ مِنَ ٱلْعِلْمِ ۙ إِنَّكَ إِذًۭا لَّمِنَ ٱلظَّٰلِمِينَ",
+    "turkish": "Celâlim için, sen o kitap verilmiş olanlara, bütün delilleri de getirsen, yine de senin kıblene tabi olmazlar, sen de onların kıblesine tabi olmazsın. Zaten onlar da birbirlerinin kıblesine tabi değiller. Celâlim hakkı için, sana gelen bunca ilmin arkasından sen tutar da onların arzu ve heveslerine uyacak olursan, o zaman hiç şüphesiz, sen de zâlimlerden olursun.",
+    "verseNumber": 145,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  }
+]

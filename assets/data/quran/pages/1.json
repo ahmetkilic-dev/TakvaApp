@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "arabic": "﻿بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+    "turkish": "Rahmân ve Rahîm olan Allah'ın ismiyle.",
+    "verseNumber": 1,
+    "surahNumber": 1,
+    "surahName": "سُورَةُ ٱلْفَاتِحَةِ",
+    "englishName": "Al-Faatiha"
+  },
+  {
+    "id": 2,
+    "arabic": "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "Hamd o âlemlerin Rabbi,",
+    "verseNumber": 2,
+    "surahNumber": 1,
+    "surahName": "سُورَةُ ٱلْفَاتِحَةِ",
+    "englishName": "Al-Faatiha"
+  },
+  {
+    "id": 3,
+    "arabic": "ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+    "turkish": "O Rahmân ve Rahim,",
+    "verseNumber": 3,
+    "surahNumber": 1,
+    "surahName": "سُورَةُ ٱلْفَاتِحَةِ",
+    "englishName": "Al-Faatiha"
+  },
+  {
+    "id": 4,
+    "arabic": "مَٰلِكِ يَوْمِ ٱلدِّينِ",
+    "turkish": "O, din gününün maliki Allah'ın.",
+    "verseNumber": 4,
+    "surahNumber": 1,
+    "surahName": "سُورَةُ ٱلْفَاتِحَةِ",
+    "englishName": "Al-Faatiha"
+  },
+  {
+    "id": 5,
+    "arabic": "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+    "turkish": "Ancak sana ederiz kulluğu, ibadeti ve ancak senden dileriz yardımı, inayeti. (Ya Rab!).",
+    "verseNumber": 5,
+    "surahNumber": 1,
+    "surahName": "سُورَةُ ٱلْفَاتِحَةِ",
+    "englishName": "Al-Faatiha"
+  },
+  {
+    "id": 6,
+    "arabic": "ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ",
+    "turkish": "Hidayet eyle bizi doğru yola,",
+    "verseNumber": 6,
+    "surahNumber": 1,
+    "surahName": "سُورَةُ ٱلْفَاتِحَةِ",
+    "englishName": "Al-Faatiha"
+  },
+  {
+    "id": 7,
+    "arabic": "صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ",
+    "turkish": "O kendilerine nimet verdiğin mutlu kimselerin yoluna; o gazaba uğramışların ve o sapmışların yoluna değil.",
+    "verseNumber": 7,
+    "surahNumber": 1,
+    "surahName": "سُورَةُ ٱلْفَاتِحَةِ",
+    "englishName": "Al-Faatiha"
+  }
+]

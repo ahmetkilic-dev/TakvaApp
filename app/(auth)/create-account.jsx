@@ -2,15 +2,15 @@
 import { View, Text, ImageBackground, Image, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
 import { useState, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as WebBrowser from 'expo-web-browser';
 
-// Firebase İmportları
-import { auth, db } from '../../firebaseConfig';
+// Firebase/Supabase İmportları
+import { auth } from '../../firebaseConfig';
+import { supabase } from '../../lib/supabase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc, collection, query, where, getDocs } from 'firebase/firestore'; // Firestore sorgu importları eklendi
 
 // Resimler
 import bgIntro from '../../assets/images/bg-intro-register.png';
@@ -20,7 +20,7 @@ import checkIcon from '../../assets/images/check.png';
 export default function CreateAccountScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  
+
   const [step, setStep] = useState(1);
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -41,16 +41,16 @@ export default function CreateAccountScreen() {
     if (cleaned.length >= 2) cleaned = cleaned.slice(0, 2) + '/' + cleaned.slice(2);
     if (cleaned.length >= 5) cleaned = cleaned.slice(0, 5) + '/' + cleaned.slice(5);
     if (cleaned.length > 10) cleaned = cleaned.slice(0, 10);
-    setFormData(prev => ({...prev, birthDate: cleaned}));
+    setFormData(prev => ({ ...prev, birthDate: cleaned }));
   };
-  
+
   // --- TELEFON FORMATLAMA VE KONTROL ---
   const handlePhoneChange = (text) => {
     // 1. +90'ı ekle, kullanıcı silerse geri ekle
     if (!text.startsWith('+90')) {
-        text = '+90' + text.replace(/[^0-9+]/g, '');
+      text = '+90' + text.replace(/[^0-9+]/g, '');
     }
-    
+
     // 2. +90'dan sonraki ilk rakam 0 olamaz (Türkiye kuralı)
     if (text.length > 3 && text.charAt(3) === '0') {
       text = text.slice(0, 3) + text.slice(4); // 0'ı sil
@@ -58,52 +58,59 @@ export default function CreateAccountScreen() {
 
     // 3. Maksimum 10 karakter (alan kodu sonrası) için +90 ve sonrası 13 karakter
     if (text.length > 13) {
-        text = text.slice(0, 13);
+      text = text.slice(0, 13);
     }
 
-    setFormData(prev => ({...prev, phone: text}));
+    setFormData(prev => ({ ...prev, phone: text }));
   };
 
   const handlePhoneFocus = () => {
-    if (!formData.phone || formData.phone === '+90') { 
-        setFormData(prev => ({...prev, phone: '+90'}));
+    if (!formData.phone || formData.phone === '+90') {
+      setFormData(prev => ({ ...prev, phone: '+90' }));
     }
   };
 
   // --- BENZERSİZLİK KONTROLÜ ---
   const checkUniqueness = async (cleanPhone) => {
-    // 1. E-posta kontrolü (Firebase Auth yapar, burada sadece Firestore'u kontrol edelim)
-    
-    // 2. Telefon Numarası kontrolü (Firestore'da)
-    const usersRef = collection(db, "users");
-    const q = query(usersRef, where("phone", "==", cleanPhone));
-    const querySnapshot = await getDocs(q);
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('phone', cleanPhone);
 
-    if (!querySnapshot.empty) {
+    if (error) {
+      console.error("Benzersizlik kontrolü hatası:", error);
+      return true;
+    }
+
+    if (data && data.length > 0) {
       Alert.alert("Hata", "Bu telefon numarası zaten kullanımda.");
       return false;
     }
-    
+
     return true;
   };
 
   const saveUserData = async (user, cleanPhone) => {
     try {
-      await setDoc(doc(db, "users", user.uid), {
-          uid: user.uid,
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({
+          id: user.uid,
           name: formData.name,
           surname: formData.surname,
           email: formData.email,
-          phone: cleanPhone, // Temizlenmiş numara kaydediliyor
+          phone: cleanPhone,
           gender: formData.gender,
-          birthDate: formData.birthDate,
-          createdAt: new Date(),
-          role: 'user'
-      }, { merge: true });
+          birth_date: formData.birthDate,
+          role: 'user',
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) throw error;
 
       setLoading(false);
       Alert.alert("Hoş Geldiniz!", "Hesabınız başarıyla oluşturuldu.", [
-        { text: "Başla", onPress: () => router.replace('/(app)/(tabs)/home') } 
+        { text: "Başla", onPress: () => router.replace('/(app)/(tabs)/home') }
       ]);
     } catch (error) {
       console.error("Veritabanı Kayıt hatası:", error);
@@ -111,10 +118,10 @@ export default function CreateAccountScreen() {
       Alert.alert("Hata", "Kullanıcı verileri kaydedilirken bir sorun oluştu.");
     }
   };
-  
+
   const handleRegister = async () => {
     if (!formData.email || !formData.phone) return Alert.alert("Eksik Bilgi", "Lütfen iletişim bilgilerinizi doldurunuz.");
-    
+
     setLoading(true);
     const cleanPhone = formData.phone.replace(/\s/g, '');
 
@@ -128,10 +135,10 @@ export default function CreateAccountScreen() {
     try {
       // Firebase Auth (Email-in benzersizliğini kontrol eder ve kullanıcıyı oluşturur)
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      
+
       // Firestore'a kaydet (Telefon numarasının benzersiz olduğunu biliyoruz)
       await saveUserData(userCredential.user, cleanPhone);
-      
+
     } catch (error) {
       setLoading(false);
       let msg = "Kayıt işlemi başarısız.";
@@ -144,18 +151,18 @@ export default function CreateAccountScreen() {
 
   const handleNext = () => {
     if (step === 1) {
-      if(!formData.name || !formData.surname || !formData.password || formData.repassword !== formData.password || !isChecked) {
-         if(formData.password !== formData.repassword) return Alert.alert("Hata", "Parolalar eşleşmiyor.");
-         return Alert.alert("Uyarı", "Lütfen tüm alanları doldurun ve koşulları kabul edin.");
+      if (!formData.name || !formData.surname || !formData.password || formData.repassword !== formData.password || !isChecked) {
+        if (formData.password !== formData.repassword) return Alert.alert("Hata", "Parolalar eşleşmiyor.");
+        return Alert.alert("Uyarı", "Lütfen tüm alanları doldurun ve koşulları kabul edin.");
       }
       setStep(2);
-    } 
+    }
     else if (step === 2) {
-      if(!formData.gender || !formData.birthDate || formData.birthDate.length !== 10) {
-         return Alert.alert("Uyarı", "Lütfen seçimleri eksiksiz yapın.");
+      if (!formData.gender || !formData.birthDate || formData.birthDate.length !== 10) {
+        return Alert.alert("Uyarı", "Lütfen seçimleri eksiksiz yapın.");
       }
       setStep(3);
-    } 
+    }
     else if (step === 3) {
       handleRegister();
     }
@@ -170,7 +177,7 @@ export default function CreateAccountScreen() {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className="flex-1">
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false} bounces={false}>
           <View className="flex-1 px-6 justify-between" style={{ paddingTop: insets.top, paddingBottom: insets.bottom + 10 }}>
-            
+
             <View>
               <View className="flex-row items-center justify-between mb-8">
                 <TouchableOpacity onPress={handleBack} className="p-2 -ml-2 active:opacity-60">
@@ -183,19 +190,19 @@ export default function CreateAccountScreen() {
               <Text style={fontStyle} className="text-white text-center text-2xl font-bold mb-6">Hesap oluştur</Text>
 
               <View className="flex-row justify-center mb-6 gap-2">
-                 {[1, 2, 3].map((s) => (
-                    <View key={s} className={`h-1.5 rounded-full ${step >= s ? 'w-8 bg-emerald-500' : 'w-4 bg-gray-600'}`} />
-                 ))}
+                {[1, 2, 3].map((s) => (
+                  <View key={s} className={`h-1.5 rounded-full ${step >= s ? 'w-8 bg-emerald-500' : 'w-4 bg-gray-600'}`} />
+                ))}
               </View>
 
               <View>
                 {step === 1 && (
                   <View className="gap-y-5">
-                    <TextInput style={fontStyle} placeholder="Adınızı giriniz" placeholderTextColor="#9CA3AF" className={inputStyle} value={formData.name} onChangeText={(text) => setFormData(prev => ({...prev, name: text}))} />
-                    <TextInput style={fontStyle} placeholder="Soyadınızı giriniz" placeholderTextColor="#9CA3AF" className={inputStyle} value={formData.surname} onChangeText={(text) => setFormData(prev => ({...prev, surname: text}))} textContentType="familyName" keyboardType="default"/>
-                    <TextInput style={fontStyle} placeholder="Parolanızı giriniz" placeholderTextColor="#9CA3AF" secureTextEntry className={inputStyle} value={formData.password} onChangeText={(text) => setFormData(prev => ({...prev, password: text}))} />
-                    <TextInput style={fontStyle} placeholder="Parolanızı tekrar giriniz" placeholderTextColor="#9CA3AF" secureTextEntry className={inputStyle} value={formData.repassword} onChangeText={(text) => setFormData(prev => ({...prev, repassword: text}))} />
-                    
+                    <TextInput style={fontStyle} placeholder="Adınızı giriniz" placeholderTextColor="#9CA3AF" className={inputStyle} value={formData.name} onChangeText={(text) => setFormData(prev => ({ ...prev, name: text }))} />
+                    <TextInput style={fontStyle} placeholder="Soyadınızı giriniz" placeholderTextColor="#9CA3AF" className={inputStyle} value={formData.surname} onChangeText={(text) => setFormData(prev => ({ ...prev, surname: text }))} textContentType="familyName" keyboardType="default" />
+                    <TextInput style={fontStyle} placeholder="Parolanızı giriniz" placeholderTextColor="#9CA3AF" secureTextEntry className={inputStyle} value={formData.password} onChangeText={(text) => setFormData(prev => ({ ...prev, password: text }))} />
+                    <TextInput style={fontStyle} placeholder="Parolanızı tekrar giriniz" placeholderTextColor="#9CA3AF" secureTextEntry className={inputStyle} value={formData.repassword} onChangeText={(text) => setFormData(prev => ({ ...prev, repassword: text }))} />
+
                     <View className="flex-row items-center mt-4 mb-2">
                       <TouchableOpacity onPress={() => setIsChecked(!isChecked)} className={`w-6 h-6 border border-white rounded mr-3 items-center justify-center`}>
                         {isChecked && <Image source={checkIcon} className="w-4 h-4" resizeMode="contain" />}
@@ -211,14 +218,14 @@ export default function CreateAccountScreen() {
                   <View className="gap-y-6">
                     <View>
                       <TouchableOpacity onPress={() => setIsGenderDropdownOpen(!isGenderDropdownOpen)} className={`w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 flex-row justify-between items-center ${isGenderDropdownOpen ? 'border-b-0 rounded-b-none' : ''}`}>
-                         <Text style={fontStyle} className={`${formData.gender ? 'text-white' : 'text-[#9CA3AF]'} text-[15px]`}>{formData.gender === 'male' ? 'Erkek' : formData.gender === 'female' ? 'Kadın' : 'Cinsiyetinizi seçiniz'}</Text>
-                         <Ionicons name={isGenderDropdownOpen ? "chevron-up" : "chevron-down"} size={20} color="#9CA3AF" />
+                        <Text style={fontStyle} className={`${formData.gender ? 'text-white' : 'text-[#9CA3AF]'} text-[15px]`}>{formData.gender === 'male' ? 'Erkek' : formData.gender === 'female' ? 'Kadın' : 'Cinsiyetinizi seçiniz'}</Text>
+                        <Ionicons name={isGenderDropdownOpen ? "chevron-up" : "chevron-down"} size={20} color="#9CA3AF" />
                       </TouchableOpacity>
                       {isGenderDropdownOpen && (
-                         <View className="absolute z-10 w-full top-[57px] bg-[#15221E] border border-white/80 rounded-b-[10px] p-2">
-                            <TouchableOpacity onPress={() => {setFormData(prev => ({...prev, gender: 'male'})); setIsGenderDropdownOpen(false);}} className={`py-3 px-2 ${formData.gender === 'male' ? 'bg-white/10 rounded' : ''}`}><Text style={fontStyle} className="text-white text-sm">Erkek</Text></TouchableOpacity>
-                            <TouchableOpacity onPress={() => {setFormData(prev => ({...prev, gender: 'female'})); setIsGenderDropdownOpen(false);}} className={`py-3 px-2 ${formData.gender === 'female' ? 'bg-white/10 rounded' : ''}`}><Text style={fontStyle} className="text-white text-sm">Kadın</Text></TouchableOpacity>
-                         </View>
+                        <View className="absolute z-10 w-full top-[57px] bg-[#15221E] border border-white/80 rounded-b-[10px] p-2">
+                          <TouchableOpacity onPress={() => { setFormData(prev => ({ ...prev, gender: 'male' })); setIsGenderDropdownOpen(false); }} className={`py-3 px-2 ${formData.gender === 'male' ? 'bg-white/10 rounded' : ''}`}><Text style={fontStyle} className="text-white text-sm">Erkek</Text></TouchableOpacity>
+                          <TouchableOpacity onPress={() => { setFormData(prev => ({ ...prev, gender: 'female' })); setIsGenderDropdownOpen(false); }} className={`py-3 px-2 ${formData.gender === 'female' ? 'bg-white/10 rounded' : ''}`}><Text style={fontStyle} className="text-white text-sm">Kadın</Text></TouchableOpacity>
+                        </View>
                       )}
                     </View>
                     <TextInput style={fontStyle} placeholder="Doğum tarihinizi giriniz (GG/AA/YYYY)" placeholderTextColor="#9CA3AF" keyboardType="numeric" maxLength={10} className={inputStyle} value={formData.birthDate} onChangeText={handleDateChange} />
@@ -228,18 +235,18 @@ export default function CreateAccountScreen() {
                 {step === 3 && (
                   <View className="gap-y-6">
                     {/* Telefon Inputu: OnChange ve OnFocus Güncellendi */}
-                    <TextInput 
-                      style={fontStyle} 
-                      placeholder="Telefon numaranızı giriniz" 
-                      placeholderTextColor="#9CA3AF" 
-                      keyboardType="phone-pad" 
-                      className={inputStyle} 
-                      value={formData.phone} 
-                      onFocus={handlePhoneFocus} 
-                      onChangeText={handlePhoneChange} 
+                    <TextInput
+                      style={fontStyle}
+                      placeholder="Telefon numaranızı giriniz"
+                      placeholderTextColor="#9CA3AF"
+                      keyboardType="phone-pad"
+                      className={inputStyle}
+                      value={formData.phone}
+                      onFocus={handlePhoneFocus}
+                      onChangeText={handlePhoneChange}
                     />
-                    
-                    <TextInput style={fontStyle} placeholder="E-postanızı giriniz" placeholderTextColor="#9CA3AF" keyboardType="email-address" autoCapitalize="none" className={inputStyle} value={formData.email} onChangeText={(text) => setFormData(prev => ({...prev, email: text}))} />
+
+                    <TextInput style={fontStyle} placeholder="E-postanızı giriniz" placeholderTextColor="#9CA3AF" keyboardType="email-address" autoCapitalize="none" className={inputStyle} value={formData.email} onChangeText={(text) => setFormData(prev => ({ ...prev, email: text }))} />
                     <Text style={fontStyle} className="text-gray-400 text-xs text-center px-4 mt-2">Kaydı tamamlayarak iletişim bilgilerinizin doğruluğunu beyan etmiş olursunuz.</Text>
                   </View>
                 )}

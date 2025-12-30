@@ -1,17 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
+import { SURAH_DATA, PAGE_DATA, JUZ_DATA } from './quranData';
 
 /**
- * Kuran API hook'u
+ * Kuran Yerel Veri hook'u
  * Sure, cüz, sayfa bazlı veri çeker
- * Production-ready, optimize edilmiş
+ * Tüm veriler yerelden (offline) okunur
  */
 
-// Al Quran Cloud API
-const API_BASE = 'https://api.alquran.cloud/v1';
-const API_ARABIC = `${API_BASE}/quran/quran-uthmani`;
-const API_TURKISH = `${API_BASE}/quran/tr.yazir`;
-
-// Sure bilgileri (sabit veri - API'de yok)
+// Sure bilgileri (sabit veri)
 const SURAH_INFO = [
   { number: 1, name: 'Fâtiha', nameTransliterated: 'Al-Fatiha', nameTranslated: 'Açılış', ayahCount: 7 },
   { number: 2, name: 'Bakara', nameTransliterated: 'Al-Baqarah', nameTranslated: 'İnek', ayahCount: 286 },
@@ -129,54 +125,21 @@ const SURAH_INFO = [
   { number: 114, name: 'Nâs', nameTransliterated: 'An-Nas', nameTranslated: 'İnsanlar', ayahCount: 6 },
 ];
 
-// Cüz bilgileri (sabit veri)
+// Cüz bilgileri
 const JUZ_INFO = Array.from({ length: 30 }, (_, i) => ({
   number: i + 1,
   name: `${i + 1}. Cüz`,
-  ayahCount: 0, // API'den çekilecek
 }));
 
-// Sayfa bilgileri (604 sayfa)
+// Sayfa bilgileri
 const PAGE_INFO = Array.from({ length: 604 }, (_, i) => ({
   number: i + 1,
-  ayahCount: 0, // API'den çekilecek
+  name: `${i + 1}. Sayfa`,
 }));
 
-/**
- * Sure listesi hook'u
- * Sadece liste için - API çağrısı yok, hızlı
- */
-export const useSurahs = () => {
-  return {
-    surahs: SURAH_INFO,
-    loading: false,
-    totalSurahs: SURAH_INFO.length,
-  };
-};
-
-/**
- * Cüz listesi hook'u
- * Sadece liste için - API çağrısı yok, hızlı
- */
-export const useJuzs = () => {
-  return {
-    juzs: JUZ_INFO,
-    loading: false,
-    totalJuzs: JUZ_INFO.length,
-  };
-};
-
-/**
- * Sayfa listesi hook'u
- * Sadece liste için - API çağrısı yok, hızlı
- */
-export const usePages = () => {
-  return {
-    pages: PAGE_INFO,
-    loading: false,
-    totalPages: PAGE_INFO.length,
-  };
-};
+export const useSurahs = () => ({ surahs: SURAH_INFO, loading: false, totalSurahs: 114 });
+export const useJuzs = () => ({ juzs: JUZ_INFO, loading: false, totalJuzs: 30 });
+export const usePages = () => ({ pages: PAGE_INFO, loading: false, totalPages: 604 });
 
 /**
  * Sure bazlı ayet çekme hook'u
@@ -184,59 +147,26 @@ export const usePages = () => {
 export const useSurahVerses = (surahNumber) => {
   const [verses, setVerses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!surahNumber) {
-      setLoading(false);
-      return;
+    if (!surahNumber) return;
+    setLoading(true);
+    const data = SURAH_DATA[surahNumber];
+    if (data) {
+      const combined = data.ayahs.map(ayah => ({
+        id: ayah.number,
+        arabic: ayah.text,
+        turkish: ayah.translation,
+        verseNumber: ayah.numberInSurah,
+        surahNumber: data.number,
+        surahName: data.name,
+      }));
+      setVerses(combined);
     }
-
-    const fetchSurah = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const [arabicResponse, turkishResponse] = await Promise.all([
-          fetch(`${API_BASE}/surah/${surahNumber}/quran-uthmani`),
-          fetch(`${API_BASE}/surah/${surahNumber}/tr.yazir`),
-        ]);
-
-        const arabicResult = await arabicResponse.json();
-        const turkishResult = await turkishResponse.json();
-
-        if (arabicResult.code === 200 && arabicResult.data && turkishResult.code === 200 && turkishResult.data) {
-          const arabicAyahs = arabicResult.data.ayahs || [];
-          const turkishAyahs = turkishResult.data.ayahs || [];
-
-          const combinedVerses = arabicAyahs.map((arabicAyah, index) => {
-            const turkishAyah = turkishAyahs[index] || turkishAyahs.find(a => a.number === arabicAyah.number) || {};
-            return {
-              id: arabicAyah.number,
-              arabic: arabicAyah.text,
-              turkish: turkishAyah.text || '',
-              verseNumber: arabicAyah.numberInSurah,
-              surahNumber: arabicResult.data.number,
-              surahName: arabicResult.data.englishName || SURAH_INFO[surahNumber - 1]?.name,
-            };
-          });
-
-          setVerses(combinedVerses);
-        } else {
-          throw new Error('API yanıtı beklenmedik format');
-        }
-      } catch (err) {
-        console.error('Sure yükleme hatası:', err);
-        setError(err.message || 'Sure yüklenemedi');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSurah();
+    setLoading(false);
   }, [surahNumber]);
 
-  return { verses, loading, error };
+  return { verses, loading, error: null };
 };
 
 /**
@@ -245,59 +175,16 @@ export const useSurahVerses = (surahNumber) => {
 export const usePageVerses = (pageNumber) => {
   const [verses, setVerses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!pageNumber || pageNumber < 1 || pageNumber > 604) {
-      setLoading(false);
-      return;
-    }
-
-    const fetchPage = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const [arabicResponse, turkishResponse] = await Promise.all([
-          fetch(`${API_BASE}/page/${pageNumber}/quran-uthmani`),
-          fetch(`${API_BASE}/page/${pageNumber}/tr.yazir`),
-        ]);
-
-        const arabicResult = await arabicResponse.json();
-        const turkishResult = await turkishResponse.json();
-
-        if (arabicResult.code === 200 && arabicResult.data && turkishResult.code === 200 && turkishResult.data) {
-          const arabicAyahs = arabicResult.data.ayahs || [];
-          const turkishAyahs = turkishResult.data.ayahs || [];
-
-          const combinedVerses = arabicAyahs.map((arabicAyah) => {
-            const turkishAyah = turkishAyahs.find(a => a.number === arabicAyah.number) || {};
-            return {
-              id: arabicAyah.number,
-              arabic: arabicAyah.text,
-              turkish: turkishAyah.text || '',
-              verseNumber: arabicAyah.numberInSurah,
-              surahNumber: arabicAyah.surah?.number,
-              surahName: arabicAyah.surah?.englishName || SURAH_INFO[(arabicAyah.surah?.number || 1) - 1]?.name,
-            };
-          });
-
-          setVerses(combinedVerses);
-        } else {
-          throw new Error('API yanıtı beklenmedik format');
-        }
-      } catch (err) {
-        console.error('Sayfa yükleme hatası:', err);
-        setError(err.message || 'Sayfa yüklenemedi');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPage();
+    if (!pageNumber) return;
+    setLoading(true);
+    const data = PAGE_DATA[pageNumber];
+    if (data) setVerses(data);
+    setLoading(false);
   }, [pageNumber]);
 
-  return { verses, loading, error };
+  return { verses, loading, error: null };
 };
 
 /**
@@ -306,58 +193,15 @@ export const usePageVerses = (pageNumber) => {
 export const useJuzVerses = (juzNumber) => {
   const [verses, setVerses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!juzNumber || juzNumber < 1 || juzNumber > 30) {
-      setLoading(false);
-      return;
-    }
-
-    const fetchJuz = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const [arabicResponse, turkishResponse] = await Promise.all([
-          fetch(`${API_BASE}/juz/${juzNumber}/quran-uthmani`),
-          fetch(`${API_BASE}/juz/${juzNumber}/tr.yazir`),
-        ]);
-
-        const arabicResult = await arabicResponse.json();
-        const turkishResult = await turkishResponse.json();
-
-        if (arabicResult.code === 200 && arabicResult.data && turkishResult.code === 200 && turkishResult.data) {
-          const arabicAyahs = arabicResult.data.ayahs || [];
-          const turkishAyahs = turkishResult.data.ayahs || [];
-
-          const combinedVerses = arabicAyahs.map((arabicAyah) => {
-            const turkishAyah = turkishAyahs.find(a => a.number === arabicAyah.number) || {};
-            return {
-              id: arabicAyah.number,
-              arabic: arabicAyah.text,
-              turkish: turkishAyah.text || '',
-              verseNumber: arabicAyah.numberInSurah,
-              surahNumber: arabicAyah.surah?.number,
-              surahName: arabicAyah.surah?.englishName || SURAH_INFO[(arabicAyah.surah?.number || 1) - 1]?.name,
-            };
-          });
-
-          setVerses(combinedVerses);
-        } else {
-          throw new Error('API yanıtı beklenmedik format');
-        }
-      } catch (err) {
-        console.error('Cüz yükleme hatası:', err);
-        setError(err.message || 'Cüz yüklenemedi');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchJuz();
+    if (!juzNumber) return;
+    setLoading(true);
+    const data = JUZ_DATA[juzNumber];
+    if (data) setVerses(data);
+    setLoading(false);
   }, [juzNumber]);
 
-  return { verses, loading, error };
+  return { verses, loading, error: null };
 };
 

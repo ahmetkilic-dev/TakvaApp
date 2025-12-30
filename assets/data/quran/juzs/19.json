@@ -1,0 +1,3053 @@
+[
+  {
+    "id": 2876,
+    "arabic": "۞ وَقَالَ ٱلَّذِينَ لَا يَرْجُونَ لِقَآءَنَا لَوْلَآ أُنزِلَ عَلَيْنَا ٱلْمَلَٰٓئِكَةُ أَوْ نَرَىٰ رَبَّنَا ۗ لَقَدِ ٱسْتَكْبَرُوا۟ فِىٓ أَنفُسِهِمْ وَعَتَوْ عُتُوًّۭا كَبِيرًۭا",
+    "turkish": "Bununla beraber, bize kavuşmayı ummayanlar \"Bize ya melekler indirilmeliydi, ya da Rabbimizi görmeliydik\" dediler. Andolsun ki, doğrusu nefislerinde kendilerini büyük gördüler ve büyük azgınlık ettiler.",
+    "verseNumber": 21,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2877,
+    "arabic": "يَوْمَ يَرَوْنَ ٱلْمَلَٰٓئِكَةَ لَا بُشْرَىٰ يَوْمَئِذٍۢ لِّلْمُجْرِمِينَ وَيَقُولُونَ حِجْرًۭا مَّحْجُورًۭا",
+    "turkish": "Melekleri görecekleri gün, işte o gün, günahkarlara hiçbir sevinç haberi yoktur. Ve yasak yasak, diyeceklerdir.",
+    "verseNumber": 22,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2878,
+    "arabic": "وَقَدِمْنَآ إِلَىٰ مَا عَمِلُوا۟ مِنْ عَمَلٍۢ فَجَعَلْنَٰهُ هَبَآءًۭ مَّنثُورًا",
+    "turkish": "Onların yaptıkları her bir iyi işi dikkate alırız, fakat onu saçılmış zerreler haline getiririz.",
+    "verseNumber": 23,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2879,
+    "arabic": "أَصْحَٰبُ ٱلْجَنَّةِ يَوْمَئِذٍ خَيْرٌۭ مُّسْتَقَرًّۭا وَأَحْسَنُ مَقِيلًۭا",
+    "turkish": "O gün cennetliklerin kalacakları yer çok iyi, dinlenecekleri yer pek güzeldir.",
+    "verseNumber": 24,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2880,
+    "arabic": "وَيَوْمَ تَشَقَّقُ ٱلسَّمَآءُ بِٱلْغَمَٰمِ وَنُزِّلَ ٱلْمَلَٰٓئِكَةُ تَنزِيلًا",
+    "turkish": "O gün gökyüzü beyaz bulutlar halinde yarılacak ve melekler bölük bölük indirileceklerdir.",
+    "verseNumber": 25,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2881,
+    "arabic": "ٱلْمُلْكُ يَوْمَئِذٍ ٱلْحَقُّ لِلرَّحْمَٰنِ ۚ وَكَانَ يَوْمًا عَلَى ٱلْكَٰفِرِينَ عَسِيرًۭا",
+    "turkish": "İşte o gün gerçek hükümranlık, çok merhametli olan Allah'ındır. Kâfirler için ise o, pek çetin bir gündür.",
+    "verseNumber": 26,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2882,
+    "arabic": "وَيَوْمَ يَعَضُّ ٱلظَّالِمُ عَلَىٰ يَدَيْهِ يَقُولُ يَٰلَيْتَنِى ٱتَّخَذْتُ مَعَ ٱلرَّسُولِ سَبِيلًۭا",
+    "turkish": "O gün zalim kimse ellerini ısıracak: \"Eyvah!\" diyecek, \"keşke Peygamberin yanında bir yol tutsaydım!\"",
+    "verseNumber": 27,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2883,
+    "arabic": "يَٰوَيْلَتَىٰ لَيْتَنِى لَمْ أَتَّخِذْ فُلَانًا خَلِيلًۭا",
+    "turkish": "\"Eyvah!\" diyecek, \"keşke falancayı dost edinmeseydim.",
+    "verseNumber": 28,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2884,
+    "arabic": "لَّقَدْ أَضَلَّنِى عَنِ ٱلذِّكْرِ بَعْدَ إِذْ جَآءَنِى ۗ وَكَانَ ٱلشَّيْطَٰنُ لِلْإِنسَٰنِ خَذُولًۭا",
+    "turkish": "Çünkü zikir (Kur'ân) bana gelmişken o, hakikaten beni ondan saptırdı. Şeytan insanı (uçuruma sürükleyip sonra) yapayalnız ve yardımcısız bırakmaktadır.",
+    "verseNumber": 29,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2885,
+    "arabic": "وَقَالَ ٱلرَّسُولُ يَٰرَبِّ إِنَّ قَوْمِى ٱتَّخَذُوا۟ هَٰذَا ٱلْقُرْءَانَ مَهْجُورًۭا",
+    "turkish": "Peygamber dedi ki: \"Ey Rabbim! Kavmim bu Kur'ân'ı terkedilmiş (bir şey yerinde) tuttular.\"",
+    "verseNumber": 30,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2886,
+    "arabic": "وَكَذَٰلِكَ جَعَلْنَا لِكُلِّ نَبِىٍّ عَدُوًّۭا مِّنَ ٱلْمُجْرِمِينَ ۗ وَكَفَىٰ بِرَبِّكَ هَادِيًۭا وَنَصِيرًۭا",
+    "turkish": "(Resulüm!) Ve işte biz böyle her peygamber için günahkarlardan bir düşman yapmışızdır. Bununla beraber hidayet verici ve yardımcı olarak Rabbin yeter.",
+    "verseNumber": 31,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2887,
+    "arabic": "وَقَالَ ٱلَّذِينَ كَفَرُوا۟ لَوْلَا نُزِّلَ عَلَيْهِ ٱلْقُرْءَانُ جُمْلَةًۭ وَٰحِدَةًۭ ۚ كَذَٰلِكَ لِنُثَبِّتَ بِهِۦ فُؤَادَكَ ۖ وَرَتَّلْنَٰهُ تَرْتِيلًۭا",
+    "turkish": "Yine o inkâr edenler dediler ki: \"O Kur'ân ona, hepsi birden indirilseydi ya\"! Biz onu senin kalbine iyice yerleştirmek için böyle (parça parça indirdik) ve onu tane tane (ayırarak) okuduk.",
+    "verseNumber": 32,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2888,
+    "arabic": "وَلَا يَأْتُونَكَ بِمَثَلٍ إِلَّا جِئْنَٰكَ بِٱلْحَقِّ وَأَحْسَنَ تَفْسِيرًا",
+    "turkish": "Hem onlar sana karşı herhangi bir mesel ile gelmezler ki, biz sana (onun karşılığında) doğrusunu ve tefsirin daha güzelini getirmiş olmayalım.",
+    "verseNumber": 33,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2889,
+    "arabic": "ٱلَّذِينَ يُحْشَرُونَ عَلَىٰ وُجُوهِهِمْ إِلَىٰ جَهَنَّمَ أُو۟لَٰٓئِكَ شَرٌّۭ مَّكَانًۭا وَأَضَلُّ سَبِيلًۭا",
+    "turkish": "O yüzleri üstü cehenneme toplanacaklar var ya! işte onlar, yerleri en kötü, yolları en sapık olanlardır.",
+    "verseNumber": 34,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2890,
+    "arabic": "وَلَقَدْ ءَاتَيْنَا مُوسَى ٱلْكِتَٰبَ وَجَعَلْنَا مَعَهُۥٓ أَخَاهُ هَٰرُونَ وَزِيرًۭا",
+    "turkish": "Andolsun ki Musa'ya kitap verdik, kardeşi Harun'u da ona yardımcı yaptık.",
+    "verseNumber": 35,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2891,
+    "arabic": "فَقُلْنَا ٱذْهَبَآ إِلَى ٱلْقَوْمِ ٱلَّذِينَ كَذَّبُوا۟ بِـَٔايَٰتِنَا فَدَمَّرْنَٰهُمْ تَدْمِيرًۭا",
+    "turkish": "\"Haydi âyetlerimizi yalan sayan o kavme gidin\" dedik. Sonunda (yola gelmediklerinden) onları yerle bir ettik.",
+    "verseNumber": 36,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2892,
+    "arabic": "وَقَوْمَ نُوحٍۢ لَّمَّا كَذَّبُوا۟ ٱلرُّسُلَ أَغْرَقْنَٰهُمْ وَجَعَلْنَٰهُمْ لِلنَّاسِ ءَايَةًۭ ۖ وَأَعْتَدْنَا لِلظَّٰلِمِينَ عَذَابًا أَلِيمًۭا",
+    "turkish": "Nuh kavmine gelince, Peygamberleri yalancılıkla itham ettiklerinde, onları suda boğduk ve kendilerini insanlar için bir ibret yaptık. Biz zalimler için acıklı bir azab hazırlamışızdır.",
+    "verseNumber": 37,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2893,
+    "arabic": "وَعَادًۭا وَثَمُودَا۟ وَأَصْحَٰبَ ٱلرَّسِّ وَقُرُونًۢا بَيْنَ ذَٰلِكَ كَثِيرًۭا",
+    "turkish": "Ad'ı, Semud'u, Ress halkını ve bunlar arasında daha bir çok nesilleri de (inkârcılıkları yüzünden helak ettik)",
+    "verseNumber": 38,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2894,
+    "arabic": "وَكُلًّۭا ضَرَبْنَا لَهُ ٱلْأَمْثَٰلَ ۖ وَكُلًّۭا تَبَّرْنَا تَتْبِيرًۭا",
+    "turkish": "Onların herbirine misaller getirdik; (ama ögüt almadıkları için) hepsini kırdık geçirdik.",
+    "verseNumber": 39,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2895,
+    "arabic": "وَلَقَدْ أَتَوْا۟ عَلَى ٱلْقَرْيَةِ ٱلَّتِىٓ أُمْطِرَتْ مَطَرَ ٱلسَّوْءِ ۚ أَفَلَمْ يَكُونُوا۟ يَرَوْنَهَا ۚ بَلْ كَانُوا۟ لَا يَرْجُونَ نُشُورًۭا",
+    "turkish": "(Resulüm!) Andolsun ki, (bu Mekke'li putperestler), bela ve fenalık yağmuruna tutulmuş olan beldeye uğramışlardır. Peki onu da görmüyorlar mıydı? Hayır! Onlar öldükten sonra dirilmeyi ummamaktadırlar.",
+    "verseNumber": 40,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2896,
+    "arabic": "وَإِذَا رَأَوْكَ إِن يَتَّخِذُونَكَ إِلَّا هُزُوًا أَهَٰذَا ٱلَّذِى بَعَثَ ٱللَّهُ رَسُولًا",
+    "turkish": "Seni gördükleri zaman \"Bu mu Allah'ın Peygamber olarak gönderdiği?\" diye hep seni alaya alıyorlar.",
+    "verseNumber": 41,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2897,
+    "arabic": "إِن كَادَ لَيُضِلُّنَا عَنْ ءَالِهَتِنَا لَوْلَآ أَن صَبَرْنَا عَلَيْهَا ۚ وَسَوْفَ يَعْلَمُونَ حِينَ يَرَوْنَ ٱلْعَذَابَ مَنْ أَضَلُّ سَبِيلًا",
+    "turkish": "\"Şayet tanrılarımıza inanmakta sebat göstermeseydik, gerçekten de bizi neredeyse tanrılarımızdan saptıracaktı\" diyorlar. Azabı gördükleri zaman, kimin yolunun sapık olduğunu bilecekler!",
+    "verseNumber": 42,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2898,
+    "arabic": "أَرَءَيْتَ مَنِ ٱتَّخَذَ إِلَٰهَهُۥ هَوَىٰهُ أَفَأَنتَ تَكُونُ عَلَيْهِ وَكِيلًا",
+    "turkish": "Kötü duygularını kendisine tanrı edinen kimseyi gördün mü? Şimdi ona sen mi vekil olacaksın?",
+    "verseNumber": 43,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2899,
+    "arabic": "أَمْ تَحْسَبُ أَنَّ أَكْثَرَهُمْ يَسْمَعُونَ أَوْ يَعْقِلُونَ ۚ إِنْ هُمْ إِلَّا كَٱلْأَنْعَٰمِ ۖ بَلْ هُمْ أَضَلُّ سَبِيلًا",
+    "turkish": "Yoksa sen, onların çoğunun gerçekten söz dinleyeceğini yahut akıllanacağını mı sanıyorsun? Gerçekte onlar hayvanlar gibidir, hatta gidişçe daha sapıktırlar.",
+    "verseNumber": 44,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2900,
+    "arabic": "أَلَمْ تَرَ إِلَىٰ رَبِّكَ كَيْفَ مَدَّ ٱلظِّلَّ وَلَوْ شَآءَ لَجَعَلَهُۥ سَاكِنًۭا ثُمَّ جَعَلْنَا ٱلشَّمْسَ عَلَيْهِ دَلِيلًۭا",
+    "turkish": "Rabbinin gölgeyi nasıl uzatmakta olduğunu görmedin mi? Dileseydi onu elbet hareketsiz de kılardı. Sonra biz güneşi, ona (gölgeye) delil kılmışızdır.",
+    "verseNumber": 45,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2901,
+    "arabic": "ثُمَّ قَبَضْنَٰهُ إِلَيْنَا قَبْضًۭا يَسِيرًۭا",
+    "turkish": "Sonra da onu yavaş yavaş kendimize (başka yöne) çekmekteyiz.",
+    "verseNumber": 46,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2902,
+    "arabic": "وَهُوَ ٱلَّذِى جَعَلَ لَكُمُ ٱلَّيْلَ لِبَاسًۭا وَٱلنَّوْمَ سُبَاتًۭا وَجَعَلَ ٱلنَّهَارَ نُشُورًۭا",
+    "turkish": "Sizin için geceyi örtü, uykuyu istirahat kılan, gündüzü yayılıp çalışma (zamanı) yapan O'dur.",
+    "verseNumber": 47,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2903,
+    "arabic": "وَهُوَ ٱلَّذِىٓ أَرْسَلَ ٱلرِّيَٰحَ بُشْرًۢا بَيْنَ يَدَىْ رَحْمَتِهِۦ ۚ وَأَنزَلْنَا مِنَ ٱلسَّمَآءِ مَآءًۭ طَهُورًۭا",
+    "turkish": "Rüzgarları rahmetinin önünde müjdeci olarak gönderen ve gökten tertemiz bir su indiren O'dur.",
+    "verseNumber": 48,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2904,
+    "arabic": "لِّنُحْۦِىَ بِهِۦ بَلْدَةًۭ مَّيْتًۭا وَنُسْقِيَهُۥ مِمَّا خَلَقْنَآ أَنْعَٰمًۭا وَأَنَاسِىَّ كَثِيرًۭا",
+    "turkish": "Ki biz (o suyla) ölü toprağa can verelim, yarattığımız nice hayvanlara ve insanlara su sağlayalım, diye.",
+    "verseNumber": 49,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2905,
+    "arabic": "وَلَقَدْ صَرَّفْنَٰهُ بَيْنَهُمْ لِيَذَّكَّرُوا۟ فَأَبَىٰٓ أَكْثَرُ ٱلنَّاسِ إِلَّا كُفُورًۭا",
+    "turkish": "Andolsun bunu, insanların öğüt almaları için, aralarında çeşit çeşit şekillerde anlatmışızdır; ama insanların çoğu ille nankörlük edip diretmiştir.",
+    "verseNumber": 50,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2906,
+    "arabic": "وَلَوْ شِئْنَا لَبَعَثْنَا فِى كُلِّ قَرْيَةٍۢ نَّذِيرًۭا",
+    "turkish": "(Habibim!) Şayet dileseydik elbette her köye bir uyarıcı (peygamber) gönderirdik.",
+    "verseNumber": 51,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2907,
+    "arabic": "فَلَا تُطِعِ ٱلْكَٰفِرِينَ وَجَٰهِدْهُم بِهِۦ جِهَادًۭا كَبِيرًۭا",
+    "turkish": "(Madem ki yalnız seni gönderdik) Öyleyse kâfirlere boyun eğme ve bununla (Kur'ân ile) onlara karşı olanca gücünle büyük bir savaş ver!",
+    "verseNumber": 52,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2908,
+    "arabic": "۞ وَهُوَ ٱلَّذِى مَرَجَ ٱلْبَحْرَيْنِ هَٰذَا عَذْبٌۭ فُرَاتٌۭ وَهَٰذَا مِلْحٌ أُجَاجٌۭ وَجَعَلَ بَيْنَهُمَا بَرْزَخًۭا وَحِجْرًۭا مَّحْجُورًۭا",
+    "turkish": "Birinin suyu tatlı ve susuzluğu giderici, diğerininki tuzlu ve acı iki denizi salıveren ve aralarına bir engel, aşılmaz bir serhat koyan O'dur.",
+    "verseNumber": 53,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2909,
+    "arabic": "وَهُوَ ٱلَّذِى خَلَقَ مِنَ ٱلْمَآءِ بَشَرًۭا فَجَعَلَهُۥ نَسَبًۭا وَصِهْرًۭا ۗ وَكَانَ رَبُّكَ قَدِيرًۭا",
+    "turkish": "O (hakir) sudan, bir insan yaratıp ona bir neseb bahşeden ve sıhriyet bağı ile akraba yapan O'dur. Rabbinin her şeye gücü yeter.",
+    "verseNumber": 54,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2910,
+    "arabic": "وَيَعْبُدُونَ مِن دُونِ ٱللَّهِ مَا لَا يَنفَعُهُمْ وَلَا يَضُرُّهُمْ ۗ وَكَانَ ٱلْكَافِرُ عَلَىٰ رَبِّهِۦ ظَهِيرًۭا",
+    "turkish": "(Böyle iken inkârcılar) Allah'ı bırakıp kendilerine ne fayda, ne zarar veremeyen şeylere kulluk ediyorlar. İnkârcı olan kimse Rabbine karşı uğraşıp durmaktadır.",
+    "verseNumber": 55,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2911,
+    "arabic": "وَمَآ أَرْسَلْنَٰكَ إِلَّا مُبَشِّرًۭا وَنَذِيرًۭا",
+    "turkish": "(Halbuki) biz seni ancak müjdeci ve uyarıcı olarak gönderdik.",
+    "verseNumber": 56,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2912,
+    "arabic": "قُلْ مَآ أَسْـَٔلُكُمْ عَلَيْهِ مِنْ أَجْرٍ إِلَّا مَن شَآءَ أَن يَتَّخِذَ إِلَىٰ رَبِّهِۦ سَبِيلًۭا",
+    "turkish": "De ki: \"Ben, buna karşı sizden bir ücret değil, ancak Rabbine doğru bir yol tutmayı dileyen kimseler (olmanızı) istiyorum.\"",
+    "verseNumber": 57,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2913,
+    "arabic": "وَتَوَكَّلْ عَلَى ٱلْحَىِّ ٱلَّذِى لَا يَمُوتُ وَسَبِّحْ بِحَمْدِهِۦ ۚ وَكَفَىٰ بِهِۦ بِذُنُوبِ عِبَادِهِۦ خَبِيرًا",
+    "turkish": "Sen, ölümsüz ve daima diri olan Allah'a güvenip dayan. O'nu hamd ile tesbih et. Kullarının günahlarından haberdar olarak O yeter.",
+    "verseNumber": 58,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2914,
+    "arabic": "ٱلَّذِى خَلَقَ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضَ وَمَا بَيْنَهُمَا فِى سِتَّةِ أَيَّامٍۢ ثُمَّ ٱسْتَوَىٰ عَلَى ٱلْعَرْشِ ۚ ٱلرَّحْمَٰنُ فَسْـَٔلْ بِهِۦ خَبِيرًۭا",
+    "turkish": "Gökleri yeri ve ikisinin arasındakileri altı günde yaratan, sonra Arş'a hükmeden Rahmân'dır. Haydi ne dileyeceksen o her şeyden haberdar olan (Rahmân)dan dile.",
+    "verseNumber": 59,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2915,
+    "arabic": "وَإِذَا قِيلَ لَهُمُ ٱسْجُدُوا۟ لِلرَّحْمَٰنِ قَالُوا۟ وَمَا ٱلرَّحْمَٰنُ أَنَسْجُدُ لِمَا تَأْمُرُنَا وَزَادَهُمْ نُفُورًۭا ۩",
+    "turkish": "Onlara \"Rahmân'a secde edin\" dendiği zaman, \"Rahmân da neymiş? Senin bize emrettiğine secde eder miyiz hiç?\" derler ve bu emir onların nefretini artırır.",
+    "verseNumber": 60,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2916,
+    "arabic": "تَبَارَكَ ٱلَّذِى جَعَلَ فِى ٱلسَّمَآءِ بُرُوجًۭا وَجَعَلَ فِيهَا سِرَٰجًۭا وَقَمَرًۭا مُّنِيرًۭا",
+    "turkish": "Gökte burçları var eden, onların içinde bir kandil (güneş) ve nurlu bir ay barındıran Allah, yüceler yücesidir.",
+    "verseNumber": 61,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2917,
+    "arabic": "وَهُوَ ٱلَّذِى جَعَلَ ٱلَّيْلَ وَٱلنَّهَارَ خِلْفَةًۭ لِّمَنْ أَرَادَ أَن يَذَّكَّرَ أَوْ أَرَادَ شُكُورًۭا",
+    "turkish": "İbret almak veya şükretmek dileyen kimseler için gece ile gündüzü birbiri ardınca getiren O'dur.",
+    "verseNumber": 62,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2918,
+    "arabic": "وَعِبَادُ ٱلرَّحْمَٰنِ ٱلَّذِينَ يَمْشُونَ عَلَى ٱلْأَرْضِ هَوْنًۭا وَإِذَا خَاطَبَهُمُ ٱلْجَٰهِلُونَ قَالُوا۟ سَلَٰمًۭا",
+    "turkish": "O çok merhametli Allah'ın (has) kulları onlardır ki, yeryüzünde tevazu ile yürürler ve cahil kimseler kendilerine laf attığı zaman (incitmeksizin) \"selam\" derler (geçerler).",
+    "verseNumber": 63,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2919,
+    "arabic": "وَٱلَّذِينَ يَبِيتُونَ لِرَبِّهِمْ سُجَّدًۭا وَقِيَٰمًۭا",
+    "turkish": "Ve onlar ki, Rablerine secdeler ve kıyamlar ederek yatarlar.",
+    "verseNumber": 64,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2920,
+    "arabic": "وَٱلَّذِينَ يَقُولُونَ رَبَّنَا ٱصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ ۖ إِنَّ عَذَابَهَا كَانَ غَرَامًا",
+    "turkish": "Onlar ki, şöyle derler: Cehennem azabını üzerimizden sav! Doğrusu onun azabı geçici bir şey değildir.",
+    "verseNumber": 65,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2921,
+    "arabic": "إِنَّهَا سَآءَتْ مُسْتَقَرًّۭا وَمُقَامًۭا",
+    "turkish": "Orası cidden ne kötü bir uğrak, ne kötü bir konaktır.",
+    "verseNumber": 66,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2922,
+    "arabic": "وَٱلَّذِينَ إِذَآ أَنفَقُوا۟ لَمْ يُسْرِفُوا۟ وَلَمْ يَقْتُرُوا۟ وَكَانَ بَيْنَ ذَٰلِكَ قَوَامًۭا",
+    "turkish": "Ve onlar ki, harcadıklarında ne israf ne de cimrilik ederler; ikisi arasında orta bir yol tutarlar.",
+    "verseNumber": 67,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2923,
+    "arabic": "وَٱلَّذِينَ لَا يَدْعُونَ مَعَ ٱللَّهِ إِلَٰهًا ءَاخَرَ وَلَا يَقْتُلُونَ ٱلنَّفْسَ ٱلَّتِى حَرَّمَ ٱللَّهُ إِلَّا بِٱلْحَقِّ وَلَا يَزْنُونَ ۚ وَمَن يَفْعَلْ ذَٰلِكَ يَلْقَ أَثَامًۭا",
+    "turkish": "Yine onlar ki, Allah ile beraber başka bir tanrıya yalvarmazlar, Allah'ın haram kıldığı cana haksız yere kıymazlar ve zina etmezler. Bunları yapan günahı(nın cezasını) bulur.",
+    "verseNumber": 68,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2924,
+    "arabic": "يُضَٰعَفْ لَهُ ٱلْعَذَابُ يَوْمَ ٱلْقِيَٰمَةِ وَيَخْلُدْ فِيهِۦ مُهَانًا",
+    "turkish": "Kıyamet günü azabı kat kat olur ve orada alçaltılmış olarak temelli kalır.",
+    "verseNumber": 69,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2925,
+    "arabic": "إِلَّا مَن تَابَ وَءَامَنَ وَعَمِلَ عَمَلًۭا صَٰلِحًۭا فَأُو۟لَٰٓئِكَ يُبَدِّلُ ٱللَّهُ سَيِّـَٔاتِهِمْ حَسَنَٰتٍۢ ۗ وَكَانَ ٱللَّهُ غَفُورًۭا رَّحِيمًۭا",
+    "turkish": "Ancak tevbe ve iman edip iyi davranışlarda bulunanlar başka; Allah onların kötülüklerini iyiliklere çevirir. Allah çok bağışlayıcıdır, engin merhamet sahibidir.",
+    "verseNumber": 70,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2926,
+    "arabic": "وَمَن تَابَ وَعَمِلَ صَٰلِحًۭا فَإِنَّهُۥ يَتُوبُ إِلَى ٱللَّهِ مَتَابًۭا",
+    "turkish": "Ve her kim tevbe edip iyi davranış gösterirse, şüphesiz o, tevbesi kabul edilmiş olarak Allah'a döner.",
+    "verseNumber": 71,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2927,
+    "arabic": "وَٱلَّذِينَ لَا يَشْهَدُونَ ٱلزُّورَ وَإِذَا مَرُّوا۟ بِٱللَّغْوِ مَرُّوا۟ كِرَامًۭا",
+    "turkish": "Ve onlar ki, yalan şahitlik etmezler, boş bir şeye rastladıkları zaman vakar ile (oradan) geçip giderler.",
+    "verseNumber": 72,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2928,
+    "arabic": "وَٱلَّذِينَ إِذَا ذُكِّرُوا۟ بِـَٔايَٰتِ رَبِّهِمْ لَمْ يَخِرُّوا۟ عَلَيْهَا صُمًّۭا وَعُمْيَانًۭا",
+    "turkish": "Kendilerine Rablerinin âyetleri hatırlatıldığında ise, onlara karşı sağır ve kör davranmazlar.",
+    "verseNumber": 73,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2929,
+    "arabic": "وَٱلَّذِينَ يَقُولُونَ رَبَّنَا هَبْ لَنَا مِنْ أَزْوَٰجِنَا وَذُرِّيَّٰتِنَا قُرَّةَ أَعْيُنٍۢ وَٱجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+    "turkish": "Ve onlar ki: \"Ey Rabbimiz! Bize gözümüzü aydınlatacak eşler ve zürriyetler bağışla ve bizi takva sahiplerine önder kıl\" derler.",
+    "verseNumber": 74,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2930,
+    "arabic": "أُو۟لَٰٓئِكَ يُجْزَوْنَ ٱلْغُرْفَةَ بِمَا صَبَرُوا۟ وَيُلَقَّوْنَ فِيهَا تَحِيَّةًۭ وَسَلَٰمًا",
+    "turkish": "İşte onlar, sabretmelerine karşılık cennetin en yüksek makamları ile mükafatlandırılacaklar, orada hürmet ve selamla karşılanacaklardır.",
+    "verseNumber": 75,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2931,
+    "arabic": "خَٰلِدِينَ فِيهَا ۚ حَسُنَتْ مُسْتَقَرًّۭا وَمُقَامًۭا",
+    "turkish": "Orada ebedî kalacaklar, orası ne güzel bir konak ve ne güzel bir makamdır.",
+    "verseNumber": 76,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2932,
+    "arabic": "قُلْ مَا يَعْبَؤُا۟ بِكُمْ رَبِّى لَوْلَا دُعَآؤُكُمْ ۖ فَقَدْ كَذَّبْتُمْ فَسَوْفَ يَكُونُ لِزَامًۢا",
+    "turkish": "(Resulüm!) De ki: \"Rabbim size ne kıymet verir duanız olmasa? (Ey inkârcılar! Size bildirdiklerini) kesinkes yalan saydınız; o halde azab yakanızı bırakmayacaktır!",
+    "verseNumber": 77,
+    "surahNumber": 25,
+    "surahName": "سُورَةُ الفُرۡقَانِ",
+    "englishName": "Al-Furqaan"
+  },
+  {
+    "id": 2933,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ طسٓمٓ",
+    "turkish": "Tâ, Sîn, Mîm.",
+    "verseNumber": 1,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2934,
+    "arabic": "تِلْكَ ءَايَٰتُ ٱلْكِتَٰبِ ٱلْمُبِينِ",
+    "turkish": "Bunlar sana apaçık kitabın âyetleridir.",
+    "verseNumber": 2,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2935,
+    "arabic": "لَعَلَّكَ بَٰخِعٌۭ نَّفْسَكَ أَلَّا يَكُونُوا۟ مُؤْمِنِينَ",
+    "turkish": "(Resulüm!) Onlar iman etmiyorlar diye adeta kendine kıyacaksın!",
+    "verseNumber": 3,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2936,
+    "arabic": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةًۭ فَظَلَّتْ أَعْنَٰقُهُمْ لَهَا خَٰضِعِينَ",
+    "turkish": "Biz dilersek onların üzerlerine gökten bir âyet (mucize) indiririz de, ona boyunları eğilekalır.",
+    "verseNumber": 4,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2937,
+    "arabic": "وَمَا يَأْتِيهِم مِّن ذِكْرٍۢ مِّنَ ٱلرَّحْمَٰنِ مُحْدَثٍ إِلَّا كَانُوا۟ عَنْهُ مُعْرِضِينَ",
+    "turkish": "Bununla beraber kendilerine O Rahmân'dan yeni bir öğüt gelmeyedursun, ille ondan yüz çevirirler.",
+    "verseNumber": 5,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2938,
+    "arabic": "فَقَدْ كَذَّبُوا۟ فَسَيَأْتِيهِمْ أَنۢبَٰٓؤُا۟ مَا كَانُوا۟ بِهِۦ يَسْتَهْزِءُونَ",
+    "turkish": "Üstelik (ona) \"yalandır\" dediler; fakat onlara alay edip durdukları şeyin haberleri yakında gelecektir.",
+    "verseNumber": 6,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2939,
+    "arabic": "أَوَلَمْ يَرَوْا۟ إِلَى ٱلْأَرْضِ كَمْ أَنۢبَتْنَا فِيهَا مِن كُلِّ زَوْجٍۢ كَرِيمٍ",
+    "turkish": "Yeryüzüne bir bakmadılar mı? Biz orada her güzel çiftten nice bitkiler yetiştirmişiz.",
+    "verseNumber": 7,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2940,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ",
+    "turkish": "Şüphesiz ki bunda mutlak bir âyet (nişane) vardır; ama onların çoğu iman etmezler.",
+    "verseNumber": 8,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2941,
+    "arabic": "وَإِنَّ رَبَّكَ لَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ",
+    "turkish": "Ve şüphe yok ki Rabbin, galip ve engin merhamet sahibidir.",
+    "verseNumber": 9,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2942,
+    "arabic": "وَإِذْ نَادَىٰ رَبُّكَ مُوسَىٰٓ أَنِ ٱئْتِ ٱلْقَوْمَ ٱلظَّٰلِمِينَ",
+    "turkish": "Bir vakit de Rabbin, Musa'ya nida edip \"Git o zalim kavme\" dedi.",
+    "verseNumber": 10,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2943,
+    "arabic": "قَوْمَ فِرْعَوْنَ ۚ أَلَا يَتَّقُونَ",
+    "turkish": "\"Firavun kavmine, hâlâ sakınmayacaklar mı?\"",
+    "verseNumber": 11,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2944,
+    "arabic": "قَالَ رَبِّ إِنِّىٓ أَخَافُ أَن يُكَذِّبُونِ",
+    "turkish": "(Musa) şöyle seslendi: \"Ya Rab! Doğrusu ben korkarım ki beni yalancı sayarlar.\"",
+    "verseNumber": 12,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2945,
+    "arabic": "وَيَضِيقُ صَدْرِى وَلَا يَنطَلِقُ لِسَانِى فَأَرْسِلْ إِلَىٰ هَٰرُونَ",
+    "turkish": "\"Ve göğsüm daralır, dilim dönmez, onun için Harun'a da elçilik ver.\"",
+    "verseNumber": 13,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2946,
+    "arabic": "وَلَهُمْ عَلَىَّ ذَنۢبٌۭ فَأَخَافُ أَن يَقْتُلُونِ",
+    "turkish": "\"Hem onların bana isnad ettikleri bir suç var. Ondan dolayı korkarım ki, hemen beni öldürürler.\"",
+    "verseNumber": 14,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2947,
+    "arabic": "قَالَ كَلَّا ۖ فَٱذْهَبَا بِـَٔايَٰتِنَآ ۖ إِنَّا مَعَكُم مُّسْتَمِعُونَ",
+    "turkish": "(Allah): \"Hayır hayır\" buyurdu, \"haydi ikiniz âyetlerimizle (mucizelerimizle) gidin. Şüphesiz ki, biz sizinle beraberiz. (Onları) işitiyoruz.\"",
+    "verseNumber": 15,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2948,
+    "arabic": "فَأْتِيَا فِرْعَوْنَ فَقُولَآ إِنَّا رَسُولُ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Haydin Firavun'a gidin de deyin ki: İnan biz, âlemlerin Rabbinin elçisiyiz.",
+    "verseNumber": 16,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2949,
+    "arabic": "أَنْ أَرْسِلْ مَعَنَا بَنِىٓ إِسْرَٰٓءِيلَ",
+    "turkish": "İsrail oğullarını bizimle beraber gönder.\"",
+    "verseNumber": 17,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2950,
+    "arabic": "قَالَ أَلَمْ نُرَبِّكَ فِينَا وَلِيدًۭا وَلَبِثْتَ فِينَا مِنْ عُمُرِكَ سِنِينَ",
+    "turkish": "\"Â, dedi, biz seni çocukken himayemize alıp büyütmedik mi? Hayatının bir çok yıllarını aramızda geçirmedin mi?\"",
+    "verseNumber": 18,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2951,
+    "arabic": "وَفَعَلْتَ فَعْلَتَكَ ٱلَّتِى فَعَلْتَ وَأَنتَ مِنَ ٱلْكَٰفِرِينَ",
+    "turkish": "\"Sonunda o yaptığın (kötü) işi de yaptın. Sen nankörün birisin!\"",
+    "verseNumber": 19,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2952,
+    "arabic": "قَالَ فَعَلْتُهَآ إِذًۭا وَأَنَا۠ مِنَ ٱلضَّآلِّينَ",
+    "turkish": "Musa, \"Ben, dedi, o işi o anda yaptım ki şaşkınlardandım.\"",
+    "verseNumber": 20,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2953,
+    "arabic": "فَفَرَرْتُ مِنكُمْ لَمَّا خِفْتُكُمْ فَوَهَبَ لِى رَبِّى حُكْمًۭا وَجَعَلَنِى مِنَ ٱلْمُرْسَلِينَ",
+    "turkish": "\"Sizden korkunca da hemen aranızdan kaçtım. Sonra Rabbim bana hikmet bahşetti ve beni peygamberlerden kıldı.\"",
+    "verseNumber": 21,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2954,
+    "arabic": "وَتِلْكَ نِعْمَةٌۭ تَمُنُّهَا عَلَىَّ أَنْ عَبَّدتَّ بَنِىٓ إِسْرَٰٓءِيلَ",
+    "turkish": "\"O başıma kaktığın nimet de (aslında) İsrail oğullarını kendine köle edinmiş olmandır. \"",
+    "verseNumber": 22,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2955,
+    "arabic": "قَالَ فِرْعَوْنُ وَمَا رَبُّ ٱلْعَٰلَمِينَ",
+    "turkish": "Firavun şöyle dedi: \"Âlemlerin Rabbi dediğin nedir ki?\"",
+    "verseNumber": 23,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2956,
+    "arabic": "قَالَ رَبُّ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ وَمَا بَيْنَهُمَآ ۖ إِن كُنتُم مُّوقِنِينَ",
+    "turkish": "Musa cevap olarak: \"Eğer işin gerçeğini düşünüp anlayan kişiler olsanız (itiraf edersiniz ki) O, göklerin, yerin ve ikisi arasında bulunan her şeyin Rabbi'dir.\"",
+    "verseNumber": 24,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2957,
+    "arabic": "قَالَ لِمَنْ حَوْلَهُۥٓ أَلَا تَسْتَمِعُونَ",
+    "turkish": "(Firavun) etrafında bulunanlara: \"İşitmiyor musunuz?\" dedi.",
+    "verseNumber": 25,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2958,
+    "arabic": "قَالَ رَبُّكُمْ وَرَبُّ ءَابَآئِكُمُ ٱلْأَوَّلِينَ",
+    "turkish": "Musa dedi ki: \"O sizin de Rabbiniz, daha önce ki atalarınızın da Rabbidir.\"",
+    "verseNumber": 26,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2959,
+    "arabic": "قَالَ إِنَّ رَسُولَكُمُ ٱلَّذِىٓ أُرْسِلَ إِلَيْكُمْ لَمَجْنُونٌۭ",
+    "turkish": "(Firavun): \"Size gönderilen bu elçiniz mutlaka delidir\" dedi.",
+    "verseNumber": 27,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2960,
+    "arabic": "قَالَ رَبُّ ٱلْمَشْرِقِ وَٱلْمَغْرِبِ وَمَا بَيْنَهُمَآ ۖ إِن كُنتُمْ تَعْقِلُونَ",
+    "turkish": "Musa devamla şöyle söyledi: \"Şayet aklınızı kullansanız (anlarsınız ki), O, doğunun, batının ve ikisinin arasında bulunanların Rabbidir.\"",
+    "verseNumber": 28,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2961,
+    "arabic": "قَالَ لَئِنِ ٱتَّخَذْتَ إِلَٰهًا غَيْرِى لَأَجْعَلَنَّكَ مِنَ ٱلْمَسْجُونِينَ",
+    "turkish": "Firavun: \"Benden başkasını ilâh tutarsan, andolsun ki seni zindana kapatılmışlardan ederim\" dedi.",
+    "verseNumber": 29,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2962,
+    "arabic": "قَالَ أَوَلَوْ جِئْتُكَ بِشَىْءٍۢ مُّبِينٍۢ",
+    "turkish": "Musa sordu: \"Sana apaçık bir şey getirmiş olsam da mı?\"",
+    "verseNumber": 30,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2963,
+    "arabic": "قَالَ فَأْتِ بِهِۦٓ إِن كُنتَ مِنَ ٱلصَّٰدِقِينَ",
+    "turkish": "Firavun: \"Haydi getir onu bakayım, doğrulardan isen\" dedi.",
+    "verseNumber": 31,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2964,
+    "arabic": "فَأَلْقَىٰ عَصَاهُ فَإِذَا هِىَ ثُعْبَانٌۭ مُّبِينٌۭ",
+    "turkish": "Bunun üzerine Musa asâsını bırakıverdi; apaçık bir ejderha oluverdi.",
+    "verseNumber": 32,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2965,
+    "arabic": "وَنَزَعَ يَدَهُۥ فَإِذَا هِىَ بَيْضَآءُ لِلنَّٰظِرِينَ",
+    "turkish": "Elini de (koynundan) çekti çıkardı; bakanlara bembeyaz (görünen, nur saçan bir şey) oluverdi.",
+    "verseNumber": 33,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2966,
+    "arabic": "قَالَ لِلْمَلَإِ حَوْلَهُۥٓ إِنَّ هَٰذَا لَسَٰحِرٌ عَلِيمٌۭ",
+    "turkish": "Firavun çevresinde bulunan ileri gelenlere: \"Bu dedi, herhalde çok bilgili bir sihirbaz!\"",
+    "verseNumber": 34,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2967,
+    "arabic": "يُرِيدُ أَن يُخْرِجَكُم مِّنْ أَرْضِكُم بِسِحْرِهِۦ فَمَاذَا تَأْمُرُونَ",
+    "turkish": "\"Sizi sihriyle yurdunuzdan çıkarmak istiyor. Şimdi ne buyurursunuz?\"",
+    "verseNumber": 35,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2968,
+    "arabic": "قَالُوٓا۟ أَرْجِهْ وَأَخَاهُ وَٱبْعَثْ فِى ٱلْمَدَآئِنِ حَٰشِرِينَ",
+    "turkish": "Dediler ki: \"Bunu ve kardeşini eğle, şehirlere de toplayıcılar gönder.\"",
+    "verseNumber": 36,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2969,
+    "arabic": "يَأْتُوكَ بِكُلِّ سَحَّارٍ عَلِيمٍۢ",
+    "turkish": "\"Bütün bilgiç sihirbazları sana getirsinler.\"",
+    "verseNumber": 37,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2970,
+    "arabic": "فَجُمِعَ ٱلسَّحَرَةُ لِمِيقَٰتِ يَوْمٍۢ مَّعْلُومٍۢ",
+    "turkish": "Böylece, sihirbazlar belli bir günün tayin edilen vaktinde bir araya getirildi.",
+    "verseNumber": 38,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2971,
+    "arabic": "وَقِيلَ لِلنَّاسِ هَلْ أَنتُم مُّجْتَمِعُونَ",
+    "turkish": "Halka, \"Siz de toplanıyor musunuz? (Haydi çabuk olun)\" denildi.",
+    "verseNumber": 39,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2972,
+    "arabic": "لَعَلَّنَا نَتَّبِعُ ٱلسَّحَرَةَ إِن كَانُوا۟ هُمُ ٱلْغَٰلِبِينَ",
+    "turkish": "\"Üstün gelirlerse herhalde sihirbazlara uyarız\" dediler.",
+    "verseNumber": 40,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2973,
+    "arabic": "فَلَمَّا جَآءَ ٱلسَّحَرَةُ قَالُوا۟ لِفِرْعَوْنَ أَئِنَّ لَنَا لَأَجْرًا إِن كُنَّا نَحْنُ ٱلْغَٰلِبِينَ",
+    "turkish": "Sihirbazlar geldiklerinde Firavun'a \"Şayet biz üstün gelirsek, muhakkak bize bir ücret vardır, değil mi?\" dediler.",
+    "verseNumber": 41,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2974,
+    "arabic": "قَالَ نَعَمْ وَإِنَّكُمْ إِذًۭا لَّمِنَ ٱلْمُقَرَّبِينَ",
+    "turkish": "Firavun cevaben: \"Evet, o takdirde hiç şüphe etmeyin, gözde kimselerden olacaksınız\" dedi.",
+    "verseNumber": 42,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2975,
+    "arabic": "قَالَ لَهُم مُّوسَىٰٓ أَلْقُوا۟ مَآ أَنتُم مُّلْقُونَ",
+    "turkish": "Musa onlara \"Atın, ne atacaksanız\" dedi.",
+    "verseNumber": 43,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2976,
+    "arabic": "فَأَلْقَوْا۟ حِبَالَهُمْ وَعِصِيَّهُمْ وَقَالُوا۟ بِعِزَّةِ فِرْعَوْنَ إِنَّا لَنَحْنُ ٱلْغَٰلِبُونَ",
+    "turkish": "Bunun üzerine iplerini ve değneklerini attılar ve \"Firavun'un kudreti hakkı için şüphesiz elbette bizler galip geleceğiz\" dediler.",
+    "verseNumber": 44,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2977,
+    "arabic": "فَأَلْقَىٰ مُوسَىٰ عَصَاهُ فَإِذَا هِىَ تَلْقَفُ مَا يَأْفِكُونَ",
+    "turkish": "Ardından Musa asâsını attı; bir de ne görsünler, onların uydurduklarını yutuyor!",
+    "verseNumber": 45,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2978,
+    "arabic": "فَأُلْقِىَ ٱلسَّحَرَةُ سَٰجِدِينَ",
+    "turkish": "Sihirbazlar derhal secdeye kapandılar.",
+    "verseNumber": 46,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2979,
+    "arabic": "قَالُوٓا۟ ءَامَنَّا بِرَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"İman ettik, dediler, Âlemlerin Rabbine \"",
+    "verseNumber": 47,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2980,
+    "arabic": "رَبِّ مُوسَىٰ وَهَٰرُونَ",
+    "turkish": "\"Musa ve Harun'un Rabbine!\"",
+    "verseNumber": 48,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2981,
+    "arabic": "قَالَ ءَامَنتُمْ لَهُۥ قَبْلَ أَنْ ءَاذَنَ لَكُمْ ۖ إِنَّهُۥ لَكَبِيرُكُمُ ٱلَّذِى عَلَّمَكُمُ ٱلسِّحْرَ فَلَسَوْفَ تَعْلَمُونَ ۚ لَأُقَطِّعَنَّ أَيْدِيَكُمْ وَأَرْجُلَكُم مِّنْ خِلَٰفٍۢ وَلَأُصَلِّبَنَّكُمْ أَجْمَعِينَ",
+    "turkish": "Firavun (kızgınlık içinde) dedi ki: \"Ben size izin vermeden O'na iman ettiniz ha! Anlaşıldı ki o size sihri öğreten büyüğünüzmüş! Ama şimdi bileceksiniz: Andolsun, ellerinizi ve ayaklarınızı çaprazlama ke stireceğim, hepinizi çarmıha gerdireceğim!\"",
+    "verseNumber": 49,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2982,
+    "arabic": "قَالُوا۟ لَا ضَيْرَ ۖ إِنَّآ إِلَىٰ رَبِّنَا مُنقَلِبُونَ",
+    "turkish": "\"Zararı yok dediler nasıl olsa biz Rabbimize döneceğiz.\"",
+    "verseNumber": 50,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2983,
+    "arabic": "إِنَّا نَطْمَعُ أَن يَغْفِرَ لَنَا رَبُّنَا خَطَٰيَٰنَآ أَن كُنَّآ أَوَّلَ ٱلْمُؤْمِنِينَ",
+    "turkish": "\"Herhalde biz müminlerin evveli olduğumuzdan dolayı, Rabbimizin bize mağfiret buyuracağını ümit ederiz\"",
+    "verseNumber": 51,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2984,
+    "arabic": "۞ وَأَوْحَيْنَآ إِلَىٰ مُوسَىٰٓ أَنْ أَسْرِ بِعِبَادِىٓ إِنَّكُم مُّتَّبَعُونَ",
+    "turkish": "Biz, Musa'ya: \"Kullarımı geceleyin yola çıkar, çünkü takip edileceksiniz\" diye vahyettik.",
+    "verseNumber": 52,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2985,
+    "arabic": "فَأَرْسَلَ فِرْعَوْنُ فِى ٱلْمَدَآئِنِ حَٰشِرِينَ",
+    "turkish": "Firavun da şehirlere (asker) toplayıcılar gönderdi:",
+    "verseNumber": 53,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2986,
+    "arabic": "إِنَّ هَٰٓؤُلَآءِ لَشِرْذِمَةٌۭ قَلِيلُونَ",
+    "turkish": "\"Esasen bunlar, sayıları azar azar, bölük pörçük bir cemaattır.\"",
+    "verseNumber": 54,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2987,
+    "arabic": "وَإِنَّهُمْ لَنَا لَغَآئِظُونَ",
+    "turkish": "\"(Böyle iken) hakkımızda çok gayz (öfke) besliyorlar. \"",
+    "verseNumber": 55,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2988,
+    "arabic": "وَإِنَّا لَجَمِيعٌ حَٰذِرُونَ",
+    "turkish": "\"Biz ise, elbette uyanık (ve tekvücut) bir cemaatız.\" (diyor ve dedirtiyordu.)",
+    "verseNumber": 56,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2989,
+    "arabic": "فَأَخْرَجْنَٰهُم مِّن جَنَّٰتٍۢ وَعُيُونٍۢ",
+    "turkish": "Ama (sonunda) biz, onları (Firavun ve kavmini) bahçelerden, pınarlardan,",
+    "verseNumber": 57,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2990,
+    "arabic": "وَكُنُوزٍۢ وَمَقَامٍۢ كَرِيمٍۢ",
+    "turkish": "Hazinelerden ve şerefli makamlardan çıkardık.",
+    "verseNumber": 58,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2991,
+    "arabic": "كَذَٰلِكَ وَأَوْرَثْنَٰهَا بَنِىٓ إِسْرَٰٓءِيلَ",
+    "turkish": "Ve onlara İsrail oğullarını mirasçı yaptık.",
+    "verseNumber": 59,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2992,
+    "arabic": "فَأَتْبَعُوهُم مُّشْرِقِينَ",
+    "turkish": "Derken (Firavun ve adamları) güneş doğmuştu ki, onların ardına düştüler.",
+    "verseNumber": 60,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2993,
+    "arabic": "فَلَمَّا تَرَٰٓءَا ٱلْجَمْعَانِ قَالَ أَصْحَٰبُ مُوسَىٰٓ إِنَّا لَمُدْرَكُونَ",
+    "turkish": "İki topluluk birbirini görünce, Musa'nın adamları \"Eyvah, yakalandık! dediler.",
+    "verseNumber": 61,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2994,
+    "arabic": "قَالَ كَلَّآ ۖ إِنَّ مَعِىَ رَبِّى سَيَهْدِينِ",
+    "turkish": "Musa: \"Hayır, aslâ! dedi, Rabbim şüphesiz benimledir, bana yolunu gösterecektir.\"",
+    "verseNumber": 62,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2995,
+    "arabic": "فَأَوْحَيْنَآ إِلَىٰ مُوسَىٰٓ أَنِ ٱضْرِب بِّعَصَاكَ ٱلْبَحْرَ ۖ فَٱنفَلَقَ فَكَانَ كُلُّ فِرْقٍۢ كَٱلطَّوْدِ ٱلْعَظِيمِ",
+    "turkish": "Bunun üzerine Musa'ya \"Vur asân ile denize\" diye vahyettik; vurunca bir infilak etti, her bölük koca bir dağ gibi oluverdi,",
+    "verseNumber": 63,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2996,
+    "arabic": "وَأَزْلَفْنَا ثَمَّ ٱلْءَاخَرِينَ",
+    "turkish": "Ötekilerini de buraya yanaştırıvermiştik.",
+    "verseNumber": 64,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2997,
+    "arabic": "وَأَنجَيْنَا مُوسَىٰ وَمَن مَّعَهُۥٓ أَجْمَعِينَ",
+    "turkish": "Musa ve beraberindekilerin hepsini kurtardık,",
+    "verseNumber": 65,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2998,
+    "arabic": "ثُمَّ أَغْرَقْنَا ٱلْءَاخَرِينَ",
+    "turkish": "Sonra da ötekileri suda boğduk.",
+    "verseNumber": 66,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 2999,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ",
+    "turkish": "Şüphesiz bunda bir âyet (ibret) vardır; ama çokları iman etmiş değillerdir.",
+    "verseNumber": 67,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3000,
+    "arabic": "وَإِنَّ رَبَّكَ لَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ",
+    "turkish": "Ve şüphesiz, işte o Rabbin, mutlak galip ve engin merhamet sahibidir.",
+    "verseNumber": 68,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3001,
+    "arabic": "وَٱتْلُ عَلَيْهِمْ نَبَأَ إِبْرَٰهِيمَ",
+    "turkish": "(Resulüm!) onlara İbrahim'in kıssasını da naklet.",
+    "verseNumber": 69,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3002,
+    "arabic": "إِذْ قَالَ لِأَبِيهِ وَقَوْمِهِۦ مَا تَعْبُدُونَ",
+    "turkish": "Hani o, babasına ve kavmine, \"Neye tapıyorsunuz?\" demişti.",
+    "verseNumber": 70,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3003,
+    "arabic": "قَالُوا۟ نَعْبُدُ أَصْنَامًۭا فَنَظَلُّ لَهَا عَٰكِفِينَ",
+    "turkish": "\"Birtakım putlara taparız da onlar sayesinde toplanırız\" dediler.",
+    "verseNumber": 71,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3004,
+    "arabic": "قَالَ هَلْ يَسْمَعُونَكُمْ إِذْ تَدْعُونَ",
+    "turkish": "İbrahim \"Peki, dedi, yalvardığınızda onlar sizi işitiyorlar mı?\"",
+    "verseNumber": 72,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3005,
+    "arabic": "أَوْ يَنفَعُونَكُمْ أَوْ يَضُرُّونَ",
+    "turkish": "\"Veya size fayda veya zararları olur mu?\"",
+    "verseNumber": 73,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3006,
+    "arabic": "قَالُوا۟ بَلْ وَجَدْنَآ ءَابَآءَنَا كَذَٰلِكَ يَفْعَلُونَ",
+    "turkish": "\"Yok, dediler, ama biz babalarımızı böyle yapar bulduk.\"",
+    "verseNumber": 74,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3007,
+    "arabic": "قَالَ أَفَرَءَيْتُم مَّا كُنتُمْ تَعْبُدُونَ",
+    "turkish": "İbrahim dedi ki: \"İyi ama, ister sizin, ister önceki atalarınızın olsun, neye taptığınızı (biraz olsun) düşündünüz mü?\"",
+    "verseNumber": 75,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3008,
+    "arabic": "أَنتُمْ وَءَابَآؤُكُمُ ٱلْأَقْدَمُونَ",
+    "turkish": "İbrahim dedi ki: \"İyi ama, ister sizin, ister önceki atalarınızın olsun, neye taptığınızı (biraz olsun) düşündünüz mü?\"",
+    "verseNumber": 76,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3009,
+    "arabic": "فَإِنَّهُمْ عَدُوٌّۭ لِّىٓ إِلَّا رَبَّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Hep onlar benim düşmanımdır; ancak âlemlerin Rabbi (benim dostumdur)\"",
+    "verseNumber": 77,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3010,
+    "arabic": "ٱلَّذِى خَلَقَنِى فَهُوَ يَهْدِينِ",
+    "turkish": "\"O ki, beni yaratan ve bana doğru yolu gösterendir,\"",
+    "verseNumber": 78,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3011,
+    "arabic": "وَٱلَّذِى هُوَ يُطْعِمُنِى وَيَسْقِينِ",
+    "turkish": "\"Beni yediren, içirendir,\"",
+    "verseNumber": 79,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3012,
+    "arabic": "وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ",
+    "turkish": "\"Hastalandığım zaman bana O, şifâ verir.\"",
+    "verseNumber": 80,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3013,
+    "arabic": "وَٱلَّذِى يُمِيتُنِى ثُمَّ يُحْيِينِ",
+    "turkish": "\"O ki, benim canımı alacak, sonra diriltecektir. \"",
+    "verseNumber": 81,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3014,
+    "arabic": "وَٱلَّذِىٓ أَطْمَعُ أَن يَغْفِرَ لِى خَطِيٓـَٔتِى يَوْمَ ٱلدِّينِ",
+    "turkish": "\"Ve hesap günü, hatamı bağışlayacağını umduğumdur.\"",
+    "verseNumber": 82,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3015,
+    "arabic": "رَبِّ هَبْ لِى حُكْمًۭا وَأَلْحِقْنِى بِٱلصَّٰلِحِينَ",
+    "turkish": "\"Ya Rab! Bana hikmet (hüküm) ver ve beni iyiler (zümresin)e kat.\"",
+    "verseNumber": 83,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3016,
+    "arabic": "وَٱجْعَل لِّى لِسَانَ صِدْقٍۢ فِى ٱلْءَاخِرِينَ",
+    "turkish": "\"Sonra gelecekler içinde beni doğrulukla anılanlardan eyle!\"",
+    "verseNumber": 84,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3017,
+    "arabic": "وَٱجْعَلْنِى مِن وَرَثَةِ جَنَّةِ ٱلنَّعِيمِ",
+    "turkish": "\"Ve beni naîm (nimeti bol) cennetin varislerinden eyle!\"",
+    "verseNumber": 85,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3018,
+    "arabic": "وَٱغْفِرْ لِأَبِىٓ إِنَّهُۥ كَانَ مِنَ ٱلضَّآلِّينَ",
+    "turkish": "\"Babamı da bağışla, çünkü o yanlış gidenlerdendir. \"",
+    "verseNumber": 86,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3019,
+    "arabic": "وَلَا تُخْزِنِى يَوْمَ يُبْعَثُونَ",
+    "turkish": "\"(İnsanların) diriltilecekleri gün, beni mahcub etme.\"",
+    "verseNumber": 87,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3020,
+    "arabic": "يَوْمَ لَا يَنفَعُ مَالٌۭ وَلَا بَنُونَ",
+    "turkish": "\"O gün ki ne mal fayda verir ne oğullar!\"",
+    "verseNumber": 88,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3021,
+    "arabic": "إِلَّا مَنْ أَتَى ٱللَّهَ بِقَلْبٍۢ سَلِيمٍۢ",
+    "turkish": "\"Ancak Allah'a temiz bir kalple gelenler o günde (kurtuluşa erer).\"",
+    "verseNumber": 89,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3022,
+    "arabic": "وَأُزْلِفَتِ ٱلْجَنَّةُ لِلْمُتَّقِينَ",
+    "turkish": "(O gün) Cennet müttakilere yaklaştırılmıştır.",
+    "verseNumber": 90,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3023,
+    "arabic": "وَبُرِّزَتِ ٱلْجَحِيمُ لِلْغَاوِينَ",
+    "turkish": "Azgınlar için de cehennem hortlatılmıştır.",
+    "verseNumber": 91,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3024,
+    "arabic": "وَقِيلَ لَهُمْ أَيْنَ مَا كُنتُمْ تَعْبُدُونَ",
+    "turkish": "Onlara, \"Allah'ı bırakıp da taptıklarınız, hani nerede? Size yardım edebiliyorlar mı veya kendilerini kurtarabiliyorlar mı?\" denilir.",
+    "verseNumber": 92,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3025,
+    "arabic": "مِن دُونِ ٱللَّهِ هَلْ يَنصُرُونَكُمْ أَوْ يَنتَصِرُونَ",
+    "turkish": "Onlara, \"Allah'ı bırakıp da taptıklarınız, hani nerede? Size yardım edebiliyorlar mı veya kendilerini kurtarabiliyorlar mı?\" denilir.",
+    "verseNumber": 93,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3026,
+    "arabic": "فَكُبْكِبُوا۟ فِيهَا هُمْ وَٱلْغَاوُۥنَ",
+    "turkish": "Ve arkasından hep onlar (putlar ve azgınlar) o cehennemin içine fırlatılmaktadırlar.",
+    "verseNumber": 94,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3027,
+    "arabic": "وَجُنُودُ إِبْلِيسَ أَجْمَعُونَ",
+    "turkish": "Ve bütün o İblis orduları onun içinde birbirleriyle çekişirlerken dediler ki:",
+    "verseNumber": 95,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3028,
+    "arabic": "قَالُوا۟ وَهُمْ فِيهَا يَخْتَصِمُونَ",
+    "turkish": "Ve bütün o İblis orduları onun içinde birbirleriyle çekişirlerken dediler ki:",
+    "verseNumber": 96,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3029,
+    "arabic": "تَٱللَّهِ إِن كُنَّا لَفِى ضَلَٰلٍۢ مُّبِينٍ",
+    "turkish": "\"Vallahi biz, gerçekten apaçık bir sapıklık içindeymişiz.\"",
+    "verseNumber": 97,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3030,
+    "arabic": "إِذْ نُسَوِّيكُم بِرَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Çünkü biz sizi, âlemlerin Rabbi ile bir seviyede tutuyorduk.\"",
+    "verseNumber": 98,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3031,
+    "arabic": "وَمَآ أَضَلَّنَآ إِلَّا ٱلْمُجْرِمُونَ",
+    "turkish": "\"Ve bizi hep o günahkarlar saptırdı.\"",
+    "verseNumber": 99,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3032,
+    "arabic": "فَمَا لَنَا مِن شَٰفِعِينَ",
+    "turkish": "\"Bak bizim için ne şefaatçiler var,\"",
+    "verseNumber": 100,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3033,
+    "arabic": "وَلَا صَدِيقٍ حَمِيمٍۢ",
+    "turkish": "\"Ne de yakın bir dost.\"",
+    "verseNumber": 101,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3034,
+    "arabic": "فَلَوْ أَنَّ لَنَا كَرَّةًۭ فَنَكُونَ مِنَ ٱلْمُؤْمِنِينَ",
+    "turkish": "\"Ah keşke (dünyaya) bir kere daha dönebilsek de, müminlerden olabilseydik.\"",
+    "verseNumber": 102,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3035,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ",
+    "turkish": "Şüphesiz bunda bir âyet (alınacak bir ders) vardır; oysa çokları iman etmiş değillerdir.",
+    "verseNumber": 103,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3036,
+    "arabic": "وَإِنَّ رَبَّكَ لَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ",
+    "turkish": "Ve şüphesiz Rabbin, işte O, mutlak galip ve engin merhamet sahibidir.",
+    "verseNumber": 104,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3037,
+    "arabic": "كَذَّبَتْ قَوْمُ نُوحٍ ٱلْمُرْسَلِينَ",
+    "turkish": "Nuh kavmi de peygamberleri yalancılıkla itham etti.",
+    "verseNumber": 105,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3038,
+    "arabic": "إِذْ قَالَ لَهُمْ أَخُوهُمْ نُوحٌ أَلَا تَتَّقُونَ",
+    "turkish": "Hani kardeşleri Nuh onlara şöyle demişti: \"Siz Allah'tan korkmaz mısınız?\"",
+    "verseNumber": 106,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3039,
+    "arabic": "إِنِّى لَكُمْ رَسُولٌ أَمِينٌۭ",
+    "turkish": "\"Haberiniz olsun ki ben, size gönderilmiş güvenilir bir Peygamberim.",
+    "verseNumber": 107,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3040,
+    "arabic": "فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ",
+    "turkish": "\"Gelin artık, Allah'tan korkun ve bana itaat edin.\"",
+    "verseNumber": 108,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3041,
+    "arabic": "وَمَآ أَسْـَٔلُكُمْ عَلَيْهِ مِنْ أَجْرٍ ۖ إِنْ أَجْرِىَ إِلَّا عَلَىٰ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Buna karşılık ben sizden hiçbir ücret istemiyorum. Benim mükafaatımı verecek olan ancak, âlemlerin Rabbidir.\"",
+    "verseNumber": 109,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3042,
+    "arabic": "فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ",
+    "turkish": "\"Gelin, artık, Allah'tan korkun ve bana itaat edin.\"",
+    "verseNumber": 110,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3043,
+    "arabic": "۞ قَالُوٓا۟ أَنُؤْمِنُ لَكَ وَٱتَّبَعَكَ ٱلْأَرْذَلُونَ",
+    "turkish": "\"Â, dediler, senin ardına hep düşük kimseler düşmüşken, biz sana hiç inanır mıyız?\"",
+    "verseNumber": 111,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3044,
+    "arabic": "قَالَ وَمَا عِلْمِى بِمَا كَانُوا۟ يَعْمَلُونَ",
+    "turkish": "Nuh dedi ki: \"Onların yaptıkları hakkında bir bilgim yoktur.\"",
+    "verseNumber": 112,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3045,
+    "arabic": "إِنْ حِسَابُهُمْ إِلَّا عَلَىٰ رَبِّى ۖ لَوْ تَشْعُرُونَ",
+    "turkish": "\"Onların hesabı ancak Rabbime aittir. Düşünsenize!\"",
+    "verseNumber": 113,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3046,
+    "arabic": "وَمَآ أَنَا۠ بِطَارِدِ ٱلْمُؤْمِنِينَ",
+    "turkish": "\"Hem ben iman edenleri kovmaya memur değilim.\"",
+    "verseNumber": 114,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3047,
+    "arabic": "إِنْ أَنَا۠ إِلَّا نَذِيرٌۭ مُّبِينٌۭ",
+    "turkish": "\"Ben ancak apaçık bir uyarıcıyım.\"",
+    "verseNumber": 115,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3048,
+    "arabic": "قَالُوا۟ لَئِن لَّمْ تَنتَهِ يَٰنُوحُ لَتَكُونَنَّ مِنَ ٱلْمَرْجُومِينَ",
+    "turkish": "Dediler ki: \"Ey Nuh! Eğer vazgeçmezsen, iyi bil ki, taşa tutulanlardan olacaksın!\"",
+    "verseNumber": 116,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3049,
+    "arabic": "قَالَ رَبِّ إِنَّ قَوْمِى كَذَّبُونِ",
+    "turkish": "Nuh: \"Rabbim! dedi, kavmim beni yalancılıkla itham etti.\"",
+    "verseNumber": 117,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3050,
+    "arabic": "فَٱفْتَحْ بَيْنِى وَبَيْنَهُمْ فَتْحًۭا وَنَجِّنِى وَمَن مَّعِىَ مِنَ ٱلْمُؤْمِنِينَ",
+    "turkish": "\"Artık benimle onların arasında sen hükmünü ver. Beni ve beraberimdeki müminleri kurtar.\"",
+    "verseNumber": 118,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3051,
+    "arabic": "فَأَنجَيْنَٰهُ وَمَن مَّعَهُۥ فِى ٱلْفُلْكِ ٱلْمَشْحُونِ",
+    "turkish": "Bunun üzerine biz de onu ve beraberindekileri, o dolu gemide taşıyarak kurtardık.",
+    "verseNumber": 119,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3052,
+    "arabic": "ثُمَّ أَغْرَقْنَا بَعْدُ ٱلْبَاقِينَ",
+    "turkish": "Sonra da arkasında kalanları suda boğduk.",
+    "verseNumber": 120,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3053,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ",
+    "turkish": "Şüphesiz bunda mutlak bir âyet (alınacak ders) vardır; ama çokları iman etmiş değillerdir.",
+    "verseNumber": 121,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3054,
+    "arabic": "وَإِنَّ رَبَّكَ لَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ",
+    "turkish": "Ve şüphesiz Rabbin, işte O, mutlak galip ve engin merhamet sahibidir.",
+    "verseNumber": 122,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3055,
+    "arabic": "كَذَّبَتْ عَادٌ ٱلْمُرْسَلِينَ",
+    "turkish": "Âd (kavmi) de peygamberleri yalancılıkla itham etti.",
+    "verseNumber": 123,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3056,
+    "arabic": "إِذْ قَالَ لَهُمْ أَخُوهُمْ هُودٌ أَلَا تَتَّقُونَ",
+    "turkish": "Hani kardeşleri Hûd onlara şöyle demişti: \"Siz Allah'tan korkmaz mısınız?\"",
+    "verseNumber": 124,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3057,
+    "arabic": "إِنِّى لَكُمْ رَسُولٌ أَمِينٌۭ",
+    "turkish": "\"Haberiniz olsun ki ben, size gönderilmiş, güvenilir bir Peygamberim.\"",
+    "verseNumber": 125,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3058,
+    "arabic": "فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ",
+    "turkish": "\"Gelin artık Allah'tan korkun ve bana itaat edin.\"",
+    "verseNumber": 126,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3059,
+    "arabic": "وَمَآ أَسْـَٔلُكُمْ عَلَيْهِ مِنْ أَجْرٍ ۖ إِنْ أَجْرِىَ إِلَّا عَلَىٰ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Buna karşılık ben sizden hiçbir ücret istemiyorum. Benim mükafatımı verecek olan ancak âlemlerin Rabbidir. \"",
+    "verseNumber": 127,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3060,
+    "arabic": "أَتَبْنُونَ بِكُلِّ رِيعٍ ءَايَةًۭ تَعْبَثُونَ",
+    "turkish": "\"Siz her tepeye bir alâmet bina edip eğlenir durur musunuz?\"",
+    "verseNumber": 128,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3061,
+    "arabic": "وَتَتَّخِذُونَ مَصَانِعَ لَعَلَّكُمْ تَخْلُدُونَ",
+    "turkish": "\"Temelli kalacağınızı umarak sağlam yapılar mı edinirsiniz?\"",
+    "verseNumber": 129,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3062,
+    "arabic": "وَإِذَا بَطَشْتُم بَطَشْتُمْ جَبَّارِينَ",
+    "turkish": "\"Hem tuttuğunuz zaman merhametsiz zorbalar gibi tutuyorsunuz.\"",
+    "verseNumber": 130,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3063,
+    "arabic": "فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ",
+    "turkish": "\"Artık Allah'tan korkun ve bana itaat edin.\"",
+    "verseNumber": 131,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3064,
+    "arabic": "وَٱتَّقُوا۟ ٱلَّذِىٓ أَمَدَّكُم بِمَا تَعْلَمُونَ",
+    "turkish": "\"O Allah'tan korkun ki, size o bildiğiniz şeyleri vermekte,\"",
+    "verseNumber": 132,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3065,
+    "arabic": "أَمَدَّكُم بِأَنْعَٰمٍۢ وَبَنِينَ",
+    "turkish": "\"Davarlar, oğullar,\"",
+    "verseNumber": 133,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3066,
+    "arabic": "وَجَنَّٰتٍۢ وَعُيُونٍ",
+    "turkish": "\"Cennet gibi bağlar, bahçeler, pınarlar ihsan etmektedir.\"",
+    "verseNumber": 134,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3067,
+    "arabic": "إِنِّىٓ أَخَافُ عَلَيْكُمْ عَذَابَ يَوْمٍ عَظِيمٍۢ",
+    "turkish": "\"Cidden ben sizin hakkınızda büyük bir günün azabından korkuyorum.\"",
+    "verseNumber": 135,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3068,
+    "arabic": "قَالُوا۟ سَوَآءٌ عَلَيْنَآ أَوَعَظْتَ أَمْ لَمْ تَكُن مِّنَ ٱلْوَٰعِظِينَ",
+    "turkish": "\"Dediler ki: \"Sen ha vaaz etmişsin, ha vaaz edenlerden olmamışsın, bizce birdir.\"",
+    "verseNumber": 136,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3069,
+    "arabic": "إِنْ هَٰذَآ إِلَّا خُلُقُ ٱلْأَوَّلِينَ",
+    "turkish": "\"Bu sırf eskilerin âdetidir.\"",
+    "verseNumber": 137,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3070,
+    "arabic": "وَمَا نَحْنُ بِمُعَذَّبِينَ",
+    "turkish": "\"Biz azaba uğratılacak da değiliz.\"",
+    "verseNumber": 138,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3071,
+    "arabic": "فَكَذَّبُوهُ فَأَهْلَكْنَٰهُمْ ۗ إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ",
+    "turkish": "Böylece onu yalancı saydılar; biz de kendilerini helak ettik. Şüphesiz bunda mutlak bir âyet (alınacak bir ders) vardır, ama çokları iman etmiş değillerdir.",
+    "verseNumber": 139,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3072,
+    "arabic": "وَإِنَّ رَبَّكَ لَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ",
+    "turkish": "Ve şüphesiz Rabbin, işte O, mutlak galip ve engin merhamet sahibidir.",
+    "verseNumber": 140,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3073,
+    "arabic": "كَذَّبَتْ ثَمُودُ ٱلْمُرْسَلِينَ",
+    "turkish": "Semûd (kavmi) de peygamberleri yalancılıkla itham etti.",
+    "verseNumber": 141,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3074,
+    "arabic": "إِذْ قَالَ لَهُمْ أَخُوهُمْ صَٰلِحٌ أَلَا تَتَّقُونَ",
+    "turkish": "Hani kardeşleri Salih onlara şöyle demişti: \"Siz Allah'tan korkmaz mısınız?\"",
+    "verseNumber": 142,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3075,
+    "arabic": "إِنِّى لَكُمْ رَسُولٌ أَمِينٌۭ",
+    "turkish": "\"Haberiniz olsun ki ben size gönderilmiş güvenilir bir peygamberim.\"",
+    "verseNumber": 143,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3076,
+    "arabic": "فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ",
+    "turkish": "\"Gelin artık, Allah'tan korkun ve bana itaat edin.\"",
+    "verseNumber": 144,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3077,
+    "arabic": "وَمَآ أَسْـَٔلُكُمْ عَلَيْهِ مِنْ أَجْرٍ ۖ إِنْ أَجْرِىَ إِلَّا عَلَىٰ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Buna karşılık ben sizden hiçbir ücret istemiyorum. Benim mükafatımı verecek olan ancak âlemlerin Rabbidir.\"",
+    "verseNumber": 145,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3078,
+    "arabic": "أَتُتْرَكُونَ فِى مَا هَٰهُنَآ ءَامِنِينَ",
+    "turkish": "\"Siz burada güven içinde bırakılacak mısınız?\"",
+    "verseNumber": 146,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3079,
+    "arabic": "فِى جَنَّٰتٍۢ وَعُيُونٍۢ",
+    "turkish": "\"Bahçelerin, pınarların içinde,\"",
+    "verseNumber": 147,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3080,
+    "arabic": "وَزُرُوعٍۢ وَنَخْلٍۢ طَلْعُهَا هَضِيمٌۭ",
+    "turkish": "\"Ekinlerin, salkımları sarkmış hurmalar arasında,\"",
+    "verseNumber": 148,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3081,
+    "arabic": "وَتَنْحِتُونَ مِنَ ٱلْجِبَالِ بُيُوتًۭا فَٰرِهِينَ",
+    "turkish": "Ki bir de dağlardan keyifli keyifli kâşâneler oyuyorsunuz.\"",
+    "verseNumber": 149,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3082,
+    "arabic": "فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ",
+    "turkish": "\"Gelin! Allah'tan korkun da bana itaat edin.\"",
+    "verseNumber": 150,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3083,
+    "arabic": "وَلَا تُطِيعُوٓا۟ أَمْرَ ٱلْمُسْرِفِينَ",
+    "turkish": "\"Yeryüzünde bozgunculuk yapıp dirlik düzenlik vermeyen bozguncuların emrine uymayın.\"",
+    "verseNumber": 151,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3084,
+    "arabic": "ٱلَّذِينَ يُفْسِدُونَ فِى ٱلْأَرْضِ وَلَا يُصْلِحُونَ",
+    "turkish": "\"Yeryüzünde bozgunculuk yapıp dirlik düzenlik vermeyen bozguncuların emrine uymayın.\"",
+    "verseNumber": 152,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3085,
+    "arabic": "قَالُوٓا۟ إِنَّمَآ أَنتَ مِنَ ٱلْمُسَحَّرِينَ",
+    "turkish": "\"Sen dediler, olsa olsa iyice büyülenmiş birisin!\"",
+    "verseNumber": 153,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3086,
+    "arabic": "مَآ أَنتَ إِلَّا بَشَرٌۭ مِّثْلُنَا فَأْتِ بِـَٔايَةٍ إِن كُنتَ مِنَ ٱلصَّٰدِقِينَ",
+    "turkish": "\"Sen de ancak bizim gibi bir beşersin. Eğer doğru söyleyenlerden isen, haydi bize bir âyet (mucize) getir.\"",
+    "verseNumber": 154,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3087,
+    "arabic": "قَالَ هَٰذِهِۦ نَاقَةٌۭ لَّهَا شِرْبٌۭ وَلَكُمْ شِرْبُ يَوْمٍۢ مَّعْلُومٍۢ",
+    "turkish": "Salih \"İşte (mucize) bu dişi devedir; su içme hakkı (bir gün) onundur, belli bir günün içme hakkı da sizin\" dedi.",
+    "verseNumber": 155,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3088,
+    "arabic": "وَلَا تَمَسُّوهَا بِسُوٓءٍۢ فَيَأْخُذَكُمْ عَذَابُ يَوْمٍ عَظِيمٍۢ",
+    "turkish": "\"Sakın ona bir kötülükle ilişmeyin, yoksa sizi büyük bir günün azabı yakalayıverir.\"",
+    "verseNumber": 156,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3089,
+    "arabic": "فَعَقَرُوهَا فَأَصْبَحُوا۟ نَٰدِمِينَ",
+    "turkish": "Derken onu kestiler; fakat pişman da oldular.",
+    "verseNumber": 157,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3090,
+    "arabic": "فَأَخَذَهُمُ ٱلْعَذَابُ ۗ إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ",
+    "turkish": "Çünkü kendilerini azap yakalayıverdi. Şüphesiz bunda bir âyet (alınacak bir ders) vardır, ama çokları iman etmiş değillerdir.",
+    "verseNumber": 158,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3091,
+    "arabic": "وَإِنَّ رَبَّكَ لَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ",
+    "turkish": "Ve şüphesiz Rabbin, işte O mutlak galip ve engin merhamet sahibidir.",
+    "verseNumber": 159,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3092,
+    "arabic": "كَذَّبَتْ قَوْمُ لُوطٍ ٱلْمُرْسَلِينَ",
+    "turkish": "Lût (kavmi) de peygamberleri yalancılıkla itham etti.",
+    "verseNumber": 160,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3093,
+    "arabic": "إِذْ قَالَ لَهُمْ أَخُوهُمْ لُوطٌ أَلَا تَتَّقُونَ",
+    "turkish": "Hani kardeşleri Lût onlara şöyle demişti: \"Siz Allah'tan kormaz mısınız?\"",
+    "verseNumber": 161,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3094,
+    "arabic": "إِنِّى لَكُمْ رَسُولٌ أَمِينٌۭ",
+    "turkish": "\"Haberiniz olsun ki, ben size gönderilmiş güvenilir bir peygamberim.\"",
+    "verseNumber": 162,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3095,
+    "arabic": "فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ",
+    "turkish": "\"Gelin artık, Allah'tan korkun ve bana itaat edin.\"",
+    "verseNumber": 163,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3096,
+    "arabic": "وَمَآ أَسْـَٔلُكُمْ عَلَيْهِ مِنْ أَجْرٍ ۖ إِنْ أَجْرِىَ إِلَّا عَلَىٰ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Buna karşılık ben sizden bir ücret istemiyorum. Benim mükafatımı verecek olan ancak âlemlerin Rabbidir.\"",
+    "verseNumber": 164,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3097,
+    "arabic": "أَتَأْتُونَ ٱلذُّكْرَانَ مِنَ ٱلْعَٰلَمِينَ",
+    "turkish": "\"İnsanlar içinden erkeklere mi gidiyorsunuz?\"",
+    "verseNumber": 165,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3098,
+    "arabic": "وَتَذَرُونَ مَا خَلَقَ لَكُمْ رَبُّكُم مِّنْ أَزْوَٰجِكُم ۚ بَلْ أَنتُمْ قَوْمٌ عَادُونَ",
+    "turkish": "\"Bırakıyorsunuz da sizler için yarattığı eşleri! Doğrusu siz insanlıktan çıkmış bir kavimsiniz!\"",
+    "verseNumber": 166,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3099,
+    "arabic": "قَالُوا۟ لَئِن لَّمْ تَنتَهِ يَٰلُوطُ لَتَكُونَنَّ مِنَ ٱلْمُخْرَجِينَ",
+    "turkish": "Onlar şöyle dediler: \"Ey Lût! (Bu davadan) vazgeçmezsen, iyi bilki, sürülenlerden olacaksın.\"",
+    "verseNumber": 167,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3100,
+    "arabic": "قَالَ إِنِّى لِعَمَلِكُم مِّنَ ٱلْقَالِينَ",
+    "turkish": "Lût \"Doğrusu ben, dedi, sizin bu işinize buğzedenlerdenim.\"",
+    "verseNumber": 168,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3101,
+    "arabic": "رَبِّ نَجِّنِى وَأَهْلِى مِمَّا يَعْمَلُونَ",
+    "turkish": "\"Yâ Rabbi! Beni ve ailemi onların yapageldiklerin(in vebalin)den kurtar.\"",
+    "verseNumber": 169,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3102,
+    "arabic": "فَنَجَّيْنَٰهُ وَأَهْلَهُۥٓ أَجْمَعِينَ",
+    "turkish": "Biz de onu ve ailesinin tamamını kurtardık,",
+    "verseNumber": 170,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3103,
+    "arabic": "إِلَّا عَجُوزًۭا فِى ٱلْغَٰبِرِينَ",
+    "turkish": "Ancak (geride) bir yaşlı kadın kaldı.",
+    "verseNumber": 171,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3104,
+    "arabic": "ثُمَّ دَمَّرْنَا ٱلْءَاخَرِينَ",
+    "turkish": "Sonra geridekilerin hepsini helak ettik.",
+    "verseNumber": 172,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3105,
+    "arabic": "وَأَمْطَرْنَا عَلَيْهِم مَّطَرًۭا ۖ فَسَآءَ مَطَرُ ٱلْمُنذَرِينَ",
+    "turkish": "Ve üzerlerine öyle bir yağmur yağdırdık ki, (uyarılanların) o yağmuru ne kötü bir yağmurdu!",
+    "verseNumber": 173,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3106,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ",
+    "turkish": "Şüphesiz bunda bir âyet (alınacak bir ders) vardır. Ama çokları iman etmiş değillerdir.",
+    "verseNumber": 174,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3107,
+    "arabic": "وَإِنَّ رَبَّكَ لَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ",
+    "turkish": "Ve şüphesiz Rabbin, işte O mutlak galip ve engin merhamet sahibidir.",
+    "verseNumber": 175,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3108,
+    "arabic": "كَذَّبَ أَصْحَٰبُ لْـَٔيْكَةِ ٱلْمُرْسَلِينَ",
+    "turkish": "Eyke halkı da peygamberleri yalancılıkla itham etti.",
+    "verseNumber": 176,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3109,
+    "arabic": "إِذْ قَالَ لَهُمْ شُعَيْبٌ أَلَا تَتَّقُونَ",
+    "turkish": "Hani Şuayb onlara şöyle demişti: \"Siz Allah'tan korkmaz mısınız?\"",
+    "verseNumber": 177,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3110,
+    "arabic": "إِنِّى لَكُمْ رَسُولٌ أَمِينٌۭ",
+    "turkish": "\"Haberiniz olsun ki ben size gönderilmiş güvenilir bir peygamberim.\"",
+    "verseNumber": 178,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3111,
+    "arabic": "فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ",
+    "turkish": "\"Gelin, Allah'tan korkun ve bana itaat edin.\"",
+    "verseNumber": 179,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3112,
+    "arabic": "وَمَآ أَسْـَٔلُكُمْ عَلَيْهِ مِنْ أَجْرٍ ۖ إِنْ أَجْرِىَ إِلَّا عَلَىٰ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Buna karşılık ben sizden bir ücret istemiyorum. Benim mükafatımı verecek olan yalnız âlemlerin Rabbidir.\"",
+    "verseNumber": 180,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3113,
+    "arabic": "۞ أَوْفُوا۟ ٱلْكَيْلَ وَلَا تَكُونُوا۟ مِنَ ٱلْمُخْسِرِينَ",
+    "turkish": "\"Ölçeği tam ölçün de hak yiyenlerden olmayın.\"",
+    "verseNumber": 181,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3114,
+    "arabic": "وَزِنُوا۟ بِٱلْقِسْطَاسِ ٱلْمُسْتَقِيمِ",
+    "turkish": "\"Ve doğru terazi ile tartın.\"",
+    "verseNumber": 182,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3115,
+    "arabic": "وَلَا تَبْخَسُوا۟ ٱلنَّاسَ أَشْيَآءَهُمْ وَلَا تَعْثَوْا۟ فِى ٱلْأَرْضِ مُفْسِدِينَ",
+    "turkish": "\"Halkın eşyalarını değerinden düşürmeyin. Yeryüzünde bozgunculuk yaparak karışıklık çıkarmayın.\"",
+    "verseNumber": 183,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3116,
+    "arabic": "وَٱتَّقُوا۟ ٱلَّذِى خَلَقَكُمْ وَٱلْجِبِلَّةَ ٱلْأَوَّلِينَ",
+    "turkish": "\"O sizi ve sizden önceki nesilleri yaratan Allah'tan korkun.\"",
+    "verseNumber": 184,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3117,
+    "arabic": "قَالُوٓا۟ إِنَّمَآ أَنتَ مِنَ ٱلْمُسَحَّرِينَ",
+    "turkish": "Onlar şöyle dediler: \"Sen, olsa olsa iyice büyülenmiş birisin.\"",
+    "verseNumber": 185,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3118,
+    "arabic": "وَمَآ أَنتَ إِلَّا بَشَرٌۭ مِّثْلُنَا وَإِن نَّظُنُّكَ لَمِنَ ٱلْكَٰذِبِينَ",
+    "turkish": "\"Sen de bizim gibi bir beşerden başka nesin? Bil ki, biz seni ancak yalancılardan biri sayıyoruz.\"",
+    "verseNumber": 186,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3119,
+    "arabic": "فَأَسْقِطْ عَلَيْنَا كِسَفًۭا مِّنَ ٱلسَّمَآءِ إِن كُنتَ مِنَ ٱلصَّٰدِقِينَ",
+    "turkish": "\"Şayet doğru sözlülerden isen, üstümüze gökten bir parça düşürüver.\"",
+    "verseNumber": 187,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3120,
+    "arabic": "قَالَ رَبِّىٓ أَعْلَمُ بِمَا تَعْمَلُونَ",
+    "turkish": "Şuayb, \"Rabbim, yaptıklarınızı en iyi bilendir\" dedi.",
+    "verseNumber": 188,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3121,
+    "arabic": "فَكَذَّبُوهُ فَأَخَذَهُمْ عَذَابُ يَوْمِ ٱلظُّلَّةِ ۚ إِنَّهُۥ كَانَ عَذَابَ يَوْمٍ عَظِيمٍ",
+    "turkish": "Hülasa, onu yalancı saydılar da kendilerini o gölge gününün azabı yakalayıverdi. O cidden büyük bir günün azabı idi!",
+    "verseNumber": 189,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3122,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ",
+    "turkish": "Şüphesiz bunda bir âyet (alınacak bir ders) vardır. Ama çokları iman etmiş değillerdir.",
+    "verseNumber": 190,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3123,
+    "arabic": "وَإِنَّ رَبَّكَ لَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ",
+    "turkish": "Ve şüphesiz Rabbin, işte O, mutlak galip ve engin merhamet sahibidir.",
+    "verseNumber": 191,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3124,
+    "arabic": "وَإِنَّهُۥ لَتَنزِيلُ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "Ve muhakkak ki bu (Kur'ân) âlemlerin Rabbinin indirmesidir.",
+    "verseNumber": 192,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3125,
+    "arabic": "نَزَلَ بِهِ ٱلرُّوحُ ٱلْأَمِينُ",
+    "turkish": "(Resulüm!) Onu Rûhu'lemin (Cebrail) indirdi;",
+    "verseNumber": 193,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3126,
+    "arabic": "عَلَىٰ قَلْبِكَ لِتَكُونَ مِنَ ٱلْمُنذِرِينَ",
+    "turkish": "Uyarıcılardan olasın diye senin kalbin üzerine;",
+    "verseNumber": 194,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3127,
+    "arabic": "بِلِسَانٍ عَرَبِىٍّۢ مُّبِينٍۢ",
+    "turkish": "Açık parlak bir Arapça lisan ile.",
+    "verseNumber": 195,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3128,
+    "arabic": "وَإِنَّهُۥ لَفِى زُبُرِ ٱلْأَوَّلِينَ",
+    "turkish": "O, şüphesiz daha öncekilerin kitaplarında da vardı.",
+    "verseNumber": 196,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3129,
+    "arabic": "أَوَلَمْ يَكُن لَّهُمْ ءَايَةً أَن يَعْلَمَهُۥ عُلَمَٰٓؤُا۟ بَنِىٓ إِسْرَٰٓءِيلَ",
+    "turkish": "İsrailoğulları bilginlerinin onu bilmesi, onlar için bir âyet (delil) değil midir?",
+    "verseNumber": 197,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3130,
+    "arabic": "وَلَوْ نَزَّلْنَٰهُ عَلَىٰ بَعْضِ ٱلْأَعْجَمِينَ",
+    "turkish": "Biz onu Arapça bilmeyenlerden birine indirseydik de, bunu o okusaydı, yine de ona iman etmezlerdi.",
+    "verseNumber": 198,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3131,
+    "arabic": "فَقَرَأَهُۥ عَلَيْهِم مَّا كَانُوا۟ بِهِۦ مُؤْمِنِينَ",
+    "turkish": "Biz onu Arapça bilmeyenlerden birine indirseydik de, bunu o okusaydı, yine de ona iman etmezlerdi.",
+    "verseNumber": 199,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3132,
+    "arabic": "كَذَٰلِكَ سَلَكْنَٰهُ فِى قُلُوبِ ٱلْمُجْرِمِينَ",
+    "turkish": "Böylece onu günahkarların kalplerine soktuk. (okuyup anladılar, ama yine de) acıklı azabı görünceye kadar ona iman etmezler.",
+    "verseNumber": 200,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3133,
+    "arabic": "لَا يُؤْمِنُونَ بِهِۦ حَتَّىٰ يَرَوُا۟ ٱلْعَذَابَ ٱلْأَلِيمَ",
+    "turkish": "Böylece onu günahkarların kalplerine soktuk. (okuyup anladılar, ama yine de) acıklı azabı görünceye kadar ona iman etmezler.",
+    "verseNumber": 201,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3134,
+    "arabic": "فَيَأْتِيَهُم بَغْتَةًۭ وَهُمْ لَا يَشْعُرُونَ",
+    "turkish": "İşte bu (azab) onlara, kendileri farkında olmadan, ansızın geliverecektir.",
+    "verseNumber": 202,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3135,
+    "arabic": "فَيَقُولُوا۟ هَلْ نَحْنُ مُنظَرُونَ",
+    "turkish": "O zaman \"Bize (iman etmemiz için) mühlet verilir mi acaba?... diyeceklerdir.",
+    "verseNumber": 203,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3136,
+    "arabic": "أَفَبِعَذَابِنَا يَسْتَعْجِلُونَ",
+    "turkish": "(Oysa dünyada iken) Onlar bizim azabımızı çarçabuk istiyorlardı.",
+    "verseNumber": 204,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3137,
+    "arabic": "أَفَرَءَيْتَ إِن مَّتَّعْنَٰهُمْ سِنِينَ",
+    "turkish": "Gördün ya artık onlara senelerce zevk ettirsek,",
+    "verseNumber": 205,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3138,
+    "arabic": "ثُمَّ جَآءَهُم مَّا كَانُوا۟ يُوعَدُونَ",
+    "turkish": "Sonra kendilerine vaad edilen (azab) gelip çatarsa,",
+    "verseNumber": 206,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3139,
+    "arabic": "مَآ أَغْنَىٰ عَنْهُم مَّا كَانُوا۟ يُمَتَّعُونَ",
+    "turkish": "O yaşadıkları zevkin kendilerine hiçbir faydası olmayacaktır.",
+    "verseNumber": 207,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3140,
+    "arabic": "وَمَآ أَهْلَكْنَا مِن قَرْيَةٍ إِلَّا لَهَا مُنذِرُونَ",
+    "turkish": "Bununla birlikte, biz hangi memleketi helak ettikse muhakkak onu uyarıcı (peygamberleri) olmuştur.",
+    "verseNumber": 208,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3141,
+    "arabic": "ذِكْرَىٰ وَمَا كُنَّا ظَٰلِمِينَ",
+    "turkish": "(Onlar) ihtar edilmiştir ve biz zulmetmiş değiliz.",
+    "verseNumber": 209,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3142,
+    "arabic": "وَمَا تَنَزَّلَتْ بِهِ ٱلشَّيَٰطِينُ",
+    "turkish": "Onu (Kur'ân'ı) şeytanlar indirmedi.",
+    "verseNumber": 210,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3143,
+    "arabic": "وَمَا يَنۢبَغِى لَهُمْ وَمَا يَسْتَطِيعُونَ",
+    "turkish": "Bu onlara hem yaraşmaz hem güçleri yetmez.",
+    "verseNumber": 211,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3144,
+    "arabic": "إِنَّهُمْ عَنِ ٱلسَّمْعِ لَمَعْزُولُونَ",
+    "turkish": "Şüphesiz onlar vahyi işitmekten uzak tutulmuşlardır.",
+    "verseNumber": 212,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3145,
+    "arabic": "فَلَا تَدْعُ مَعَ ٱللَّهِ إِلَٰهًا ءَاخَرَ فَتَكُونَ مِنَ ٱلْمُعَذَّبِينَ",
+    "turkish": "O halde sakın Allah ile beraber başka tanrıya kulluk edip yalvarma, yoksa azaba uğratılanlardan olursun.",
+    "verseNumber": 213,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3146,
+    "arabic": "وَأَنذِرْ عَشِيرَتَكَ ٱلْأَقْرَبِينَ",
+    "turkish": "(Önce) en yakın hısımlarını uyar.",
+    "verseNumber": 214,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3147,
+    "arabic": "وَٱخْفِضْ جَنَاحَكَ لِمَنِ ٱتَّبَعَكَ مِنَ ٱلْمُؤْمِنِينَ",
+    "turkish": "Ve sana uyan müminlere kanadını indir.",
+    "verseNumber": 215,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3148,
+    "arabic": "فَإِنْ عَصَوْكَ فَقُلْ إِنِّى بَرِىٓءٌۭ مِّمَّا تَعْمَلُونَ",
+    "turkish": "Şayet sana karşı gelirlerse, de ki: \"Ben sizin yaptıklarınızdan muhakkak uzağım.\"",
+    "verseNumber": 216,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3149,
+    "arabic": "وَتَوَكَّلْ عَلَى ٱلْعَزِيزِ ٱلرَّحِيمِ",
+    "turkish": "Sen O, mutlak galip ve engin merhamet sahibine güvenip dayan.",
+    "verseNumber": 217,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3150,
+    "arabic": "ٱلَّذِى يَرَىٰكَ حِينَ تَقُومُ",
+    "turkish": "O ki, (gece namaza) kalktığın zaman seni görüyor.",
+    "verseNumber": 218,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3151,
+    "arabic": "وَتَقَلُّبَكَ فِى ٱلسَّٰجِدِينَ",
+    "turkish": "Ve secde edenler arasında dolaşmanı da (görüyor.)",
+    "verseNumber": 219,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3152,
+    "arabic": "إِنَّهُۥ هُوَ ٱلسَّمِيعُ ٱلْعَلِيمُ",
+    "turkish": "Çünkü her şeyi işiten, her şeyi bilen O'dur.",
+    "verseNumber": 220,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3153,
+    "arabic": "هَلْ أُنَبِّئُكُمْ عَلَىٰ مَن تَنَزَّلُ ٱلشَّيَٰطِينُ",
+    "turkish": "Şeytanların kime ineceğini size haber vereyim mi?",
+    "verseNumber": 221,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3154,
+    "arabic": "تَنَزَّلُ عَلَىٰ كُلِّ أَفَّاكٍ أَثِيمٍۢ",
+    "turkish": "Onlar, günaha, iftiraya düşkün olan herkesin üzerine inerler.",
+    "verseNumber": 222,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3155,
+    "arabic": "يُلْقُونَ ٱلسَّمْعَ وَأَكْثَرُهُمْ كَٰذِبُونَ",
+    "turkish": "Onlar, (şeytanlara) kulak verirler ve onların çoğu yalancıdır.",
+    "verseNumber": 223,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3156,
+    "arabic": "وَٱلشُّعَرَآءُ يَتَّبِعُهُمُ ٱلْغَاوُۥنَ",
+    "turkish": "Şairler(e gelince), onlara da sapıklar uyar.",
+    "verseNumber": 224,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3157,
+    "arabic": "أَلَمْ تَرَ أَنَّهُمْ فِى كُلِّ وَادٍۢ يَهِيمُونَ",
+    "turkish": "Onların her vadide şaşkın şaşkın dolaştıklarını ve gerçekte yapmadıkları şeyleri söylediklerini görmedin mi?",
+    "verseNumber": 225,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3158,
+    "arabic": "وَأَنَّهُمْ يَقُولُونَ مَا لَا يَفْعَلُونَ",
+    "turkish": "Onların her vadide şaşkın şaşkın dolaştıklarını ve gerçekte yapmadıkları şeyleri söylediklerini görmedin mi?",
+    "verseNumber": 226,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3159,
+    "arabic": "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّٰلِحَٰتِ وَذَكَرُوا۟ ٱللَّهَ كَثِيرًۭا وَٱنتَصَرُوا۟ مِنۢ بَعْدِ مَا ظُلِمُوا۟ ۗ وَسَيَعْلَمُ ٱلَّذِينَ ظَلَمُوٓا۟ أَىَّ مُنقَلَبٍۢ يَنقَلِبُونَ",
+    "turkish": "Ancak iman edip iyi ameller işleyenler, Allah'ı çok çok ananlar ve haksızlığa uğratıldıklarında kendilerini savunanlar müstesna; haksızlık edenler, hangi dönüşe (hangi akibete) döndürüleceklerini yakında bileceklerdir.",
+    "verseNumber": 227,
+    "surahNumber": 26,
+    "surahName": "سُورَةُ الشُّعَرَاءِ",
+    "englishName": "Ash-Shu'araa"
+  },
+  {
+    "id": 3160,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ طسٓ ۚ تِلْكَ ءَايَٰتُ ٱلْقُرْءَانِ وَكِتَابٍۢ مُّبِينٍ",
+    "turkish": "Tâ, Sîn. Bunlar sana, Kur'ân'ın ve apaçık bir kitabın âyetleridir.",
+    "verseNumber": 1,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3161,
+    "arabic": "هُدًۭى وَبُشْرَىٰ لِلْمُؤْمِنِينَ",
+    "turkish": "İman eden müminler için hidayet rehberi ve müjdeci olmak üzere.",
+    "verseNumber": 2,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3162,
+    "arabic": "ٱلَّذِينَ يُقِيمُونَ ٱلصَّلَوٰةَ وَيُؤْتُونَ ٱلزَّكَوٰةَ وَهُم بِٱلْءَاخِرَةِ هُمْ يُوقِنُونَ",
+    "turkish": "Ki o (müminler) namazı dosdoğru kılarlar, zekatı verirler ve ahirete de kesin olarak iman ederler.",
+    "verseNumber": 3,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3163,
+    "arabic": "إِنَّ ٱلَّذِينَ لَا يُؤْمِنُونَ بِٱلْءَاخِرَةِ زَيَّنَّا لَهُمْ أَعْمَٰلَهُمْ فَهُمْ يَعْمَهُونَ",
+    "turkish": "Şüphesiz biz, ahirete inanmayanların işlerini kendilerine süslü gösterdik de onlar ilerisini göremezler, kalpleri körelmiştir.",
+    "verseNumber": 4,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3164,
+    "arabic": "أُو۟لَٰٓئِكَ ٱلَّذِينَ لَهُمْ سُوٓءُ ٱلْعَذَابِ وَهُمْ فِى ٱلْءَاخِرَةِ هُمُ ٱلْأَخْسَرُونَ",
+    "turkish": "İşte bunlar, kendileri için oldukça ağır bir azab bulunan kimselerdir, ahirette en çok ziyana uğrayacaklar da onlardır.",
+    "verseNumber": 5,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3165,
+    "arabic": "وَإِنَّكَ لَتُلَقَّى ٱلْقُرْءَانَ مِن لَّدُنْ حَكِيمٍ عَلِيمٍ",
+    "turkish": "(Resulüm!) Şüphesiz ki bu Kur'ân, sana hikmet sahibi ve her şeyi bilen Allah tarafından indirilmektedir.",
+    "verseNumber": 6,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3166,
+    "arabic": "إِذْ قَالَ مُوسَىٰ لِأَهْلِهِۦٓ إِنِّىٓ ءَانَسْتُ نَارًۭا سَـَٔاتِيكُم مِّنْهَا بِخَبَرٍ أَوْ ءَاتِيكُم بِشِهَابٍۢ قَبَسٍۢ لَّعَلَّكُمْ تَصْطَلُونَ",
+    "turkish": "Hani Musa, ailesine şöyle demişti: \"Gerçekten ben bir ateş gördüm, (gidip) size oradan bir haber getireceğim yahut bir kor ateş getireyim, umarım ki ısınırsınız.\"",
+    "verseNumber": 7,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3167,
+    "arabic": "فَلَمَّا جَآءَهَا نُودِىَ أَنۢ بُورِكَ مَن فِى ٱلنَّارِ وَمَنْ حَوْلَهَا وَسُبْحَٰنَ ٱللَّهِ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "Oraya geldiğinde şöyle seslenilmişti: \"Ateşin bulunduğu yerdeki ve çevresindekiler mübarek kılınmıştır! Âlemlerin Rabbi olan Allah, eksikliklerden münezzehtir!\"",
+    "verseNumber": 8,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3168,
+    "arabic": "يَٰمُوسَىٰٓ إِنَّهُۥٓ أَنَا ٱللَّهُ ٱلْعَزِيزُ ٱلْحَكِيمُ",
+    "turkish": "\"Ey Musa! İyi bil ki, ben, mutlak galip ve hikmet sahibi olan Allah'ım!\"",
+    "verseNumber": 9,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3169,
+    "arabic": "وَأَلْقِ عَصَاكَ ۚ فَلَمَّا رَءَاهَا تَهْتَزُّ كَأَنَّهَا جَآنٌّۭ وَلَّىٰ مُدْبِرًۭا وَلَمْ يُعَقِّبْ ۚ يَٰمُوسَىٰ لَا تَخَفْ إِنِّى لَا يَخَافُ لَدَىَّ ٱلْمُرْسَلُونَ",
+    "turkish": "\"Asânı at!\" (Asâyı atıp) onu yılan gibi deprenir görünce dönüp arkasına bakmadan kaçtı. (Dedik ki): \"Ey Musa korkma! Çünkü benim huzurumda peygamberler korkmaz.\"",
+    "verseNumber": 10,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3170,
+    "arabic": "إِلَّا مَن ظَلَمَ ثُمَّ بَدَّلَ حُسْنًۢا بَعْدَ سُوٓءٍۢ فَإِنِّى غَفُورٌۭ رَّحِيمٌۭ",
+    "turkish": "\"Ancak, kim haksızlık yapar, sonra yaptığı kötülüğü iyiliğe çevirirse, bilsin ki ben (ona karşı da) çok bağışlayıcıyım, çok merhamet sahibiyim.\"",
+    "verseNumber": 11,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3171,
+    "arabic": "وَأَدْخِلْ يَدَكَ فِى جَيْبِكَ تَخْرُجْ بَيْضَآءَ مِنْ غَيْرِ سُوٓءٍۢ ۖ فِى تِسْعِ ءَايَٰتٍ إِلَىٰ فِرْعَوْنَ وَقَوْمِهِۦٓ ۚ إِنَّهُمْ كَانُوا۟ قَوْمًۭا فَٰسِقِينَ",
+    "turkish": "\"Elini koynuna sok; kusursuz bembeyaz çıkacaktır. Dokuz mucize ile Firavun ve kavmine (git), çünkü onlar yoldan çıkmış bir kavim olmuşlardır.\"",
+    "verseNumber": 12,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3172,
+    "arabic": "فَلَمَّا جَآءَتْهُمْ ءَايَٰتُنَا مُبْصِرَةًۭ قَالُوا۟ هَٰذَا سِحْرٌۭ مُّبِينٌۭ",
+    "turkish": "Bu şekilde âyetlerimiz onların gözleri önüne serilince, \"Bu apaçık bir sihirdir\" dediler.",
+    "verseNumber": 13,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3173,
+    "arabic": "وَجَحَدُوا۟ بِهَا وَٱسْتَيْقَنَتْهَآ أَنفُسُهُمْ ظُلْمًۭا وَعُلُوًّۭا ۚ فَٱنظُرْ كَيْفَ كَانَ عَٰقِبَةُ ٱلْمُفْسِدِينَ",
+    "turkish": "Ve vicdanları bunlar(ın doğruluğun)a tam bir kanaat getirdiği halde, zulüm ve kibirlerinden ötürü onları bile bile inkâr ettiler. Bozguncuların sonunun nice olduğuna bir bak!",
+    "verseNumber": 14,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3174,
+    "arabic": "وَلَقَدْ ءَاتَيْنَا دَاوُۥدَ وَسُلَيْمَٰنَ عِلْمًۭا ۖ وَقَالَا ٱلْحَمْدُ لِلَّهِ ٱلَّذِى فَضَّلَنَا عَلَىٰ كَثِيرٍۢ مِّنْ عِبَادِهِ ٱلْمُؤْمِنِينَ",
+    "turkish": "Andolsun ki biz, Davud'a ve Süleyman'a bir ilim verdik. Onlar: \"Bizi mümin kullarının birçoğundan üstün kılan Allah'a hamd olsun\" dediler.",
+    "verseNumber": 15,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3175,
+    "arabic": "وَوَرِثَ سُلَيْمَٰنُ دَاوُۥدَ ۖ وَقَالَ يَٰٓأَيُّهَا ٱلنَّاسُ عُلِّمْنَا مَنطِقَ ٱلطَّيْرِ وَأُوتِينَا مِن كُلِّ شَىْءٍ ۖ إِنَّ هَٰذَا لَهُوَ ٱلْفَضْلُ ٱلْمُبِينُ",
+    "turkish": "Süleyman Davud'a varis olup dedi ki: \"Ey insanlar! Bize kuş dili öğretildi ve bize her şeyden (nasip) verildi. Doğrusu bu apaçık bir lütuftur.\"",
+    "verseNumber": 16,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3176,
+    "arabic": "وَحُشِرَ لِسُلَيْمَٰنَ جُنُودُهُۥ مِنَ ٱلْجِنِّ وَٱلْإِنسِ وَٱلطَّيْرِ فَهُمْ يُوزَعُونَ",
+    "turkish": "Cinlerden, insanlardan ve kuşlardan müteşekkil orduları Süleyman'ın hizmetinde toplandı, hepsi bir arada (onun tarafından) düzenli olarak sevkediliyordu.",
+    "verseNumber": 17,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3177,
+    "arabic": "حَتَّىٰٓ إِذَآ أَتَوْا۟ عَلَىٰ وَادِ ٱلنَّمْلِ قَالَتْ نَمْلَةٌۭ يَٰٓأَيُّهَا ٱلنَّمْلُ ٱدْخُلُوا۟ مَسَٰكِنَكُمْ لَا يَحْطِمَنَّكُمْ سُلَيْمَٰنُ وَجُنُودُهُۥ وَهُمْ لَا يَشْعُرُونَ",
+    "turkish": "Nihayet karınca vâdisine geldikleri zaman, bir karınca: \"Ey karıncalar! Yuvalarınıza girin; Süleyman ve ordusu farkına varmadan sizi ezmesin!\" dedi.",
+    "verseNumber": 18,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3178,
+    "arabic": "فَتَبَسَّمَ ضَاحِكًۭا مِّن قَوْلِهَا وَقَالَ رَبِّ أَوْزِعْنِىٓ أَنْ أَشْكُرَ نِعْمَتَكَ ٱلَّتِىٓ أَنْعَمْتَ عَلَىَّ وَعَلَىٰ وَٰلِدَىَّ وَأَنْ أَعْمَلَ صَٰلِحًۭا تَرْضَىٰهُ وَأَدْخِلْنِى بِرَحْمَتِكَ فِى عِبَادِكَ ٱلصَّٰلِحِينَ",
+    "turkish": "(Süleyman) onun sözüne gülümseyerek dedi ki: \"Ey Rabbim! Bana ve ana babama verdiğin nimete şükretmemi ve hoşnut olacağın iyi iş yapmamı gönlüme getir. Rahmetinle, beni iyi kulların arasına kat.\"",
+    "verseNumber": 19,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3179,
+    "arabic": "وَتَفَقَّدَ ٱلطَّيْرَ فَقَالَ مَا لِىَ لَآ أَرَى ٱلْهُدْهُدَ أَمْ كَانَ مِنَ ٱلْغَآئِبِينَ",
+    "turkish": "(Süleyman) Kuşları gözden geçirdikten sonra şöyle dedi: \"Hüdhüd'ü niçin göremiyorum? Yoksa kayıplara mı karıştı?\"",
+    "verseNumber": 20,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3180,
+    "arabic": "لَأُعَذِّبَنَّهُۥ عَذَابًۭا شَدِيدًا أَوْ لَأَا۟ذْبَحَنَّهُۥٓ أَوْ لَيَأْتِيَنِّى بِسُلْطَٰنٍۢ مُّبِينٍۢ",
+    "turkish": "\"Ya bana (mazeretini gösteren) apaçık bir delil getirecek, ya da onu şiddetli bir azaba uğratacağım, yahut boğazlıyacağım!\"",
+    "verseNumber": 21,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3181,
+    "arabic": "فَمَكَثَ غَيْرَ بَعِيدٍۢ فَقَالَ أَحَطتُ بِمَا لَمْ تُحِطْ بِهِۦ وَجِئْتُكَ مِن سَبَإٍۭ بِنَبَإٍۢ يَقِينٍ",
+    "turkish": "Çok geçmeden (Hüdhüd) gelip: \"Ben, dedi, senin bilmediğin bir şeyi öğrendim. Sebe'den sana çok doğru (ve önemli) bir haber getirdim.",
+    "verseNumber": 22,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3182,
+    "arabic": "إِنِّى وَجَدتُّ ٱمْرَأَةًۭ تَمْلِكُهُمْ وَأُوتِيَتْ مِن كُلِّ شَىْءٍۢ وَلَهَا عَرْشٌ عَظِيمٌۭ",
+    "turkish": "\"Gerçekten, onlara (Sebelilere) hükümdarlık eden, kendisine her türlü imkan verilmiş ve büyük bir tahta sahip olan bir kadınla karşılaştım.\"",
+    "verseNumber": 23,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3183,
+    "arabic": "وَجَدتُّهَا وَقَوْمَهَا يَسْجُدُونَ لِلشَّمْسِ مِن دُونِ ٱللَّهِ وَزَيَّنَ لَهُمُ ٱلشَّيْطَٰنُ أَعْمَٰلَهُمْ فَصَدَّهُمْ عَنِ ٱلسَّبِيلِ فَهُمْ لَا يَهْتَدُونَ",
+    "turkish": "\"Onun ve kavminin, Allah'ı bırakıp güneşe secde ettiklerini gördüm. Şeytan, kendilerine yaptıklarını süslü göstermiş de onları doğru yoldan alıkoymuş. Bunun için hidayete giremiyorlar.\"",
+    "verseNumber": 24,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3184,
+    "arabic": "أَلَّا يَسْجُدُوا۟ لِلَّهِ ٱلَّذِى يُخْرِجُ ٱلْخَبْءَ فِى ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ وَيَعْلَمُ مَا تُخْفُونَ وَمَا تُعْلِنُونَ",
+    "turkish": "\"Göklerde ve yerde gizleneni açığa çıkaran, gizlediğinizi ve açıkladığınızı bilen Allah'a secde etmezler.\"",
+    "verseNumber": 25,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3185,
+    "arabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ رَبُّ ٱلْعَرْشِ ٱلْعَظِيمِ ۩",
+    "turkish": "\"(Halbuki) O büyük Arş'ın sahibi olan Allah'tan başka tapılacak yoktur.\"",
+    "verseNumber": 26,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3186,
+    "arabic": "۞ قَالَ سَنَنظُرُ أَصَدَقْتَ أَمْ كُنتَ مِنَ ٱلْكَٰذِبِينَ",
+    "turkish": "(Süleyman Hüdhüd'e) dedi ki: \"Doğru mu söyledin, yoksa yalancılardan mısın, bakacağız.\"",
+    "verseNumber": 27,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3187,
+    "arabic": "ٱذْهَب بِّكِتَٰبِى هَٰذَا فَأَلْقِهْ إِلَيْهِمْ ثُمَّ تَوَلَّ عَنْهُمْ فَٱنظُرْ مَاذَا يَرْجِعُونَ",
+    "turkish": "\"Şu mektubumu götür, onu kendilerine ver, sonra onlardan biraz çekil de, ne sonuca varacaklarına bak.\"",
+    "verseNumber": 28,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3188,
+    "arabic": "قَالَتْ يَٰٓأَيُّهَا ٱلْمَلَؤُا۟ إِنِّىٓ أُلْقِىَ إِلَىَّ كِتَٰبٌۭ كَرِيمٌ",
+    "turkish": "(Süleyman'ın mektubunu alan Sebe melikesi): \"Beyler, ulular! Bana çok önemli bir mektup bırakıldı\" dedi.",
+    "verseNumber": 29,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3189,
+    "arabic": "إِنَّهُۥ مِن سُلَيْمَٰنَ وَإِنَّهُۥ بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+    "turkish": "\"Mektup Süleyman'dandır, Rahmân ve Rahîm Allah'ın adıyla (başlamakta)dır. \"",
+    "verseNumber": 30,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3190,
+    "arabic": "أَلَّا تَعْلُوا۟ عَلَىَّ وَأْتُونِى مُسْلِمِينَ",
+    "turkish": "\"Bana karşı baş kaldırmayın, teslimiyet göstererek bana gelin diye (yazmaktadır).\"",
+    "verseNumber": 31,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3191,
+    "arabic": "قَالَتْ يَٰٓأَيُّهَا ٱلْمَلَؤُا۟ أَفْتُونِى فِىٓ أَمْرِى مَا كُنتُ قَاطِعَةً أَمْرًا حَتَّىٰ تَشْهَدُونِ",
+    "turkish": "(Sonra Melike) dedi ki: \"Beyler, ulular! Bu işimde bana bir fikir verin. (Bilirsiniz) siz yanımda olmadan hiçbir işi kestirip atmam.\"",
+    "verseNumber": 32,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3192,
+    "arabic": "قَالُوا۟ نَحْنُ أُو۟لُوا۟ قُوَّةٍۢ وَأُو۟لُوا۟ بَأْسٍۢ شَدِيدٍۢ وَٱلْأَمْرُ إِلَيْكِ فَٱنظُرِى مَاذَا تَأْمُرِينَ",
+    "turkish": "Onlar, şöyle cevap verdiler: \"Biz güçlü kuvvetli kimseleriz, zorlu savaş erbabıyız, buyruk ise senindir; artık ne emredeceğini düşün taşın.\"",
+    "verseNumber": 33,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3193,
+    "arabic": "قَالَتْ إِنَّ ٱلْمُلُوكَ إِذَا دَخَلُوا۟ قَرْيَةً أَفْسَدُوهَا وَجَعَلُوٓا۟ أَعِزَّةَ أَهْلِهَآ أَذِلَّةًۭ ۖ وَكَذَٰلِكَ يَفْعَلُونَ",
+    "turkish": "Melike, \"Hükümdarlar bir memlekete girdiler mi orayı perişan ederler ve halkının ulularını hakir hâle getirirler. (Herhalde) Onlar da böyle yapacaklardır\" dedi.",
+    "verseNumber": 34,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3194,
+    "arabic": "وَإِنِّى مُرْسِلَةٌ إِلَيْهِم بِهَدِيَّةٍۢ فَنَاظِرَةٌۢ بِمَ يَرْجِعُ ٱلْمُرْسَلُونَ",
+    "turkish": "\"Ben (şimdi) onlara bir hediye göndereyim de, bakayım elçiler ne (gibi bir sonuç) ile dönecekler.\"",
+    "verseNumber": 35,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3195,
+    "arabic": "فَلَمَّا جَآءَ سُلَيْمَٰنَ قَالَ أَتُمِدُّونَنِ بِمَالٍۢ فَمَآ ءَاتَىٰنِۦَ ٱللَّهُ خَيْرٌۭ مِّمَّآ ءَاتَىٰكُم بَلْ أَنتُم بِهَدِيَّتِكُمْ تَفْرَحُونَ",
+    "turkish": "(Elçiler, hediyelerle) gelince Süleyman şöyle dedi: \"Siz bana mal ile yardım mı etmek istiyorsunuz? Allah'ın bana verdiği, size verdiğinden daha iyidir. Ama siz, hediyenizle böbürlenirsiniz.\"",
+    "verseNumber": 36,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3196,
+    "arabic": "ٱرْجِعْ إِلَيْهِمْ فَلَنَأْتِيَنَّهُم بِجُنُودٍۢ لَّا قِبَلَ لَهُم بِهَا وَلَنُخْرِجَنَّهُم مِّنْهَآ أَذِلَّةًۭ وَهُمْ صَٰغِرُونَ",
+    "turkish": "\"(Ey elçi) Onlara var (söyle); iyi bilsinler ki, kendilerine asla karşı koyamayacakları ordularla gelir, onları, muhakkak surette hor ve hakir halde oradan çıkarırız!\"",
+    "verseNumber": 37,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3197,
+    "arabic": "قَالَ يَٰٓأَيُّهَا ٱلْمَلَؤُا۟ أَيُّكُمْ يَأْتِينِى بِعَرْشِهَا قَبْلَ أَن يَأْتُونِى مُسْلِمِينَ",
+    "turkish": "(Sonra Süleyman müşavirlerine) dedi ki: \"Ey ulular! Onlar teslimiyet gösterip bana gelmeden önce, hanginiz o Melike'nin tahtını bana getirebilir?\"",
+    "verseNumber": 38,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3198,
+    "arabic": "قَالَ عِفْرِيتٌۭ مِّنَ ٱلْجِنِّ أَنَا۠ ءَاتِيكَ بِهِۦ قَبْلَ أَن تَقُومَ مِن مَّقَامِكَ ۖ وَإِنِّى عَلَيْهِ لَقَوِىٌّ أَمِينٌۭ",
+    "turkish": "Cinlerden bir ifrit, \"Sen makamından kalkmadan ben onu sana getiririm. Gerçekten bu işe gücüm ve güvenim var.\" dedi.",
+    "verseNumber": 39,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3199,
+    "arabic": "قَالَ ٱلَّذِى عِندَهُۥ عِلْمٌۭ مِّنَ ٱلْكِتَٰبِ أَنَا۠ ءَاتِيكَ بِهِۦ قَبْلَ أَن يَرْتَدَّ إِلَيْكَ طَرْفُكَ ۚ فَلَمَّا رَءَاهُ مُسْتَقِرًّا عِندَهُۥ قَالَ هَٰذَا مِن فَضْلِ رَبِّى لِيَبْلُوَنِىٓ ءَأَشْكُرُ أَمْ أَكْفُرُ ۖ وَمَن شَكَرَ فَإِنَّمَا يَشْكُرُ لِنَفْسِهِۦ ۖ وَمَن كَفَرَ فَإِنَّ رَبِّى غَنِىٌّۭ كَرِيمٌۭ",
+    "turkish": "Kitaptan ilmi olan kimse ise, \"Gözünü açıp kapamadan, ben onu sana getiririm\" dedi. (Süleyman) onu (Melike'nin tahtını) yanıbaşına yerleşivermiş görünce, \"Bu, dedi, şükür mü edeceğim, yoksa nankörlük mü edeceğim diye beni sınamak üzere Rabbimin (gösterdiği) lütfundandır. Şükreden ancak kendisi için şükretmiş olur; nankörlük edene gelince, o bilsin ki Rabbim müstağnidir, çok kerem sahibidir.\"",
+    "verseNumber": 40,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3200,
+    "arabic": "قَالَ نَكِّرُوا۟ لَهَا عَرْشَهَا نَنظُرْ أَتَهْتَدِىٓ أَمْ تَكُونُ مِنَ ٱلَّذِينَ لَا يَهْتَدُونَ",
+    "turkish": "(Süleyman devamla) dedi ki: \"Onun tahtını bilemeyeceği bir vaziyete sokun; getirin bakalım tanıyabilecek mi, yoksa tanıyamayanlardan mı olacak?\"",
+    "verseNumber": 41,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3201,
+    "arabic": "فَلَمَّا جَآءَتْ قِيلَ أَهَٰكَذَا عَرْشُكِ ۖ قَالَتْ كَأَنَّهُۥ هُوَ ۚ وَأُوتِينَا ٱلْعِلْمَ مِن قَبْلِهَا وَكُنَّا مُسْلِمِينَ",
+    "turkish": "Melike gelince, \"Senin tahtın da böyle mi?\" dendi. O şöyle cevap verdi: \"Tıpkı o! Zaten bize daha önce bilgi verilmiş ve biz teslimiyet göstermiştik.\"",
+    "verseNumber": 42,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3202,
+    "arabic": "وَصَدَّهَا مَا كَانَت تَّعْبُدُ مِن دُونِ ٱللَّهِ ۖ إِنَّهَا كَانَتْ مِن قَوْمٍۢ كَٰفِرِينَ",
+    "turkish": "O'nu, Allah'tan başka taptığı şeyler alıkoymuştu. Çünkü kendisi inkârcı bir kavimdendi.",
+    "verseNumber": 43,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3203,
+    "arabic": "قِيلَ لَهَا ٱدْخُلِى ٱلصَّرْحَ ۖ فَلَمَّا رَأَتْهُ حَسِبَتْهُ لُجَّةًۭ وَكَشَفَتْ عَن سَاقَيْهَا ۚ قَالَ إِنَّهُۥ صَرْحٌۭ مُّمَرَّدٌۭ مِّن قَوَارِيرَ ۗ قَالَتْ رَبِّ إِنِّى ظَلَمْتُ نَفْسِى وَأَسْلَمْتُ مَعَ سُلَيْمَٰنَ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "Ona \"köşke gir!\" dendi. Melike onu görünce derin bir su sandı ve eteğini çekti. Süleyman \"Bu billurdan yapılmış, şeffaf bir zemindir\" dedi. Melike dedi ki: \"Rabbim! Ben gerçekten kendime yazık etmiştim. Süleyman'ın maiyyetinde, âlemlerin Rabbi olan Allah'a teslim oldum.\"",
+    "verseNumber": 44,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3204,
+    "arabic": "وَلَقَدْ أَرْسَلْنَآ إِلَىٰ ثَمُودَ أَخَاهُمْ صَٰلِحًا أَنِ ٱعْبُدُوا۟ ٱللَّهَ فَإِذَا هُمْ فَرِيقَانِ يَخْتَصِمُونَ",
+    "turkish": "Andolsun ki, Allah'a ibadet edin diye Semud'a da kardeşleri Salih'i gönderdik. Hemen birbirleriyle çekişen iki zümre oluverdiler.",
+    "verseNumber": 45,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3205,
+    "arabic": "قَالَ يَٰقَوْمِ لِمَ تَسْتَعْجِلُونَ بِٱلسَّيِّئَةِ قَبْلَ ٱلْحَسَنَةِ ۖ لَوْلَا تَسْتَغْفِرُونَ ٱللَّهَ لَعَلَّكُمْ تُرْحَمُونَ",
+    "turkish": "Salih dedi ki: \"Ey benim kavmim! İyilik dururken niçin kötülüğe koşuyorsunuz? Ne olur Allah'a istiğfar etseniz, belki rahmetine ulaşırdınız.\"",
+    "verseNumber": 46,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3206,
+    "arabic": "قَالُوا۟ ٱطَّيَّرْنَا بِكَ وَبِمَن مَّعَكَ ۚ قَالَ طَٰٓئِرُكُمْ عِندَ ٱللَّهِ ۖ بَلْ أَنتُمْ قَوْمٌۭ تُفْتَنُونَ",
+    "turkish": "Cevap verdiler: \"Senin ve beraberindekilerin yüzünden uğursuzluğa uğradık.\" Salih: \"Size çöken uğursuzluk (sebebi) Allah katında (yazılı)dır. Belki siz imtihana çekilen bir kavimsiniz\" dedi.",
+    "verseNumber": 47,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3207,
+    "arabic": "وَكَانَ فِى ٱلْمَدِينَةِ تِسْعَةُ رَهْطٍۢ يُفْسِدُونَ فِى ٱلْأَرْضِ وَلَا يُصْلِحُونَ",
+    "turkish": "O şehirde dokuz çete vardı ki, bunlar yeryüzünde bozgunculuk yapıyorlar, iyilik tarafına hiç yanaşmıyorlardı.",
+    "verseNumber": 48,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3208,
+    "arabic": "قَالُوا۟ تَقَاسَمُوا۟ بِٱللَّهِ لَنُبَيِّتَنَّهُۥ وَأَهْلَهُۥ ثُمَّ لَنَقُولَنَّ لِوَلِيِّهِۦ مَا شَهِدْنَا مَهْلِكَ أَهْلِهِۦ وَإِنَّا لَصَٰدِقُونَ",
+    "turkish": "Allah'a and içerek birbirlerine şöyle dediler: \"Gece ona ve ailesine baskın yapalım; sonra da velisine, 'Biz o ailenin yok edilişi sırasında orada değildik, inanın ki doğru söylüyoruz' diyelim.\"",
+    "verseNumber": 49,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3209,
+    "arabic": "وَمَكَرُوا۟ مَكْرًۭا وَمَكَرْنَا مَكْرًۭا وَهُمْ لَا يَشْعُرُونَ",
+    "turkish": "Onlar böyle bir tuzak kurdular, biz de kendileri farkında olmadan onların planlarını altüst ettik.",
+    "verseNumber": 50,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3210,
+    "arabic": "فَٱنظُرْ كَيْفَ كَانَ عَٰقِبَةُ مَكْرِهِمْ أَنَّا دَمَّرْنَٰهُمْ وَقَوْمَهُمْ أَجْمَعِينَ",
+    "turkish": "İşte bak! Tuzaklarının akibeti nice oldu: Onları da, kavimlerini de toptan helak ettik.",
+    "verseNumber": 51,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3211,
+    "arabic": "فَتِلْكَ بُيُوتُهُمْ خَاوِيَةًۢ بِمَا ظَلَمُوٓا۟ ۗ إِنَّ فِى ذَٰلِكَ لَءَايَةًۭ لِّقَوْمٍۢ يَعْلَمُونَ",
+    "turkish": "İşte haksızlıkları yüzünden çökmüş evleri! Bilen bir kavim için elbette bunda bir ibret vardır.",
+    "verseNumber": 52,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3212,
+    "arabic": "وَأَنجَيْنَا ٱلَّذِينَ ءَامَنُوا۟ وَكَانُوا۟ يَتَّقُونَ",
+    "turkish": "İman edip Allah'a karşı gelmekten sakınanları da kurtardık.",
+    "verseNumber": 53,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3213,
+    "arabic": "وَلُوطًا إِذْ قَالَ لِقَوْمِهِۦٓ أَتَأْتُونَ ٱلْفَٰحِشَةَ وَأَنتُمْ تُبْصِرُونَ",
+    "turkish": "Lût'u da (peygamber olarak kavmine gönderdik). O, kavmine şöyle demişti: \"Göz göre göre hala o hayasızlığı yapacak mısınız?\"",
+    "verseNumber": 54,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  },
+  {
+    "id": 3214,
+    "arabic": "أَئِنَّكُمْ لَتَأْتُونَ ٱلرِّجَالَ شَهْوَةًۭ مِّن دُونِ ٱلنِّسَآءِ ۚ بَلْ أَنتُمْ قَوْمٌۭ تَجْهَلُونَ",
+    "turkish": "\"Siz ille de kadınları bırakıp şehvetle erkeklere yaklaşacak mısınız? Doğrusu siz beyinsizlikte devam edegelen bir kavimsiniz!\"",
+    "verseNumber": 55,
+    "surahNumber": 27,
+    "surahName": "سُورَةُ النَّمۡلِ",
+    "englishName": "An-Naml"
+  }
+]

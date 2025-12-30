@@ -26,7 +26,7 @@ export default function ReligiousDayCard() {
     : (loading ? '...' : '--');
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={styles.container}
       onPress={() => router.push('/(app)/(services)/diniGunler')}
       activeOpacity={0.9}
@@ -44,7 +44,7 @@ export default function ReligiousDayCard() {
           {/* Başlık satırı */}
           <View style={styles.titleRow}>
             <Ionicons name={iconName} size={20} color="#FFFFFF" />
-            <Text style={[fontStyle, styles.dayTitle]} numberOfLines={2}>{dayTitle}</Text>
+            <Text style={[fontStyle, styles.dayTitle]} numberOfLines={2} adjustsFontSizeToFit>{dayTitle}</Text>
           </View>
 
           {/* Açıklama */}
@@ -70,7 +70,7 @@ export default function ReligiousDayCard() {
         <View style={styles.rightContent}>
           <Text style={[fontStyle, styles.remainingLabel]}>Kalan Süre</Text>
           <Text style={[fontStyle, styles.remainingDays]}>{remainingText}</Text>
-          
+
           <TouchableOpacity
             style={styles.button}
             onPress={() => router.push('/(app)/(services)/diniGunler')}

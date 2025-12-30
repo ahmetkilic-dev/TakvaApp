@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from '../../../firebaseConfig';
+import { auth } from '../../../firebaseConfig';
+import { supabase } from '../../../lib/supabase';
 
 const DAILY_TASKS_TEMPLATE = [
     { id: 1, text: 'Günün ayetini oku.', progress: 0, target: 1, route: '/(app)/(services)/quran' },
@@ -52,10 +52,31 @@ export function useTasks() {
         try {
             let data;
             if (uid) {
-                const docRef = doc(db, 'users', uid, 'tasks', 'progress');
-                const snap = await getDoc(docRef);
-                if (snap.exists()) {
-                    data = snap.data();
+                const { data: stats, error } = await supabase
+                    .from('user_stats')
+                    .select('*')
+                    .eq('user_id', uid)
+                    .single();
+
+                if (stats) {
+                    // Map Supabase snake_case to app camelCase
+                    data = {
+                        daily: stats.daily_tasks || { lastReset: getTodayKey(), tasks: DAILY_TASKS_TEMPLATE },
+                        stats: {
+                            totalVerses: stats.total_verses || 0,
+                            totalJuzs: stats.total_juzs || 0,
+                            totalSurahs: stats.total_surahs || 0,
+                            totalKhatims: stats.total_khatims || 0,
+                            totalPrayers: stats.total_prayers || 0,
+                            prayerStreak: stats.prayer_streak || 0,
+                            dhikrCount: stats.dhikr_count || 0,
+                            quizCount: stats.quiz_count || 0,
+                            shares: stats.shares || 0,
+                            follows: stats.follows || [],
+                            loginStreak: stats.login_streak || 0,
+                            lastLogin: stats.last_login || getTodayKey()
+                        }
+                    };
                 }
             } else {
                 const local = await AsyncStorage.getItem('@takva_tasks_data');
@@ -84,8 +105,13 @@ export function useTasks() {
 
                     // Save reset data
                     if (uid) {
-                        const docRef = doc(db, 'users', uid, 'tasks', 'progress');
-                        await setDoc(docRef, data, { merge: true });
+                        await supabase.from('user_stats').upsert({
+                            user_id: uid,
+                            daily_tasks: data.daily,
+                            last_login: data.stats.lastLogin,
+                            login_streak: data.stats.loginStreak,
+                            updated_at: new Date().toISOString()
+                        });
                     } else {
                         await AsyncStorage.setItem('@takva_tasks_data', JSON.stringify(data));
                     }
@@ -103,8 +129,15 @@ export function useTasks() {
                 };
                 setTasksData(initial);
                 if (uid) {
-                    const docRef = doc(db, 'users', uid, 'tasks', 'progress');
-                    await setDoc(docRef, initial);
+                    await supabase.from('user_stats').upsert({
+                        user_id: uid,
+                        daily_tasks: initial.daily,
+                        total_verses: 0,
+                        total_juzs: 0,
+                        // ... other fields default to 0 in SQL
+                        last_login: initial.stats.lastLogin,
+                        login_streak: 1
+                    });
                 } else {
                     await AsyncStorage.setItem('@takva_tasks_data', JSON.stringify(initial));
                 }
@@ -128,6 +161,7 @@ export function useTasks() {
         loading,
         tasksData,
         navigateToTask,
-        user
+        user,
+        refreshTasks: () => loadData(user?.uid)
     };
 }

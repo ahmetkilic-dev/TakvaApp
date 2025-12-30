@@ -18,41 +18,41 @@ export default function RegisterScreen() {
   const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
 
   return (
-    <ImageBackground 
-      source={bgIntro} 
+    <ImageBackground
+      source={bgIntro}
       className="flex-1"
       resizeMode="cover"
     >
-      <ScrollView 
-        contentContainerStyle={{ flexGrow: 1 }} 
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
         bounces={false}
       >
         {/* SafeArea */}
-        <View 
+        <View
           className="flex-1 px-6 justify-between"
-          style={{ 
-            paddingTop: insets.top + 20, 
-            paddingBottom: insets.bottom + 20 
+          style={{
+            paddingTop: insets.top + 20,
+            paddingBottom: insets.bottom + 20
           }}
         >
-          
+
           {/* --- ÜST KISIM --- */}
           <View className="items-center w-full mt-4">
-            <Image 
-              source={registerLogo} 
-              className="w-32 h-14 mb-4" 
-              resizeMode="contain" 
+            <Image
+              source={registerLogo}
+              className="w-32 h-14 mb-4"
+              resizeMode="contain"
             />
 
             <View className="w-full px-2">
-              <Text 
+              <Text
                 className="text-white text-center text-[18px] font-light italic leading-7 drop-shadow-md opacity-95"
               >
                 Allah katında en üstün olanınız, takva {'\n'}bakımından en ileri olanınızdır.
               </Text>
-              
-              <Text 
+
+              <Text
                 style={fontStyle}
                 className="text-white text-right text-[14px] font-extrabold mt-3 drop-shadow-md"
               >
@@ -63,13 +63,13 @@ export default function RegisterScreen() {
 
           {/* --- BUTONLAR --- */}
           <View className="w-full pt-8">
-            
+
             {/* 1. Satır: Apple ve Google (SENİN KODUN - DEĞİŞTİRİLMEDİ) */}
             <View className="flex-row w-full gap-3 mb-4">
-              
+
               {/* Apple Butonu */}
               <TouchableOpacity className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
-                
+
                 {/* SOL %20: İKON ALANI */}
                 <View className="w-[20%] ml-2 h-full items-center justify-center">
                   <Image source={appleLogo} className="w-7 h-7" resizeMode="contain" />
@@ -87,7 +87,7 @@ export default function RegisterScreen() {
 
               {/* Google Butonu */}
               <TouchableOpacity className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
-                
+
                 {/* SOL %20: İKON ALANI */}
                 <View className="w-[20%] h-full ml-2 items-center justify-center">
                   <Image source={googleLogo} className="w-7 h-7" resizeMode="contain" />
@@ -108,24 +108,24 @@ export default function RegisterScreen() {
             {/* relative: İkonu absolute ile konumlandırmak için gerekli.
                 justify-center items-center: Text'i tam ortaya almak için gerekli.
             */}
-            <TouchableOpacity 
+            <TouchableOpacity
               onPress={() => router.push('/(auth)/create-account')}
               className="w-full h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row items-center justify-center relative mb-8 active:opacity-90 shadow-md"
             >
-               {/* İKON: Sola Yaslı (Absolute) 
+              {/* İKON: Sola Yaslı (Absolute) 
                    left-6 veya left-8 üstteki butonların ikon hizasına denk gelir.
                */}
-               <Image 
-                 source={userIcon} 
-                 className="w-7 h-7 absolute left-3" 
-                 resizeMode="contain" 
-                 style={{ tintColor: 'white' }} 
-               />
+              <Image
+                source={userIcon}
+                className="w-7 h-7 absolute left-3"
+                resizeMode="contain"
+                style={{ tintColor: 'white' }}
+              />
 
-               {/* TEXT: Tam Ortada */}
-               <Text style={fontStyle} className="text-white font-regular text-[16px]">
-                 Hesap Oluştur
-               </Text>
+              {/* TEXT: Tam Ortada */}
+              <Text style={fontStyle} className="text-white font-regular text-[16px]">
+                Hesap Oluştur
+              </Text>
             </TouchableOpacity>
 
             {/* Alt Footer */}
@@ -133,9 +133,9 @@ export default function RegisterScreen() {
               <Text style={fontStyle} className="text-gray-300 text-[12px] text-center mb-1">
                 İlham verici İslami içerikler üretmek ister misiniz?
               </Text>
-              <TouchableOpacity onPress={() => router.push('/creator-register')}>
-     <Text style={fontStyle} className="text-white font-bold text-sm underline">Başvuru yapın</Text>
-  </TouchableOpacity>
+              <TouchableOpacity onPress={() => router.push('/(auth)/creator-register')}>
+                <Text style={fontStyle} className="text-white font-bold text-sm underline">Başvuru yapın</Text>
+              </TouchableOpacity>
             </View>
 
           </View>

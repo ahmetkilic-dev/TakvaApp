@@ -1,0 +1,47 @@
+[
+  {
+    "id": 8,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ الٓمٓ",
+    "turkish": "(Elif, Lâm, Mîm.)",
+    "verseNumber": 1,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 9,
+    "arabic": "ذَٰلِكَ ٱلْكِتَٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "turkish": "İşte o kitap, bunda şüphe yok, müttakiler (kötülükten korunacaklar) için hidayettir.",
+    "verseNumber": 2,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 10,
+    "arabic": "ٱلَّذِينَ يُؤْمِنُونَ بِٱلْغَيْبِ وَيُقِيمُونَ ٱلصَّلَوٰةَ وَمِمَّا رَزَقْنَٰهُمْ يُنفِقُونَ",
+    "turkish": "Onlar ki gaybe iman edip namazı dürüst kılarlar ve kendilerine verdiğimiz rızıktan (Allah yolunda) harcarlar.",
+    "verseNumber": 3,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 11,
+    "arabic": "وَٱلَّذِينَ يُؤْمِنُونَ بِمَآ أُنزِلَ إِلَيْكَ وَمَآ أُنزِلَ مِن قَبْلِكَ وَبِٱلْءَاخِرَةِ هُمْ يُوقِنُونَ",
+    "turkish": "Ve onlar ki hem sana indirilene iman ederler, hem senden önce indirilene. Ahirete de bunlar kesinlikle iman ederler.",
+    "verseNumber": 4,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 12,
+    "arabic": "أُو۟لَٰٓئِكَ عَلَىٰ هُدًۭى مِّن رَّبِّهِمْ ۖ وَأُو۟لَٰٓئِكَ هُمُ ٱلْمُفْلِحُونَ",
+    "turkish": "Bunlar, işte Rabblerinden bir hidayet üzerindedirler ve bunlar işte felaha erenlerdir.",
+    "verseNumber": 5,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  }
+]

@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
-const fontFamily = 'Plus Jakarta Sans';
+const fontFamily = 'PlusJakartaSans-Light';
 const arabicFontFamily = 'Noto Sans Arabic';
 
 export default function VerseContent({ verses, activeTab, loading, error }) {

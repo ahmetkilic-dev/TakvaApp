@@ -1,0 +1,83 @@
+[
+  {
+    "id": 3425,
+    "arabic": "وَأَمَّا ٱلَّذِينَ كَفَرُوا۟ وَكَذَّبُوا۟ بِـَٔايَٰتِنَا وَلِقَآئِ ٱلْءَاخِرَةِ فَأُو۟لَٰٓئِكَ فِى ٱلْعَذَابِ مُحْضَرُونَ",
+    "turkish": "Âyetlerimizi ve âhiret buluşmasını yalan sayıp da küfredenlere gelince, işte onlar o zaman azab içinde hazır bulundurulurlar.",
+    "verseNumber": 16,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  },
+  {
+    "id": 3426,
+    "arabic": "فَسُبْحَٰنَ ٱللَّهِ حِينَ تُمْسُونَ وَحِينَ تُصْبِحُونَ",
+    "turkish": "O halde akşama girdiğiniz zaman da, sabaha girdiğiniz zaman da tesbih Allah'ındır. (daima O, tesbih edilir).",
+    "verseNumber": 17,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  },
+  {
+    "id": 3427,
+    "arabic": "وَلَهُ ٱلْحَمْدُ فِى ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ وَعَشِيًّۭا وَحِينَ تُظْهِرُونَ",
+    "turkish": "Göklerde ve yerde, ikindileyin de, öğleye erdiğiniz zaman da hamd O'na mahsustur.",
+    "verseNumber": 18,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  },
+  {
+    "id": 3428,
+    "arabic": "يُخْرِجُ ٱلْحَىَّ مِنَ ٱلْمَيِّتِ وَيُخْرِجُ ٱلْمَيِّتَ مِنَ ٱلْحَىِّ وَيُحْىِ ٱلْأَرْضَ بَعْدَ مَوْتِهَا ۚ وَكَذَٰلِكَ تُخْرَجُونَ",
+    "turkish": "O, ölüden diri çıkarır, diriden ölü çıkarır ve toprağa ölümünden sonra hayat verir. Sizler de işte öyle çıkarılacaksınız.",
+    "verseNumber": 19,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  },
+  {
+    "id": 3429,
+    "arabic": "وَمِنْ ءَايَٰتِهِۦٓ أَنْ خَلَقَكُم مِّن تُرَابٍۢ ثُمَّ إِذَآ أَنتُم بَشَرٌۭ تَنتَشِرُونَ",
+    "turkish": "O'nun âyetlerinden (kudretinin delillerinden)dir ki, sizi bir topraktan yarattı. Sonra da siz şimdi yeryüzünde dağılıp yayılan insanlar oluverdiniz.",
+    "verseNumber": 20,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  },
+  {
+    "id": 3430,
+    "arabic": "وَمِنْ ءَايَٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةًۭ وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَءَايَٰتٍۢ لِّقَوْمٍۢ يَتَفَكَّرُونَ",
+    "turkish": "Yine O'nun âyetlerindendir ki, sizin için nefislerinizden kendilerine ısınırsınız diye eşler yaratmış, aranıza bir sevgi ve merhamet koymuştur. Şüphesiz ki bunda düşünecek bir kavim için nice ibretler vardır.",
+    "verseNumber": 21,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  },
+  {
+    "id": 3431,
+    "arabic": "وَمِنْ ءَايَٰتِهِۦ خَلْقُ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ وَٱخْتِلَٰفُ أَلْسِنَتِكُمْ وَأَلْوَٰنِكُمْ ۚ إِنَّ فِى ذَٰلِكَ لَءَايَٰتٍۢ لِّلْعَٰلِمِينَ",
+    "turkish": "Yine göklerin ve yerin yaratılışı ile dillerinizin ve renklerinizin farklı oluşu da O'nun âyetlerindendir. Şüphesiz ki bunda bilenler için nice ibretler vardır.",
+    "verseNumber": 22,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  },
+  {
+    "id": 3432,
+    "arabic": "وَمِنْ ءَايَٰتِهِۦ مَنَامُكُم بِٱلَّيْلِ وَٱلنَّهَارِ وَٱبْتِغَآؤُكُم مِّن فَضْلِهِۦٓ ۚ إِنَّ فِى ذَٰلِكَ لَءَايَٰتٍۢ لِّقَوْمٍۢ يَسْمَعُونَ",
+    "turkish": "Yine gecede ve gündüzde uyumanız ve lütfundan nasib aramanız da O'nun âyetlerindendir. Şüphesiz ki bunda dinleyecek bir kavim için nice ibretler vardır.",
+    "verseNumber": 23,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  },
+  {
+    "id": 3433,
+    "arabic": "وَمِنْ ءَايَٰتِهِۦ يُرِيكُمُ ٱلْبَرْقَ خَوْفًۭا وَطَمَعًۭا وَيُنَزِّلُ مِنَ ٱلسَّمَآءِ مَآءًۭ فَيُحْىِۦ بِهِ ٱلْأَرْضَ بَعْدَ مَوْتِهَآ ۚ إِنَّ فِى ذَٰلِكَ لَءَايَٰتٍۢ لِّقَوْمٍۢ يَعْقِلُونَ",
+    "turkish": "Yine O'nun âyetlerindendir ki, size hem korku ve hem de umut vermek için şimşeği gösteriyor. Ve gökten bir su indiriyor da onunla yeryüzüne ölümünden sonra hayat veriyor. Şüphesiz ki bunda aklını kullanacak bir kavim için nice ibretler vardır.",
+    "verseNumber": 24,
+    "surahNumber": 30,
+    "surahName": "سُورَةُ الرُّومِ",
+    "englishName": "Ar-Room"
+  }
+]

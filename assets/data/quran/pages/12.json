@@ -1,0 +1,65 @@
+[
+  {
+    "id": 84,
+    "arabic": "أَوَلَا يَعْلَمُونَ أَنَّ ٱللَّهَ يَعْلَمُ مَا يُسِرُّونَ وَمَا يُعْلِنُونَ",
+    "turkish": "Peki bilmezler mi ki, onlar neyi sır olarak saklar ve neyi açıkça söylerlerse Allah hepsini bilir.",
+    "verseNumber": 77,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 85,
+    "arabic": "وَمِنْهُمْ أُمِّيُّونَ لَا يَعْلَمُونَ ٱلْكِتَٰبَ إِلَّآ أَمَانِىَّ وَإِنْ هُمْ إِلَّا يَظُنُّونَ",
+    "turkish": "Bunların bir de ümmî (okuma yazması olmayan) kısmı vardır, kitabı bilmezler, ancak birtakım kuruntu yığınına, boş saplantılara kapılır ve zan içinde dolaşır dururlar.",
+    "verseNumber": 78,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 86,
+    "arabic": "فَوَيْلٌۭ لِّلَّذِينَ يَكْتُبُونَ ٱلْكِتَٰبَ بِأَيْدِيهِمْ ثُمَّ يَقُولُونَ هَٰذَا مِنْ عِندِ ٱللَّهِ لِيَشْتَرُوا۟ بِهِۦ ثَمَنًۭا قَلِيلًۭا ۖ فَوَيْلٌۭ لَّهُم مِّمَّا كَتَبَتْ أَيْدِيهِمْ وَوَيْلٌۭ لَّهُم مِّمَّا يَكْسِبُونَ",
+    "turkish": "Artık o kimselerin vay haline ki, kendi elleriyle kitap yazarlar da sonra biraz para almak için \"Bu Allah katındandır.\" derler. Artık vay o elleriyle yazdıkları yüzünden onlara, vay o kazandıkları vebal yüzünden onlara!..",
+    "verseNumber": 79,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 87,
+    "arabic": "وَقَالُوا۟ لَن تَمَسَّنَا ٱلنَّارُ إِلَّآ أَيَّامًۭا مَّعْدُودَةًۭ ۚ قُلْ أَتَّخَذْتُمْ عِندَ ٱللَّهِ عَهْدًۭا فَلَن يُخْلِفَ ٱللَّهُ عَهْدَهُۥٓ ۖ أَمْ تَقُولُونَ عَلَى ٱللَّهِ مَا لَا تَعْلَمُونَ",
+    "turkish": "Bir de dediler ki: \"Bize sayılı birkaç günden başka asla ateş azabı dokunmaz\". De ki; \"Siz Allah'dan bir ahit mi aldınız? Böyle ise Allah sözünden dönmez. Yoksa siz Allah'a karşı bilemeyeceğiniz şeyleri mi söylüyorsunuz?\"",
+    "verseNumber": 80,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 88,
+    "arabic": "بَلَىٰ مَن كَسَبَ سَيِّئَةًۭ وَأَحَٰطَتْ بِهِۦ خَطِيٓـَٔتُهُۥ فَأُو۟لَٰٓئِكَ أَصْحَٰبُ ٱلنَّارِ ۖ هُمْ فِيهَا خَٰلِدُونَ",
+    "turkish": "Evet kim bir günah işlemiş de kendi günahı kendisini her yandan kuşatmış ise, işte öyleleri ateş ehlidirler ve orada ebedî kalıcıdırlar.",
+    "verseNumber": 81,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 89,
+    "arabic": "وَٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّٰلِحَٰتِ أُو۟لَٰٓئِكَ أَصْحَٰبُ ٱلْجَنَّةِ ۖ هُمْ فِيهَا خَٰلِدُونَ",
+    "turkish": "İman edip salih ameller işleyenler, işte öyleleri de cennet ehlidirler ve orada ebedî kalıcıdırlar.",
+    "verseNumber": 82,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  },
+  {
+    "id": 90,
+    "arabic": "وَإِذْ أَخَذْنَا مِيثَٰقَ بَنِىٓ إِسْرَٰٓءِيلَ لَا تَعْبُدُونَ إِلَّا ٱللَّهَ وَبِٱلْوَٰلِدَيْنِ إِحْسَانًۭا وَذِى ٱلْقُرْبَىٰ وَٱلْيَتَٰمَىٰ وَٱلْمَسَٰكِينِ وَقُولُوا۟ لِلنَّاسِ حُسْنًۭا وَأَقِيمُوا۟ ٱلصَّلَوٰةَ وَءَاتُوا۟ ٱلزَّكَوٰةَ ثُمَّ تَوَلَّيْتُمْ إِلَّا قَلِيلًۭا مِّنكُمْ وَأَنتُم مُّعْرِضُونَ",
+    "turkish": "Hani bir vakitler İsrailoğulları'ndan şöylece mîsak (kesin bir söz) almıştık: Allah'dan başkasına tapmayacaksınız, anababaya iyilik, yakınlığı olanlara, öksüzlere, çaresizlere de iyilik yapacaksınız, insanlara güzellikle söz söyleyecek, namazı kılacak, zekatı vereceksiniz. Sonra çok azınız müstesna olmak üzere sözünüzden döndünüz, hâlâ da dönüyorsunuz.",
+    "verseNumber": 83,
+    "surahNumber": 2,
+    "surahName": "سُورَةُ البَقَرَةِ",
+    "englishName": "Al-Baqara"
+  }
+]

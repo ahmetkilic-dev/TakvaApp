@@ -1,18 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
-import { db } from '../../../firebaseConfig';
-import {
-  doc,
-  getDoc,
-  increment,
-  runTransaction,
-  serverTimestamp,
-  setDoc,
-  writeBatch,
-} from 'firebase/firestore';
+import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
 
-const DAILY_STATS_SUBCOL = 'dailyStats'; // users/{uid}/dailyStats/{YYYY-MM-DD}
 const DEFAULT_DUA_RIGHTS = 3;
 
 const pad2 = (n) => String(n).padStart(2, '0');
@@ -40,11 +30,6 @@ export const useZikirDuaDailyStats = () => {
   const today = useMemo(() => (getToday ? getToday() : new Date()), [getToday]);
   const todayKey = useMemo(() => toDayKeyLocal(today), [today]);
 
-  const dailyDocRef = useMemo(() => {
-    if (!user?.uid) return null;
-    return doc(db, 'users', user.uid, DAILY_STATS_SUBCOL, todayKey);
-  }, [todayKey, user?.uid]);
-
   const flushDhikr = useCallback(
     async (dayKeyOverride) => {
       if (flushingRef.current) return;
@@ -54,27 +39,19 @@ export const useZikirDuaDailyStats = () => {
       if (!pending || pending <= 0) return;
 
       const dayKeyToUse = dayKeyOverride || dayKeyRef.current || todayKey;
-      const ref = doc(db, 'users', user.uid, DAILY_STATS_SUBCOL, dayKeyToUse);
 
       flushingRef.current = true;
       try {
-        const batch = writeBatch(db);
-        batch.set(
-          ref,
-          {
-            date: dayKeyToUse,
-            dhikrCount: increment(pending),
-            updatedAt: serverTimestamp(),
-            // duaRemaining is managed separately; do not override here
-          },
-          { merge: true }
-        );
-        await batch.commit();
+        await supabase.rpc('increment_daily_user_stat', {
+          target_user_id: user.uid,
+          day_key: dayKeyToUse,
+          column_name: 'dhikr_count',
+          increment_by: pending
+        });
 
         pendingDhikrRef.current = 0;
         setLocalDhikrDelta(0);
 
-        // optimistic base bump for same day
         if (dayKeyToUse === todayKey) {
           setDhikrBase((v) => v + pending);
         }
@@ -87,7 +64,6 @@ export const useZikirDuaDailyStats = () => {
     [todayKey, user?.uid]
   );
 
-  // Day change: flush pending to previous day doc and reset local delta
   useEffect(() => {
     if (!dayKeyRef.current) {
       dayKeyRef.current = todayKey;
@@ -97,20 +73,17 @@ export const useZikirDuaDailyStats = () => {
       void flushDhikr(dayKeyRef.current);
       dayKeyRef.current = todayKey;
       setLocalDhikrDelta(0);
-      // refresh bases for the new day
       setDhikrBase(0);
       setDuaRemaining(DEFAULT_DUA_RIGHTS);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [todayKey]);
+  }, [todayKey, flushDhikr]);
 
-  // Initial read (per day & per user)
   useEffect(() => {
     let alive = true;
     (async () => {
       try {
         if (!alive) return;
-        if (!user?.uid || !dailyDocRef) {
+        if (!user?.uid) {
           setDhikrBase(0);
           setDuaRemaining(DEFAULT_DUA_RIGHTS);
           setLoading(false);
@@ -118,15 +91,19 @@ export const useZikirDuaDailyStats = () => {
         }
 
         setLoading(true);
-        const snap = await getDoc(dailyDocRef);
+        const { data, error } = await supabase
+          .from('daily_user_stats')
+          .select('*')
+          .eq('user_id', user.uid)
+          .eq('date_key', todayKey)
+          .single();
+
         if (!alive) return;
 
-        if (snap.exists()) {
-          const data = snap.data() || {};
-          setDhikrBase(Number(data.dhikrCount || 0));
-          // If not set yet, default 3 (we don't write until user consumes)
+        if (data) {
+          setDhikrBase(Number(data.dhikr_count || 0));
           setDuaRemaining(
-            typeof data.duaRemaining === 'number' ? data.duaRemaining : DEFAULT_DUA_RIGHTS
+            typeof data.dua_remaining === 'number' ? data.dua_remaining : DEFAULT_DUA_RIGHTS
           );
         } else {
           setDhikrBase(0);
@@ -143,9 +120,8 @@ export const useZikirDuaDailyStats = () => {
     return () => {
       alive = false;
     };
-  }, [dailyDocRef, todayKey, user?.uid]);
+  }, [todayKey, user?.uid]);
 
-  // Flush periodically to minimize writes but keep data durable
   useEffect(() => {
     if (flushTimerRef.current) clearInterval(flushTimerRef.current);
     flushTimerRef.current = setInterval(() => {
@@ -157,7 +133,6 @@ export const useZikirDuaDailyStats = () => {
     };
   }, [flushDhikr]);
 
-  // Flush on background
   useEffect(() => {
     const sub = AppState.addEventListener('change', (nextState) => {
       const prev = appStateRef.current;
@@ -172,7 +147,6 @@ export const useZikirDuaDailyStats = () => {
   const incrementDhikr = useCallback(() => {
     if (!user?.uid) return;
 
-    // If day changed but ref not updated yet, flush to previous day
     if (dayKeyRef.current && dayKeyRef.current !== todayKey) {
       void flushDhikr(dayKeyRef.current);
       dayKeyRef.current = todayKey;
@@ -181,7 +155,6 @@ export const useZikirDuaDailyStats = () => {
     pendingDhikrRef.current += 1;
     setLocalDhikrDelta((d) => d + 1);
 
-    // Threshold flush
     if (pendingDhikrRef.current >= 10) {
       void flushDhikr();
     }
@@ -190,45 +163,23 @@ export const useZikirDuaDailyStats = () => {
   const consumeDuaRight = useCallback(async () => {
     if (!user?.uid) return { ok: false, remaining: 0 };
 
-    const ref = doc(db, 'users', user.uid, DAILY_STATS_SUBCOL, todayKey);
-
     try {
-      const result = await runTransaction(db, async (tx) => {
-        const snap = await tx.get(ref);
-        let remaining = DEFAULT_DUA_RIGHTS;
-        let dhikrCount = 0;
-
-        if (snap.exists()) {
-          const data = snap.data() || {};
-          remaining =
-            typeof data.duaRemaining === 'number' ? data.duaRemaining : DEFAULT_DUA_RIGHTS;
-          dhikrCount = Number(data.dhikrCount || 0);
-        }
-
-        if (remaining <= 0) {
-          return { ok: false, remaining: 0 };
-        }
-
-        // Ensure doc exists and decrement remaining
-        tx.set(
-          ref,
-          {
-            date: todayKey,
-            dhikrCount, // keep whatever was there (or 0). dhikr increments are separate.
-            duaRemaining: remaining - 1,
-            updatedAt: serverTimestamp(),
-          },
-          { merge: true }
-        );
-
-        return { ok: true, remaining: remaining - 1 };
+      const { data, error } = await supabase.rpc('consume_dua_right', {
+        target_user_id: user.uid,
+        day_key: todayKey,
+        default_rights: DEFAULT_DUA_RIGHTS
       });
 
-      setDuaRemaining(result.remaining);
-      return result;
+      if (error) throw error;
+
+      if (data && data.ok) {
+        setDuaRemaining(data.remaining);
+        return { ok: true, remaining: data.remaining };
+      } else {
+        return { ok: false, remaining: 0 };
+      }
     } catch (e) {
       console.warn('🧿 consumeDuaRight failed:', e?.message || e);
-      // No hard error: just keep current state
       return { ok: false, remaining: duaRemaining };
     }
   }, [duaRemaining, todayKey, user?.uid]);

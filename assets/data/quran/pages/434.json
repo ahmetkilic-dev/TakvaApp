@@ -1,0 +1,83 @@
+[
+  {
+    "id": 3655,
+    "arabic": "قُلْ جَآءَ ٱلْحَقُّ وَمَا يُبْدِئُ ٱلْبَٰطِلُ وَمَا يُعِيدُ",
+    "turkish": "De ki: \"Hak geldi, batılın önü de kalmaz, sonu da.\"",
+    "verseNumber": 49,
+    "surahNumber": 34,
+    "surahName": "سُورَةُ سَبَإٍ",
+    "englishName": "Saba"
+  },
+  {
+    "id": 3656,
+    "arabic": "قُلْ إِن ضَلَلْتُ فَإِنَّمَآ أَضِلُّ عَلَىٰ نَفْسِى ۖ وَإِنِ ٱهْتَدَيْتُ فَبِمَا يُوحِىٓ إِلَىَّ رَبِّىٓ ۚ إِنَّهُۥ سَمِيعٌۭ قَرِيبٌۭ",
+    "turkish": "De ki: \"Eğer ben yanılırsam, yalnız kendi adıma yanılırım. Ve eğer hidayeti bulmuşsam, bilinmeli ki Rabbimin bana vahiy vermesiyledir. Çünkü O, yakındır, işitir, işittirir.\"",
+    "verseNumber": 50,
+    "surahNumber": 34,
+    "surahName": "سُورَةُ سَبَإٍ",
+    "englishName": "Saba"
+  },
+  {
+    "id": 3657,
+    "arabic": "وَلَوْ تَرَىٰٓ إِذْ فَزِعُوا۟ فَلَا فَوْتَ وَأُخِذُوا۟ مِن مَّكَانٍۢ قَرِيبٍۢ",
+    "turkish": "Onları telaşa düştükleri zaman görsen: Artık kaçamak yoktur. Yakın yerden yakalanmışlardır.",
+    "verseNumber": 51,
+    "surahNumber": 34,
+    "surahName": "سُورَةُ سَبَإٍ",
+    "englishName": "Saba"
+  },
+  {
+    "id": 3658,
+    "arabic": "وَقَالُوٓا۟ ءَامَنَّا بِهِۦ وَأَنَّىٰ لَهُمُ ٱلتَّنَاوُشُ مِن مَّكَانٍۭ بَعِيدٍۢ",
+    "turkish": "Ve: \"O'na iman ettik\" demektedirler. Fakat onlar için (âhiret gibi) uzak bir yerden (imana) el sunmak (ulaşabilmek) nerede?",
+    "verseNumber": 52,
+    "surahNumber": 34,
+    "surahName": "سُورَةُ سَبَإٍ",
+    "englishName": "Saba"
+  },
+  {
+    "id": 3659,
+    "arabic": "وَقَدْ كَفَرُوا۟ بِهِۦ مِن قَبْلُ ۖ وَيَقْذِفُونَ بِٱلْغَيْبِ مِن مَّكَانٍۭ بَعِيدٍۢ",
+    "turkish": "Halbuki daha önce (dünyada) O'nu inkâr etmişlerdi. Uzak yerden gayba taş atıyorlardı.",
+    "verseNumber": 53,
+    "surahNumber": 34,
+    "surahName": "سُورَةُ سَبَإٍ",
+    "englishName": "Saba"
+  },
+  {
+    "id": 3660,
+    "arabic": "وَحِيلَ بَيْنَهُمْ وَبَيْنَ مَا يَشْتَهُونَ كَمَا فُعِلَ بِأَشْيَاعِهِم مِّن قَبْلُ ۚ إِنَّهُمْ كَانُوا۟ فِى شَكٍّۢ مُّرِيبٍۭ",
+    "turkish": "Artık kendileriyle arzularının arasına set çekilmiştir. Tıpkı bundan önce benzerlerine yapıldığı gibi. Çünkü hepsi işkilli bir şüphe içinde bulunuyorlardı",
+    "verseNumber": 54,
+    "surahNumber": 34,
+    "surahName": "سُورَةُ سَبَإٍ",
+    "englishName": "Saba"
+  },
+  {
+    "id": 3661,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ٱلْحَمْدُ لِلَّهِ فَاطِرِ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ جَاعِلِ ٱلْمَلَٰٓئِكَةِ رُسُلًا أُو۟لِىٓ أَجْنِحَةٍۢ مَّثْنَىٰ وَثُلَٰثَ وَرُبَٰعَ ۚ يَزِيدُ فِى ٱلْخَلْقِ مَا يَشَآءُ ۚ إِنَّ ٱللَّهَ عَلَىٰ كُلِّ شَىْءٍۢ قَدِيرٌۭ",
+    "turkish": "Hamd, gökleri ve yeri yaratan, melekleri ikişer, üçer, dörder kanatlı elçiler kılan Allah'a mahsustur. O, yaratmada dilediği kadar artırır. Gerçekten Allah her şeye kâdirdir.",
+    "verseNumber": 1,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  },
+  {
+    "id": 3662,
+    "arabic": "مَّا يَفْتَحِ ٱللَّهُ لِلنَّاسِ مِن رَّحْمَةٍۢ فَلَا مُمْسِكَ لَهَا ۖ وَمَا يُمْسِكْ فَلَا مُرْسِلَ لَهُۥ مِنۢ بَعْدِهِۦ ۚ وَهُوَ ٱلْعَزِيزُ ٱلْحَكِيمُ",
+    "turkish": "Allah, insanlara rahmetinden neyi açarsa artık onu tutacak, kısacak olan yoktur. Her neyi de tutar kısarsa, onu da, ondan sonra salacak yoktur. O, çok güçlüdür, hüküm ve hikmet sahibidir.",
+    "verseNumber": 2,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  },
+  {
+    "id": 3663,
+    "arabic": "يَٰٓأَيُّهَا ٱلنَّاسُ ٱذْكُرُوا۟ نِعْمَتَ ٱللَّهِ عَلَيْكُمْ ۚ هَلْ مِنْ خَٰلِقٍ غَيْرُ ٱللَّهِ يَرْزُقُكُم مِّنَ ٱلسَّمَآءِ وَٱلْأَرْضِ ۚ لَآ إِلَٰهَ إِلَّا هُوَ ۖ فَأَنَّىٰ تُؤْفَكُونَ",
+    "turkish": "Ey insanlar! Allah'ın üzerinizdeki nimetini anın. Allah'tan başka bir yaratıcı mı var? O size gökten ve yerden rızık verir. O'ndan başka ilâh yoktur. O halde (haktan) nasıl çevrilirsiniz?",
+    "verseNumber": 3,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  }
+]

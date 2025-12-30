@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { auth, db } from '../../../firebaseConfig';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { auth } from '../../../firebaseConfig';
+import { supabase } from '../../../lib/supabase';
 import { onAuthStateChanged } from 'firebase/auth';
 
 /**
  * Kuran okuma ilerlemesi hook'u
- * Firebase'de kullanıcının son okuduğu yer ve ilerlemesini saklar/yükler
+ * Supabase'de kullanıcının son okuduğu yer ve ilerlemesini saklar/yükler
  */
 export const useReadingProgress = () => {
   const [progress, setProgress] = useState(null);
@@ -26,13 +26,14 @@ export const useReadingProgress = () => {
       setLoading(true);
       setError(null);
 
-      const userDocRef = doc(db, 'users', userId);
-      const userDoc = await getDoc(userDocRef);
+      const { data: stats, error } = await supabase
+        .from('user_stats')
+        .select('reading_progress')
+        .eq('user_id', userId)
+        .single();
 
-      if (userDoc.exists()) {
-        const data = userDoc.data();
-        const readingProgress = data.readingProgress || null;
-        setProgress(readingProgress);
+      if (stats) {
+        setProgress(stats.reading_progress || null);
       } else {
         setProgress(null);
       }
@@ -48,17 +49,14 @@ export const useReadingProgress = () => {
   // İlerleme kaydet
   const saveProgress = useCallback(async (userId, progressData) => {
     try {
-      const userDocRef = doc(db, 'users', userId);
-      await setDoc(
-        userDocRef,
-        {
-          readingProgress: {
-            ...progressData,
-            lastUpdated: serverTimestamp(),
-          },
+      await supabase.from('user_stats').upsert({
+        user_id: userId,
+        reading_progress: {
+          ...progressData,
+          last_updated: new Date().toISOString(),
         },
-        { merge: true }
-      );
+        updated_at: new Date().toISOString()
+      });
       setProgress(progressData);
     } catch (err) {
       console.error('İlerleme kaydetme hatası:', err);

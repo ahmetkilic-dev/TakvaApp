@@ -1,0 +1,74 @@
+[
+  {
+    "id": 323,
+    "arabic": "يَوْمَ تَجِدُ كُلُّ نَفْسٍۢ مَّا عَمِلَتْ مِنْ خَيْرٍۢ مُّحْضَرًۭا وَمَا عَمِلَتْ مِن سُوٓءٍۢ تَوَدُّ لَوْ أَنَّ بَيْنَهَا وَبَيْنَهُۥٓ أَمَدًۢا بَعِيدًۭا ۗ وَيُحَذِّرُكُمُ ٱللَّهُ نَفْسَهُۥ ۗ وَٱللَّهُ رَءُوفٌۢ بِٱلْعِبَادِ",
+    "turkish": "O gün her nefis, ne hayır işlemişse, ne kötülük yapmışsa onları önünde hazır bulur. Yaptığı kötülüklerle kendi arasında uzak bir mesafe bulunsun ister. Allah, size asıl kendisinden çekinmenizi emreder. Şüphesiz ki Allah, kullarını çok esirger.",
+    "verseNumber": 30,
+    "surahNumber": 3,
+    "surahName": "سُورَةُ آلِ عِمۡرَانَ",
+    "englishName": "Aal-i-Imraan"
+  },
+  {
+    "id": 324,
+    "arabic": "قُلْ إِن كُنتُمْ تُحِبُّونَ ٱللَّهَ فَٱتَّبِعُونِى يُحْبِبْكُمُ ٱللَّهُ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ ۗ وَٱللَّهُ غَفُورٌۭ رَّحِيمٌۭ",
+    "turkish": "De ki, siz gerçekten Allah'ı seviyorsanız bana uyun ki, Allah da sizi sevsin ve suçlarınızı bağışlasın. Çünkü Allah çok esirgeyici ve bağışlayıcıdır.",
+    "verseNumber": 31,
+    "surahNumber": 3,
+    "surahName": "سُورَةُ آلِ عِمۡرَانَ",
+    "englishName": "Aal-i-Imraan"
+  },
+  {
+    "id": 325,
+    "arabic": "قُلْ أَطِيعُوا۟ ٱللَّهَ وَٱلرَّسُولَ ۖ فَإِن تَوَلَّوْا۟ فَإِنَّ ٱللَّهَ لَا يُحِبُّ ٱلْكَٰفِرِينَ",
+    "turkish": "De ki, Allah'a ve Peygamber'e itaat edin! Eğer aksine giderlerse, şüphe yok ki Allah kâfirleri sevmez.",
+    "verseNumber": 32,
+    "surahNumber": 3,
+    "surahName": "سُورَةُ آلِ عِمۡرَانَ",
+    "englishName": "Aal-i-Imraan"
+  },
+  {
+    "id": 326,
+    "arabic": "۞ إِنَّ ٱللَّهَ ٱصْطَفَىٰٓ ءَادَمَ وَنُوحًۭا وَءَالَ إِبْرَٰهِيمَ وَءَالَ عِمْرَٰنَ عَلَى ٱلْعَٰلَمِينَ",
+    "turkish": "Gerçekten Allah, Adem'i, Nuh'u, İbrahim soyunu ve İmran soyunu âlemler üzerine seçkin kıldı.",
+    "verseNumber": 33,
+    "surahNumber": 3,
+    "surahName": "سُورَةُ آلِ عِمۡرَانَ",
+    "englishName": "Aal-i-Imraan"
+  },
+  {
+    "id": 327,
+    "arabic": "ذُرِّيَّةًۢ بَعْضُهَا مِنۢ بَعْضٍۢ ۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ",
+    "turkish": "Bir zürriyet olarak birbirinden gelmişlerdir. Allah her şeyi işitendir, bilendir.",
+    "verseNumber": 34,
+    "surahNumber": 3,
+    "surahName": "سُورَةُ آلِ عِمۡرَانَ",
+    "englishName": "Aal-i-Imraan"
+  },
+  {
+    "id": 328,
+    "arabic": "إِذْ قَالَتِ ٱمْرَأَتُ عِمْرَٰنَ رَبِّ إِنِّى نَذَرْتُ لَكَ مَا فِى بَطْنِى مُحَرَّرًۭا فَتَقَبَّلْ مِنِّىٓ ۖ إِنَّكَ أَنتَ ٱلسَّمِيعُ ٱلْعَلِيمُ",
+    "turkish": "İmran'ın karısı: \"Rabbim, karnımdakini tam hür olarak sana adadım, benden kabul buyur, şüphesiz sen işitensin, bilensin.\" demişti.",
+    "verseNumber": 35,
+    "surahNumber": 3,
+    "surahName": "سُورَةُ آلِ عِمۡرَانَ",
+    "englishName": "Aal-i-Imraan"
+  },
+  {
+    "id": 329,
+    "arabic": "فَلَمَّا وَضَعَتْهَا قَالَتْ رَبِّ إِنِّى وَضَعْتُهَآ أُنثَىٰ وَٱللَّهُ أَعْلَمُ بِمَا وَضَعَتْ وَلَيْسَ ٱلذَّكَرُ كَٱلْأُنثَىٰ ۖ وَإِنِّى سَمَّيْتُهَا مَرْيَمَ وَإِنِّىٓ أُعِيذُهَا بِكَ وَذُرِّيَّتَهَا مِنَ ٱلشَّيْطَٰنِ ٱلرَّجِيمِ",
+    "turkish": "Onu doğuruncaAllah onun ne doğurduğunu bilip dururkenşöyle dedi: \"Rabbim, onu kız doğurdum; erkek, kız gibi değildir. Ona Meryem adını verdim. Onu ve soyunu koğulmuş şeytanın şerrinden sana ısmarlıyorum\".",
+    "verseNumber": 36,
+    "surahNumber": 3,
+    "surahName": "سُورَةُ آلِ عِمۡرَانَ",
+    "englishName": "Aal-i-Imraan"
+  },
+  {
+    "id": 330,
+    "arabic": "فَتَقَبَّلَهَا رَبُّهَا بِقَبُولٍ حَسَنٍۢ وَأَنۢبَتَهَا نَبَاتًا حَسَنًۭا وَكَفَّلَهَا زَكَرِيَّا ۖ كُلَّمَا دَخَلَ عَلَيْهَا زَكَرِيَّا ٱلْمِحْرَابَ وَجَدَ عِندَهَا رِزْقًۭا ۖ قَالَ يَٰمَرْيَمُ أَنَّىٰ لَكِ هَٰذَا ۖ قَالَتْ هُوَ مِنْ عِندِ ٱللَّهِ ۖ إِنَّ ٱللَّهَ يَرْزُقُ مَن يَشَآءُ بِغَيْرِ حِسَابٍ",
+    "turkish": "Bunun üzerine Rabbi onu güzel bir şekilde kabul buyurdu ve onu güzel bir bitki gibi yetiştirdi ve Zekeriyya'nın himayesine verdi. Zekeriyya ne zaman kızın bulunduğu mihraba girse, onun yanında yeni bir yiyecek bulurdu. \"Meryem! Bu sana nereden geldi?\" deyince, o da: \"Bu, Allah katındandır.\" derdi. Şüphesiz Allah, dilediğine hesapsız rızık verir.",
+    "verseNumber": 37,
+    "surahNumber": 3,
+    "surahName": "سُورَةُ آلِ عِمۡرَانَ",
+    "englishName": "Aal-i-Imraan"
+  }
+]

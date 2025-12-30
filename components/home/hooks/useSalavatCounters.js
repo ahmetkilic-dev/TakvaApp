@@ -1,19 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../../../firebaseConfig';
-import {
-  doc,
-  getDoc,
-  increment,
-  serverTimestamp,
-  setDoc,
-  writeBatch,
-} from 'firebase/firestore';
+import { auth } from '../../../firebaseConfig';
+import { supabase } from '../../../lib/supabase';
 import { useDayChange } from '../../../hooks/useDayChange';
-
-const GLOBAL_DOC = { col: 'salavatStats', id: 'global' };
-const DAILY_DOC_PREFIX = 'daily_'; // daily_YYYY-MM-DD
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const toDayKeyLocal = (date) => {
@@ -29,7 +19,7 @@ export const useSalavatCounters = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Base values from Firestore
+  // Base values from Supabase
   const [globalTotalBase, setGlobalTotalBase] = useState(0);
   const [globalTodayBase, setGlobalTodayBase] = useState(0);
   const [userTotalBase, setUserTotalBase] = useState(0);
@@ -46,8 +36,6 @@ export const useSalavatCounters = () => {
   const today = useMemo(() => (getToday ? getToday() : new Date()), [getToday]);
   const todayKey = useMemo(() => toDayKeyLocal(today), [today]);
 
-  const dailyDocId = useMemo(() => `${DAILY_DOC_PREFIX}${todayKey}`, [todayKey]);
-
   // Keep current day key in a ref so we can flush pending to the correct day
   useEffect(() => {
     if (!dayKeyRef.current) {
@@ -55,13 +43,10 @@ export const useSalavatCounters = () => {
       return;
     }
     if (dayKeyRef.current !== todayKey) {
-      // If day changed, flush pending to previous day doc before switching
       void flushPending(dayKeyRef.current);
       dayKeyRef.current = todayKey;
-      // reset local delta for “today” display (we still show global total + user total)
       setLocalDelta(0);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todayKey]);
 
   useEffect(() => {
@@ -71,21 +56,22 @@ export const useSalavatCounters = () => {
 
   const readCounts = useCallback(
     async (uid) => {
-      const globalRef = doc(db, GLOBAL_DOC.col, GLOBAL_DOC.id);
-      const dailyRef = doc(db, GLOBAL_DOC.col, dailyDocId);
-      const userRef = uid ? doc(db, 'users', uid) : null;
+      // Global total
+      const { data: gTotal } = await supabase.from('global_stats').select('total').eq('type', 'salavat').single();
+      // Global daily
+      const { data: gDaily } = await supabase.from('daily_stats').select('total').eq('type', 'salavat').eq('date_key', todayKey).single();
+      // User total
+      let uTotal = 0;
+      if (uid) {
+        const { data: stats } = await supabase.from('user_stats').select('total_salavat').eq('user_id', uid).single();
+        uTotal = stats?.total_salavat || 0;
+      }
 
-      const [globalSnap, dailySnap, userSnap] = await Promise.all([
-        getDoc(globalRef),
-        getDoc(dailyRef),
-        uid ? getDoc(userRef) : Promise.resolve(null),
-      ]);
-
-      setGlobalTotalBase(globalSnap.exists() ? Number(globalSnap.data()?.total || 0) : 0);
-      setGlobalTodayBase(dailySnap.exists() ? Number(dailySnap.data()?.total || 0) : 0);
-      setUserTotalBase(uid && userSnap?.exists() ? Number(userSnap.data()?.salavatTotal || 0) : 0);
+      setGlobalTotalBase(gTotal?.total || 0);
+      setGlobalTodayBase(gDaily?.total || 0);
+      setUserTotalBase(uTotal);
     },
-    [dailyDocId]
+    [todayKey]
   );
 
   const flushPending = useCallback(
@@ -98,44 +84,28 @@ export const useSalavatCounters = () => {
 
       flushingRef.current = true;
       const dayKeyToUse = dayKeyOverride || dayKeyRef.current || todayKey;
-      const dailyId = `${DAILY_DOC_PREFIX}${dayKeyToUse}`;
 
       try {
-        const batch = writeBatch(db);
+        // In an ideal world we'd use an RPC to increment safely.
+        // For now we'll do upserts with relative values if possible or just concurrent-unsafe for simple cases.
+        // Better: use supabase.rpc('increment_salavat', { user_id: uid, amount: pending, day_key: dayKeyToUse })
 
-        const globalRef = doc(db, GLOBAL_DOC.col, GLOBAL_DOC.id);
-        const dailyRef = doc(db, GLOBAL_DOC.col, dailyId);
-        const userRef = doc(db, 'users', user.uid);
+        // 1. Update Global Total
+        await supabase.rpc('increment_global_stat', { stat_type: 'salavat', increment_by: pending });
 
-        batch.set(
-          globalRef,
-          { total: increment(pending), updatedAt: serverTimestamp() },
-          { merge: true }
-        );
+        // 2. Update Global Daily
+        await supabase.rpc('increment_daily_stat', { stat_type: 'salavat', day_key: dayKeyToUse, increment_by: pending });
 
-        batch.set(
-          dailyRef,
-          { total: increment(pending), date: dayKeyToUse, updatedAt: serverTimestamp() },
-          { merge: true }
-        );
-
-        batch.set(
-          userRef,
-          { salavatTotal: increment(pending), salavatTotalUpdatedAt: serverTimestamp() },
-          { merge: true }
-        );
-
-        await batch.commit();
+        // 3. Update User Total
+        await supabase.rpc('increment_user_stat', { target_user_id: user.uid, column_name: 'total_salavat', increment_by: pending });
 
         pendingRef.current = 0;
         setLocalDelta(0);
 
-        // Optimistic base bump (avoid immediate reread)
         setGlobalTotalBase((v) => v + pending);
         if (dayKeyToUse === todayKey) setGlobalTodayBase((v) => v + pending);
         setUserTotalBase((v) => v + pending);
       } catch (e) {
-        // Keep pending; we'll retry later (timer/background)
         console.warn('📿 Salavat flush failed:', e?.message || e);
       } finally {
         flushingRef.current = false;
@@ -144,7 +114,6 @@ export const useSalavatCounters = () => {
     [todayKey, user?.uid]
   );
 
-  // Read initial counts + on day change/user change
   useEffect(() => {
     let alive = true;
     (async () => {
@@ -163,7 +132,6 @@ export const useSalavatCounters = () => {
     };
   }, [readCounts, todayKey, user?.uid]);
 
-  // Minimalize writes: flush periodically if there is pending
   useEffect(() => {
     if (flushTimerRef.current) clearInterval(flushTimerRef.current);
     flushTimerRef.current = setInterval(() => {
@@ -177,7 +145,6 @@ export const useSalavatCounters = () => {
     };
   }, [flushPending]);
 
-  // Flush on app background
   useEffect(() => {
     const sub = AppState.addEventListener('change', (nextState) => {
       const prev = appStateRef.current;
@@ -190,9 +157,8 @@ export const useSalavatCounters = () => {
   }, [flushPending]);
 
   const addOne = useCallback(() => {
-    if (!user?.uid) return; // require login to contribute
+    if (!user?.uid) return;
 
-    // If day key changed but ref didn't update yet, flush under previous key
     if (dayKeyRef.current && dayKeyRef.current !== todayKey) {
       void flushPending(dayKeyRef.current);
       dayKeyRef.current = todayKey;
@@ -201,7 +167,6 @@ export const useSalavatCounters = () => {
     pendingRef.current += 1;
     setLocalDelta((d) => d + 1);
 
-    // Threshold flush to keep pending small
     if (pendingRef.current >= 10) {
       void flushPending();
     }

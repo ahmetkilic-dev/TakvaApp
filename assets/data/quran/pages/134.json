@@ -1,0 +1,65 @@
+[
+  {
+    "id": 842,
+    "arabic": "وَكَذَٰلِكَ فَتَنَّا بَعْضَهُم بِبَعْضٍۢ لِّيَقُولُوٓا۟ أَهَٰٓؤُلَآءِ مَنَّ ٱللَّهُ عَلَيْهِم مِّنۢ بَيْنِنَآ ۗ أَلَيْسَ ٱللَّهُ بِأَعْلَمَ بِٱلشَّٰكِرِينَ",
+    "turkish": "Biz onlardan kimini kimi ile, \"Allah aramızdan bunlara mı lutfunu layık gördü\" desinler diye, işte böyle imtihan ettik. Allah, şükredenleri daha iyi bilen değil midir?",
+    "verseNumber": 53,
+    "surahNumber": 6,
+    "surahName": "سُورَةُ الأَنۡعَامِ",
+    "englishName": "Al-An'aam"
+  },
+  {
+    "id": 843,
+    "arabic": "وَإِذَا جَآءَكَ ٱلَّذِينَ يُؤْمِنُونَ بِـَٔايَٰتِنَا فَقُلْ سَلَٰمٌ عَلَيْكُمْ ۖ كَتَبَ رَبُّكُمْ عَلَىٰ نَفْسِهِ ٱلرَّحْمَةَ ۖ أَنَّهُۥ مَنْ عَمِلَ مِنكُمْ سُوٓءًۢا بِجَهَٰلَةٍۢ ثُمَّ تَابَ مِنۢ بَعْدِهِۦ وَأَصْلَحَ فَأَنَّهُۥ غَفُورٌۭ رَّحِيمٌۭ",
+    "turkish": "Âyetlerimize inananlar sana geldikleri zaman onlara şöyle söyle: Selam olsun size! Rabbiniz rahmeti kendi üzerine yazdı. Sizden her kim bilmeyerek bir kötülük işleyip de sonra arkasından tevbe eder, kendini düzeltirse, muhakkak ki O, bağışlayan, esirgeyendir\".",
+    "verseNumber": 54,
+    "surahNumber": 6,
+    "surahName": "سُورَةُ الأَنۡعَامِ",
+    "englishName": "Al-An'aam"
+  },
+  {
+    "id": 844,
+    "arabic": "وَكَذَٰلِكَ نُفَصِّلُ ٱلْءَايَٰتِ وَلِتَسْتَبِينَ سَبِيلُ ٱلْمُجْرِمِينَ",
+    "turkish": "Suçluların tuttuğu yol açığa çıksın diye, âyetleri işte böyle genişçe açıklıyoruz.",
+    "verseNumber": 55,
+    "surahNumber": 6,
+    "surahName": "سُورَةُ الأَنۡعَامِ",
+    "englishName": "Al-An'aam"
+  },
+  {
+    "id": 845,
+    "arabic": "قُلْ إِنِّى نُهِيتُ أَنْ أَعْبُدَ ٱلَّذِينَ تَدْعُونَ مِن دُونِ ٱللَّهِ ۚ قُل لَّآ أَتَّبِعُ أَهْوَآءَكُمْ ۙ قَدْ ضَلَلْتُ إِذًۭا وَمَآ أَنَا۠ مِنَ ٱلْمُهْتَدِينَ",
+    "turkish": "De ki: \"Şüphesiz ki bana, Allah'tan başka yalvardıklarınıza ibadet etmem yasaklandı\". De ki: \"Sizin çarpık isteklerinize uymayacağım, (eğer uyarsam) o zaman sapıtmış olur, doğru yolda gidenlerden olmamış olurum\".",
+    "verseNumber": 56,
+    "surahNumber": 6,
+    "surahName": "سُورَةُ الأَنۡعَامِ",
+    "englishName": "Al-An'aam"
+  },
+  {
+    "id": 846,
+    "arabic": "قُلْ إِنِّى عَلَىٰ بَيِّنَةٍۢ مِّن رَّبِّى وَكَذَّبْتُم بِهِۦ ۚ مَا عِندِى مَا تَسْتَعْجِلُونَ بِهِۦٓ ۚ إِنِ ٱلْحُكْمُ إِلَّا لِلَّهِ ۖ يَقُصُّ ٱلْحَقَّ ۖ وَهُوَ خَيْرُ ٱلْفَٰصِلِينَ",
+    "turkish": "De ki: \"Ben Rabbimden apaçık bir delile dayanmaktayım, siz ise onu yalanladınız. O çabuk gelmesini istediğiniz azab benim elimde değildir, hüküm ancak Allah'a aittir, gerçeği O anlatır ve O, hakkı bâtıldan ayırdedenlerin en hayırlısıdır\".",
+    "verseNumber": 57,
+    "surahNumber": 6,
+    "surahName": "سُورَةُ الأَنۡعَامِ",
+    "englishName": "Al-An'aam"
+  },
+  {
+    "id": 847,
+    "arabic": "قُل لَّوْ أَنَّ عِندِى مَا تَسْتَعْجِلُونَ بِهِۦ لَقُضِىَ ٱلْأَمْرُ بَيْنِى وَبَيْنَكُمْ ۗ وَٱللَّهُ أَعْلَمُ بِٱلظَّٰلِمِينَ",
+    "turkish": "De ki: \"Sizin çabuk gelmesini istediğiniz azab benim elimde olsaydı, benimle sizin aranızdaki durum herhalde sonuçlanmış olurdu. Allah, zulmedenleri en iyi bilendir\".",
+    "verseNumber": 58,
+    "surahNumber": 6,
+    "surahName": "سُورَةُ الأَنۡعَامِ",
+    "englishName": "Al-An'aam"
+  },
+  {
+    "id": 848,
+    "arabic": "۞ وَعِندَهُۥ مَفَاتِحُ ٱلْغَيْبِ لَا يَعْلَمُهَآ إِلَّا هُوَ ۚ وَيَعْلَمُ مَا فِى ٱلْبَرِّ وَٱلْبَحْرِ ۚ وَمَا تَسْقُطُ مِن وَرَقَةٍ إِلَّا يَعْلَمُهَا وَلَا حَبَّةٍۢ فِى ظُلُمَٰتِ ٱلْأَرْضِ وَلَا رَطْبٍۢ وَلَا يَابِسٍ إِلَّا فِى كِتَٰبٍۢ مُّبِينٍۢ",
+    "turkish": "Gaybın anahtarları O'nun katındadır, onları O'ndan başkası bilmez, karada ve denizde olanları O bilir ve bir yaprak düşmez ki, onu O bilmesin; ne toprağın karanlıklarında bir tane, ne de kuru ve yaş hiçbir şey yoktur ki, o herşeyi açıklayan Kitap'ta bulunmasın.",
+    "verseNumber": 59,
+    "surahNumber": 6,
+    "surahName": "سُورَةُ الأَنۡعَامِ",
+    "englishName": "Al-An'aam"
+  }
+]

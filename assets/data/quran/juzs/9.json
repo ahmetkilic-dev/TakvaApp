@@ -1,0 +1,1433 @@
+[
+  {
+    "id": 1042,
+    "arabic": "۞ قَالَ ٱلْمَلَأُ ٱلَّذِينَ ٱسْتَكْبَرُوا۟ مِن قَوْمِهِۦ لَنُخْرِجَنَّكَ يَٰشُعَيْبُ وَٱلَّذِينَ ءَامَنُوا۟ مَعَكَ مِن قَرْيَتِنَآ أَوْ لَتَعُودُنَّ فِى مِلَّتِنَا ۚ قَالَ أَوَلَوْ كُنَّا كَٰرِهِينَ",
+    "turkish": "Kavminden ileri gelen kibirliler dediler ki: \"Ey Şu'ayb! Ya mutlaka seni ve seninle beraber inananları kentimizden çıkarırız, ya da dinimize dönersiniz!\" Dedi ki; \"İstemesek de mi (bizi yurdumuzdan çıkaracak veya dinimizden döndüreceksiniz?)\"",
+    "verseNumber": 88,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1043,
+    "arabic": "قَدِ ٱفْتَرَيْنَا عَلَى ٱللَّهِ كَذِبًا إِنْ عُدْنَا فِى مِلَّتِكُم بَعْدَ إِذْ نَجَّىٰنَا ٱللَّهُ مِنْهَا ۚ وَمَا يَكُونُ لَنَآ أَن نَّعُودَ فِيهَآ إِلَّآ أَن يَشَآءَ ٱللَّهُ رَبُّنَا ۚ وَسِعَ رَبُّنَا كُلَّ شَىْءٍ عِلْمًا ۚ عَلَى ٱللَّهِ تَوَكَّلْنَا ۚ رَبَّنَا ٱفْتَحْ بَيْنَنَا وَبَيْنَ قَوْمِنَا بِٱلْحَقِّ وَأَنتَ خَيْرُ ٱلْفَٰتِحِينَ",
+    "turkish": "(Andolsun ki), Allah bizi ondan (kâfirlikten) kurtardıktan sonra tekrar sizin dininize dönersek, Allah'a karşı iftira etmiş oluruz. Rabbimiz Allah'ın dilemesi hali müstesna geri dönmemiz bizim için olacak şey değildir. Rabbimizin ilmi her şeyi kuşatmıştır. Biz sadece Allah'a dayanırız. Ey Rabbimiz! Bizimle kavmimiz arasında adaletle hükmet. Çünkü sen hükmedenlerin en hayırlısısın.",
+    "verseNumber": 89,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1044,
+    "arabic": "وَقَالَ ٱلْمَلَأُ ٱلَّذِينَ كَفَرُوا۟ مِن قَوْمِهِۦ لَئِنِ ٱتَّبَعْتُمْ شُعَيْبًا إِنَّكُمْ إِذًۭا لَّخَٰسِرُونَ",
+    "turkish": "Kavminden ileri gelen kâfirler dediler ki: \"Eğer Şu'ayb'a uyarsanız o takdirde siz mutlaka ziyana uğrarsınız.\"",
+    "verseNumber": 90,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1045,
+    "arabic": "فَأَخَذَتْهُمُ ٱلرَّجْفَةُ فَأَصْبَحُوا۟ فِى دَارِهِمْ جَٰثِمِينَ",
+    "turkish": "Derken o (müthiş) sarsıntı onları yakalayıverdi, yurtlarında diz üstü çökekaldılar.",
+    "verseNumber": 91,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1046,
+    "arabic": "ٱلَّذِينَ كَذَّبُوا۟ شُعَيْبًۭا كَأَن لَّمْ يَغْنَوْا۟ فِيهَا ۚ ٱلَّذِينَ كَذَّبُوا۟ شُعَيْبًۭا كَانُوا۟ هُمُ ٱلْخَٰسِرِينَ",
+    "turkish": "Şu'ayb'ı yalanlayanlar, sanki yurtlarında hiç şenlik tutmamış gibi oldular. Şu'ayb'ı yalanlayanlar var ya işte ziyana uğrayanlar, onlar oldular.",
+    "verseNumber": 92,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1047,
+    "arabic": "فَتَوَلَّىٰ عَنْهُمْ وَقَالَ يَٰقَوْمِ لَقَدْ أَبْلَغْتُكُمْ رِسَٰلَٰتِ رَبِّى وَنَصَحْتُ لَكُمْ ۖ فَكَيْفَ ءَاسَىٰ عَلَىٰ قَوْمٍۢ كَٰفِرِينَ",
+    "turkish": "(Şu'ayb) onlardan öteye döndü de: \"Ey kavmim! dedi, ben size Rabbimin gönderdiği gerçekleri duyurdum ve size öğüt verdim, artık kâfir bir kavme nasıl acırım?\"",
+    "verseNumber": 93,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1048,
+    "arabic": "وَمَآ أَرْسَلْنَا فِى قَرْيَةٍۢ مِّن نَّبِىٍّ إِلَّآ أَخَذْنَآ أَهْلَهَا بِٱلْبَأْسَآءِ وَٱلضَّرَّآءِ لَعَلَّهُمْ يَضَّرَّعُونَ",
+    "turkish": "Biz hangi ülkeye bir peygamber gönderdiysek, onun halkınıyalvarıp yakarsınlar diye mutlaka yoksulluk ve darlıkla sıkmışızdır.",
+    "verseNumber": 94,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1049,
+    "arabic": "ثُمَّ بَدَّلْنَا مَكَانَ ٱلسَّيِّئَةِ ٱلْحَسَنَةَ حَتَّىٰ عَفَوا۟ وَّقَالُوا۟ قَدْ مَسَّ ءَابَآءَنَا ٱلضَّرَّآءُ وَٱلسَّرَّآءُ فَأَخَذْنَٰهُم بَغْتَةًۭ وَهُمْ لَا يَشْعُرُونَ",
+    "turkish": "Sonra kötülüğü değiştirip yerine iyilik (bolluk) getirdik, nihayet çoğaldılar ve: \"Atalarımıza da böyle darlık ve sevinç dokunmuştu.\" dediler ve hemen onları, hiç farkında olmadıkları bir sırada ansızın yakaladık.",
+    "verseNumber": 95,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1050,
+    "arabic": "وَلَوْ أَنَّ أَهْلَ ٱلْقُرَىٰٓ ءَامَنُوا۟ وَٱتَّقَوْا۟ لَفَتَحْنَا عَلَيْهِم بَرَكَٰتٍۢ مِّنَ ٱلسَّمَآءِ وَٱلْأَرْضِ وَلَٰكِن كَذَّبُوا۟ فَأَخَذْنَٰهُم بِمَا كَانُوا۟ يَكْسِبُونَ",
+    "turkish": "(O) ülkelerin halkı inanıp (Allah'ın azabından) korunsalardı, elbette üzerlerine gökten ve yerden bolluklar açardık; fakat yalanladılar, biz de onları kazandıklarıyla yakaladık.",
+    "verseNumber": 96,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1051,
+    "arabic": "أَفَأَمِنَ أَهْلُ ٱلْقُرَىٰٓ أَن يَأْتِيَهُم بَأْسُنَا بَيَٰتًۭا وَهُمْ نَآئِمُونَ",
+    "turkish": "Acaba o ülkelerin halkı, geceleyin uyurlarken kendilerine azabımızın gelmeyeceğinden emin mi idiler?",
+    "verseNumber": 97,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1052,
+    "arabic": "أَوَأَمِنَ أَهْلُ ٱلْقُرَىٰٓ أَن يَأْتِيَهُم بَأْسُنَا ضُحًۭى وَهُمْ يَلْعَبُونَ",
+    "turkish": "Yoksa o ülkelerin halkı, kuşluk vakti eğlenirlerken onlara azabımızın gelmeyeceğinden emin mi idiler?",
+    "verseNumber": 98,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1053,
+    "arabic": "أَفَأَمِنُوا۟ مَكْرَ ٱللَّهِ ۚ فَلَا يَأْمَنُ مَكْرَ ٱللَّهِ إِلَّا ٱلْقَوْمُ ٱلْخَٰسِرُونَ",
+    "turkish": "Allah'ın tuzağından (kurtulacaklarına) emin mi oldular? Ziyana uğrayan topluluktan başkası, Allah'ın tuzağından emin olmaz.",
+    "verseNumber": 99,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1054,
+    "arabic": "أَوَلَمْ يَهْدِ لِلَّذِينَ يَرِثُونَ ٱلْأَرْضَ مِنۢ بَعْدِ أَهْلِهَآ أَن لَّوْ نَشَآءُ أَصَبْنَٰهُم بِذُنُوبِهِمْ ۚ وَنَطْبَعُ عَلَىٰ قُلُوبِهِمْ فَهُمْ لَا يَسْمَعُونَ",
+    "turkish": "Önceki sahiplerinden sonra yeryüzüne vâris olanlara hâlâ şu gerçek belli olmadı mı ki: Eğer biz dileseydik onları da günahlarından dolayı musibetlere uğratırdık! Biz onların kalplerini mühürleriz de onlar (gerçekleri) işitmezler.",
+    "verseNumber": 100,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1055,
+    "arabic": "تِلْكَ ٱلْقُرَىٰ نَقُصُّ عَلَيْكَ مِنْ أَنۢبَآئِهَا ۚ وَلَقَدْ جَآءَتْهُمْ رُسُلُهُم بِٱلْبَيِّنَٰتِ فَمَا كَانُوا۟ لِيُؤْمِنُوا۟ بِمَا كَذَّبُوا۟ مِن قَبْلُ ۚ كَذَٰلِكَ يَطْبَعُ ٱللَّهُ عَلَىٰ قُلُوبِ ٱلْكَٰفِرِينَ",
+    "turkish": "İşte o ülkeler ki, sana onların haberlerinden bir kısmını anlatıyoruz Andolsun ki, peygamberleri onlara apaçık deliller (mucizeler) getirmişlerdi. Fakat önceden yalanladıkları gerçeklere iman edecek değillerdi. İşte o kâfirlerin kalplerini Allah böyle mühürler.",
+    "verseNumber": 101,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1056,
+    "arabic": "وَمَا وَجَدْنَا لِأَكْثَرِهِم مِّنْ عَهْدٍۢ ۖ وَإِن وَجَدْنَآ أَكْثَرَهُمْ لَفَٰسِقِينَ",
+    "turkish": "Onların çoğunda, sözde durma (diye bir şey) bulamadık. Gerçek şu ki, onların çoğunu yoldan çıkmış bulduk.",
+    "verseNumber": 102,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1057,
+    "arabic": "ثُمَّ بَعَثْنَا مِنۢ بَعْدِهِم مُّوسَىٰ بِـَٔايَٰتِنَآ إِلَىٰ فِرْعَوْنَ وَمَلَإِي۟هِۦ فَظَلَمُوا۟ بِهَا ۖ فَٱنظُرْ كَيْفَ كَانَ عَٰقِبَةُ ٱلْمُفْسِدِينَ",
+    "turkish": "Sonra onların arkasından Musa'yı mucizelerimizle Firavun'a ve topluluğuna gönderdik. Tuttular o mucizeleri inkâr ettiler. Ettiler de bak, o bozguncuların âkıbetleri nasıl oldu!",
+    "verseNumber": 103,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1058,
+    "arabic": "وَقَالَ مُوسَىٰ يَٰفِرْعَوْنُ إِنِّى رَسُولٌۭ مِّن رَّبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "Musa: \"Ey Firavun! Bil ki ben âlemlerin Rabbi tarafından gönderilmiş bir peygamberim.\" dedi.",
+    "verseNumber": 104,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1059,
+    "arabic": "حَقِيقٌ عَلَىٰٓ أَن لَّآ أَقُولَ عَلَى ٱللَّهِ إِلَّا ٱلْحَقَّ ۚ قَدْ جِئْتُكُم بِبَيِّنَةٍۢ مِّن رَّبِّكُمْ فَأَرْسِلْ مَعِىَ بَنِىٓ إِسْرَٰٓءِيلَ",
+    "turkish": "Allah'a karşı ilk görevim, hak olandan başka bir şey söylemememdir. Gerçekten ben size Rabbinizden bir mucize getirdim, artık İsrailoğullarını benimle gönder.",
+    "verseNumber": 105,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1060,
+    "arabic": "قَالَ إِن كُنتَ جِئْتَ بِـَٔايَةٍۢ فَأْتِ بِهَآ إِن كُنتَ مِنَ ٱلصَّٰدِقِينَ",
+    "turkish": "Firavun: \"Eğer bir mucize getirdiysen ve eğer doğru söyleyenlerden isen onu göster\" dedi.",
+    "verseNumber": 106,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1061,
+    "arabic": "فَأَلْقَىٰ عَصَاهُ فَإِذَا هِىَ ثُعْبَانٌۭ مُّبِينٌۭ",
+    "turkish": "Bunun üzerine Musa, asâsını yere bırakıverdi, o da birdenbire kocaman bir ejderha kesiliverdi.",
+    "verseNumber": 107,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1062,
+    "arabic": "وَنَزَعَ يَدَهُۥ فَإِذَا هِىَ بَيْضَآءُ لِلنَّٰظِرِينَ",
+    "turkish": "Ve Musa elini koynundan çıkarıverdi, eli bembeyaz olmuş, bakanların gözünü kamaştırıyordu.",
+    "verseNumber": 108,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1063,
+    "arabic": "قَالَ ٱلْمَلَأُ مِن قَوْمِ فِرْعَوْنَ إِنَّ هَٰذَا لَسَٰحِرٌ عَلِيمٌۭ",
+    "turkish": "Firavun'un kavminden ileri gelenler, \"Muhakkak bu çok bilgili bir sihirbazdır.\" dediler.",
+    "verseNumber": 109,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1064,
+    "arabic": "يُرِيدُ أَن يُخْرِجَكُم مِّنْ أَرْضِكُمْ ۖ فَمَاذَا تَأْمُرُونَ",
+    "turkish": "O, sizi yurdunuzdan çıkarmak istiyor. (Firavun): \"O halde siz ne diyorsunuz?\" dedi.",
+    "verseNumber": 110,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1065,
+    "arabic": "قَالُوٓا۟ أَرْجِهْ وَأَخَاهُ وَأَرْسِلْ فِى ٱلْمَدَآئِنِ حَٰشِرِينَ",
+    "turkish": "Onlar da \"onu ve kardeşini beklet, şehirlere de toplayıcılar gönder.\" dediler.",
+    "verseNumber": 111,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1066,
+    "arabic": "يَأْتُوكَ بِكُلِّ سَٰحِرٍ عَلِيمٍۢ",
+    "turkish": "\"Bütün bilgiç sihirbazları sana getirsinler.\"",
+    "verseNumber": 112,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1067,
+    "arabic": "وَجَآءَ ٱلسَّحَرَةُ فِرْعَوْنَ قَالُوٓا۟ إِنَّ لَنَا لَأَجْرًا إِن كُنَّا نَحْنُ ٱلْغَٰلِبِينَ",
+    "turkish": "O sihirbazlar Firavun'a geldiler: \"Galip gelirsek bize muhakkak mükâfat var değil mi?\" dediler.",
+    "verseNumber": 113,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1068,
+    "arabic": "قَالَ نَعَمْ وَإِنَّكُمْ لَمِنَ ٱلْمُقَرَّبِينَ",
+    "turkish": "\"Evet\" dedi (Firavun), \"Üstelik o zaman benim yakınlarımdan olacaksınız.\"",
+    "verseNumber": 114,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1069,
+    "arabic": "قَالُوا۟ يَٰمُوسَىٰٓ إِمَّآ أَن تُلْقِىَ وَإِمَّآ أَن نَّكُونَ نَحْنُ ٱلْمُلْقِينَ",
+    "turkish": "Sihirbazlar, Musa'ya: \"Ey Musa! Önce sen mi hünerini ortaya koyacaksın, yoksa biz mi?\" dediler.",
+    "verseNumber": 115,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1070,
+    "arabic": "قَالَ أَلْقُوا۟ ۖ فَلَمَّآ أَلْقَوْا۟ سَحَرُوٓا۟ أَعْيُنَ ٱلنَّاسِ وَٱسْتَرْهَبُوهُمْ وَجَآءُو بِسِحْرٍ عَظِيمٍۢ",
+    "turkish": "Musa, \"Siz atın\" dedi. Atacaklarını atınca herkesin gözünü büyülediler ve onları dehşete düşürdüler. Doğrusu büyük bir sihir gösterdiler.",
+    "verseNumber": 116,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1071,
+    "arabic": "۞ وَأَوْحَيْنَآ إِلَىٰ مُوسَىٰٓ أَنْ أَلْقِ عَصَاكَ ۖ فَإِذَا هِىَ تَلْقَفُ مَا يَأْفِكُونَ",
+    "turkish": "Biz de Musa'ya \"Sen de asânı bırakıver.\" diye vahyettik. Birdenbire asâ, onların bütün uydurduklarını yakalayıp yutuverdi.",
+    "verseNumber": 117,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1072,
+    "arabic": "فَوَقَعَ ٱلْحَقُّ وَبَطَلَ مَا كَانُوا۟ يَعْمَلُونَ",
+    "turkish": "Artık hakikat ortaya çıkmış ve onların bütün yaptıkları boşa gitmişti.",
+    "verseNumber": 118,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1073,
+    "arabic": "فَغُلِبُوا۟ هُنَالِكَ وَٱنقَلَبُوا۟ صَٰغِرِينَ",
+    "turkish": "Orada mağlup olmuş ve küçük düşmüşlerdi.",
+    "verseNumber": 119,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1074,
+    "arabic": "وَأُلْقِىَ ٱلسَّحَرَةُ سَٰجِدِينَ",
+    "turkish": "Sihirbazlar hep birden secdeye kapandılar.",
+    "verseNumber": 120,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1075,
+    "arabic": "قَالُوٓا۟ ءَامَنَّا بِرَبِّ ٱلْعَٰلَمِينَ",
+    "turkish": "\"Âlemlerin Rabbine iman ettik.\" dediler.",
+    "verseNumber": 121,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1076,
+    "arabic": "رَبِّ مُوسَىٰ وَهَٰرُونَ",
+    "turkish": "\"Musa'nın ve Harun'un Rabbine.\"",
+    "verseNumber": 122,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1077,
+    "arabic": "قَالَ فِرْعَوْنُ ءَامَنتُم بِهِۦ قَبْلَ أَنْ ءَاذَنَ لَكُمْ ۖ إِنَّ هَٰذَا لَمَكْرٌۭ مَّكَرْتُمُوهُ فِى ٱلْمَدِينَةِ لِتُخْرِجُوا۟ مِنْهَآ أَهْلَهَا ۖ فَسَوْفَ تَعْلَمُونَ",
+    "turkish": "Firavun: \"Ben size izin vermeden iman ettiniz ha!\" dedi. \"Şüphesiz bu bir hiledir, siz bunu şehirde kurmuşsunuz, yerli halkı oradan çıkarmak istiyorsunuz, sonra anlayacaksınız!\"",
+    "verseNumber": 123,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1078,
+    "arabic": "لَأُقَطِّعَنَّ أَيْدِيَكُمْ وَأَرْجُلَكُم مِّنْ خِلَٰفٍۢ ثُمَّ لَأُصَلِّبَنَّكُمْ أَجْمَعِينَ",
+    "turkish": "\"Ellerinizi ve ayaklarınızı çaprazlama kestireceğim, sonra da bilin ki, sizi astıracağım.\"",
+    "verseNumber": 124,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1079,
+    "arabic": "قَالُوٓا۟ إِنَّآ إِلَىٰ رَبِّنَا مُنقَلِبُونَ",
+    "turkish": "Onlar da: \"Şüphesiz o takdirde biz Rabbimize döneceğiz.\" dediler.",
+    "verseNumber": 125,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1080,
+    "arabic": "وَمَا تَنقِمُ مِنَّآ إِلَّآ أَنْ ءَامَنَّا بِـَٔايَٰتِ رَبِّنَا لَمَّا جَآءَتْنَا ۚ رَبَّنَآ أَفْرِغْ عَلَيْنَا صَبْرًۭا وَتَوَفَّنَا مُسْلِمِينَ",
+    "turkish": "\"Senin bize kızman da sırf Rabbimizin âyetleri gelince onlara iman etmemizden dolayıdır. Ey Rabbimiz! Üzerimize sabır yağdır ve canımızı müslüman olarak al.\" derler.",
+    "verseNumber": 126,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1081,
+    "arabic": "وَقَالَ ٱلْمَلَأُ مِن قَوْمِ فِرْعَوْنَ أَتَذَرُ مُوسَىٰ وَقَوْمَهُۥ لِيُفْسِدُوا۟ فِى ٱلْأَرْضِ وَيَذَرَكَ وَءَالِهَتَكَ ۚ قَالَ سَنُقَتِّلُ أَبْنَآءَهُمْ وَنَسْتَحْىِۦ نِسَآءَهُمْ وَإِنَّا فَوْقَهُمْ قَٰهِرُونَ",
+    "turkish": "Firavun kavminin ileri gelenleri dediler ki: \"Seni ve ilâhlarını terketsinler de yeryüzünde fesat çıkarsınlar diye mi Musa'yı ve kavmini serbest bırakacaksın?\" Firavun da dedi ki: \"Onların oğullarını öldüreceğiz, kızlarını sağ bırakacağız ve onlar üzerinde kahredici bir üstünlüğe sahibiz.\"",
+    "verseNumber": 127,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1082,
+    "arabic": "قَالَ مُوسَىٰ لِقَوْمِهِ ٱسْتَعِينُوا۟ بِٱللَّهِ وَٱصْبِرُوٓا۟ ۖ إِنَّ ٱلْأَرْضَ لِلَّهِ يُورِثُهَا مَن يَشَآءُ مِنْ عِبَادِهِۦ ۖ وَٱلْعَٰقِبَةُ لِلْمُتَّقِينَ",
+    "turkish": "Musa, kavmine dedi ki: \"Allah'ın yardımını ve lütfunu isteyin ve sabır gösterin. Şüphesiz ki yeryüzü Allah'ındır. Kullarından dilediğini ona mirasçı kılar. Sonunda kurtuluş müttakilerindir.\"",
+    "verseNumber": 128,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1083,
+    "arabic": "قَالُوٓا۟ أُوذِينَا مِن قَبْلِ أَن تَأْتِيَنَا وَمِنۢ بَعْدِ مَا جِئْتَنَا ۚ قَالَ عَسَىٰ رَبُّكُمْ أَن يُهْلِكَ عَدُوَّكُمْ وَيَسْتَخْلِفَكُمْ فِى ٱلْأَرْضِ فَيَنظُرَ كَيْفَ تَعْمَلُونَ",
+    "turkish": "Kavmi de dediler ki: \"Sen bize gelmeden önce de eziyet gördük, sen geldikten sonra da.\" Musa dedi ki: \"Umulur ki, Rabbiniz düşmanlarınızı helak edip de sizi yeryüzünde halife kılacaktır ve sizin nasıl işler yaptığınıza bakacaktır.\"",
+    "verseNumber": 129,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1084,
+    "arabic": "وَلَقَدْ أَخَذْنَآ ءَالَ فِرْعَوْنَ بِٱلسِّنِينَ وَنَقْصٍۢ مِّنَ ٱلثَّمَرَٰتِ لَعَلَّهُمْ يَذَّكَّرُونَ",
+    "turkish": "Gerçekten biz, Firavun sülâlesini, senelerce kıtlık ve gelir noksanlığı içinde tutup kıvrandırdık ki, düşünüp ibret alsınlar.",
+    "verseNumber": 130,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1085,
+    "arabic": "فَإِذَا جَآءَتْهُمُ ٱلْحَسَنَةُ قَالُوا۟ لَنَا هَٰذِهِۦ ۖ وَإِن تُصِبْهُمْ سَيِّئَةٌۭ يَطَّيَّرُوا۟ بِمُوسَىٰ وَمَن مَّعَهُۥٓ ۗ أَلَآ إِنَّمَا طَٰٓئِرُهُمْ عِندَ ٱللَّهِ وَلَٰكِنَّ أَكْثَرَهُمْ لَا يَعْلَمُونَ",
+    "turkish": "Fakat kendilerine iyilik geldiği zaman, işte bu bizim hakkımızdır, dediler, başlarına bir kötülük gelince de, işte bu Musa ile yanındakilerin uğursuzluğu yüzünden, dediler. İyi bilin ki, onların uğursuzluğu Allah katındandır. Lâkin çoğu bunu bilmezler.",
+    "verseNumber": 131,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1086,
+    "arabic": "وَقَالُوا۟ مَهْمَا تَأْتِنَا بِهِۦ مِنْ ءَايَةٍۢ لِّتَسْحَرَنَا بِهَا فَمَا نَحْنُ لَكَ بِمُؤْمِنِينَ",
+    "turkish": "\"Ve sen büyülemek için her ne mucize getirirsen getir, biz sana inanacak değiliz,\" dediler.",
+    "verseNumber": 132,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1087,
+    "arabic": "فَأَرْسَلْنَا عَلَيْهِمُ ٱلطُّوفَانَ وَٱلْجَرَادَ وَٱلْقُمَّلَ وَٱلضَّفَادِعَ وَٱلدَّمَ ءَايَٰتٍۢ مُّفَصَّلَٰتٍۢ فَٱسْتَكْبَرُوا۟ وَكَانُوا۟ قَوْمًۭا مُّجْرِمِينَ",
+    "turkish": "Biz de kudretimizin ayrı ayrı alâmetleri olmak üzere başlarına tufan, çekirge, haşereler, kurbağalar ve kan gönderdik, yine inad edip direndiler ve çok mücrim (suçlu) bir kavim oldular.",
+    "verseNumber": 133,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1088,
+    "arabic": "وَلَمَّا وَقَعَ عَلَيْهِمُ ٱلرِّجْزُ قَالُوا۟ يَٰمُوسَى ٱدْعُ لَنَا رَبَّكَ بِمَا عَهِدَ عِندَكَ ۖ لَئِن كَشَفْتَ عَنَّا ٱلرِّجْزَ لَنُؤْمِنَنَّ لَكَ وَلَنُرْسِلَنَّ مَعَكَ بَنِىٓ إِسْرَٰٓءِيلَ",
+    "turkish": "Ne zaman ki, azap üzerlerine çöktü, dediler ki, \"Ey Musa! Bizim için Rabbine dua et, sana olan ahdi hürmetine eğer bizden bu azabı kaldırır uzaklaştırırsan, yemin olsun ki, sana kesinlikle iman edeceğiz. Ve İsrailoğullarını seninle birlikte göndereceğiz.\"",
+    "verseNumber": 134,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1089,
+    "arabic": "فَلَمَّا كَشَفْنَا عَنْهُمُ ٱلرِّجْزَ إِلَىٰٓ أَجَلٍ هُم بَٰلِغُوهُ إِذَا هُمْ يَنكُثُونَ",
+    "turkish": "Ne zaman ki, belli bir süreye kadar onlardan azabı kaldırdık, derhal yeminlerini bozdular.",
+    "verseNumber": 135,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1090,
+    "arabic": "فَٱنتَقَمْنَا مِنْهُمْ فَأَغْرَقْنَٰهُمْ فِى ٱلْيَمِّ بِأَنَّهُمْ كَذَّبُوا۟ بِـَٔايَٰتِنَا وَكَانُوا۟ عَنْهَا غَٰفِلِينَ",
+    "turkish": "Biz de, âyetlerimizi inkâr ettikleri ve onlara kulak vermedikleri için kendilerinden intikam aldık da hepsini denizde boğduk.",
+    "verseNumber": 136,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1091,
+    "arabic": "وَأَوْرَثْنَا ٱلْقَوْمَ ٱلَّذِينَ كَانُوا۟ يُسْتَضْعَفُونَ مَشَٰرِقَ ٱلْأَرْضِ وَمَغَٰرِبَهَا ٱلَّتِى بَٰرَكْنَا فِيهَا ۖ وَتَمَّتْ كَلِمَتُ رَبِّكَ ٱلْحُسْنَىٰ عَلَىٰ بَنِىٓ إِسْرَٰٓءِيلَ بِمَا صَبَرُوا۟ ۖ وَدَمَّرْنَا مَا كَانَ يَصْنَعُ فِرْعَوْنُ وَقَوْمُهُۥ وَمَا كَانُوا۟ يَعْرِشُونَ",
+    "turkish": "Ve o hırpalanıp ezilmekte olan kavmi de yeryüzünün, bereketle donattığımız doğusuna ve batısına mirasçı yaptık. Ve böylece Rabbinin, İsrailoğullarına olan o güzel vaadi, sabırları yüzünden gerçekleşti. Biz de Firavun ile kavminin yapageldikleri sanat eserlerini ve diktikleri binaları yerle bir ettik.",
+    "verseNumber": 137,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1092,
+    "arabic": "وَجَٰوَزْنَا بِبَنِىٓ إِسْرَٰٓءِيلَ ٱلْبَحْرَ فَأَتَوْا۟ عَلَىٰ قَوْمٍۢ يَعْكُفُونَ عَلَىٰٓ أَصْنَامٍۢ لَّهُمْ ۚ قَالُوا۟ يَٰمُوسَى ٱجْعَل لَّنَآ إِلَٰهًۭا كَمَا لَهُمْ ءَالِهَةٌۭ ۚ قَالَ إِنَّكُمْ قَوْمٌۭ تَجْهَلُونَ",
+    "turkish": "Ve İsrailoğullarının denizden geçmelerini sağladık? Derken bir kavme vardılar ki, onlar, kendilerine mahsus bir takım putlara tapıyorlardı. Dediler ki; Ey Musa! Onların tanrıları gibi, sen de bize bir tanrı yap! Musa da onlara dedi ki: Siz gerçekten cahillik eden bir kavimsiniz.",
+    "verseNumber": 138,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1093,
+    "arabic": "إِنَّ هَٰٓؤُلَآءِ مُتَبَّرٌۭ مَّا هُمْ فِيهِ وَبَٰطِلٌۭ مَّا كَانُوا۟ يَعْمَلُونَ",
+    "turkish": "Çünkü o gördüklerinizin içinde bulundukları din, yok olmaya mahkûmdur ve bütün yaptıkları batıldır.",
+    "verseNumber": 139,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1094,
+    "arabic": "قَالَ أَغَيْرَ ٱللَّهِ أَبْغِيكُمْ إِلَٰهًۭا وَهُوَ فَضَّلَكُمْ عَلَى ٱلْعَٰلَمِينَ",
+    "turkish": "Sizi âlemlere üstün kılan Allah olduğu halde, ben size O'ndan başka ilâh mı arayayım! dedi.",
+    "verseNumber": 140,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1095,
+    "arabic": "وَإِذْ أَنجَيْنَٰكُم مِّنْ ءَالِ فِرْعَوْنَ يَسُومُونَكُمْ سُوٓءَ ٱلْعَذَابِ ۖ يُقَتِّلُونَ أَبْنَآءَكُمْ وَيَسْتَحْيُونَ نِسَآءَكُمْ ۚ وَفِى ذَٰلِكُم بَلَآءٌۭ مِّن رَّبِّكُمْ عَظِيمٌۭ",
+    "turkish": "Hani sizi, Firavun sülâlesinin elinden kurtardığımız zaman, hatırlasanıza, size azabın kötüsünü yapıyorlardı; oğullarınızı öldürüyorlar, kızlarınızı sağ bırakıyorlardı. Bunda sizin için Rabbiniz tarafından büyük imtihan vardı.",
+    "verseNumber": 141,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1096,
+    "arabic": "۞ وَوَٰعَدْنَا مُوسَىٰ ثَلَٰثِينَ لَيْلَةًۭ وَأَتْمَمْنَٰهَا بِعَشْرٍۢ فَتَمَّ مِيقَٰتُ رَبِّهِۦٓ أَرْبَعِينَ لَيْلَةًۭ ۚ وَقَالَ مُوسَىٰ لِأَخِيهِ هَٰرُونَ ٱخْلُفْنِى فِى قَوْمِى وَأَصْلِحْ وَلَا تَتَّبِعْ سَبِيلَ ٱلْمُفْسِدِينَ",
+    "turkish": "Ve Musa'ya otuz geceye vaat verdik ve süreye bir on gece daha ekledik ve böylece Rabbinin mikatı (tayin ettiği vakit) tam kırk gece oldu. Musa, kardeşi Harun'a şöyle dedi: Kavmim içinde benim yerime geç, ıslaha çalış ve bozguncuların yolundan gitme!",
+    "verseNumber": 142,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1097,
+    "arabic": "وَلَمَّا جَآءَ مُوسَىٰ لِمِيقَٰتِنَا وَكَلَّمَهُۥ رَبُّهُۥ قَالَ رَبِّ أَرِنِىٓ أَنظُرْ إِلَيْكَ ۚ قَالَ لَن تَرَىٰنِى وَلَٰكِنِ ٱنظُرْ إِلَى ٱلْجَبَلِ فَإِنِ ٱسْتَقَرَّ مَكَانَهُۥ فَسَوْفَ تَرَىٰنِى ۚ فَلَمَّا تَجَلَّىٰ رَبُّهُۥ لِلْجَبَلِ جَعَلَهُۥ دَكًّۭا وَخَرَّ مُوسَىٰ صَعِقًۭا ۚ فَلَمَّآ أَفَاقَ قَالَ سُبْحَٰنَكَ تُبْتُ إِلَيْكَ وَأَنَا۠ أَوَّلُ ٱلْمُؤْمِنِينَ",
+    "turkish": "Ne zaman ki, Musa, mikatımıza geldi, Rabbi ona kelâmıyla ihsanda bulundu. \"Ey Rabbim, göster bana kendini de bakayım sana\". dedi. Rabbi ona buyurdu ki; \"Beni katiyyen göremezsin ve lâkin dağa bak, eğer o yerinde durabilirse, sonra sen de beni göreceksin\". Daha sonra Rabbi dağa tecelli edince onu yerle bir ediverdi, Musa da baygın düştü. Ayılıp kendine gelince, \"Sen sübhansın\", \"tevbe ettim, sana döndüm ve ben inananların ilkiyim,\" dedi.",
+    "verseNumber": 143,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1098,
+    "arabic": "قَالَ يَٰمُوسَىٰٓ إِنِّى ٱصْطَفَيْتُكَ عَلَى ٱلنَّاسِ بِرِسَٰلَٰتِى وَبِكَلَٰمِى فَخُذْ مَآ ءَاتَيْتُكَ وَكُن مِّنَ ٱلشَّٰكِرِينَ",
+    "turkish": "Allah buyurdu: Ey Musa! Sana verdiğim peygamberlikle ve kelâmımla seni insanlar üzerine seçkin kıldım. Sana verdiğime sıkı sarıl ve şükredenlerden ol!",
+    "verseNumber": 144,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1099,
+    "arabic": "وَكَتَبْنَا لَهُۥ فِى ٱلْأَلْوَاحِ مِن كُلِّ شَىْءٍۢ مَّوْعِظَةًۭ وَتَفْصِيلًۭا لِّكُلِّ شَىْءٍۢ فَخُذْهَا بِقُوَّةٍۢ وَأْمُرْ قَوْمَكَ يَأْخُذُوا۟ بِأَحْسَنِهَا ۚ سَأُو۟رِيكُمْ دَارَ ٱلْفَٰسِقِينَ",
+    "turkish": "Ve onun için o levhalarda her şeyden yazdık, nasihat ve hükümlerin ayrıntılarına ait herşeyi (belirttik). Haydi bunlara sıkı sarıl, kavmine de emret, onlar da en güzeline sarılsınlar. Size yakında o fasıkların yurdunu göstereceğim.",
+    "verseNumber": 145,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1100,
+    "arabic": "سَأَصْرِفُ عَنْ ءَايَٰتِىَ ٱلَّذِينَ يَتَكَبَّرُونَ فِى ٱلْأَرْضِ بِغَيْرِ ٱلْحَقِّ وَإِن يَرَوْا۟ كُلَّ ءَايَةٍۢ لَّا يُؤْمِنُوا۟ بِهَا وَإِن يَرَوْا۟ سَبِيلَ ٱلرُّشْدِ لَا يَتَّخِذُوهُ سَبِيلًۭا وَإِن يَرَوْا۟ سَبِيلَ ٱلْغَىِّ يَتَّخِذُوهُ سَبِيلًۭا ۚ ذَٰلِكَ بِأَنَّهُمْ كَذَّبُوا۟ بِـَٔايَٰتِنَا وَكَانُوا۟ عَنْهَا غَٰفِلِينَ",
+    "turkish": "Yeryüzünde haksız yere büyüklük taslayanları, âyetlerimizi anlamaktan uzak tutacağım. Onlar ki, bütün âyetlerimizi görseler de onlara iman etmezler. Doğru yolu görseler de o yolu tutup gitmezler. Eğer sapıklık yolunu görürlerse tutar onu izlerler. Çünkü onlar âyetlerimizi inkâr etmeyi âdet edinmişler ve onlardan hep gafil olagelmişlerdir.",
+    "verseNumber": 146,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1101,
+    "arabic": "وَٱلَّذِينَ كَذَّبُوا۟ بِـَٔايَٰتِنَا وَلِقَآءِ ٱلْءَاخِرَةِ حَبِطَتْ أَعْمَٰلُهُمْ ۚ هَلْ يُجْزَوْنَ إِلَّا مَا كَانُوا۟ يَعْمَلُونَ",
+    "turkish": "Âyetlerimizi ve ahiretteki karşılaşmayı inkâr edenlerin amelleri hepten boşa gitmiştir. Çekecekleri ceza kendi yaptıklarından başkası mı olacaktır?",
+    "verseNumber": 147,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1102,
+    "arabic": "وَٱتَّخَذَ قَوْمُ مُوسَىٰ مِنۢ بَعْدِهِۦ مِنْ حُلِيِّهِمْ عِجْلًۭا جَسَدًۭا لَّهُۥ خُوَارٌ ۚ أَلَمْ يَرَوْا۟ أَنَّهُۥ لَا يُكَلِّمُهُمْ وَلَا يَهْدِيهِمْ سَبِيلًا ۘ ٱتَّخَذُوهُ وَكَانُوا۟ ظَٰلِمِينَ",
+    "turkish": "Musa'nın arkasından kavmi, tutmuş süs takılarından böğüren bir buzağı heykeli edinmişlerdi. O buzağının kendilerine bir söz söylemediğini ve bir yol gösteremediğini görmemişler miydi? Fakat yine de onu tanrı edindiler ve zalimlerden oldular.",
+    "verseNumber": 148,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1103,
+    "arabic": "وَلَمَّا سُقِطَ فِىٓ أَيْدِيهِمْ وَرَأَوْا۟ أَنَّهُمْ قَدْ ضَلُّوا۟ قَالُوا۟ لَئِن لَّمْ يَرْحَمْنَا رَبُّنَا وَيَغْفِرْ لَنَا لَنَكُونَنَّ مِنَ ٱلْخَٰسِرِينَ",
+    "turkish": "Ne zaman ki, ellerine kırağı düşürüldü (yaptıklarına pişman oldular), o zaman sapıtmış olduklarını gördüler. \"Yemin olsun ki; eğer Rabbimiz bize merhamet etmez ve bizi bağışlamazsa, muhakkak biz kötü akıbete düşenlerden olacağız.\" dediler.",
+    "verseNumber": 149,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1104,
+    "arabic": "وَلَمَّا رَجَعَ مُوسَىٰٓ إِلَىٰ قَوْمِهِۦ غَضْبَٰنَ أَسِفًۭا قَالَ بِئْسَمَا خَلَفْتُمُونِى مِنۢ بَعْدِىٓ ۖ أَعَجِلْتُمْ أَمْرَ رَبِّكُمْ ۖ وَأَلْقَى ٱلْأَلْوَاحَ وَأَخَذَ بِرَأْسِ أَخِيهِ يَجُرُّهُۥٓ إِلَيْهِ ۚ قَالَ ٱبْنَ أُمَّ إِنَّ ٱلْقَوْمَ ٱسْتَضْعَفُونِى وَكَادُوا۟ يَقْتُلُونَنِى فَلَا تُشْمِتْ بِىَ ٱلْأَعْدَآءَ وَلَا تَجْعَلْنِى مَعَ ٱلْقَوْمِ ٱلظَّٰلِمِينَ",
+    "turkish": "Musa, öfkeli ve üzüntülü olarak kavmine döndüğünde şöyle dedi: \"Bana arkamdan ne kötü bir halef oldunuz! Rabbinizin emriyle dönüşümü beklemeden acele mi ettiniz?\" Elindeki levhaları bıraktı ve kardeşi Harun'u başından tutarak kendine doğru çekmeye başladı. Harun, \"Ey anamın oğlu!\" dedi, \"inan ki, bu kavim beni güçsüz buldu, az daha beni öldürüyorlardı, sen de bana böyle yaparak düşmanları sevindirme ve beni bu zalim kavimle bir tutma.\"",
+    "verseNumber": 150,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1105,
+    "arabic": "قَالَ رَبِّ ٱغْفِرْ لِى وَلِأَخِى وَأَدْخِلْنَا فِى رَحْمَتِكَ ۖ وَأَنتَ أَرْحَمُ ٱلرَّٰحِمِينَ",
+    "turkish": "Musa dedi ki: \"Ey Rabbim! Beni ve kardeşimi bağışla! Bizi rahmetinin içine al. Sen merhametlilerin en merhametlisisin.\"",
+    "verseNumber": 151,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1106,
+    "arabic": "إِنَّ ٱلَّذِينَ ٱتَّخَذُوا۟ ٱلْعِجْلَ سَيَنَالُهُمْ غَضَبٌۭ مِّن رَّبِّهِمْ وَذِلَّةٌۭ فِى ٱلْحَيَوٰةِ ٱلدُّنْيَا ۚ وَكَذَٰلِكَ نَجْزِى ٱلْمُفْتَرِينَ",
+    "turkish": "Şüphesiz o buzağıyı tanrı edinenlere Rablerinden bir gazap, dünya hayatında iken de bir zillet erişecektir. İşte biz, iftiracıları böyle cezalandırırız.",
+    "verseNumber": 152,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1107,
+    "arabic": "وَٱلَّذِينَ عَمِلُوا۟ ٱلسَّيِّـَٔاتِ ثُمَّ تَابُوا۟ مِنۢ بَعْدِهَا وَءَامَنُوٓا۟ إِنَّ رَبَّكَ مِنۢ بَعْدِهَا لَغَفُورٌۭ رَّحِيمٌۭ",
+    "turkish": "O kötü amelleri işleyip de sonra arkasından tevbe ve iman edenler için hiç şüphe yok ki, Rabbin bundan sonra yine de affedici ve merhamet edicidir.",
+    "verseNumber": 153,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1108,
+    "arabic": "وَلَمَّا سَكَتَ عَن مُّوسَى ٱلْغَضَبُ أَخَذَ ٱلْأَلْوَاحَ ۖ وَفِى نُسْخَتِهَا هُدًۭى وَرَحْمَةٌۭ لِّلَّذِينَ هُمْ لِرَبِّهِمْ يَرْهَبُونَ",
+    "turkish": "Musa'nın öfkesi geçince levhaları aldı. Onlardaki yazıda, ancak Rablerinden korkanlar için bir hidayet ve rahmet vardı.",
+    "verseNumber": 154,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1109,
+    "arabic": "وَٱخْتَارَ مُوسَىٰ قَوْمَهُۥ سَبْعِينَ رَجُلًۭا لِّمِيقَٰتِنَا ۖ فَلَمَّآ أَخَذَتْهُمُ ٱلرَّجْفَةُ قَالَ رَبِّ لَوْ شِئْتَ أَهْلَكْتَهُم مِّن قَبْلُ وَإِيَّٰىَ ۖ أَتُهْلِكُنَا بِمَا فَعَلَ ٱلسُّفَهَآءُ مِنَّآ ۖ إِنْ هِىَ إِلَّا فِتْنَتُكَ تُضِلُّ بِهَا مَن تَشَآءُ وَتَهْدِى مَن تَشَآءُ ۖ أَنتَ وَلِيُّنَا فَٱغْفِرْ لَنَا وَٱرْحَمْنَا ۖ وَأَنتَ خَيْرُ ٱلْغَٰفِرِينَ",
+    "turkish": "Bir de Musa, mîkatımız için (tayin ettiğimiz vakitte tevbe için) kavminden yetmiş erkek seçti. Ne zaman ki, bunları o sarsıntı yakaladı, işte o zaman Musa: \"Rabbim! dedi, dileseydin bunları da, beni de daha önce helâk ederdin. Şimdi bizi, içimizdekio beyinsizlerin yaptıkları yüzünden helâk mi edeceksin? O iş de senin imtihanından başka bir şey değildi. Sen bu imtihanla dilediğini sapıklıkta bırakır, dilediğini de hidayete erdirirsin. Bizim velimiz sensin. Artık bizi bağışla, merhamet et, sen bağışlayanların en hayırlısısın.\"",
+    "verseNumber": 155,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1110,
+    "arabic": "۞ وَٱكْتُبْ لَنَا فِى هَٰذِهِ ٱلدُّنْيَا حَسَنَةًۭ وَفِى ٱلْءَاخِرَةِ إِنَّا هُدْنَآ إِلَيْكَ ۚ قَالَ عَذَابِىٓ أُصِيبُ بِهِۦ مَنْ أَشَآءُ ۖ وَرَحْمَتِى وَسِعَتْ كُلَّ شَىْءٍۢ ۚ فَسَأَكْتُبُهَا لِلَّذِينَ يَتَّقُونَ وَيُؤْتُونَ ٱلزَّكَوٰةَ وَٱلَّذِينَ هُم بِـَٔايَٰتِنَا يُؤْمِنُونَ",
+    "turkish": "\"Ve bize hem bu dünyada bir iyilik yaz, hem de ahirette. Biz gerçekten de tevbe edip senin hidayetine döndük.\" Buyurdu ki, azabım var, onu dilediğime isabet ettiririm, rahmetim de vardır, o ise her şeyi kaplamış ve kuşatmıştır. Onu da özellikle korunanlara, zekatını verenlere ve âyetlerimize inananlara mahsus kılacağım.",
+    "verseNumber": 156,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1111,
+    "arabic": "ٱلَّذِينَ يَتَّبِعُونَ ٱلرَّسُولَ ٱلنَّبِىَّ ٱلْأُمِّىَّ ٱلَّذِى يَجِدُونَهُۥ مَكْتُوبًا عِندَهُمْ فِى ٱلتَّوْرَىٰةِ وَٱلْإِنجِيلِ يَأْمُرُهُم بِٱلْمَعْرُوفِ وَيَنْهَىٰهُمْ عَنِ ٱلْمُنكَرِ وَيُحِلُّ لَهُمُ ٱلطَّيِّبَٰتِ وَيُحَرِّمُ عَلَيْهِمُ ٱلْخَبَٰٓئِثَ وَيَضَعُ عَنْهُمْ إِصْرَهُمْ وَٱلْأَغْلَٰلَ ٱلَّتِى كَانَتْ عَلَيْهِمْ ۚ فَٱلَّذِينَ ءَامَنُوا۟ بِهِۦ وَعَزَّرُوهُ وَنَصَرُوهُ وَٱتَّبَعُوا۟ ٱلنُّورَ ٱلَّذِىٓ أُنزِلَ مَعَهُۥٓ ۙ أُو۟لَٰٓئِكَ هُمُ ٱلْمُفْلِحُونَ",
+    "turkish": "Onlar ki, o ümmî peygambere uyarlar, yanlarındaki Tevrat ve İncil'de yazılmış bulacakları o peygambere uyup, onun izinden giderler ki, o, onlara iyiyi emreder ve onları kötülüklerden alıkoyar, temiz ve hoş şeyleri kendilerine helâl kılar, murdar ve kötü şeyleri de üzerlerine haram kılar, sırtlarından ağır yükleri indirir, üzerlerindeki bağları ve zincirleri kırar atar, işte o vakit ona iman eden, ona kuvvetle saygı gösteren, ona yardımcı olan ve onun peygamberliği ile birlikte indirilen nuru izleyen kimseler var ya, işte asıl murada eren kurtulmuşlar onlardır.",
+    "verseNumber": 157,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1112,
+    "arabic": "قُلْ يَٰٓأَيُّهَا ٱلنَّاسُ إِنِّى رَسُولُ ٱللَّهِ إِلَيْكُمْ جَمِيعًا ٱلَّذِى لَهُۥ مُلْكُ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ ۖ لَآ إِلَٰهَ إِلَّا هُوَ يُحْىِۦ وَيُمِيتُ ۖ فَـَٔامِنُوا۟ بِٱللَّهِ وَرَسُولِهِ ٱلنَّبِىِّ ٱلْأُمِّىِّ ٱلَّذِى يُؤْمِنُ بِٱللَّهِ وَكَلِمَٰتِهِۦ وَٱتَّبِعُوهُ لَعَلَّكُمْ تَهْتَدُونَ",
+    "turkish": "De ki; ey insanlar! Ben sizin hepinize Allah'ın resulüyüm. O Allah ki, göklerin ve yerin bütün mülkü O'nundur. O'ndan başka hiçbir ilâh yoktur. Öldüren de, dirilten de O'dur. Bundan dolayı gelin, Allah'a ve resulüne iman edin. Allah'a ve Allah'ın bütün kelâmlarına iman etmiş bulunan o ümmî peygambere, evet ona uyun ki, hidayete erebilesiniz.",
+    "verseNumber": 158,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1113,
+    "arabic": "وَمِن قَوْمِ مُوسَىٰٓ أُمَّةٌۭ يَهْدُونَ بِٱلْحَقِّ وَبِهِۦ يَعْدِلُونَ",
+    "turkish": "Musa'nın kavminden doğru yolu gösteren ve doğrulukla adalet yapan bir topluluk da vardı.",
+    "verseNumber": 159,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1114,
+    "arabic": "وَقَطَّعْنَٰهُمُ ٱثْنَتَىْ عَشْرَةَ أَسْبَاطًا أُمَمًۭا ۚ وَأَوْحَيْنَآ إِلَىٰ مُوسَىٰٓ إِذِ ٱسْتَسْقَىٰهُ قَوْمُهُۥٓ أَنِ ٱضْرِب بِّعَصَاكَ ٱلْحَجَرَ ۖ فَٱنۢبَجَسَتْ مِنْهُ ٱثْنَتَا عَشْرَةَ عَيْنًۭا ۖ قَدْ عَلِمَ كُلُّ أُنَاسٍۢ مَّشْرَبَهُمْ ۚ وَظَلَّلْنَا عَلَيْهِمُ ٱلْغَمَٰمَ وَأَنزَلْنَا عَلَيْهِمُ ٱلْمَنَّ وَٱلسَّلْوَىٰ ۖ كُلُوا۟ مِن طَيِّبَٰتِ مَا رَزَقْنَٰكُمْ ۚ وَمَا ظَلَمُونَا وَلَٰكِن كَانُوٓا۟ أَنفُسَهُمْ يَظْلِمُونَ",
+    "turkish": "Biz onları oniki kabileye, o kadar ümmete ayırdık. Ve kavmi kendisinden su istediği zaman Musa'ya, elindeki asâ ile taşa vur, diye vahyettik, vurunca hemen o taştan oniki pınar akmaya başladı. Halkın her biri su alacağı yeri iyice öğrendi. Bulutu da üzerlerine gönderdik, gölgeledik. Onlara kudret helvası ve bıldırcın indirdik. Size rızık olarak ihsan ettiğimiz nimetlerin temizinden yiyiniz, dedik. Onlar zulmü bize yapmadılar, lakin kendi kendilerine zulmediyorlardı.",
+    "verseNumber": 160,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1115,
+    "arabic": "وَإِذْ قِيلَ لَهُمُ ٱسْكُنُوا۟ هَٰذِهِ ٱلْقَرْيَةَ وَكُلُوا۟ مِنْهَا حَيْثُ شِئْتُمْ وَقُولُوا۟ حِطَّةٌۭ وَٱدْخُلُوا۟ ٱلْبَابَ سُجَّدًۭا نَّغْفِرْ لَكُمْ خَطِيٓـَٰٔتِكُمْ ۚ سَنَزِيدُ ٱلْمُحْسِنِينَ",
+    "turkish": "Ve o vakit onlara denilmişti ki; Şu şehre yerleşin ve orada dilediğiniz şeylerden yiyin, \"hitta\" (günahlarımızı bağışla.) deyin ve secde ederek kapısından girin ki, suçlarınızı bağışlayalım. İyilere nimetlerimizi daha da arttıracağız.",
+    "verseNumber": 161,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1116,
+    "arabic": "فَبَدَّلَ ٱلَّذِينَ ظَلَمُوا۟ مِنْهُمْ قَوْلًا غَيْرَ ٱلَّذِى قِيلَ لَهُمْ فَأَرْسَلْنَا عَلَيْهِمْ رِجْزًۭا مِّنَ ٱلسَّمَآءِ بِمَا كَانُوا۟ يَظْلِمُونَ",
+    "turkish": "İçlerinden bir kısım zalimler, sözü değiştirdiler, kendilerine söylenenden başka şekle soktular. Zulmü alışkanlık haline getirdikleri için biz de üzerlerine gökten azap yağdırdık.",
+    "verseNumber": 162,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1117,
+    "arabic": "وَسْـَٔلْهُمْ عَنِ ٱلْقَرْيَةِ ٱلَّتِى كَانَتْ حَاضِرَةَ ٱلْبَحْرِ إِذْ يَعْدُونَ فِى ٱلسَّبْتِ إِذْ تَأْتِيهِمْ حِيتَانُهُمْ يَوْمَ سَبْتِهِمْ شُرَّعًۭا وَيَوْمَ لَا يَسْبِتُونَ ۙ لَا تَأْتِيهِمْ ۚ كَذَٰلِكَ نَبْلُوهُم بِمَا كَانُوا۟ يَفْسُقُونَ",
+    "turkish": "Bir de onlara, o deniz kıyısındaki şehrin başına gelenleri sor. O sırada onlar cumartesi yasağına riayet etmiyorlardı. Cumartesi günü balıklar akın akın geliyorlardı, yasak olmadığı gün gelmiyorlardı. Yoldan çıkıp sapıklık yaptıkları için biz de onları işte böyle sınıyorduk.",
+    "verseNumber": 163,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1118,
+    "arabic": "وَإِذْ قَالَتْ أُمَّةٌۭ مِّنْهُمْ لِمَ تَعِظُونَ قَوْمًا ۙ ٱللَّهُ مُهْلِكُهُمْ أَوْ مُعَذِّبُهُمْ عَذَابًۭا شَدِيدًۭا ۖ قَالُوا۟ مَعْذِرَةً إِلَىٰ رَبِّكُمْ وَلَعَلَّهُمْ يَتَّقُونَ",
+    "turkish": "İçlerinden bir topluluk, \"Allah'ın helâk edeceği, ya da çetin bir azapla cezalandıracağı bir kavme ne diye nasihat ediyorsunuz\" dediği vakit, o uyarıda bulunanlar dediler ki; \"Rabbiniz tarafından mazur görülmemiz için, bir de belki günahlardan sakınırlar diye.\"",
+    "verseNumber": 164,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1119,
+    "arabic": "فَلَمَّا نَسُوا۟ مَا ذُكِّرُوا۟ بِهِۦٓ أَنجَيْنَا ٱلَّذِينَ يَنْهَوْنَ عَنِ ٱلسُّوٓءِ وَأَخَذْنَا ٱلَّذِينَ ظَلَمُوا۟ بِعَذَابٍۭ بَـِٔيسٍۭ بِمَا كَانُوا۟ يَفْسُقُونَ",
+    "turkish": "Onlar yapılan bunca nasihatı unuttukları zaman, o kötülükten sakındıranları kurtardık, o zalimleri de fena hareketlerinden dolayı şiddetli bir azaba uğrattık.",
+    "verseNumber": 165,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1120,
+    "arabic": "فَلَمَّا عَتَوْا۟ عَن مَّا نُهُوا۟ عَنْهُ قُلْنَا لَهُمْ كُونُوا۟ قِرَدَةً خَٰسِـِٔينَ",
+    "turkish": "Böylece onlar kibre kapılıp yasak kılınan şeylerden vazgeçmeyince, biz de onlara, hor ve zelil maymunlar olun, dedik.",
+    "verseNumber": 166,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1121,
+    "arabic": "وَإِذْ تَأَذَّنَ رَبُّكَ لَيَبْعَثَنَّ عَلَيْهِمْ إِلَىٰ يَوْمِ ٱلْقِيَٰمَةِ مَن يَسُومُهُمْ سُوٓءَ ٱلْعَذَابِ ۗ إِنَّ رَبَّكَ لَسَرِيعُ ٱلْعِقَابِ ۖ وَإِنَّهُۥ لَغَفُورٌۭ رَّحِيمٌۭ",
+    "turkish": "O Vakit Rabbin işte şu ahdi ilan edip bildirdi ki: Kıyamet gününe kadar onlara en kötü muameleyi yapacak olan kimseleri başlarına gönderecektir. Muhakkak ki, Rabbin hızla cezalandırandır ve yine muhakkak ki O, çok affedici, çok merhametlidir.",
+    "verseNumber": 167,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1122,
+    "arabic": "وَقَطَّعْنَٰهُمْ فِى ٱلْأَرْضِ أُمَمًۭا ۖ مِّنْهُمُ ٱلصَّٰلِحُونَ وَمِنْهُمْ دُونَ ذَٰلِكَ ۖ وَبَلَوْنَٰهُم بِٱلْحَسَنَٰتِ وَٱلسَّيِّـَٔاتِ لَعَلَّهُمْ يَرْجِعُونَ",
+    "turkish": "Ve onları yeryüzünde birçok ümmetlere ayırdık. İçlerinde iyi olanları da vardı, olmayanları da. Onları biz, bazan nimetlerle, bazan da musibetlerle imtihana çektik. Sonunda belki hakka dönerler diye.",
+    "verseNumber": 168,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1123,
+    "arabic": "فَخَلَفَ مِنۢ بَعْدِهِمْ خَلْفٌۭ وَرِثُوا۟ ٱلْكِتَٰبَ يَأْخُذُونَ عَرَضَ هَٰذَا ٱلْأَدْنَىٰ وَيَقُولُونَ سَيُغْفَرُ لَنَا وَإِن يَأْتِهِمْ عَرَضٌۭ مِّثْلُهُۥ يَأْخُذُوهُ ۚ أَلَمْ يُؤْخَذْ عَلَيْهِم مِّيثَٰقُ ٱلْكِتَٰبِ أَن لَّا يَقُولُوا۟ عَلَى ٱللَّهِ إِلَّا ٱلْحَقَّ وَدَرَسُوا۟ مَا فِيهِ ۗ وَٱلدَّارُ ٱلْءَاخِرَةُ خَيْرٌۭ لِّلَّذِينَ يَتَّقُونَ ۗ أَفَلَا تَعْقِلُونَ",
+    "turkish": "Derken kitabı (Tevrat'ı) miras alan bozuk bir nesil bunların yerini aldı. Bize nasıl olsa mağfiret edilecek diyerek, şu alçak dünya malını alıyorlar, yine onun gibi bir mal ve rüşvet gelse onu da alırlar. Allah'a karşı haktan başka bir şey söylemeyeceklerine dair kendilerinden o kitabın hükmü üzere misak alınmamış mıydı? Ve onun içindekileri okuyup öğrenmemişler miydi? Oysa ahiret yurdu Allah'tan korkanlar için daha hayırlıdır. Hâlâ aklınızı başınıza almayacak mısınız?",
+    "verseNumber": 169,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1124,
+    "arabic": "وَٱلَّذِينَ يُمَسِّكُونَ بِٱلْكِتَٰبِ وَأَقَامُوا۟ ٱلصَّلَوٰةَ إِنَّا لَا نُضِيعُ أَجْرَ ٱلْمُصْلِحِينَ",
+    "turkish": "Kitaba sarılanlara ve namazı kılmaya devam edenlere gelince, biz o iyilerin ecrini hiçbir zaman yitirmeyiz.",
+    "verseNumber": 170,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1125,
+    "arabic": "۞ وَإِذْ نَتَقْنَا ٱلْجَبَلَ فَوْقَهُمْ كَأَنَّهُۥ ظُلَّةٌۭ وَظَنُّوٓا۟ أَنَّهُۥ وَاقِعٌۢ بِهِمْ خُذُوا۟ مَآ ءَاتَيْنَٰكُم بِقُوَّةٍۢ وَٱذْكُرُوا۟ مَا فِيهِ لَعَلَّكُمْ تَتَّقُونَ",
+    "turkish": "Hani bir zamanlar biz o dağı gölgelik gibi tepelerine çekmiştik de üzerlerine düşüyor zannettikleri bir sırada demiştik ki; \"size verdiğimiz kitabı kuvvetle tutun ve içindekini hatırınızdan çıkarmayın, umulur ki korunursunuz.\"",
+    "verseNumber": 171,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1126,
+    "arabic": "وَإِذْ أَخَذَ رَبُّكَ مِنۢ بَنِىٓ ءَادَمَ مِن ظُهُورِهِمْ ذُرِّيَّتَهُمْ وَأَشْهَدَهُمْ عَلَىٰٓ أَنفُسِهِمْ أَلَسْتُ بِرَبِّكُمْ ۖ قَالُوا۟ بَلَىٰ ۛ شَهِدْنَآ ۛ أَن تَقُولُوا۟ يَوْمَ ٱلْقِيَٰمَةِ إِنَّا كُنَّا عَنْ هَٰذَا غَٰفِلِينَ",
+    "turkish": "Bir de Rabbin, Âdemoğullarından, bellerindeki zürriyetlerini alıp da onları kendi nefislerine şahit tutarak: Ben sizin Rabbiniz değil miyim?\" dediği vakit, \"pekâlâ Rabbimizsin, şahidiz\" dediler. (Bunu) kıyamet günü \"Bizim bundan haberimiz yoktu.\" demeyesiniz diye (yapmıştık).",
+    "verseNumber": 172,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1127,
+    "arabic": "أَوْ تَقُولُوٓا۟ إِنَّمَآ أَشْرَكَ ءَابَآؤُنَا مِن قَبْلُ وَكُنَّا ذُرِّيَّةًۭ مِّنۢ بَعْدِهِمْ ۖ أَفَتُهْلِكُنَا بِمَا فَعَلَ ٱلْمُبْطِلُونَ",
+    "turkish": "Yahut, atalarımız daha önce şirk koşmuşlardı. Biz onlardan sonra gelen bir nesil idik, şimdi o batıl yolu tutanların yaptıkları yüzünden bizi helâk mi edeceksin, demeyesiniz diye (yapmıştık).",
+    "verseNumber": 173,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1128,
+    "arabic": "وَكَذَٰلِكَ نُفَصِّلُ ٱلْءَايَٰتِ وَلَعَلَّهُمْ يَرْجِعُونَ",
+    "turkish": "Ve işte biz, âyetleri böyle ayrıntılı olarak açıklıyoruz ki, belki dönerler.",
+    "verseNumber": 174,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1129,
+    "arabic": "وَٱتْلُ عَلَيْهِمْ نَبَأَ ٱلَّذِىٓ ءَاتَيْنَٰهُ ءَايَٰتِنَا فَٱنسَلَخَ مِنْهَا فَأَتْبَعَهُ ٱلشَّيْطَٰنُ فَكَانَ مِنَ ٱلْغَاوِينَ",
+    "turkish": "Onlara, kendisine âyetlerimizi sunduğumuz o adamın kıssasını da anlat; âyetlerden sıyrılıp çıktı, derken onu şeytan arkasına taktı, en sonunda da helak olanlardan oldu.",
+    "verseNumber": 175,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1130,
+    "arabic": "وَلَوْ شِئْنَا لَرَفَعْنَٰهُ بِهَا وَلَٰكِنَّهُۥٓ أَخْلَدَ إِلَى ٱلْأَرْضِ وَٱتَّبَعَ هَوَىٰهُ ۚ فَمَثَلُهُۥ كَمَثَلِ ٱلْكَلْبِ إِن تَحْمِلْ عَلَيْهِ يَلْهَثْ أَوْ تَتْرُكْهُ يَلْهَث ۚ ذَّٰلِكَ مَثَلُ ٱلْقَوْمِ ٱلَّذِينَ كَذَّبُوا۟ بِـَٔايَٰتِنَا ۚ فَٱقْصُصِ ٱلْقَصَصَ لَعَلَّهُمْ يَتَفَكَّرُونَ",
+    "turkish": "Ve eğer dileseydik onu o âyetlerle yüceltirdik, fakat o alçaklığa saplandı kaldı ve kendi keyfinin ardına düştü. Artık onun ibret verici hali o köpeğin haline benzer ki, üzerine varsan da dilini uzatır solur, bıraksan da solur. İşte bu, âyetlerimizi inkâr eden kavmin misalidir. Bu kıssayı iyice anlat, belki biraz düşünürler.",
+    "verseNumber": 176,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1131,
+    "arabic": "سَآءَ مَثَلًا ٱلْقَوْمُ ٱلَّذِينَ كَذَّبُوا۟ بِـَٔايَٰتِنَا وَأَنفُسَهُمْ كَانُوا۟ يَظْلِمُونَ",
+    "turkish": "Âyetlerimizi inkâr edip, sırf kendilerine zulmeden o kavmin hali ne kadar kötüdür!",
+    "verseNumber": 177,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1132,
+    "arabic": "مَن يَهْدِ ٱللَّهُ فَهُوَ ٱلْمُهْتَدِى ۖ وَمَن يُضْلِلْ فَأُو۟لَٰٓئِكَ هُمُ ٱلْخَٰسِرُونَ",
+    "turkish": "Allah kime hidayet ederse, o hidayete erer, kimi de dalalette bırakırsa, işte onlar hüsrana uğrayanların ta kendileri olurlar.",
+    "verseNumber": 178,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1133,
+    "arabic": "وَلَقَدْ ذَرَأْنَا لِجَهَنَّمَ كَثِيرًۭا مِّنَ ٱلْجِنِّ وَٱلْإِنسِ ۖ لَهُمْ قُلُوبٌۭ لَّا يَفْقَهُونَ بِهَا وَلَهُمْ أَعْيُنٌۭ لَّا يُبْصِرُونَ بِهَا وَلَهُمْ ءَاذَانٌۭ لَّا يَسْمَعُونَ بِهَآ ۚ أُو۟لَٰٓئِكَ كَٱلْأَنْعَٰمِ بَلْ هُمْ أَضَلُّ ۚ أُو۟لَٰٓئِكَ هُمُ ٱلْغَٰفِلُونَ",
+    "turkish": "Andolsun ki, cinlerden ve insanlardan birçoğunu cehennem için yarattık. Onların kalbleri vardır, fakat onunla gerçeği anlamazlar. Gözleri vardır, fakat onlarla görmezler. Kulakları vardır, fakat onlarla işitmezler. İşte bunlar hayvanlar gibidirler. Hatta daha da aşağıdırlar. Bunlar da gafillerin ta kendileridir.",
+    "verseNumber": 179,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1134,
+    "arabic": "وَلِلَّهِ ٱلْأَسْمَآءُ ٱلْحُسْنَىٰ فَٱدْعُوهُ بِهَا ۖ وَذَرُوا۟ ٱلَّذِينَ يُلْحِدُونَ فِىٓ أَسْمَٰٓئِهِۦ ۚ سَيُجْزَوْنَ مَا كَانُوا۟ يَعْمَلُونَ",
+    "turkish": "Oysa en güzel isimler Allah'ındır. Bundan dolayı Allah'a onlarla dua edin. Onun isimlerinde sapıklık eden mülhidleri (inkârcıları) terkedin. Onlar yakında yaptıklarının cezasını çekecekler.",
+    "verseNumber": 180,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1135,
+    "arabic": "وَمِمَّنْ خَلَقْنَآ أُمَّةٌۭ يَهْدُونَ بِٱلْحَقِّ وَبِهِۦ يَعْدِلُونَ",
+    "turkish": "Yine bizim yarattığımız insanlardan öyle bir ümmet var ki, onlar hakka yol gösterirler ve o hak ile adaleti yerine getirirler.",
+    "verseNumber": 181,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1136,
+    "arabic": "وَٱلَّذِينَ كَذَّبُوا۟ بِـَٔايَٰتِنَا سَنَسْتَدْرِجُهُم مِّنْ حَيْثُ لَا يَعْلَمُونَ",
+    "turkish": "Âyetlerimizi inkâr edenlere gelince, biz onları, bilemiyecekleri yönlerden derece derece düşüşe yuvarlayacağız.",
+    "verseNumber": 182,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1137,
+    "arabic": "وَأُمْلِى لَهُمْ ۚ إِنَّ كَيْدِى مَتِينٌ",
+    "turkish": "Ayrıca ben onlara mühlet de veririm. Fakat benim tuzak kurup helâk edişim pek çetindir.",
+    "verseNumber": 183,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1138,
+    "arabic": "أَوَلَمْ يَتَفَكَّرُوا۟ ۗ مَا بِصَاحِبِهِم مِّن جِنَّةٍ ۚ إِنْ هُوَ إِلَّا نَذِيرٌۭ مُّبِينٌ",
+    "turkish": "Onlar arkadaşlarında herhangi bir cinnet bulunmadığını hiç düşünmediler mi? O, açık bir uyarıcıdan başka biri değildir.",
+    "verseNumber": 184,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1139,
+    "arabic": "أَوَلَمْ يَنظُرُوا۟ فِى مَلَكُوتِ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ وَمَا خَلَقَ ٱللَّهُ مِن شَىْءٍۢ وَأَنْ عَسَىٰٓ أَن يَكُونَ قَدِ ٱقْتَرَبَ أَجَلُهُمْ ۖ فَبِأَىِّ حَدِيثٍۭ بَعْدَهُۥ يُؤْمِنُونَ",
+    "turkish": "Allah'ın göklerdeki ve yerdeki mülkiyet ve tasarrufuna, Allah'ın yaratmış olduğu herhangi bir şeye ve ecellerinin gerçekten yaklaşmış olması ihtimaline hiç bakmadılar mı? Artık bu Kur'ân'dan sonra başka hangi söze inanacaklar.",
+    "verseNumber": 185,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1140,
+    "arabic": "مَن يُضْلِلِ ٱللَّهُ فَلَا هَادِىَ لَهُۥ ۚ وَيَذَرُهُمْ فِى طُغْيَٰنِهِمْ يَعْمَهُونَ",
+    "turkish": "Allah kimi saptırırsa onu yola getirecek bir kimse yoktur. O, onları kendi hâllerine bırakır ve kendi azgınlıkları içinde yuvarlanıp giderler.",
+    "verseNumber": 186,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1141,
+    "arabic": "يَسْـَٔلُونَكَ عَنِ ٱلسَّاعَةِ أَيَّانَ مُرْسَىٰهَا ۖ قُلْ إِنَّمَا عِلْمُهَا عِندَ رَبِّى ۖ لَا يُجَلِّيهَا لِوَقْتِهَآ إِلَّا هُوَ ۚ ثَقُلَتْ فِى ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ ۚ لَا تَأْتِيكُمْ إِلَّا بَغْتَةًۭ ۗ يَسْـَٔلُونَكَ كَأَنَّكَ حَفِىٌّ عَنْهَا ۖ قُلْ إِنَّمَا عِلْمُهَا عِندَ ٱللَّهِ وَلَٰكِنَّ أَكْثَرَ ٱلنَّاسِ لَا يَعْلَمُونَ",
+    "turkish": "Sana, ne zaman kopacak diye kıyamet vaktini soruyorlar. De ki; onun bilgisi yalnızca Rabbimin katındadır. Onu tam vaktinde koparacak olan O'ndan başkası değildir. Onun ağırlığına göklerde ve yerde dayanacak bir kimse yoktur. O size ansızın gelecektir. Sanki sen onu çok iyi biliyormuşsun gibi sana soruyorlar. De ki, onun bilgisi Allah katındadır. Fakat insanların çoğu bunu bilmezler.",
+    "verseNumber": 187,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1142,
+    "arabic": "قُل لَّآ أَمْلِكُ لِنَفْسِى نَفْعًۭا وَلَا ضَرًّا إِلَّا مَا شَآءَ ٱللَّهُ ۚ وَلَوْ كُنتُ أَعْلَمُ ٱلْغَيْبَ لَٱسْتَكْثَرْتُ مِنَ ٱلْخَيْرِ وَمَا مَسَّنِىَ ٱلسُّوٓءُ ۚ إِنْ أَنَا۠ إِلَّا نَذِيرٌۭ وَبَشِيرٌۭ لِّقَوْمٍۢ يُؤْمِنُونَ",
+    "turkish": "De ki, ben kendi kendime Allah'ın dilediğinden başka ne bir menfaat elde etmeye, ne de bir zararı önlemeye malik değilim. Ben eğer gaybı bilseydim daha çok hayır yapardım ve kötülük denilen şey yanıma uğramazdı. Ben iman edecek bir kavme müjde veren ve uyaran bir peygamberden başka biri değilim.",
+    "verseNumber": 188,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1143,
+    "arabic": "۞ هُوَ ٱلَّذِى خَلَقَكُم مِّن نَّفْسٍۢ وَٰحِدَةٍۢ وَجَعَلَ مِنْهَا زَوْجَهَا لِيَسْكُنَ إِلَيْهَا ۖ فَلَمَّا تَغَشَّىٰهَا حَمَلَتْ حَمْلًا خَفِيفًۭا فَمَرَّتْ بِهِۦ ۖ فَلَمَّآ أَثْقَلَت دَّعَوَا ٱللَّهَ رَبَّهُمَا لَئِنْ ءَاتَيْتَنَا صَٰلِحًۭا لَّنَكُونَنَّ مِنَ ٱلشَّٰكِرِينَ",
+    "turkish": "Sizi bir tek nefisten yaratan, onunla sükûnet bulsun diye eşini de ondan yaratan Allah'tır. O, eşini kucaklayıp sarılınca (ona yaklaşınca), eşi hafif bir yük yüklendi (hâmile kaldı). Bir müddet böyle geçti, derken yükü ağırlaştı. O vakit ikisi birden Rableri olan Allah'a şöyle dua ettiler: \"Eğer bize salih bir evlat verirsen, biz muhakkak şükredenlerden olacağız.\"",
+    "verseNumber": 189,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1144,
+    "arabic": "فَلَمَّآ ءَاتَىٰهُمَا صَٰلِحًۭا جَعَلَا لَهُۥ شُرَكَآءَ فِيمَآ ءَاتَىٰهُمَا ۚ فَتَعَٰلَى ٱللَّهُ عَمَّا يُشْرِكُونَ",
+    "turkish": "Fakat Allah, kendilerine salih bir evlat verince, her ikisi de tuttular verdiği evlatlar üzerine ona ortak koşmaya başladılar. Allah, onların koştukları şirkten münezzehtir.",
+    "verseNumber": 190,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1145,
+    "arabic": "أَيُشْرِكُونَ مَا لَا يَخْلُقُ شَيْـًۭٔا وَهُمْ يُخْلَقُونَ",
+    "turkish": "Hiçbir şey yaratmayan ve kendileri yaratılmış olan putları mı Allah'a ortak ediyorlar, ona eş koşuyorlar?",
+    "verseNumber": 191,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1146,
+    "arabic": "وَلَا يَسْتَطِيعُونَ لَهُمْ نَصْرًۭا وَلَآ أَنفُسَهُمْ يَنصُرُونَ",
+    "turkish": "Bu putlar, ne o tapınanlara, ne de kendi kendilerine yardım edebilirler.",
+    "verseNumber": 192,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1147,
+    "arabic": "وَإِن تَدْعُوهُمْ إِلَى ٱلْهُدَىٰ لَا يَتَّبِعُوكُمْ ۚ سَوَآءٌ عَلَيْكُمْ أَدَعَوْتُمُوهُمْ أَمْ أَنتُمْ صَٰمِتُونَ",
+    "turkish": "Eğer siz onları doğru yola çağırsanız, size uymazlar. Onları ha çağırmışsınız, ha çağırmayıp susmuşsunuz, hiç fark etmez.",
+    "verseNumber": 193,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1148,
+    "arabic": "إِنَّ ٱلَّذِينَ تَدْعُونَ مِن دُونِ ٱللَّهِ عِبَادٌ أَمْثَالُكُمْ ۖ فَٱدْعُوهُمْ فَلْيَسْتَجِيبُوا۟ لَكُمْ إِن كُنتُمْ صَٰدِقِينَ",
+    "turkish": "Allah'ı bırakıp taptıklarınız da tıpkı sizin gibi kullardır. Eğer iddianızda doğru iseniz haydi onları çağırın da size cevap versinler.",
+    "verseNumber": 194,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1149,
+    "arabic": "أَلَهُمْ أَرْجُلٌۭ يَمْشُونَ بِهَآ ۖ أَمْ لَهُمْ أَيْدٍۢ يَبْطِشُونَ بِهَآ ۖ أَمْ لَهُمْ أَعْيُنٌۭ يُبْصِرُونَ بِهَآ ۖ أَمْ لَهُمْ ءَاذَانٌۭ يَسْمَعُونَ بِهَا ۗ قُلِ ٱدْعُوا۟ شُرَكَآءَكُمْ ثُمَّ كِيدُونِ فَلَا تُنظِرُونِ",
+    "turkish": "Onların yürüyecek ayakları, tutacak elleri, görecek gözleri veya işitecek kulakları mı var? De ki: \"Haydi çağırın o ortaklarınızı, sonra bana istediğiniz tuzağı kurun ve elinizden gelirse göz açtırmayın.\"",
+    "verseNumber": 195,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1150,
+    "arabic": "إِنَّ وَلِۦِّىَ ٱللَّهُ ٱلَّذِى نَزَّلَ ٱلْكِتَٰبَ ۖ وَهُوَ يَتَوَلَّى ٱلصَّٰلِحِينَ",
+    "turkish": "\"Zira benim velim, o kitabı indiren Allah'tır. Ve O, salih kullarına sahip çıkar.\"",
+    "verseNumber": 196,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1151,
+    "arabic": "وَٱلَّذِينَ تَدْعُونَ مِن دُونِهِۦ لَا يَسْتَطِيعُونَ نَصْرَكُمْ وَلَآ أَنفُسَهُمْ يَنصُرُونَ",
+    "turkish": "\"Sizin Allah'tan başka taptıklarınız ise ne size yardım edebilirler, ne de kendi kendilerine yardımları dokunur.\"",
+    "verseNumber": 197,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1152,
+    "arabic": "وَإِن تَدْعُوهُمْ إِلَى ٱلْهُدَىٰ لَا يَسْمَعُوا۟ ۖ وَتَرَىٰهُمْ يَنظُرُونَ إِلَيْكَ وَهُمْ لَا يُبْصِرُونَ",
+    "turkish": "\"Siz onları doğru yola çağıracak olsanız da duymazlar.\" Onların sana baktıklarını görürsün, bakarlar, ama görmezler.",
+    "verseNumber": 198,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1153,
+    "arabic": "خُذِ ٱلْعَفْوَ وَأْمُرْ بِٱلْعُرْفِ وَأَعْرِضْ عَنِ ٱلْجَٰهِلِينَ",
+    "turkish": "Sen yine de affa sarıl, iyiliği emret ve cahillerden yüz çevir.",
+    "verseNumber": 199,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1154,
+    "arabic": "وَإِمَّا يَنزَغَنَّكَ مِنَ ٱلشَّيْطَٰنِ نَزْغٌۭ فَٱسْتَعِذْ بِٱللَّهِ ۚ إِنَّهُۥ سَمِيعٌ عَلِيمٌ",
+    "turkish": "Eğer şeytandan bir vesvese, bir gıcık gelirse hemen Allah'a sığın. Muhakkak ki, Allah hakkıyla işiten, kemaliyle bilendir.",
+    "verseNumber": 200,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1155,
+    "arabic": "إِنَّ ٱلَّذِينَ ٱتَّقَوْا۟ إِذَا مَسَّهُمْ طَٰٓئِفٌۭ مِّنَ ٱلشَّيْطَٰنِ تَذَكَّرُوا۟ فَإِذَا هُم مُّبْصِرُونَ",
+    "turkish": "Allah'tan korkanlar, kendilerine şeytandan bir vesvese iliştiği zaman, durup düşünürler de derhal kendi basiretlerine sahib olurlar.",
+    "verseNumber": 201,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1156,
+    "arabic": "وَإِخْوَٰنُهُمْ يَمُدُّونَهُمْ فِى ٱلْغَىِّ ثُمَّ لَا يُقْصِرُونَ",
+    "turkish": "Şeytanların kardeşlerine gelince, onlar öbürlerini sapıklığa sürüklerler, sonra da yakalarını bırakmazlar.",
+    "verseNumber": 202,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1157,
+    "arabic": "وَإِذَا لَمْ تَأْتِهِم بِـَٔايَةٍۢ قَالُوا۟ لَوْلَا ٱجْتَبَيْتَهَا ۚ قُلْ إِنَّمَآ أَتَّبِعُ مَا يُوحَىٰٓ إِلَىَّ مِن رَّبِّى ۚ هَٰذَا بَصَآئِرُ مِن رَّبِّكُمْ وَهُدًۭى وَرَحْمَةٌۭ لِّقَوْمٍۢ يُؤْمِنُونَ",
+    "turkish": "Onlara (arzularına göre) bir âyet getirmediğin zaman, derleyip toplasaydın ya derler, sen de de ki; ben ancak Rabbimden bana ne vahyolunuyorsa ona uyarım, işte bütünüyle bu Kur'ân, Rabbinizden gelen basiretlerdir (kalp gözünü açacak beyanlardır), iman eden bir kavim için hidayettir, rahmettir.",
+    "verseNumber": 203,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1158,
+    "arabic": "وَإِذَا قُرِئَ ٱلْقُرْءَانُ فَٱسْتَمِعُوا۟ لَهُۥ وَأَنصِتُوا۟ لَعَلَّكُمْ تُرْحَمُونَ",
+    "turkish": "Kur'ân okunduğu zaman, hemen susup onu dinleyin, umulur ki, rahmete nâil olursunuz.",
+    "verseNumber": 204,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1159,
+    "arabic": "وَٱذْكُر رَّبَّكَ فِى نَفْسِكَ تَضَرُّعًۭا وَخِيفَةًۭ وَدُونَ ٱلْجَهْرِ مِنَ ٱلْقَوْلِ بِٱلْغُدُوِّ وَٱلْءَاصَالِ وَلَا تَكُن مِّنَ ٱلْغَٰفِلِينَ",
+    "turkish": "Sabah akşam demeden, kendi içinden, korkarak ve yalvararak, alçak sesle Rabbini an ve gafillerden olma.",
+    "verseNumber": 205,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1160,
+    "arabic": "إِنَّ ٱلَّذِينَ عِندَ رَبِّكَ لَا يَسْتَكْبِرُونَ عَنْ عِبَادَتِهِۦ وَيُسَبِّحُونَهُۥ وَلَهُۥ يَسْجُدُونَ ۩",
+    "turkish": "Zira Rabbinin katında olanlar, Allah'a kulluk etmekten asla kibirlenmezler, O'nu tenzih eder, şanını ulularlar ve yalnızca O'na secde ederler.",
+    "verseNumber": 206,
+    "surahNumber": 7,
+    "surahName": "سُورَةُ الأَعۡرَافِ",
+    "englishName": "Al-A'raaf"
+  },
+  {
+    "id": 1161,
+    "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ يَسْـَٔلُونَكَ عَنِ ٱلْأَنفَالِ ۖ قُلِ ٱلْأَنفَالُ لِلَّهِ وَٱلرَّسُولِ ۖ فَٱتَّقُوا۟ ٱللَّهَ وَأَصْلِحُوا۟ ذَاتَ بَيْنِكُمْ ۖ وَأَطِيعُوا۟ ٱللَّهَ وَرَسُولَهُۥٓ إِن كُنتُم مُّؤْمِنِينَ",
+    "turkish": "Sana ganimetlerin bölüştürülmesini soruyorlar. De ki, ganimetlerin taksimi Allah'a ve Resulüne aittir. Onun için siz gerçekten mümin kimseler iseniz Allah'tan korkun da biribirinizle aranızı düzeltin. Allah'a ve Resulü'ne itaat edin.",
+    "verseNumber": 1,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1162,
+    "arabic": "إِنَّمَا ٱلْمُؤْمِنُونَ ٱلَّذِينَ إِذَا ذُكِرَ ٱللَّهُ وَجِلَتْ قُلُوبُهُمْ وَإِذَا تُلِيَتْ عَلَيْهِمْ ءَايَٰتُهُۥ زَادَتْهُمْ إِيمَٰنًۭا وَعَلَىٰ رَبِّهِمْ يَتَوَكَّلُونَ",
+    "turkish": "Gerçek müminler ancak o müminlerdir ki, Allah anıldığı zaman yürekleri ürperir, âyetleri okunduğu zaman imanlarını arttırır. Ve bunlar yalnızca Rablerine tevekkül ederler.",
+    "verseNumber": 2,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1163,
+    "arabic": "ٱلَّذِينَ يُقِيمُونَ ٱلصَّلَوٰةَ وَمِمَّا رَزَقْنَٰهُمْ يُنفِقُونَ",
+    "turkish": "Onlar ki, namazı gereği gibi kılarlar ve kendilerine rızık olarak verdiğimiz şeylerden Allah yoluna harcarlar.",
+    "verseNumber": 3,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1164,
+    "arabic": "أُو۟لَٰٓئِكَ هُمُ ٱلْمُؤْمِنُونَ حَقًّۭا ۚ لَّهُمْ دَرَجَٰتٌ عِندَ رَبِّهِمْ وَمَغْفِرَةٌۭ وَرِزْقٌۭ كَرِيمٌۭ",
+    "turkish": "İşte gerçekten mümin olanlar onlardır. Onlara Rablerinin katında dereceler vardır, bağışlanma ve değerli rızık vardır.",
+    "verseNumber": 4,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1165,
+    "arabic": "كَمَآ أَخْرَجَكَ رَبُّكَ مِنۢ بَيْتِكَ بِٱلْحَقِّ وَإِنَّ فَرِيقًۭا مِّنَ ٱلْمُؤْمِنِينَ لَكَٰرِهُونَ",
+    "turkish": "Nitekim Rabbin seni, hak uğruna savaşmak için evinden çıkarmıştı. Oysa müslümanların bir kısmı o zaman bundan hoşlanmamışlardı.",
+    "verseNumber": 5,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1166,
+    "arabic": "يُجَٰدِلُونَكَ فِى ٱلْحَقِّ بَعْدَمَا تَبَيَّنَ كَأَنَّمَا يُسَاقُونَ إِلَى ٱلْمَوْتِ وَهُمْ يَنظُرُونَ",
+    "turkish": "Ve gerçek, gün gibi açığa çıktıktan sonra bile seninle münakaşaya devam etmişlerdi; sanki göz göre göre ölüme sürükleniyorlardı.",
+    "verseNumber": 6,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1167,
+    "arabic": "وَإِذْ يَعِدُكُمُ ٱللَّهُ إِحْدَى ٱلطَّآئِفَتَيْنِ أَنَّهَا لَكُمْ وَتَوَدُّونَ أَنَّ غَيْرَ ذَاتِ ٱلشَّوْكَةِ تَكُونُ لَكُمْ وَيُرِيدُ ٱللَّهُ أَن يُحِقَّ ٱلْحَقَّ بِكَلِمَٰتِهِۦ وَيَقْطَعَ دَابِرَ ٱلْكَٰفِرِينَ",
+    "turkish": "İşte o zaman Allah size iki taifeden (kervan veya kureyş ordusundan) birini vaad ediyordu ki, sizin olacaktı. Siz ise arzu ediyordunuz ki, şanı ve şerefi olmayan şey (kervan) sizin olsun. Halbuki Allah, âyetleriyle hakkı yerine oturtmak ve kâfirlerinarkasını kesmek istiyordu.",
+    "verseNumber": 7,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1168,
+    "arabic": "لِيُحِقَّ ٱلْحَقَّ وَيُبْطِلَ ٱلْبَٰطِلَ وَلَوْ كَرِهَ ٱلْمُجْرِمُونَ",
+    "turkish": "Ki, hakkın hak olduğunu tanıtsın ve batılı büsbütün yok etsin, varsın o günahkârlar istemesin.",
+    "verseNumber": 8,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1169,
+    "arabic": "إِذْ تَسْتَغِيثُونَ رَبَّكُمْ فَٱسْتَجَابَ لَكُمْ أَنِّى مُمِدُّكُم بِأَلْفٍۢ مِّنَ ٱلْمَلَٰٓئِكَةِ مُرْدِفِينَ",
+    "turkish": "O vakit siz Rabbinizden yardım diliyordunuz. O da: \"Ben işte ardarda bin melekle size yardım ediyorum\" diye duanızı kabul buyurmuştu.",
+    "verseNumber": 9,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1170,
+    "arabic": "وَمَا جَعَلَهُ ٱللَّهُ إِلَّا بُشْرَىٰ وَلِتَطْمَئِنَّ بِهِۦ قُلُوبُكُمْ ۚ وَمَا ٱلنَّصْرُ إِلَّا مِنْ عِندِ ٱللَّهِ ۚ إِنَّ ٱللَّهَ عَزِيزٌ حَكِيمٌ",
+    "turkish": "Bunu da Allah size sırf bir müjde olsun ve bununla kalbleriniz yatışsın diye yapmıştı. Yoksa zafer ancak Allah katındandır. Gerçekten Allah mutlak galiptir ve hikmet sahibidir.",
+    "verseNumber": 10,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1171,
+    "arabic": "إِذْ يُغَشِّيكُمُ ٱلنُّعَاسَ أَمَنَةًۭ مِّنْهُ وَيُنَزِّلُ عَلَيْكُم مِّنَ ٱلسَّمَآءِ مَآءًۭ لِّيُطَهِّرَكُم بِهِۦ وَيُذْهِبَ عَنكُمْ رِجْزَ ٱلشَّيْطَٰنِ وَلِيَرْبِطَ عَلَىٰ قُلُوبِكُمْ وَيُثَبِّتَ بِهِ ٱلْأَقْدَامَ",
+    "turkish": "O sırada size, yine katından bir güven ve esenlik olmak üzere bir uyku sardırıyordu, sizi temizlemek, şeytanın vesvesesini sizden gidermek, yüreklerinize kuvvet vermek ve ayaklarınızı sağlam durdurmak için gökten üzerinize yağmur indiriyordu.",
+    "verseNumber": 11,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1172,
+    "arabic": "إِذْ يُوحِى رَبُّكَ إِلَى ٱلْمَلَٰٓئِكَةِ أَنِّى مَعَكُمْ فَثَبِّتُوا۟ ٱلَّذِينَ ءَامَنُوا۟ ۚ سَأُلْقِى فِى قُلُوبِ ٱلَّذِينَ كَفَرُوا۟ ٱلرُّعْبَ فَٱضْرِبُوا۟ فَوْقَ ٱلْأَعْنَاقِ وَٱضْرِبُوا۟ مِنْهُمْ كُلَّ بَنَانٍۢ",
+    "turkish": "İşte o anda Rabbin meleklere şöyle vahyediyordu: Ben sizinle beraberim, müminlere sebat verin. Kâfirlerin yüreğine korku salacağım, hemen boyunlarının üstüne vurun, parmaklarına, parmaklarına vurun\".",
+    "verseNumber": 12,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1173,
+    "arabic": "ذَٰلِكَ بِأَنَّهُمْ شَآقُّوا۟ ٱللَّهَ وَرَسُولَهُۥ ۚ وَمَن يُشَاقِقِ ٱللَّهَ وَرَسُولَهُۥ فَإِنَّ ٱللَّهَ شَدِيدُ ٱلْعِقَابِ",
+    "turkish": "Çünkü onlar Allah'a ve Resulüne karşı geldiler. Kim Allah'a ve Resulüne karşı gelirse, bilsin ki Allah'ın azabı çok çetindir.",
+    "verseNumber": 13,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1174,
+    "arabic": "ذَٰلِكُمْ فَذُوقُوهُ وَأَنَّ لِلْكَٰفِرِينَ عَذَابَ ٱلنَّارِ",
+    "turkish": "İşte gördünüz ya, şimdilik siz bunu tadın, şu da kesindir ki, ahirette kâfirlere cehennem azabı vardır.",
+    "verseNumber": 14,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1175,
+    "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِذَا لَقِيتُمُ ٱلَّذِينَ كَفَرُوا۟ زَحْفًۭا فَلَا تُوَلُّوهُمُ ٱلْأَدْبَارَ",
+    "turkish": "Ey iman edenler! Toplu olarak kâfirlerle karşılaştığınız zaman, onlara arkalarınızı dönmeyin (kaçmayın).",
+    "verseNumber": 15,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1176,
+    "arabic": "وَمَن يُوَلِّهِمْ يَوْمَئِذٍۢ دُبُرَهُۥٓ إِلَّا مُتَحَرِّفًۭا لِّقِتَالٍ أَوْ مُتَحَيِّزًا إِلَىٰ فِئَةٍۢ فَقَدْ بَآءَ بِغَضَبٍۢ مِّنَ ٱللَّهِ وَمَأْوَىٰهُ جَهَنَّمُ ۖ وَبِئْسَ ٱلْمَصِيرُ",
+    "turkish": "Böyle bir günde her kim onlara, tekrar dönüp çarpışmak için geri çekilmek veya diğer bir safta yeniden mevzilenmek hâlleri dışında, arkasını dönerse, muhakkak Allah'dan bir gazaba uğramış olur ve varacağı yer cehennemdir, orası da ne kötü bir akıbettir.",
+    "verseNumber": 16,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1177,
+    "arabic": "فَلَمْ تَقْتُلُوهُمْ وَلَٰكِنَّ ٱللَّهَ قَتَلَهُمْ ۚ وَمَا رَمَيْتَ إِذْ رَمَيْتَ وَلَٰكِنَّ ٱللَّهَ رَمَىٰ ۚ وَلِيُبْلِىَ ٱلْمُؤْمِنِينَ مِنْهُ بَلَآءً حَسَنًا ۚ إِنَّ ٱللَّهَ سَمِيعٌ عَلِيمٌۭ",
+    "turkish": "Sonra onları siz öldürmediniz, lâkin Allah öldürdü. Attığın zaman da sen atmadın, lâkin Allah attı. Bu da müminlere güzel bir imtihan geçirtmek içindi. Allah işitendir, bilendir.",
+    "verseNumber": 17,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1178,
+    "arabic": "ذَٰلِكُمْ وَأَنَّ ٱللَّهَ مُوهِنُ كَيْدِ ٱلْكَٰفِرِينَ",
+    "turkish": "Gördünüz ya, Allah, kâfirlerin kurduğu tuzağı işte böyle boşa çıkarır.",
+    "verseNumber": 18,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1179,
+    "arabic": "إِن تَسْتَفْتِحُوا۟ فَقَدْ جَآءَكُمُ ٱلْفَتْحُ ۖ وَإِن تَنتَهُوا۟ فَهُوَ خَيْرٌۭ لَّكُمْ ۖ وَإِن تَعُودُوا۟ نَعُدْ وَلَن تُغْنِىَ عَنكُمْ فِئَتُكُمْ شَيْـًۭٔا وَلَوْ كَثُرَتْ وَأَنَّ ٱللَّهَ مَعَ ٱلْمُؤْمِنِينَ",
+    "turkish": "Fetih istiyorsanız, işte size fetih gelmiştir, eğer aşırı gitmez de son verirseniz, hakkınızda daha hayırlıdır. Yok eğer dönerseniz, biz de döneriz. O vakit askeriniz çok da olsa size hiç bir şekilde fayda vermez. İyi biliniz ki, Allah müminlerle beraberdir.",
+    "verseNumber": 19,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1180,
+    "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ أَطِيعُوا۟ ٱللَّهَ وَرَسُولَهُۥ وَلَا تَوَلَّوْا۟ عَنْهُ وَأَنتُمْ تَسْمَعُونَ",
+    "turkish": "Ey iman edenler, Allah'a ve Resulü'ne itaat edin. İşitip durduğunuz halde onun emirlerinden yüz çevirmeyin!",
+    "verseNumber": 20,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1181,
+    "arabic": "وَلَا تَكُونُوا۟ كَٱلَّذِينَ قَالُوا۟ سَمِعْنَا وَهُمْ لَا يَسْمَعُونَ",
+    "turkish": "Ve işitmedikleri halde \"işittik\" diyenler gibi olmayın!",
+    "verseNumber": 21,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1182,
+    "arabic": "۞ إِنَّ شَرَّ ٱلدَّوَآبِّ عِندَ ٱللَّهِ ٱلصُّمُّ ٱلْبُكْمُ ٱلَّذِينَ لَا يَعْقِلُونَ",
+    "turkish": "Çünkü yeryüzünde dolaşan canlıların Allah katında en kötüsü anlamayan ve düşünmeyen sağırlarla dilsizlerdir.",
+    "verseNumber": 22,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1183,
+    "arabic": "وَلَوْ عَلِمَ ٱللَّهُ فِيهِمْ خَيْرًۭا لَّأَسْمَعَهُمْ ۖ وَلَوْ أَسْمَعَهُمْ لَتَوَلَّوا۟ وَّهُم مُّعْرِضُونَ",
+    "turkish": "Allah onlarda hayır görseydi onlara işittirirdi, işittirseydi yine de aldırmaz arka dönerlerdi.",
+    "verseNumber": 23,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1184,
+    "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ ٱسْتَجِيبُوا۟ لِلَّهِ وَلِلرَّسُولِ إِذَا دَعَاكُمْ لِمَا يُحْيِيكُمْ ۖ وَٱعْلَمُوٓا۟ أَنَّ ٱللَّهَ يَحُولُ بَيْنَ ٱلْمَرْءِ وَقَلْبِهِۦ وَأَنَّهُۥٓ إِلَيْهِ تُحْشَرُونَ",
+    "turkish": "Ey iman edenler! Peygamber sizi, size hayat verecek şeylere davet ettiği zaman, Allah'a ve Resul'e icabet edin. Ve bilin ki Allah, kişi ile kalbi arasına girer. Ve siz kesinkes O'nun huzurunda toplanacaksınız.",
+    "verseNumber": 24,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1185,
+    "arabic": "وَٱتَّقُوا۟ فِتْنَةًۭ لَّا تُصِيبَنَّ ٱلَّذِينَ ظَلَمُوا۟ مِنكُمْ خَآصَّةًۭ ۖ وَٱعْلَمُوٓا۟ أَنَّ ٱللَّهَ شَدِيدُ ٱلْعِقَابِ",
+    "turkish": "Ve öyle bir fitneden sakının ki, içinizden yalnızca zulüm yapanlara dokunmakla kalmaz. Ve bilin ki, Allah'ın cezası şiddetlidir.",
+    "verseNumber": 25,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1186,
+    "arabic": "وَٱذْكُرُوٓا۟ إِذْ أَنتُمْ قَلِيلٌۭ مُّسْتَضْعَفُونَ فِى ٱلْأَرْضِ تَخَافُونَ أَن يَتَخَطَّفَكُمُ ٱلنَّاسُ فَـَٔاوَىٰكُمْ وَأَيَّدَكُم بِنَصْرِهِۦ وَرَزَقَكُم مِّنَ ٱلطَّيِّبَٰتِ لَعَلَّكُمْ تَشْكُرُونَ",
+    "turkish": "Düşünün ve hatırlayın o zamanları ki, hani bir vakitler siz yeryüzünde güçsüzdünüz, hor görülen bir azınlıktınız. İnsanların sizi hırpalamasından korkuyordunuz, öyle iken O, sizi barındırdı ve sizi yardımıyla destekleyip güçlendirdi ve şükretmeniz için temizlerinden rızık verdi.",
+    "verseNumber": 26,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1187,
+    "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ لَا تَخُونُوا۟ ٱللَّهَ وَٱلرَّسُولَ وَتَخُونُوٓا۟ أَمَٰنَٰتِكُمْ وَأَنتُمْ تَعْلَمُونَ",
+    "turkish": "Ey iman edenler! Allah'a ve Resul'e hainlik etmeyiniz ki, bile bile kendi emanetlerinize hıyanet etmiş olmayasınız.",
+    "verseNumber": 27,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1188,
+    "arabic": "وَٱعْلَمُوٓا۟ أَنَّمَآ أَمْوَٰلُكُمْ وَأَوْلَٰدُكُمْ فِتْنَةٌۭ وَأَنَّ ٱللَّهَ عِندَهُۥٓ أَجْرٌ عَظِيمٌۭ",
+    "turkish": "Ve iyi biliniz ki, mallarınız ve evlatlarınız birer imtihan aracından başka birşey değildir. Allah katında büyük ecir vardır.",
+    "verseNumber": 28,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1189,
+    "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِن تَتَّقُوا۟ ٱللَّهَ يَجْعَل لَّكُمْ فُرْقَانًۭا وَيُكَفِّرْ عَنكُمْ سَيِّـَٔاتِكُمْ وَيَغْفِرْ لَكُمْ ۗ وَٱللَّهُ ذُو ٱلْفَضْلِ ٱلْعَظِيمِ",
+    "turkish": "Ey iman edenler! Allah'a karşı gelmekten sakınırsanız, O, size bir furkan (hakkı batıldan ayırdedecek bir anlayış) verir ve günahlarınızı örtbas eder, sizi bağışlar. Allah büyük lütuf sahibidir.",
+    "verseNumber": 29,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1190,
+    "arabic": "وَإِذْ يَمْكُرُ بِكَ ٱلَّذِينَ كَفَرُوا۟ لِيُثْبِتُوكَ أَوْ يَقْتُلُوكَ أَوْ يُخْرِجُوكَ ۚ وَيَمْكُرُونَ وَيَمْكُرُ ٱللَّهُ ۖ وَٱللَّهُ خَيْرُ ٱلْمَٰكِرِينَ",
+    "turkish": "Hani bir vakitler, o kâfirler, seni tutup bağlamak veya öldürmek veya sürüp çıkarmak için sana tuzak kuruyorlardı da, onlar tuzak kurarken Allah da karşılığında tuzak kuruyordu. Öyle ya, Allah tuzakların en hayırlısını kurar.",
+    "verseNumber": 30,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1191,
+    "arabic": "وَإِذَا تُتْلَىٰ عَلَيْهِمْ ءَايَٰتُنَا قَالُوا۟ قَدْ سَمِعْنَا لَوْ نَشَآءُ لَقُلْنَا مِثْلَ هَٰذَآ ۙ إِنْ هَٰذَآ إِلَّآ أَسَٰطِيرُ ٱلْأَوَّلِينَ",
+    "turkish": "Onlara âyetlerimiz okunduğu zaman, \"işittik, dilersek bunun gibisini biz de söyleriz, bu, eskilerin efsanelerinden başka bir şey değildir\" diyorlardı.",
+    "verseNumber": 31,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1192,
+    "arabic": "وَإِذْ قَالُوا۟ ٱللَّهُمَّ إِن كَانَ هَٰذَا هُوَ ٱلْحَقَّ مِنْ عِندِكَ فَأَمْطِرْ عَلَيْنَا حِجَارَةًۭ مِّنَ ٱلسَّمَآءِ أَوِ ٱئْتِنَا بِعَذَابٍ أَلِيمٍۢ",
+    "turkish": "Bir vakit de, \"Ey Allah, eğer bu Senin katından gelmiş bir hak kitap ise, hiç durma üstümüze gökten taşlar yağdır veya bize daha acı bir azap ver\" demişlerdi.",
+    "verseNumber": 32,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1193,
+    "arabic": "وَمَا كَانَ ٱللَّهُ لِيُعَذِّبَهُمْ وَأَنتَ فِيهِمْ ۚ وَمَا كَانَ ٱللَّهُ مُعَذِّبَهُمْ وَهُمْ يَسْتَغْفِرُونَ",
+    "turkish": "Halbuki sen içlerinde iken Allah, onlara azab edecek değildi. İstiğfar ettikleri sürece de Allah onlara azab edecek değildir.",
+    "verseNumber": 33,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1194,
+    "arabic": "وَمَا لَهُمْ أَلَّا يُعَذِّبَهُمُ ٱللَّهُ وَهُمْ يَصُدُّونَ عَنِ ٱلْمَسْجِدِ ٱلْحَرَامِ وَمَا كَانُوٓا۟ أَوْلِيَآءَهُۥٓ ۚ إِنْ أَوْلِيَآؤُهُۥٓ إِلَّا ٱلْمُتَّقُونَ وَلَٰكِنَّ أَكْثَرَهُمْ لَا يَعْلَمُونَ",
+    "turkish": "Şimdi ise Allah'ın kendilerine azab etmemesi için neleri var ki? Oysa Mescidi Haram'dan menediyorlar. Üstelik onun hizmetine ehil kişiler de değiller. Çünkü onun hizmetine ehil olanlar ancak müttakilerdir. Lâkin çoğu bunu bilmezler.",
+    "verseNumber": 34,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1195,
+    "arabic": "وَمَا كَانَ صَلَاتُهُمْ عِندَ ٱلْبَيْتِ إِلَّا مُكَآءًۭ وَتَصْدِيَةًۭ ۚ فَذُوقُوا۟ ٱلْعَذَابَ بِمَا كُنتُمْ تَكْفُرُونَ",
+    "turkish": "Kâbe huzurunda onların duaları ise ıslık çalıp el çırpmaktan başka birşey değildir. O halde inkârınızdan (ve nankörlüğünüzden) dolayı bu azabı tadın bakalım.",
+    "verseNumber": 35,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1196,
+    "arabic": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ يُنفِقُونَ أَمْوَٰلَهُمْ لِيَصُدُّوا۟ عَن سَبِيلِ ٱللَّهِ ۚ فَسَيُنفِقُونَهَا ثُمَّ تَكُونُ عَلَيْهِمْ حَسْرَةًۭ ثُمَّ يُغْلَبُونَ ۗ وَٱلَّذِينَ كَفَرُوٓا۟ إِلَىٰ جَهَنَّمَ يُحْشَرُونَ",
+    "turkish": "Mallarını, Allah yolundan engellemek için sarfeden o kâfirler, hiç şüphesiz yine onu sarfedecekler. Varsın sarfetsinler, sonra o yüreklerine inen bir acı olacak, sonra da mağlup olacaklar. Zaten kâfirler toplanıp cehenneme gönderilecekler.",
+    "verseNumber": 36,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1197,
+    "arabic": "لِيَمِيزَ ٱللَّهُ ٱلْخَبِيثَ مِنَ ٱلطَّيِّبِ وَيَجْعَلَ ٱلْخَبِيثَ بَعْضَهُۥ عَلَىٰ بَعْضٍۢ فَيَرْكُمَهُۥ جَمِيعًۭا فَيَجْعَلَهُۥ فِى جَهَنَّمَ ۚ أُو۟لَٰٓئِكَ هُمُ ٱلْخَٰسِرُونَ",
+    "turkish": "Allah, murdarı temizden ayırdetmek için ve bir de murdar kısmını birbiri üzerine bindirip hepsini bir araya getirmek ve topunu birden cehenneme koymak için böyle yapar. İşte bunlar o hüsran içinde kalanların ta kendileridir.",
+    "verseNumber": 37,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1198,
+    "arabic": "قُل لِّلَّذِينَ كَفَرُوٓا۟ إِن يَنتَهُوا۟ يُغْفَرْ لَهُم مَّا قَدْ سَلَفَ وَإِن يَعُودُوا۟ فَقَدْ مَضَتْ سُنَّتُ ٱلْأَوَّلِينَ",
+    "turkish": "O kâfirlere de ki: Eğer bu işe son verirlerse daha önce yaptıkları bağışlanacak. Yok yine karşı koymaya başlar, isyana dönerlerse, önceki ümmetlere uygulanan kurallar kendilerine de uygulanacak. (Artık o ilâhî uygulamayı beklesinler.)",
+    "verseNumber": 38,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1199,
+    "arabic": "وَقَٰتِلُوهُمْ حَتَّىٰ لَا تَكُونَ فِتْنَةٌۭ وَيَكُونَ ٱلدِّينُ كُلُّهُۥ لِلَّهِ ۚ فَإِنِ ٱنتَهَوْا۟ فَإِنَّ ٱللَّهَ بِمَا يَعْمَلُونَ بَصِيرٌۭ",
+    "turkish": "Ortalıkta fitne kalmayıp, din tamamıyla Allah'ın dini oluncaya kadar onlarla savaşın. Eğer vazgeçerlerse muhakkak ki, Allah yaptıklarını görür.",
+    "verseNumber": 39,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  },
+  {
+    "id": 1200,
+    "arabic": "وَإِن تَوَلَّوْا۟ فَٱعْلَمُوٓا۟ أَنَّ ٱللَّهَ مَوْلَىٰكُمْ ۚ نِعْمَ ٱلْمَوْلَىٰ وَنِعْمَ ٱلنَّصِيرُ",
+    "turkish": "Yok vazgeçmez de tekrar eskiye dönerlerse artık bilin ki, Allah sizin yardımcınızdır. O ne güzel mevla, ne güzel yardımcıdır.",
+    "verseNumber": 40,
+    "surahNumber": 8,
+    "surahName": "سُورَةُ الأَنفَالِ",
+    "englishName": "Al-Anfaal"
+  }
+]

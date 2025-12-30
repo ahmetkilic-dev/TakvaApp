@@ -1,0 +1,65 @@
+[
+  {
+    "id": 3672,
+    "arabic": "وَمَا يَسْتَوِى ٱلْبَحْرَانِ هَٰذَا عَذْبٌۭ فُرَاتٌۭ سَآئِغٌۭ شَرَابُهُۥ وَهَٰذَا مِلْحٌ أُجَاجٌۭ ۖ وَمِن كُلٍّۢ تَأْكُلُونَ لَحْمًۭا طَرِيًّۭا وَتَسْتَخْرِجُونَ حِلْيَةًۭ تَلْبَسُونَهَا ۖ وَتَرَى ٱلْفُلْكَ فِيهِ مَوَاخِرَ لِتَبْتَغُوا۟ مِن فَضْلِهِۦ وَلَعَلَّكُمْ تَشْكُرُونَ",
+    "turkish": "Hem iki deniz eşit olmuyor. Şu tatlı, hararet keser, içerken (boğazdan) kayar; şu da tuzlu, yakar kavurur. Bununla beraber her birinden taze bir et yersiniz ve bir ziynet çıkarır, giyinirsiniz. Allah'ın lütfundan nasib arayasınız diye suyu yara yara giden gemileri de görürsün. Gerek ki şükredeceksiniz.",
+    "verseNumber": 12,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  },
+  {
+    "id": 3673,
+    "arabic": "يُولِجُ ٱلَّيْلَ فِى ٱلنَّهَارِ وَيُولِجُ ٱلنَّهَارَ فِى ٱلَّيْلِ وَسَخَّرَ ٱلشَّمْسَ وَٱلْقَمَرَ كُلٌّۭ يَجْرِى لِأَجَلٍۢ مُّسَمًّۭى ۚ ذَٰلِكُمُ ٱللَّهُ رَبُّكُمْ لَهُ ٱلْمُلْكُ ۚ وَٱلَّذِينَ تَدْعُونَ مِن دُونِهِۦ مَا يَمْلِكُونَ مِن قِطْمِيرٍ",
+    "turkish": "O, geceyi gündüze sokuyor, gündüzü de geceye sokuyor. Güneşi ve ayı emrine âmâde kılmıştır. Her biri mukadder bir gayeye akıp gidiyor. İşte bu gördüklerinizi yapan Allah sizin Rabbinizdir. Mülk (hükümranlık) O'nundur. O'ndan başka taptıklarınız ise, bir çekirdek zarını bile idare edemezler.",
+    "verseNumber": 13,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  },
+  {
+    "id": 3674,
+    "arabic": "إِن تَدْعُوهُمْ لَا يَسْمَعُوا۟ دُعَآءَكُمْ وَلَوْ سَمِعُوا۟ مَا ٱسْتَجَابُوا۟ لَكُمْ ۖ وَيَوْمَ ٱلْقِيَٰمَةِ يَكْفُرُونَ بِشِرْكِكُمْ ۚ وَلَا يُنَبِّئُكَ مِثْلُ خَبِيرٍۢ",
+    "turkish": "Kendilerine dua ederseniz duanızı işitmezler. İşitseler bile size cevabını veremezler. Kıyamet günü de kendilerini Allah'a ortak koştuğunuzu inkâr ederler. Sana her şeyden haberdar olan (Allah) gibi bir haber veren olmaz.",
+    "verseNumber": 14,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  },
+  {
+    "id": 3675,
+    "arabic": "۞ يَٰٓأَيُّهَا ٱلنَّاسُ أَنتُمُ ٱلْفُقَرَآءُ إِلَى ٱللَّهِ ۖ وَٱللَّهُ هُوَ ٱلْغَنِىُّ ٱلْحَمِيدُ",
+    "turkish": "Ey insanlar! Siz Allah'a muhtaçsınız. Allah ise zengin ve her hamde lâyıktır.",
+    "verseNumber": 15,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  },
+  {
+    "id": 3676,
+    "arabic": "إِن يَشَأْ يُذْهِبْكُمْ وَيَأْتِ بِخَلْقٍۢ جَدِيدٍۢ",
+    "turkish": "Eğer O dilerse sizi yok eder ve yerinize yeni bir halk getirir.",
+    "verseNumber": 16,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  },
+  {
+    "id": 3677,
+    "arabic": "وَمَا ذَٰلِكَ عَلَى ٱللَّهِ بِعَزِيزٍۢ",
+    "turkish": "Ve bu, Allah'a göre zor bir şey değildir.",
+    "verseNumber": 17,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  },
+  {
+    "id": 3678,
+    "arabic": "وَلَا تَزِرُ وَازِرَةٌۭ وِزْرَ أُخْرَىٰ ۚ وَإِن تَدْعُ مُثْقَلَةٌ إِلَىٰ حِمْلِهَا لَا يُحْمَلْ مِنْهُ شَىْءٌۭ وَلَوْ كَانَ ذَا قُرْبَىٰٓ ۗ إِنَّمَا تُنذِرُ ٱلَّذِينَ يَخْشَوْنَ رَبَّهُم بِٱلْغَيْبِ وَأَقَامُوا۟ ٱلصَّلَوٰةَ ۚ وَمَن تَزَكَّىٰ فَإِنَّمَا يَتَزَكَّىٰ لِنَفْسِهِۦ ۚ وَإِلَى ٱللَّهِ ٱلْمَصِيرُ",
+    "turkish": "Hem günah çeken bir kimse, başkasının günahını çekmeyecek; yükü ağır basan, onun yüklenilmesine çağırsa da ondan bir şey yüklenilmeyecek, isterse bir yakını olsun. Fakat sen ancak o kimseleri sakındırısın ki, gaybda Rablerinin korkusunu duyarlar, namazı dürüst kılarlar. Temizlenen de sırf kendisi için temizlenir. Nihayet dönüş Allah'adır.",
+    "verseNumber": 18,
+    "surahNumber": 35,
+    "surahName": "سُورَةُ فَاطِرٍ",
+    "englishName": "Faatir"
+  }
+]

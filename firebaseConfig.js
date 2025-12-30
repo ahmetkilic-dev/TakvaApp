@@ -1,8 +1,7 @@
 // firebaseConfig.js
 import { initializeApp, getApps, getApp } from "firebase/app";
 // Kalıcı oturum için initializeAuth ve AsyncStorage kullanıyoruz
-import { initializeAuth, getReactNativePersistence, getAuth } from "firebase/auth"; 
-import { getFirestore } from "firebase/firestore";
+import { initializeAuth, getReactNativePersistence, getAuth } from "firebase/auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // --- FIREBASE BİLGİLERİN (AYNI KALIYOR) ---
@@ -31,7 +30,4 @@ try {
   auth = getAuth(app);
 }
 
-// Veritabanını başlat
-const db = getFirestore(app);
-
-export { auth, db };
+export { auth };
