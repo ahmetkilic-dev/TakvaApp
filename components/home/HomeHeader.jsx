@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocation } from '../../contexts/LocationContext';
 
 // İkonlar
@@ -51,25 +52,41 @@ export default function HomeHeader() {
 
   const [displayCity, setDisplayCity] = useState('Konum alınıyor...');
 
-  // 1. API İsteği - Konum değiştiğinde güncelle
+  // 1. API İsteği - Konum değiştiğinde güncelle (CACHE ile optimize edildi)
   useEffect(() => {
     const fetchTimes = async () => {
       try {
         const now = new Date();
         const dateStr = `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
-        
+
         let finalUrl;
-        
+        let cacheKey;
+
         // Eğer konum izni varsa ve konum alındıysa, koordinat ile sorgula
         if (hasPermission && userLocation) {
-          console.log('🕌 Namaz vakitleri konuma göre alınıyor:', userCity, userLocation.latitude, userLocation.longitude);
+          const lat = userLocation.latitude.toFixed(2);
+          const lon = userLocation.longitude.toFixed(2);
+          cacheKey = `@prayer_times_${dateStr}_${lat}_${lon}`;
           finalUrl = `${API_BASE}/${dateStr}?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&method=13`;
           setDisplayCity(userCity || 'Türkiye');
         } else {
           // Varsayılan olarak İstanbul kullan
-          console.log('🕌 Namaz vakitleri varsayılan İstanbul için alınıyor (konum izni yok veya konum alınamadı)');
+          cacheKey = `@prayer_times_${dateStr}_istanbul`;
           finalUrl = `${API_BASE}/${dateStr}?city=Istanbul&country=Turkey&method=13`;
           setDisplayCity('İstanbul');
+        }
+
+        // Önce cache'i kontrol et
+        const cached = await AsyncStorage.getItem(cacheKey);
+        if (cached) {
+          const parsedCache = JSON.parse(cached);
+          setPrayerTimes(parsedCache);
+          return; // Cache varsa API çağrısı yapma
+        }
+
+        // Cache yoksa API'den çek
+        if (hasPermission && userLocation) {
+          console.log('🕌 Namaz vakitleri konuma göre alınıyor:', userCity, userLocation.latitude, userLocation.longitude);
         }
 
         const response = await fetch(finalUrl);
@@ -86,6 +103,8 @@ export default function HomeHeader() {
             { label: 'Yatsı', time: t.Isha }
           ];
           setPrayerTimes(mapping);
+          // Cache'e kaydet
+          await AsyncStorage.setItem(cacheKey, JSON.stringify(mapping));
         } else {
           useFallbackData();
         }

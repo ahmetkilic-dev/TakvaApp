@@ -24,11 +24,9 @@ export const useReminderSettings = () => {
   }, []);
 
   const checkNotificationPermissions = async () => {
-    const { status } = await NotificationService.rescheduleAll();
-    // This isn't perfect for status only, but we use rescheduleAll to check/trigger logic
-    // Actually, let's just use the direct notification check
-    const { status: currentStatus } = await require('expo-notifications').getPermissionsAsync();
-    setNotificationPermission(currentStatus);
+    const granted = await NotificationService.checkAndRequestPermissions();
+    const status = await NotificationService.getPermissionStatus();
+    setNotificationPermission(status);
   };
 
   const loadSettings = async () => {

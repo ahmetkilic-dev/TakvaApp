@@ -53,7 +53,7 @@ export default function TasksScreen() {
           <View
             style={{
               position: 'absolute',
-              top: 50,
+              top: 95, // Kullanıcı isteği üzerine 5px daha yukarı çekildi
               left: -horizontalPadding * 3,
               right: -horizontalPadding * 3,
               height: SCREEN_HEIGHT * 10,

@@ -5,6 +5,7 @@ export default function ServicesLayout() {
     return (
         <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="abdest" />
+            <Stack.Screen name="ayarlar" />
             <Stack.Screen name="bildirimler" />
             <Stack.Screen name="dhikr" />
             <Stack.Screen name="guide-detail" />
@@ -22,9 +23,9 @@ export default function ServicesLayout() {
             <Stack.Screen name="quran-page" />
             <Stack.Screen name="settings" />
             <Stack.Screen name="diniGunler" />
-            <Stack.Screen name="rozetgorev" />
             <Stack.Screen name="namazrehber" />
-            <Stack.Screen name="profil" />
+            <Stack.Screen name="hutbe-detail" />
+            <Stack.Screen name="namazdurumu" />
         </Stack>
     );
 }

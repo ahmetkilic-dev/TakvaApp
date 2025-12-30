@@ -1,12 +1,13 @@
 import { View, Text, ScrollView } from 'react-native';
 import { Dimensions } from 'react-native';
+import React from 'react';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 const fontFamily = 'PlusJakartaSans-Light';
 const arabicFontFamily = 'Noto Sans Arabic';
 
-export default function VerseContent({ verses, activeTab, loading, error }) {
+const VerseContent = ({ verses, activeTab, loading, error }) => {
   if (loading) {
     return (
       <View
@@ -172,5 +173,6 @@ export default function VerseContent({ verses, activeTab, loading, error }) {
       )}
     </View>
   );
-}
+};
 
+export default React.memo(VerseContent);

@@ -6,7 +6,7 @@ const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 const fontFamily = 'Plus Jakarta Sans';
 
 export default function PageNavigation({ currentPage, totalPages, onPageChange, activeTab, onTabChange, showPageNumbers = true }) {
-  // Sayfa numaraları - maksimum 5 göster (mevcut sayfa ortada)
+  // Sayfa numaraları - her zaman 5 ardışık sayfa göster (mevcut sayfa ortada)
   const getPageNumbers = () => {
     if (!showPageNumbers || !currentPage || !totalPages) {
       return [];
@@ -15,28 +15,27 @@ export default function PageNavigation({ currentPage, totalPages, onPageChange, 
     if (totalPages <= 5) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
-    
+
     const pages = [];
+    // Mevcut sayfanın 2 öncesi ve 2 sonrası (toplam 5 sayfa)
     let start = Math.max(1, currentPage - 2);
     let end = Math.min(totalPages, currentPage + 2);
-    
-    // İlk sayfa gösterilmeli
-    if (start > 1) {
-      pages.push(1);
-      if (start > 2) pages.push('...');
+
+    // Eğer başta isek, sağa kaydır
+    if (start === 1) {
+      end = Math.min(5, totalPages);
     }
-    
+
+    // Eğer sonda isek, sola kaydır
+    if (end === totalPages) {
+      start = Math.max(1, totalPages - 4);
+    }
+
     for (let i = start; i <= end; i++) {
       pages.push(i);
     }
-    
-    // Son sayfa gösterilmeli
-    if (end < totalPages) {
-      if (end < totalPages - 1) pages.push('...');
-      pages.push(totalPages);
-    }
-    
-    return pages.slice(0, 5); // Maksimum 5 sayfa göster
+
+    return pages;
   };
 
   const pageNumbers = getPageNumbers();
@@ -46,44 +45,38 @@ export default function PageNavigation({ currentPage, totalPages, onPageChange, 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 20, flexWrap: 'wrap' }}>
         {/* Page Numbers */}
         {showPageNumbers && pageNumbers.map((pageNum, index) => (
-          pageNum === '...' ? (
-            <Text key={`ellipsis-${index}`} style={{ fontFamily, fontSize: 15, color: 'rgba(255, 255, 255, 0.6)' }}>
-              ...
-            </Text>
-          ) : (
-            <TouchableOpacity
-              key={pageNum}
-              onPress={() => onPageChange(pageNum)}
-              style={{ alignItems: 'center' }}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-              activeOpacity={0.7}
+          <TouchableOpacity
+            key={pageNum}
+            onPress={() => onPageChange(pageNum)}
+            style={{ alignItems: 'center' }}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            activeOpacity={0.7}
+          >
+            <Text
+              style={{
+                fontFamily,
+                fontSize: 15,
+                fontWeight: currentPage === pageNum ? '700' : '300',
+                color: currentPage === pageNum ? '#FFFFFF' : 'rgba(255, 255, 255, 0.6)',
+                letterSpacing: 2,
+              }}
             >
-              <Text
+              {pageNum}
+            </Text>
+            {currentPage === pageNum && (
+              <View
                 style={{
-                  fontFamily,
-                  fontSize: 15,
-                  fontWeight: currentPage === pageNum ? '700' : '300',
-                  color: currentPage === pageNum ? '#FFFFFF' : 'rgba(255, 255, 255, 0.6)',
-                  letterSpacing: 2,
+                  width: 40,
+                  height: 1,
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: 10,
+                  marginTop: 4,
                 }}
-              >
-                {pageNum}
-              </Text>
-              {currentPage === pageNum && (
-                <View
-                  style={{
-                    width: 40,
-                    height: 1,
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: 10,
-                    marginTop: 4,
-                  }}
-                />
-              )}
-            </TouchableOpacity>
-          )
+              />
+            )}
+          </TouchableOpacity>
         ))}
-        
+
         {/* Kur'an / Meal Tabs */}
         <TouchableOpacity onPress={() => onTabChange('Kur\'an')} style={{ alignItems: 'center', marginLeft: showPageNumbers ? 12 : 0 }}>
           <Text

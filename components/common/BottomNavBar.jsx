@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Dimensions } from 'react-native';
 import { useRouter, useSegments } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
@@ -11,6 +11,10 @@ import IcTasks from '../../assets/images/ic-tasks.svg';
 import IcProfile from '../../assets/images/ic-profile.svg';
 
 const ICON_SIZE = 36;
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+// iPhone 11 ekran genişliği: 414px
+// Orta seviye aralık için hesaplama
+const ITEM_MARGIN = Math.max(14, Math.min(20, (SCREEN_WIDTH - 190) / 9));
 
 function getActiveTabFromSegments(segments) {
   // segments örn:
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   item: {
-    marginHorizontal: 25,
+    marginHorizontal: ITEM_MARGIN,
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',

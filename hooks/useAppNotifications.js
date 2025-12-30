@@ -35,6 +35,7 @@ export const useAppNotifications = () => {
         knowledge: false,
         religious: false,
     });
+    const [notificationPermission, setNotificationPermission] = useState(null);
     const [loading, setLoading] = useState(true);
 
     // Register background task and Android channels
@@ -43,6 +44,11 @@ export const useAppNotifications = () => {
             try {
                 // Setup Android Channels
                 await NotificationService.setupChannels();
+
+                // Check and Request Permissions
+                await NotificationService.checkAndRequestPermissions();
+                const status = await NotificationService.getPermissionStatus();
+                setNotificationPermission(status);
 
                 // Register Background Task
                 const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_NOTIFICATION_TASK);
@@ -111,6 +117,7 @@ export const useAppNotifications = () => {
 
     return {
         notificationStates,
+        notificationPermission,
         loading,
         toggleNotification,
     };

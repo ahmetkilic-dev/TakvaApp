@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { SURAH_DATA, PAGE_DATA, JUZ_DATA } from './quranData';
 
 /**
@@ -173,15 +173,22 @@ export const useSurahVerses = (surahNumber) => {
  * Sayfa bazlı ayet çekme hook'u
  */
 export const usePageVerses = (pageNumber) => {
-  const [verses, setVerses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!pageNumber) return;
-    setLoading(true);
+  // Memoize verses to prevent re-creation on every render
+  const verses = useMemo(() => {
+    if (!pageNumber) return [];
     const data = PAGE_DATA[pageNumber];
-    if (data) setVerses(data);
-    setLoading(false);
+    return data || [];
+  }, [pageNumber]);
+
+  useEffect(() => {
+    setLoading(true);
+    // Simulate async loading for consistency
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 0);
+    return () => clearTimeout(timer);
   }, [pageNumber]);
 
   return { verses, loading, error: null };

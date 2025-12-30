@@ -21,9 +21,17 @@ export const useProfile = () => {
         following: [],
         followingCount: 0
     });
+    const [hasFetchedThisSession, setHasFetchedThisSession] = useState(false);
 
-    const fetchProfileInfo = useCallback(async (uid, silent = false) => {
+    const fetchProfileInfo = useCallback(async (uid, silent = false, forceRefresh = false) => {
         if (!uid) return;
+
+        // Eğer bu session'da zaten çektiyse ve force refresh yoksa, çekme
+        if (hasFetchedThisSession && !forceRefresh) {
+            setProfileLoading(false);
+            return;
+        }
+
         if (!silent) setProfileLoading(true);
 
         try {
@@ -34,19 +42,21 @@ export const useProfile = () => {
                 .maybeSingle();
 
             if (profile) {
-                setProfileInfo({
+                const profileData = {
                     name: profile.name || '',
                     isPremium: profile.is_premium || false,
                     following: profile.following || [],
                     followingCount: (profile.following || []).length
-                });
+                };
+                setProfileInfo(profileData);
+                setHasFetchedThisSession(true);
             }
         } catch (error) {
             console.error('useProfile: fetchProfileInfo error', error);
         } finally {
             if (!silent) setProfileLoading(false);
         }
-    }, []);
+    }, [hasFetchedThisSession]);
 
     useEffect(() => {
         if (user?.uid) {
@@ -56,7 +66,7 @@ export const useProfile = () => {
                 .channel(`profile_info:${user.uid}`)
                 .on('postgres_changes',
                     { event: '*', schema: 'public', table: 'profiles', filter: `id=eq.${user.uid}` },
-                    () => fetchProfileInfo(user.uid, true)
+                    () => fetchProfileInfo(user.uid, true, true) // Realtime güncellemelerde force refresh
                 )
                 .subscribe();
 
@@ -65,6 +75,7 @@ export const useProfile = () => {
             };
         } else if (isInitialized && !user) {
             setProfileLoading(false);
+            setHasFetchedThisSession(false); // Çıkış yapınca session'ı sıfırla
         }
     }, [user?.uid, isInitialized, fetchProfileInfo]);
 
@@ -91,7 +102,7 @@ export const useProfile = () => {
         user,
         loading: statsLoading || (profileLoading && !isInitialized),
         profileData,
-        refreshProfile: () => fetchProfileInfo(user?.uid)
+        refreshProfile: () => fetchProfileInfo(user?.uid, false, true)
     };
 }
 

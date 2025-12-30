@@ -44,6 +44,26 @@ export const NotificationService = {
     },
 
     /**
+     * Check and Request Permissions
+     */
+    async checkAndRequestPermissions() {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+
+        return finalStatus === 'granted';
+    },
+
+    async getPermissionStatus() {
+        const { status } = await Notifications.getPermissionsAsync();
+        return status;
+    },
+
+    /**
      * Fetch prayer times for 10 days based on CURRENT location with caching
      */
     async getPrayerTimesForRange(latitude, longitude, daysCount = 10) {
