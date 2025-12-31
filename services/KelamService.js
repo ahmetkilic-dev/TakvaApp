@@ -7,19 +7,41 @@ export const KelamService = {
     /**
      * Fetch video feed with creator info
      */
-    async fetchVideos(limit = 10, offset = 0) {
+    async fetchVideos(limit = 20, offset = 0, userId = null) {
         try {
             const { data, error } = await supabase
                 .from('kelam_videos')
                 .select(`
                     *,
-                    creator:profiles!kelam_videos_creator_id_fkey(id, name, username)
+                    creator:profiles!kelam_videos_creator_id_fkey(id, name, username, profile_picture)
                 `)
                 .order('created_at', { ascending: false })
+                // Calculate range based on larger limit for better variety
                 .range(offset, offset + limit - 1);
 
             if (error) throw error;
-            return data || [];
+
+            let videos = data || [];
+
+            // If user is logged in, check which videos they liked
+            if (userId && videos.length > 0) {
+                const videoIds = videos.map(v => v.id);
+                const { data: likes } = await supabase
+                    .from('kelam_likes')
+                    .select('video_id')
+                    .eq('user_id', userId)
+                    .in('video_id', videoIds);
+
+                const likedSet = new Set(likes?.map(l => l.video_id));
+                videos = videos.map(v => ({
+                    ...v,
+                    isLiked: likedSet.has(v.id)
+                }));
+            }
+
+            // Client-side shuffle
+            const shuffled = videos.sort(() => Math.random() - 0.5);
+            return shuffled;
         } catch (error) {
             console.error('KelamService: fetchVideos error', error);
             return [];
@@ -62,6 +84,13 @@ export const KelamService = {
      */
     async toggleLike(videoId, userId, isLiked) {
         try {
+            console.log('[KelamService] toggleLike processing:', { videoId, userId, isLiked });
+
+            if (!userId) {
+                console.error('[KelamService] toggleLike failed: No userId provided');
+                return false;
+            }
+
             if (isLiked) {
                 const { error } = await supabase
                     .from('kelam_likes')
@@ -76,7 +105,7 @@ export const KelamService = {
             }
             return true;
         } catch (error) {
-            console.error('KelamService: toggleLike error', error);
+            console.error('[KelamService] toggleLike error', error);
             return false;
         }
     },
@@ -84,16 +113,37 @@ export const KelamService = {
     /**
      * Fetch videos for a specific creator
      */
-    async fetchCreatorVideos(creatorId) {
+    async fetchCreatorVideos(creatorId, currentUserId = null) {
         try {
             const { data, error } = await supabase
                 .from('kelam_videos')
-                .select('*')
+                .select(`
+                    *,
+                    creator:profiles!kelam_videos_creator_id_fkey(id, name, username, profile_picture)
+                `)
                 .eq('creator_id', creatorId)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;
-            return data || [];
+            let videos = data || [];
+
+            // If user is logged in, check which videos they liked
+            if (currentUserId && videos.length > 0) {
+                const videoIds = videos.map(v => v.id);
+                const { data: likes } = await supabase
+                    .from('kelam_likes')
+                    .select('video_id')
+                    .eq('user_id', currentUserId)
+                    .in('video_id', videoIds);
+
+                const likedSet = new Set(likes?.map(l => l.video_id));
+                videos = videos.map(v => ({
+                    ...v,
+                    isLiked: likedSet.has(v.id)
+                }));
+            }
+
+            return videos;
         } catch (error) {
             console.error('KelamService: fetchCreatorVideos error:', error);
             return [];

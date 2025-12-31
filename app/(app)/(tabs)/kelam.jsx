@@ -18,21 +18,40 @@ export default function KelamScreen() {
     const isCreator = profile?.role === 'creator' || profile?.application_status === 'approved';
     const [videos, setVideos] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isMoreLoading, setIsMoreLoading] = useState(false);
+    const [page, setPage] = useState(0);
+    const LIMIT = 20;
 
     useEffect(() => {
-        loadVideos();
+        loadVideos(0);
     }, []);
 
-    const loadVideos = async () => {
-        setIsLoading(true);
-        const data = await KelamService.fetchVideos();
-        setVideos(data);
-        setIsLoading(false);
+    const loadVideos = async (pageOffset) => {
+        if (pageOffset === 0) setIsLoading(true);
+        else setIsMoreLoading(true);
+
+        // Pass user ID to check for likes
+        const newVideos = await KelamService.fetchVideos(LIMIT, pageOffset, user?.uid);
+
+        if (newVideos.length > 0) {
+            setVideos(prev => pageOffset === 0 ? newVideos : [...prev, ...newVideos]);
+        }
+
+        if (pageOffset === 0) setIsLoading(false);
+        else setIsMoreLoading(false);
+    };
+
+    const handleLoadMore = () => {
+        if (!isMoreLoading) {
+            const nextPage = page + LIMIT;
+            setPage(nextPage);
+            loadVideos(nextPage);
+        }
     };
 
     const handleLike = async (video) => {
         if (!user) return;
-        const success = await KelamService.toggleLike(video.id, user.id, video.isLiked);
+        const success = await KelamService.toggleLike(video.id, user.uid, video.isLiked);
         if (success) {
             setVideos(prev => prev.map(v =>
                 v.id === video.id ? { ...v, isLiked: !v.isLiked, likes_count: v.isLiked ? (v.likes_count || 0) - 1 : (v.likes_count || 0) + 1 } : v
@@ -68,7 +87,10 @@ export default function KelamScreen() {
 
                 {/* Right: Search Icon (All Users) */}
                 <View style={styles.headerSide}>
-                    <TouchableOpacity style={styles.headerIconButton}>
+                    <TouchableOpacity
+                        style={styles.headerIconButton}
+                        onPress={() => router.push('/(app)/(services)/kelam-search')}
+                    >
                         <Ionicons name="search" size={26} color="#FFFFFF" />
                     </TouchableOpacity>
                 </View>
@@ -81,7 +103,7 @@ export default function KelamScreen() {
                     <Text style={[styles.emptyText, { marginTop: 20 }]}>Kelam yükleniyor...</Text>
                 </View>
             ) : videos.length > 0 ? (
-                <KelamFeed videos={videos} onLike={handleLike} />
+                <KelamFeed videos={videos} onLike={handleLike} onEndReached={handleLoadMore} />
             ) : (
                 <View style={styles.centerContent}>
                     <Ionicons name="videocam-outline" size={64} color="rgba(255,255,255,0.1)" />

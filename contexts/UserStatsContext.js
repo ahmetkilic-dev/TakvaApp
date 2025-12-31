@@ -73,7 +73,7 @@ export const UserStatsProvider = ({ children }) => {
             const [statsResult, tasksResult, profileResult] = await Promise.all([
                 supabase.from('user_stats').select('*').eq('user_id', uid).maybeSingle(),
                 TaskService.getDailyTasks(),
-                supabase.from('profiles').select('id, name, role, application_status, following, is_premium').eq('id', uid).maybeSingle()
+                supabase.from('profiles').select('id, name, username, role, application_status, following, is_premium, profile_picture, bio, social_links').eq('id', uid).maybeSingle()
             ]);
 
             let finalStats = stats;

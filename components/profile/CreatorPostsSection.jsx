@@ -6,7 +6,7 @@ import { Alert } from 'react-native';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-export const CreatorPostsSection = ({ posts = [], isOwner = false, onRefresh }) => {
+export const CreatorPostsSection = ({ posts = [], isOwner = false, onRefresh, onPostPress }) => {
 
     const handleDelete = async (video) => {
         Alert.alert(
@@ -35,8 +35,10 @@ export const CreatorPostsSection = ({ posts = [], isOwner = false, onRefresh }) 
         <View style={{ marginBottom: 24, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
             {posts.length > 0 ? (
                 posts.map((post, index) => (
-                    <View
+                    <TouchableOpacity
                         key={post.id || index}
+                        activeOpacity={0.9}
+                        onPress={() => onPostPress && onPostPress(post, index)}
                         style={{
                             width: (Dimensions.get('window').width - 60) / 3, // 3 column grid with padding
                             height: 180,
@@ -122,27 +124,21 @@ export const CreatorPostsSection = ({ posts = [], isOwner = false, onRefresh }) 
                                 <Ionicons name="trash-outline" size={14} color="#FFFFFF" />
                             </TouchableOpacity>
                         )}
-                    </View>
+                    </TouchableOpacity>
                 ))
             ) : (
-                // Placeholder band when no posts
-                [1, 2, 3].map((_, i) => (
-                    <View
-                        key={i}
-                        style={{
-                            width: (Dimensions.get('window').width - 60) / 3,
-                            height: 180,
-                            borderRadius: 12,
-                            backgroundColor: '#1A2A26',
-                            marginHorizontal: 3,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            opacity: 0.3
-                        }}
-                    >
-                        <Ionicons name="image-outline" size={30} color="#FFFFFF" />
-                    </View>
-                ))
+                // Empty State Message
+                <View style={{ width: '100%', paddingVertical: 40, alignItems: 'center' }}>
+                    <Ionicons name="videocam-off-outline" size={40} color="rgba(255,255,255,0.2)" />
+                    <Text style={{
+                        fontFamily,
+                        fontSize: 14,
+                        color: 'rgba(255,255,255,0.4)',
+                        marginTop: 10
+                    }}>
+                        Hiç içerik yok
+                    </Text>
+                </View>
             )}
         </View>
     );

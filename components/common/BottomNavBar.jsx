@@ -44,8 +44,11 @@ const BottomNavBar = React.memo(({ activeTab }) => {
     router.replace(to);
   }, [router]);
 
+  const isKelam = resolvedActive === 'kelam';
+  const navBackgroundColor = isKelam ? '#101E1A' : '#182723';
+
   return (
-    <View style={[styles.container, { height: 50 + insets.bottom, paddingBottom: insets.bottom }]} pointerEvents="auto">
+    <View style={[styles.container, { height: 50 + insets.bottom, paddingBottom: insets.bottom, backgroundColor: navBackgroundColor }]} pointerEvents="auto">
       {items.map(({ key, Icon, to }) => {
         const focused = resolvedActive === key;
         return (

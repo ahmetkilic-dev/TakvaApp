@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-export const ProfileHeader = ({ name, email, photoURL, onEditPress, role, followerCount, postCount, applicationStatus }) => {
+export const ProfileHeader = ({ name, email, photoURL, onEditPress, role, followerCount, postCount, applicationStatus, bio, socialLinks }) => {
     const isCreator = role === 'creator' || applicationStatus === 'approved';
 
     // Helper to format large numbers
@@ -15,85 +16,112 @@ export const ProfileHeader = ({ name, email, photoURL, onEditPress, role, follow
     };
 
     return (
-        <View style={{ flexDirection: 'row', marginBottom: 24, alignItems: 'center' }}>
-            {/* Avatar with Edit Icon */}
-            <View style={{ position: 'relative', marginRight: 12 }}>
-                <View
-                    style={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: 40,
-                        borderWidth: 1.5,
-                        borderColor: 'rgba(255, 255, 255, 0.4)',
-                        backgroundColor: '#14201D',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        overflow: 'hidden'
-                    }}
-                >
-                    {photoURL ? (
-                        <Image source={{ uri: photoURL }} style={{ width: 80, height: 80 }} />
-                    ) : (
-                        <Ionicons name="person" size={40} color="#FFFFFF" />
+        <View style={{ marginBottom: 24 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {/* Avatar with Edit Icon */}
+                <View style={{ position: 'relative', marginRight: 16 }}>
+                    <View
+                        style={{
+                            width: 88,
+                            height: 88,
+                            borderRadius: 44,
+                            borderWidth: 1.5,
+                            borderColor: 'rgba(255, 255, 255, 0.4)',
+                            backgroundColor: '#14201D',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'hidden'
+                        }}
+                    >
+                        {photoURL ? (
+                            <Image
+                                source={{ uri: photoURL }}
+                                style={{ width: 88, height: 88, borderRadius: 44 }}
+                                contentFit="cover"
+                                transition={500}
+                            />
+                        ) : (
+                            <Ionicons name="person" size={44} color="#FFFFFF" />
+                        )}
+                    </View>
+
+                    {/* Edit Icon Button - Top Right */}
+                    {onEditPress && (
+                        <TouchableOpacity
+                            onPress={onEditPress}
+                            activeOpacity={0.8}
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                                width: 24,
+                                height: 24,
+                                borderRadius: 12,
+                                backgroundColor: '#24322E',
+                                borderWidth: 1.5,
+                                borderColor: '#FFFFFF',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 10
+                            }}
+                        >
+                            <Ionicons name="camera" size={12} color="#FFFFFF" />
+                        </TouchableOpacity>
                     )}
                 </View>
 
-                {/* Edit Icon Button */}
-                <TouchableOpacity
-                    onPress={onEditPress}
-                    activeOpacity={0.8}
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        right: 0,
-                        width: 22,
-                        height: 22,
-                        borderRadius: 11,
-                        backgroundColor: '#24322E',
-                        borderWidth: 1.5,
-                        borderColor: '#FFFFFF',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        zIndex: 10
-                    }}
-                >
-                    <Ionicons name="pencil" size={10} color="#FFFFFF" />
-                </TouchableOpacity>
+                {/* User Info */}
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={{ fontFamily, fontSize: 22, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
+                        {name || "Misafir Kullanıcı"}
+                    </Text>
+                    <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)', marginBottom: 6 }}>
+                        {email || "Misafir"}
+                    </Text>
+
+                    {isCreator && (
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ fontFamily, fontSize: 14, color: 'white', fontWeight: '600' }}>
+                                {formatNumber(followerCount || 0)}
+                                <Text style={{ fontWeight: '400', color: 'rgba(255,255,255,0.6)' }}> takipçi</Text>
+                            </Text>
+                            <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.3)', marginHorizontal: 8 }} />
+                            <Text style={{ fontFamily, fontSize: 14, color: 'white', fontWeight: '600' }}>
+                                {formatNumber(postCount || 0)}
+                                <Text style={{ fontWeight: '400', color: 'rgba(255,255,255,0.6)' }}> gönderi</Text>
+                            </Text>
+                        </View>
+                    )}
+                </View>
             </View>
 
-            {/* User Info */}
-            <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text style={{ fontFamily, fontSize: 20, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
-                    {name || "Misafir Kullanıcı"}
-                </Text>
-                <Text style={{ fontFamily, fontSize: 12, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)', marginBottom: isCreator ? 4 : 0 }}>
-                    {email || "Giriş yapılmadı"}
-                </Text>
-
-                {isCreator && (
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{
-                            fontFamily,
-                            fontSize: 14,
-                            fontWeight: '400',
-                            color: 'rgba(255, 255, 255, 0.8)',
-                            letterSpacing: -0.28 // -2% of 14px
-                        }}>
-                            {formatNumber(followerCount || 0)} takipçi
-                        </Text>
-                        <View style={{ width: 0.5, height: 16, backgroundColor: '#FFFFFF', marginHorizontal: 8, opacity: 0.3 }} />
-                        <Text style={{
-                            fontFamily,
-                            fontSize: 14,
-                            fontWeight: '400',
-                            color: 'rgba(255, 255, 255, 0.8)',
-                            letterSpacing: -0.28
-                        }}>
-                            {formatNumber(postCount || 0)} gönderi
-                        </Text>
+            {/* Links (Bio removed as requested for profile.jsx) */}
+            {socialLinks && (
+                <View style={{ marginTop: 16 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                        {socialLinks.website && (
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Ionicons name="link" size={14} color="#4ADE80" style={{ transform: [{ rotate: '-45deg' }], marginRight: 4 }} />
+                                <Text style={{ fontFamily, fontSize: 13, color: '#4ADE80' }}>
+                                    {socialLinks.website.replace(/^https?:\/\//, '')}
+                                </Text>
+                            </View>
+                        )}
+                        {socialLinks.instagram && (
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Ionicons name="logo-instagram" size={14} color="rgba(255,255,255,0.6)" style={{ marginRight: 4 }} />
+                                <Text style={{ fontFamily, fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>{socialLinks.instagram}</Text>
+                            </View>
+                        )}
+                        {socialLinks.twitter && (
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Ionicons name="logo-twitter" size={14} color="rgba(255,255,255,0.6)" style={{ marginRight: 4 }} />
+                                <Text style={{ fontFamily, fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>{socialLinks.twitter}</Text>
+                            </View>
+                        )}
                     </View>
-                )}
-            </View>
+                </View>
+            )}
         </View>
     );
 };

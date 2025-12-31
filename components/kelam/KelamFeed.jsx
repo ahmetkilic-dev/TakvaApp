@@ -7,8 +7,8 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 /**
  * Main Feed Component for Kelam Videos
  */
-export const KelamFeed = ({ videos, onLike }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
+export const KelamFeed = ({ videos, onLike, onEndReached, initialIndex = 0 }) => {
+    const [activeIndex, setActiveIndex] = useState(initialIndex);
     const [isMuted, setIsMuted] = useState(false);
 
     const onViewableItemsChanged = useRef(({ viewableItems }) => {
@@ -30,6 +30,12 @@ export const KelamFeed = ({ videos, onLike }) => {
         />
     ), [activeIndex, isMuted, onLike]);
 
+    const getItemLayout = useCallback((data, index) => ({
+        length: SCREEN_HEIGHT,
+        offset: SCREEN_HEIGHT * index,
+        index,
+    }), []);
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -48,6 +54,10 @@ export const KelamFeed = ({ videos, onLike }) => {
                 maxToRenderPerBatch={2}
                 windowSize={3}
                 removeClippedSubviews={true}
+                onEndReached={onEndReached}
+                onEndReachedThreshold={3}
+                initialScrollIndex={initialIndex}
+                getItemLayout={getItemLayout}
             />
         </View>
     );

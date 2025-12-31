@@ -20,6 +20,9 @@ export const useProfile = () => {
     const profileData = useMemo(() => ({
         id: profile.id,
         name: profile.name || user?.displayName || "Misafir Kullanıcı",
+        profile_picture: profile.profile_picture,
+        bio: profile.bio || profile.social_links?.bio || '',
+        social_links: profile.social_links || {},
         stats: {
             totalVerses: stats.total_verses || 0,
             totalSalavat: stats.total_salavat || 0,

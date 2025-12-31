@@ -1,7 +1,8 @@
-import { View, Text, ScrollView, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Dimensions, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 
 // Common Components
 import ScreenBackground from '../../../components/common/ScreenBackground';
@@ -15,6 +16,9 @@ import PersonalStatsGrid from '../../../components/profile/PersonalStatsGrid';
 import PremiumBanner from '../../../components/profile/PremiumBanner';
 import CreatorPostsSection from '../../../components/profile/CreatorPostsSection';
 import { KelamService } from '../../../services/KelamService';
+import { R2UploadService } from '../../../services/R2UploadService';
+import { supabase } from '../../../lib/supabase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect, useCallback } from 'react';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -42,6 +46,57 @@ export default function ProfilScreen() {
   useEffect(() => {
     loadCreatorVideos();
   }, [loadCreatorVideos]);
+
+  const handleProfilePictureUpload = async () => {
+    try {
+      // Request permission
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('İzin Gerekli', 'Fotoğraf seçmek için galeri izni gerekiyor.');
+        return;
+      }
+
+      // Pick image
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+      });
+
+      if (result.canceled) return;
+
+      const imageUri = result.assets[0].uri;
+
+      // Upload to R2
+      const fileName = `profile_${user?.uid || profileData?.id}_${Date.now()}.jpg`;
+      const imageUrl = await R2UploadService.uploadFile(imageUri, fileName, 'image/jpeg');
+
+      // Update Supabase
+      const userId = profileData?.id || user?.uid;
+      console.log('[ProfileUpload] Updating Supabase for user:', userId);
+      console.log('[ProfileUpload] Image URL:', imageUrl);
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .update({ profile_picture: imageUrl })
+        .eq('id', userId)
+        .select();
+
+      console.log('[ProfileUpload] Supabase response:', { data, error });
+
+      if (error) throw error;
+
+      Alert.alert('Başarılı', 'Profil fotoğrafınız güncellendi!');
+
+      // Clear cache and force reload
+      await AsyncStorage.removeItem('@user_stats_cache');
+      router.replace('/(app)/(tabs)/profile');
+    } catch (error) {
+      console.error('Profile picture upload error:', error);
+      Alert.alert('Hata', 'Profil fotoğrafı yüklenirken bir sorun oluştu.');
+    }
+  };
 
   if (loading) {
     return (
@@ -76,16 +131,24 @@ export default function ProfilScreen() {
           overScrollMode="never"
           contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 40 }}
         >
+          {console.log('[Profile] ===== DEBUG START =====')}
+          {console.log('[Profile] user?.uid:', user?.uid)}
+          {console.log('[Profile] profileData:', JSON.stringify(profileData, null, 2))}
+          {console.log('[Profile] profile_picture:', profileData.profile_picture)}
+          {console.log('[Profile] ===== DEBUG END =====')}
           <ProfileHeader
             name={profileData.name || user?.displayName || "Misafir Kullanıcı"}
             email={user?.email || "Giriş yapılmadı"}
-            photoURL={user?.photoURL}
-            onEditPress={() => { }}
+            photoURL={profileData.profile_picture || user?.photoURL}
+            onEditPress={handleProfilePictureUpload}
             role={profileData.role}
             followerCount={profileData.followerCount}
             postCount={profileData.postCount}
             applicationStatus={profileData.applicationStatus}
+            bio={profileData.bio}
+            socialLinks={profileData.social_links}
           />
+
 
           <QuickStatsRow
             followingCount={profileData.followingCount}
@@ -100,6 +163,12 @@ export default function ProfilScreen() {
                 posts={creatorVideos}
                 isOwner={true}
                 onRefresh={loadCreatorVideos}
+                onPostPress={(video, index) => {
+                  router.push({
+                    pathname: '/(app)/(services)/creator-feed',
+                    params: { id: profileData.id, initialVideoId: video.id }
+                  });
+                }}
               />
               <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.1)', marginBottom: 24 }} />
             </>
