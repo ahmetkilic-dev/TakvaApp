@@ -125,7 +125,7 @@ export const BadgeCategorySection = ({ stats, onTaskPress }) => {
     ];
 
     return (
-        <View style={{ marginBottom: 40 }}>
+        <View style={{ marginBottom: 0 }}>
             {/* Başlık ve Açıklama */}
             <Text
                 style={{
@@ -155,7 +155,7 @@ export const BadgeCategorySection = ({ stats, onTaskPress }) => {
 
             {/* Kategoriler */}
             {badgeCategories.map((category, categoryIndex) => (
-                <View key={categoryIndex} style={{ marginBottom: 32 }}>
+                <View key={categoryIndex} style={{ marginBottom: categoryIndex === badgeCategories.length - 1 ? 0 : 32 }}>
                     <Text
                         style={{
                             fontFamily,

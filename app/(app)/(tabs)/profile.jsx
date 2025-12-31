@@ -127,9 +127,7 @@ export default function ProfilScreen() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          bounces={false}
-          overScrollMode="never"
-          contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 40 }}
+          contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 20 }}
         >
           {console.log('[Profile] ===== DEBUG START =====')}
           {console.log('[Profile] user?.uid:', user?.uid)}

@@ -54,7 +54,7 @@ export default function KelamUploadScreen() {
                 {
                     compressionMethod: 'auto',
                     maxWidth: 1080, // 1080p (Full HD)
-                    minimumBitrate: 6000000, // 6 Mbps (Yüksek Kalite)
+                    minimumBitrate: 10000000, // 10 Mbps (Pro Kalite)
                     input: 'uri',
                 },
                 (progress) => {

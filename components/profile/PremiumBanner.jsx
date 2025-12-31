@@ -16,7 +16,7 @@ export const PremiumBanner = ({ onPress, isPremium }) => {
                 borderWidth: 0.5,
                 borderColor: 'rgba(207, 155, 71, 0.5)',
                 overflow: 'visible',
-                marginBottom: 32
+                marginBottom: 0
             }}
         >
             <LinearGradient

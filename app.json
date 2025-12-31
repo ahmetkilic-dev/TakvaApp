@@ -37,6 +37,10 @@
       },
       "backgroundColor": "#04100D",
       "edgeToEdgeEnabled": true,
+      "androidNavigationBar": {
+        "visible": "none",
+        "backgroundColor": "#04100D"
+      },
       "package": "com.wezyapps.takvaapp",
       "permissions": [
         "INTERNET",

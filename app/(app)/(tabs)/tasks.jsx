@@ -46,7 +46,7 @@ export default function TasksScreen() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: 40,
+            paddingBottom: 0,
           }}
         >
           {/* Background Rectangle - Visual effect from original design */}

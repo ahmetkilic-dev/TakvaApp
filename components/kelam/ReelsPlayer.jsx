@@ -11,6 +11,7 @@ import { useUserStats } from '../../contexts/UserStatsContext';
 import { UserService } from '../../services/UserService';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+import { rsW, rsH, rsF } from '../../utils/responsive';
 
 /**
  * Instagram Reels-style video player
@@ -135,7 +136,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                 {/* Play/Pause Indicator (Optional - simplistic overlay if paused) */}
                 {!isPlaying && isActive && isFocused && (
                     <View style={styles.pauseOverlay}>
-                        <Ionicons name="play" size={50} color="rgba(255,255,255,0.5)" />
+                        <Ionicons name="play" size={rsW(50)} color="rgba(255,255,255,0.5)" />
                     </View>
                 )}
             </TouchableOpacity>
@@ -152,12 +153,18 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                 {/* Profile Picture with Follow Button */}
                 <View style={styles.profileContainer}>
                     <TouchableOpacity onPress={handleProfilePress}>
-                        <Image
-                            source={{ uri: video.creator?.profile_picture || 'https://via.placeholder.com/50' }}
-                            style={styles.profilePic}
-                            contentFit="cover"
-                            transition={500}
-                        />
+                        {video.creator?.profile_picture ? (
+                            <Image
+                                source={{ uri: video.creator.profile_picture }}
+                                style={styles.profilePic}
+                                contentFit="cover"
+                                transition={500}
+                            />
+                        ) : (
+                            <View style={[styles.profilePic, { backgroundColor: 'rgba(255,255,255,0.1)', alignItems: 'center', justifyContent: 'center' }]}>
+                                <Ionicons name="person" size={rsW(24)} color="rgba(255,255,255,0.5)" />
+                            </View>
+                        )}
                     </TouchableOpacity>
                     {!isFollowing && !isOwner && (
                         <TouchableOpacity
@@ -167,15 +174,15 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                         >
                             {isFollowLoading ? (
-                                <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: 'white' }} />
+                                <View style={{ width: rsW(8), height: rsW(8), borderRadius: rsW(4), backgroundColor: 'white' }} />
                             ) : (
-                                <Ionicons name="add" size={16} color="#FFFFFF" />
+                                <Ionicons name="add" size={rsW(16)} color="#FFFFFF" />
                             )}
                         </TouchableOpacity>
                     )}
                     {isFollowing && !isOwner && (
                         <View style={[styles.followButton, { backgroundColor: '#4ADE80' }]}>
-                            <Ionicons name="checkmark" size={14} color="#FFFFFF" />
+                            <Ionicons name="checkmark" size={rsW(14)} color="#FFFFFF" />
                         </View>
                     )}
                 </View>
@@ -184,7 +191,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                 <TouchableOpacity style={styles.actionButton} onPress={onLike}>
                     <Ionicons
                         name={video.isLiked ? "heart" : "heart-outline"}
-                        size={32}
+                        size={rsW(32)}
                         color={video.isLiked ? '#FF4B4B' : '#FFFFFF'}
                     />
                     <Text style={styles.actionText}>{video.likes_count || 0}</Text>
@@ -192,7 +199,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
 
                 {/* Share Button */}
                 <TouchableOpacity style={styles.actionButton}>
-                    <Ionicons name="arrow-redo-outline" size={30} color="#FFFFFF" />
+                    <Ionicons name="arrow-redo-outline" size={rsW(30)} color="#FFFFFF" />
                     <Text style={styles.actionText}>Paylaş</Text>
                 </TouchableOpacity>
             </View>
@@ -256,29 +263,29 @@ const styles = StyleSheet.create({
     // Right Side Actions
     rightActions: {
         position: 'absolute',
-        right: 12,
-        bottom: 120,
+        right: rsW(12),
+        bottom: rsH(120),
         alignItems: 'center',
-        gap: 20,
+        gap: rsH(20),
     },
     profileContainer: {
         position: 'relative',
-        marginBottom: 8,
+        marginBottom: rsH(8),
     },
     profilePic: {
-        width: 48,
-        height: 48,
-        borderRadius: 24,
+        width: rsW(48),
+        height: rsW(48),
+        borderRadius: rsW(24),
         borderWidth: 2,
         borderColor: '#FFFFFF',
     },
     followButton: {
         position: 'absolute',
-        bottom: -8,
-        left: 14,
-        width: 20,
-        height: 20,
-        borderRadius: 10,
+        bottom: -rsH(8),
+        left: rsW(14),
+        width: rsW(20),
+        height: rsW(20),
+        borderRadius: rsW(10),
         backgroundColor: '#FF4B4B',
         alignItems: 'center',
         justifyContent: 'center',
@@ -292,51 +299,51 @@ const styles = StyleSheet.create({
     actionText: {
         fontFamily: 'Plus Jakarta Sans',
         color: '#FFFFFF',
-        fontSize: 11,
+        fontSize: rsF(11),
         fontWeight: '600',
-        marginTop: 4,
+        marginTop: rsH(4),
     },
 
     // Bottom Info
     bottomInfo: {
         position: 'absolute',
-        bottom: 100,
-        left: 16,
-        right: 80,
+        bottom: rsH(100),
+        left: rsW(16),
+        right: rsW(80),
     },
     userRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 6,
+        marginBottom: rsH(6),
     },
     username: {
         fontFamily: 'Plus Jakarta Sans',
         fontWeight: '600',
         color: '#FFFFFF',
-        fontSize: 15,
+        fontSize: rsF(15),
     },
     dot: {
         color: 'rgba(255,255,255,0.6)',
-        fontSize: 15,
+        fontSize: rsF(15),
     },
     timestamp: {
         fontFamily: 'Plus Jakarta Sans',
         color: 'rgba(255,255,255,0.8)',
-        fontSize: 13,
+        fontSize: rsF(13),
     },
     videoTitle: {
         fontFamily: 'Plus Jakarta Sans',
         color: '#FFFFFF',
-        fontSize: 14,
-        lineHeight: 20,
-        marginBottom: 12,
+        fontSize: rsF(14),
+        lineHeight: rsH(20),
+        marginBottom: rsH(12),
     },
 
     // Progress Bar
     progressBarContainer: {
-        height: 2,
+        height: rsH(2),
         backgroundColor: 'rgba(255,255,255,0.3)',
-        borderRadius: 1,
+        borderRadius: rsW(1),
         overflow: 'hidden',
     },
     progressBar: {

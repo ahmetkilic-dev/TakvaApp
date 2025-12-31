@@ -81,11 +81,14 @@ export default function RootLayout() {
   useEffect(() => {
     if (Platform.OS === 'android') {
       const setNavBar = async () => {
-        await NavigationBar.setBackgroundColorAsync("#04100D");
-        await NavigationBar.setButtonStyleAsync("light");
-        // İsteğe bağlı: Tam ekran (immersive) mod için gizle
-        // await NavigationBar.setVisibilityAsync("hidden"); 
-        // await NavigationBar.setBehaviorAsync("overlay-swipe");
+        try {
+          await NavigationBar.setBackgroundColorAsync("#04100D00"); // Transparent or matching
+          await NavigationBar.setButtonStyleAsync("light");
+          await NavigationBar.setVisibilityAsync("hidden");
+          await NavigationBar.setBehaviorAsync("overlay-swipe");
+        } catch (e) {
+          console.log('NavBar error:', e);
+        }
       };
 
       setNavBar();

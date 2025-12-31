@@ -10,6 +10,8 @@ import KelamService from '../../../services/KelamService';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
+import { rsW, rsH, rsF } from '../../../utils/responsive';
+
 export default function KelamScreen() {
     const router = useRouter();
     const insets = useSafeAreaInsets();
@@ -117,7 +119,7 @@ export default function KelamScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#04100D',
+        backgroundColor: '#000',
     },
     headerContainer: {
         position: 'absolute',
@@ -127,32 +129,32 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 20,
+        paddingHorizontal: rsW(10), // Reduced to move buttons closer to edges
         zIndex: 100,
     },
     headerSide: {
-        width: 44,
+        width: rsW(60), // Reduced width to allow title more space and buttons to be closer to edges
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
     },
     headerIconButton: {
-        width: 44,
-        height: 44,
+        width: rsW(44),
+        height: rsW(44),
         alignItems: 'center',
         justifyContent: 'center',
     },
     standardTitle: {
         fontFamily: 'Cinzel-Black',
         color: '#FFFFFF',
-        fontSize: 24,
+        fontSize: rsF(26), // Increased from 20 to 26
         textAlign: 'center',
-        letterSpacing: -2,
+        letterSpacing: rsW(1),
     },
     centerContent: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 40,
+        padding: rsW(20),
     },
     subtitlesText: {
         fontFamily: 'Plus Jakarta Sans',

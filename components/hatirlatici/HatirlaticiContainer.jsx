@@ -148,7 +148,7 @@ export default function HatirlaticiContainer() {
         contentContainerStyle={{
           paddingHorizontal: horizontalPadding,
           paddingTop: 24,
-          paddingBottom: 40,
+          paddingBottom: 20,
         }}
         style={{ flex: 1 }}
       >
@@ -167,7 +167,7 @@ export default function HatirlaticiContainer() {
         </View>
 
         {/* Özel Hatırlatıcılar */}
-        <View style={{ marginTop: 32, marginBottom: 24 }}>
+        <View style={{ marginTop: 32, marginBottom: 0 }}>
           <Text
             style={{
               fontFamily,
@@ -195,7 +195,7 @@ export default function HatirlaticiContainer() {
 
           {/* Özel Hatırlatıcı Kartları */}
           {customReminders.length > 0 && (
-            <View style={{ gap: 16, marginBottom: 24 }}>
+            <View style={{ gap: 16, marginBottom: 0 }}>
               {customReminders.map((reminder) => (
                 <CustomReminderCard
                   key={reminder.id}

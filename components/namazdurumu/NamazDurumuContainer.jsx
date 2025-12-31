@@ -96,7 +96,7 @@ export default function NamazDurumuContainer() {
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
-            paddingBottom: Math.max(0, insets.bottom) + 80, // bottom nav overlap safety
+            paddingBottom: 0,
           }}
         >
           {/* Main Image */}
