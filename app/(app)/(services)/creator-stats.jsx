@@ -93,7 +93,7 @@ export default function CreatorStatsScreen() {
                     style: 'destructive',
                     onPress: async () => {
                         try {
-                            await KelamService.deleteVideo(video.id, video.video_url);
+                            await KelamService.deleteVideo(video.id, video.video_url, video.thumbnail_url);
                             Alert.alert('Başarılı', 'Video silindi.');
                             loadVideos(); // Listeyi yenile
                         } catch (error) {

@@ -19,7 +19,7 @@ export const CreatorPostsSection = ({ posts = [], isOwner = false, onRefresh }) 
                     style: 'destructive',
                     onPress: async () => {
                         try {
-                            await KelamService.deleteVideo(video.id, video.video_url);
+                            await KelamService.deleteVideo(video.id, video.video_url, video.thumbnail_url);
                             Alert.alert('Başarılı', 'Video silindi.');
                             if (onRefresh) onRefresh();
                         } catch (error) {

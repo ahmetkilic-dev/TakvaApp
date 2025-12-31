@@ -45,7 +45,7 @@ export default function KelamUploadScreen() {
                 throw new Error('Kullanıcı kimliği bulunamadı.');
             }
 
-            // 1. Dosyayı Blob'a çevirmeden önce Sıkıştırma (720p)
+            // 1. Video Sıkıştırma (720p Zorlama)
             setUploadStep('compressing');
             console.log('[Compressor] Sıkıştırma başlatılıyor...', videoUri);
 
@@ -53,8 +53,8 @@ export default function KelamUploadScreen() {
                 videoUri,
                 {
                     compressionMethod: 'auto',
-                    maxWidth: 720, // 720p resolution cap (Shorter side)
-                    minimumBitrate: 1500000, // 720p için ideal kalite
+                    maxWidth: 720,
+                    minimumBitrate: 1500000,
                     input: 'uri',
                 },
                 (progress) => {
@@ -64,15 +64,40 @@ export default function KelamUploadScreen() {
 
             console.log('[Compressor] Sıkıştırma bitti:', compressedUri);
 
-            // 2. Yükleme
-            setUploadStep('uploading');
-            const fileName = `kelam_${Date.now()}.mp4`;
-            const videoUrl = await R2UploadService.uploadFile(compressedUri, fileName, 'video/mp4');
+            // 1.1 Önizleme Fotoğrafı (Thumbnail)
+            setUploadStep('thumbnailing');
+            console.log('[Compressor] Thumbnail oluşturuluyor...');
+            let thumbnailUri = null;
+            try {
+                const thumbnailResult = await Video.getVideoThumbnail(videoUri, {
+                    quality: 0.5,
+                });
+                thumbnailUri = thumbnailResult.path;
+                console.log('[Compressor] Thumbnail oluşturuldu:', thumbnailUri);
+            } catch (err) {
+                console.error('[Compressor] Thumbnail hatası:', err);
+            }
 
-            // 3. Metadata Kaydı
+            // 2. Yükleme (Video + Thumbnail)
+            setUploadStep('uploading');
+            const timestamp = Date.now();
+            const videoFileName = `kelam_${timestamp}.mp4`;
+            const thumbFileName = `kelam_${timestamp}.jpg`;
+
+            // Videoyu yükle
+            const videoUrl = await R2UploadService.uploadFile(compressedUri, videoFileName, 'video/mp4');
+
+            // Thumbnail yükle (Varsa)
+            let thumbUrl = null;
+            if (thumbnailUri) {
+                thumbUrl = await R2UploadService.uploadFile(thumbnailUri, thumbFileName, 'image/jpeg');
+            }
+
+            // 3. Metadata Kaydı (Thumbnail URL eklendi)
             await KelamService.saveVideoMetadata({
                 creator_id: creatorId,
                 video_url: videoUrl,
+                thumbnail_url: thumbUrl,
                 title: title,
                 views_count: 0,
                 likes_count: 0,
@@ -142,7 +167,8 @@ export default function KelamUploadScreen() {
                         <View style={styles.loadingRow}>
                             <ActivityIndicator color="#04100D" size="small" />
                             <Text style={styles.uploadButtonText}>
-                                {uploadStep === 'compressing' ? 'Optimize Ediliyor...' : 'Yükleniyor...'}
+                                {uploadStep === 'compressing' ? 'Optimize Ediliyor...' :
+                                    uploadStep === 'thumbnailing' ? 'Kapak Oluşturuluyor...' : 'Yükleniyor...'}
                             </Text>
                         </View>
                     ) : (

@@ -56,7 +56,7 @@ export default function KelamScreen() {
                     {isCreator && (
                         <TouchableOpacity
                             style={styles.headerIconButton}
-                            onPress={() => router.push('/(app)/(services)/kelam-upload')}
+                            onPress={() => router.push('/(app)/(services)/kelamupload')}
                         >
                             <Ionicons name="add" size={30} color="#FFFFFF" />
                         </TouchableOpacity>

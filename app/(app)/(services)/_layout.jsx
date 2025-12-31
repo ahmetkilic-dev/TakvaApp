@@ -32,6 +32,7 @@ export default function ServicesLayout() {
             <Stack.Screen name="namazdurumu" />
             <Stack.Screen name="creator-edit" />
             <Stack.Screen name="creator-stats" />
+            <Stack.Screen name="kelamupload" />
         </Stack>
     );
 }

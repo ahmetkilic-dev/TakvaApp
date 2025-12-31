@@ -13,7 +13,7 @@ export const KelamService = {
                 .from('kelam_videos')
                 .select(`
                     *,
-                    creator:profiles!kelam_videos_creator_id_fkey(id, name)
+                    creator:profiles!kelam_videos_creator_id_fkey(id, name, username)
                 `)
                 .order('created_at', { ascending: false })
                 .range(offset, offset + limit - 1);
@@ -103,21 +103,23 @@ export const KelamService = {
     /**
      * Delete a video (Supabase record + R2 file)
      */
-    async deleteVideo(videoId, videoUrl) {
+    async deleteVideo(videoId, videoUrl, thumbUrl) {
         try {
-            // 1. R2'den dosyayı siliyoruz (Worker üzerinden)
-            if (videoUrl) {
-                const fileName = videoUrl.split('/').pop();
-                const workerUrl = 'https://takva-uploader.dev-400.workers.dev'; // R2UploadService'den çekilebilir
+            const workerUrl = 'https://takva-uploader.dev-400.workers.dev';
 
+            const deleteFile = async (url) => {
+                if (!url) return;
                 try {
-                    await fetch(`${workerUrl}/${fileName}`, {
-                        method: 'DELETE'
-                    });
+                    const fileName = url.split('/').pop();
+                    await fetch(`${workerUrl}/${fileName}`, { method: 'DELETE' });
                 } catch (e) {
-                    console.error('R2 deletion skipped/failed:', e);
+                    console.error('R2 deletion failed:', url, e);
                 }
-            }
+            };
+
+            // 1. R2'den dosyaları siliyoruz (Video + Thumbnail)
+            await deleteFile(videoUrl);
+            await deleteFile(thumbUrl);
 
             // 2. Supabase'den kaydı siliyoruz
             const { error } = await supabase

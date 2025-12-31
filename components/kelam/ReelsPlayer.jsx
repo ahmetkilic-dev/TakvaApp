@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 import { useVideoPlayer, VideoView } from 'expo-video';
+import { useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -19,16 +20,18 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
         }
     });
 
+    const isFocused = useIsFocused();
+
     useEffect(() => {
         if (!player) return;
 
-        if (isActive) {
+        if (isActive && isFocused) {
             console.log("Playing video:", video.video_url);
             player.play();
         } else {
             player.pause();
         }
-    }, [isActive, player, video.video_url]);
+    }, [isActive, isFocused, player, video.video_url]);
 
     useEffect(() => {
         player.muted = isMuted;
@@ -53,7 +56,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
             {/* Video Info & Interactions */}
             <View style={styles.overlayContainer}>
                 <View style={styles.leftInfo}>
-                    <Text style={styles.creatorName}>@{video.creator?.name || 'Yazar'}</Text>
+                    <Text style={styles.creatorName}>{video.creator?.username || video.creator?.name || 'Yazar'}</Text>
                     <Text style={styles.videoTitle} numberOfLines={2}>{video.title}</Text>
                 </View>
 
