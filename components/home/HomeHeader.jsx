@@ -8,7 +8,7 @@ import { useLocation } from '../../contexts/LocationContext';
 import icHatirlatici from '../../assets/images/hatirlatici.png';
 import icIlim from '../../assets/images/ilim.png';
 import icKible from '../../assets/images/kible.png';
-import icTakvim from '../../assets/images/takvim.png';
+import icKuran from '../../assets/hizmetler/kuran.png';
 import icDahaFazla from '../../assets/images/daha-fazlasi.png';
 
 // 🚀 ALADHAN API
@@ -192,7 +192,7 @@ const HomeHeader = React.memo(() => {
     { image: icHatirlatici, label: 'Hatırlatıcı', path: '/(app)/(services)/hatirlatici' },
     { image: icIlim, label: 'İlim', path: '/(app)/(services)/ilim' },
     { image: icKible, label: 'Kıble', path: '/(app)/(services)/qibla' },
-    { image: icTakvim, label: 'Takvim', path: '/(app)/(services)/diniGunler' },
+    { image: icKuran, label: 'Kuran', path: '/(app)/(services)/quran' },
     { image: icDahaFazla, label: 'Daha fazlası', path: '/(app)/(services)/guide-detail' },
   ], []);
 

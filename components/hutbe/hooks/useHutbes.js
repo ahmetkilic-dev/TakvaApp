@@ -59,65 +59,89 @@ const getLastFriday = () => {
 const parseHutbes = (html) => {
   try {
     const hutbes = [];
+    const currentFriday = getLastFriday();
 
-    // YENİ STRATEJİ: JSON/JS Objesi İçinden Veri Çekme
+    // Strategy 1: JSON/JS Object Regex (Primary)
+    // Looks for patterns like "PDF": "url"
     const jsonRegex = /"PDF"\s*:\s*"([^"]+)"/gi;
     const jsonMatches = Array.from(html.matchAll(jsonRegex));
 
-    console.log(`JSON Regex found ${jsonMatches.length} matches`);
+    // Strategy 2: HTML Anchor Tags (Fallback)
+    // Looks for href="...pdf" inside <a> tags
+    // Match href inside anchor, capturing the URL and potential text content
+    const anchorRegex = /<a[^>]+href=["']([^"']+\.pdf)["'][^>]*>(.*?)<\/a>|href=["']([^"']+\.pdf)["']/gi;
+    const anchorMatches = Array.from(html.matchAll(anchorRegex));
 
-    if (jsonMatches.length > 0) {
-      // En son Cuma'yı bul
-      let currentFriday = getLastFriday();
+    console.log(`Parsing Strategy: JSON matches: ${jsonMatches.length}, Anchor matches: ${anchorMatches.length}`);
 
-      jsonMatches.forEach((m, index) => {
-        let rawUrl = m[1];
-        if (!rawUrl) return;
+    // Combine matches, prioritizing JSON if available but falling back to anchors
+    // We will process JSON matches first, then anchors, and deduplicate by URL
 
-        // Unicode ve escape temizliği
-        rawUrl = rawUrl.replace(/\\u([0-9a-fA-F]{4})/g, (match, grp) => String.fromCharCode(parseInt(grp, 16)));
-        rawUrl = rawUrl.replace(/\\/g, '');
+    // Helper to process a raw URL
+    const processUrl = (rawUrl) => {
+      if (!rawUrl) return null;
+      // Unicode/Clean
+      let cleaned = rawUrl.replace(/\\u([0-9a-fA-F]{4})/g, (match, grp) => String.fromCharCode(parseInt(grp, 16)));
+      cleaned = cleaned.replace(/\\/g, '').trim();
 
-        let pdfUrl = rawUrl.trim();
+      // Fix relative URLs
+      if (cleaned.startsWith('http')) return cleaned;
+      if (cleaned.startsWith('/')) return BASE_URL + cleaned;
+      return BASE_URL + '/' + cleaned;
+    };
 
-        // Link tamamlama
-        if (pdfUrl.startsWith('http')) {
-          // ok
-        } else if (pdfUrl.startsWith('/')) {
-          pdfUrl = BASE_URL + pdfUrl;
-        } else {
-          pdfUrl = BASE_URL + '/' + pdfUrl;
-        }
+    const processTitle = (url, rawTitle) => {
+      // Decode title if present, otherwise fallback to filename
+      let title = rawTitle ? rawTitle.replace(/<[^>]*>/g, '').trim() : '';
+      if (!title || title === 'PDF' || title === 'İndir') {
+        title = url.split('/').pop()?.replace('.pdf', '') || 'Hutbe';
+      }
+      try { return decodeURIComponent(title); } catch { return title; }
+    };
 
-        // Dosya isminden başlık
-        let title = pdfUrl.split('/').pop()?.replace('.pdf', '') || 'Hutbe';
-        try { title = decodeURIComponent(title); } catch (e) { }
+    const validUrls = new Set();
+    const rawItems = [];
 
-        // Tarih Hesaplama: Her hutbe için 1 hafta geri git
-        // Listenin sıralı olduğunu varsayıyoruz (En yeni en üstte)
-        // Index 0: Bu haftanın Cuma'sı
-        // Index 1: Geçen haftanın Cuma'sı
-        const hutbeDate = new Date(currentFriday);
-        hutbeDate.setDate(currentFriday.getDate() - (index * 7));
+    // 1. Process JSON Matches
+    jsonMatches.forEach(m => {
+      const url = processUrl(m[1]);
+      if (url) rawItems.push({ url, title: null, source: 'json' });
+    });
 
-        const dateStr = formatDate(hutbeDate);
+    // 2. Process Anchor Matches
+    // anchorRegex groups: 1=url (with <a>), 2=text (with <a>), 3=url (standalone href)
+    anchorMatches.forEach(m => {
+      const url = processUrl(m[1] || m[3]);
+      const text = m[2];
+      if (url) rawItems.push({ url, title: text, source: 'html' });
+    });
 
-        // Duplicate kontrolü
-        if (pdfUrl.includes('.pdf') && !hutbes.some(h => h.pdfUrl === pdfUrl)) {
-          hutbes.push({
-            id: index + 2000,
-            title: title.trim(),
-            date: dateStr,
-            pdfUrl
-          });
-        }
+    // 3. Convert to Hutbe Objects
+    // We assume the list is ordered by date (newest first)
+    rawItems.forEach((item) => {
+      // Deduplicate
+      if (validUrls.has(item.url)) return;
+      validUrls.add(item.url);
+
+      const title = processTitle(item.url, item.title);
+
+      // Date Calculation based on index of *unique* items found so far
+      const index = hutbes.length;
+      const hutbeDate = new Date(currentFriday);
+      hutbeDate.setDate(currentFriday.getDate() - (index * 7));
+      const dateStr = formatDate(hutbeDate);
+
+      hutbes.push({
+        id: index + 2000,
+        title: title,
+        date: dateStr,
+        pdfUrl: item.url
       });
-    }
+    });
 
-    // Fallback kısmı şimdilik pasif çünkü JSON çalışıyor.
-
-    console.log(`Parsed ${hutbes.length} hutbes total`);
+    console.log(`Parsed ${hutbes.length} unique hutbes.`);
     return hutbes;
+
   } catch (error) {
     console.error('ParseHutbes general error:', error);
     return [];

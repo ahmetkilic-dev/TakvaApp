@@ -21,7 +21,7 @@ export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, following
                     <Text style={{ fontFamily, fontSize: 14, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
                         {followingCount}
                     </Text>
-                    <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.8)', textAlign: 'center' }}>
+                    <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)', textAlign: 'center' }}>
                         Takip ettiklerim
                     </Text>
                 </TouchableOpacity>
@@ -30,7 +30,7 @@ export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, following
                     <Text style={{ fontFamily, fontSize: 14, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
                         {badgeCount}
                     </Text>
-                    <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.8)', textAlign: 'center' }}>
+                    <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)', textAlign: 'center' }}>
                         Rozetlerim
                     </Text>
                 </View>
@@ -45,7 +45,7 @@ export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, following
                     }}>
                         {isPremium ? 'Aktif' : 'Aktif değil'}
                     </Text>
-                    <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.8)', textAlign: 'center' }}>
+                    <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)', textAlign: 'center' }}>
                         Premium
                     </Text>
                 </View>

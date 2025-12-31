@@ -3,7 +3,11 @@ import { Stack } from 'expo-router';
 
 export default function ServicesLayout() {
     return (
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: '#04100D' },
+            animation: 'slide_from_right',
+        }}>
             <Stack.Screen name="abdest" />
             <Stack.Screen name="ayarlar" />
             <Stack.Screen name="bildirimler" />
@@ -26,6 +30,8 @@ export default function ServicesLayout() {
             <Stack.Screen name="namazrehber" />
             <Stack.Screen name="hutbe-detail" />
             <Stack.Screen name="namazdurumu" />
+            <Stack.Screen name="creator-edit" />
+            <Stack.Screen name="creator-stats" />
         </Stack>
     );
 }

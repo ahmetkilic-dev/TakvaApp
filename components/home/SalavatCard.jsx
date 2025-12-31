@@ -1,13 +1,13 @@
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Animated, { 
-  useSharedValue, 
-  useAnimatedStyle, 
-  withSpring, 
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
   withTiming, // Yaylanma olmadan hareket için
   runOnJS,
   interpolate,
-  Extrapolation 
+  Extrapolation
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
@@ -38,35 +38,47 @@ export default function SalavatCard() {
   // İşlem tamamlandığında çalışacak fonksiyon
   const handleComplete = () => {
     addOne();
-    // Butonu ve yazıyı SIFIRLAMA (Savrulma olmadan)
+    // Butonu ve yazıyı SIFIRLAMA
     setTimeout(() => {
-      // duration: 0 ile anında başlangıca atar (yaylanmaz)
-      translateX.value = withTiming(0, { duration: 0 });
+      // Yumuşak geri dönüş (Reset)
+      translateX.value = withSpring(0, {
+        damping: 20,
+        stiffness: 90,
+        overshootClamping: true // Geri sekerken taşmasın
+      });
       isCompleted.value = false;
-    }, 100); // 100ms kısa bir bekleme (kullanıcı bittiğini görsün diye)
+    }, 150);
   };
 
-  // Gesture Handler
+  // Gesture Handler - Optimized for extreme smoothness
   const panGesture = Gesture.Pan()
-    .activeOffsetX(5)
-    .failOffsetY([-10, 10])
+    .minDistance(0) // Start immediately
     .onUpdate((event) => {
       // Sadece ileri (sağa) harekete ve işlem bitmemişse izin ver
       if (!isCompleted.value) {
         // Sınırları aşma - 0 ile MAX_DRAG arasında clamp
+        // Linear tracking without delay or threshold
         translateX.value = Math.max(0, Math.min(event.translationX, MAX_DRAG));
       }
     })
     .onEnd(() => {
-      // Eğer %90'dan fazla çekildiyse tamamla
-      if (translateX.value > MAX_DRAG * 0.9) {
-        // Sona giderken de spring değil timing kullanıyoruz ki net dursun
-        translateX.value = withTiming(MAX_DRAG, { duration: 100 });
+      // Eğer %80'den fazla çekildiyse tamamla (Hassasiyeti artırdım)
+      if (translateX.value > MAX_DRAG * 0.8) {
+        // Tamamlama animasyonu (Spring ile daha doğal bitiş)
+        translateX.value = withSpring(MAX_DRAG, {
+          damping: 20,
+          stiffness: 150,
+          mass: 0.5
+        });
         isCompleted.value = true;
         runOnJS(handleComplete)();
       } else {
-        // Yeterince çekilmediyse geri bırak (burada hafif yaylanabilir)
-        translateX.value = withSpring(0, { damping: 20, stiffness: 200 });
+        // Yeterince çekilmediyse geri bırak (Yumuşak rebound)
+        translateX.value = withSpring(0, {
+          damping: 15,
+          stiffness: 120,
+          mass: 0.8 // Biraz daha 'ağır' his
+        });
       }
     });
 
@@ -124,13 +136,13 @@ export default function SalavatCard() {
 
         {/* Metin Alanı */}
         <View style={styles.textContainer}>
-          
+
           {/* ARAPÇA METİN YAPISI (Hizalama Düzeltildi)
               Her iki metin de (Beyaz ve Altın) aynı container içinde
               absolute pozisyonda üst üste bindirildi.
           */}
           <View style={styles.arabicTextWrapper}>
-            
+
             {/* 1. Katman: Beyaz Metin (Arka Plan) */}
             <Text style={[styles.arabicTextBase, { color: '#FFFFFF', opacity: 1 }]}>
               {arabicText}
@@ -138,7 +150,7 @@ export default function SalavatCard() {
 
             {/* 2. Katman: Altın Metin (Maskelenmiş - Sağdan Sola Açılır) */}
             <Animated.View style={[styles.arabicTextMaskContainer, textMaskStyle]}>
-               {/* İçerideki metin kapsayıcısı sabit genişlikte (Parent kadar) olmalı ki
+              {/* İçerideki metin kapsayıcısı sabit genişlikte (Parent kadar) olmalı ki
                   maske daralsa bile metin kaymasın.
                */}
               <View style={styles.arabicTextInnerFixed}>
@@ -245,7 +257,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     paddingHorizontal: 16,
   },
-  
+
   // --- YENİLENEN METİN STİLLERİ ---
   arabicTextWrapper: {
     height: 40, // Yüksekliği sabitledik (font boyutuna göre ayarla)

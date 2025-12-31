@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Vibration, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Vibration, Platform, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as Location from 'expo-location';
@@ -119,46 +119,31 @@ export default function QiblaScreen() {
     const [isQiblaDirection, setIsQiblaDirection] = useState(false);
     const [currentTime, setCurrentTime] = useState('');
     const [compassStarted, setCompassStarted] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     const subscriptionRef = useRef(null);
     const lastVibration = useRef(0);
 
-    // Saat güncelleme
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            const h = now.getHours().toString().padStart(2, '0');
-            const m = now.getMinutes().toString().padStart(2, '0');
-            setCurrentTime(`${h}:${m}`);
-        };
-        updateTime();
-        const timer = setInterval(updateTime, 10000);
-        return () => {
-            stopCompass();
-            clearInterval(timer);
-        };
-    }, []);
+    // --- HELPER FUNCTIONS (Defined before effects) ---
 
-    useEffect(() => {
-        if (hasPermission && userLocation && !compassStarted) {
-            initializeQibla();
-        }
-    }, [hasPermission, userLocation, compassStarted]);
+    const calculateDistance = (lat1, lng1, lat2, lng2) => {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * (Math.PI / 180);
+        const dLng = (lng2 - lng1) * (Math.PI / 180);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    };
 
-    // Kıble açısı değişimini izleme (sadece JS tarafı için gerekirse)
-    useEffect(() => {
-        // ...
-    }, [qiblaAngle]);
-
-    // Reanimated Reaction: Heading değiştiğinde kıble kontrolü yap
-    useAnimatedReaction(
-        () => headingSv.value,
-        (currentHeading) => {
-            const rounded = Math.round(currentHeading);
-            runOnJS(updateUIState)(rounded, qiblaAngle);
-        },
-        [qiblaAngle]
-    );
+    const calculateQiblaAngle = (lat, lng) => {
+        const latRad = lat * (Math.PI / 180);
+        const kaabaLatRad = KAABA_LAT * (Math.PI / 180);
+        const kaabaLngRad = KAABA_LNG * (Math.PI / 180);
+        const lngRad = lng * (Math.PI / 180);
+        const y = Math.sin(kaabaLngRad - lngRad);
+        const x = Math.cos(latRad) * Math.tan(kaabaLatRad) - Math.sin(latRad) * Math.cos(kaabaLngRad - lngRad);
+        let qibla = Math.atan2(y, x) * (180 / Math.PI);
+        return (qibla + 360) % 360;
+    };
 
     const updateUIState = (roundedHeading, targetAngle) => {
         setDisplayHeading(roundedHeading);
@@ -176,48 +161,6 @@ export default function QiblaScreen() {
                 }
             }
         }
-    };
-
-    const initializeQibla = async () => {
-        if (!userLocation) return;
-        const { latitude, longitude } = userLocation;
-        await fetchQiblaDirection(latitude, longitude);
-        startCompass();
-        setCompassStarted(true);
-    };
-
-    const fetchQiblaDirection = async (latitude, longitude) => {
-        try {
-            const response = await fetch(`https://api.aladhan.com/v1/qibla/${latitude}/${longitude}`);
-            const data = await response.json();
-            if (data.code === 200 && data.data) {
-                setQiblaAngle(data.data.direction);
-                const dist = calculateDistance(latitude, longitude, KAABA_LAT, KAABA_LNG);
-                setDistance(Math.round(dist));
-            }
-        } catch (error) {
-            const manualQibla = calculateQiblaAngle(latitude, longitude);
-            setQiblaAngle(manualQibla);
-        }
-    };
-
-    const calculateQiblaAngle = (lat, lng) => {
-        const latRad = lat * (Math.PI / 180);
-        const kaabaLatRad = KAABA_LAT * (Math.PI / 180);
-        const kaabaLngRad = KAABA_LNG * (Math.PI / 180);
-        const lngRad = lng * (Math.PI / 180);
-        const y = Math.sin(kaabaLngRad - lngRad);
-        const x = Math.cos(latRad) * Math.tan(kaabaLatRad) - Math.sin(latRad) * Math.cos(kaabaLngRad - lngRad);
-        let qibla = Math.atan2(y, x) * (180 / Math.PI);
-        return (qibla + 360) % 360;
-    };
-
-    const calculateDistance = (lat1, lng1, lat2, lng2) => {
-        const R = 6371;
-        const dLat = (lat2 - lat1) * (Math.PI / 180);
-        const dLng = (lng2 - lng1) * (Math.PI / 180);
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     };
 
     const startCompass = async () => {
@@ -239,6 +182,31 @@ export default function QiblaScreen() {
         }
     };
 
+    const fetchQiblaDirection = async (latitude, longitude) => {
+        try {
+            const response = await fetch(`https://api.aladhan.com/v1/qibla/${latitude}/${longitude}`);
+            const data = await response.json();
+            if (data.code === 200 && data.data) {
+                setQiblaAngle(data.data.direction);
+                const dist = calculateDistance(latitude, longitude, KAABA_LAT, KAABA_LNG);
+                setDistance(Math.round(dist));
+            }
+        } catch (error) {
+            const manualQibla = calculateQiblaAngle(latitude, longitude);
+            setQiblaAngle(manualQibla);
+        }
+    };
+
+    const initializeQibla = async () => {
+        if (!userLocation) return;
+        const { latitude, longitude } = userLocation;
+        await fetchQiblaDirection(latitude, longitude);
+        startCompass();
+        setCompassStarted(true);
+    };
+
+    // --- ANIMATIONS ---
+
     const compassStyle = useAnimatedStyle(() => {
         return {
             transform: [{ rotate: `-${smoothedHeading.value}deg` }]
@@ -254,12 +222,58 @@ export default function QiblaScreen() {
         };
     });
 
-    if (locationLoading) {
+    // --- EFFECTS ---
+
+    // Mount delay
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setMounted(true);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Time update & Cleanup
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+            const h = now.getHours().toString().padStart(2, '0');
+            const m = now.getMinutes().toString().padStart(2, '0');
+            setCurrentTime(`${h}:${m}`);
+        };
+        updateTime();
+        const timer = setInterval(updateTime, 10000);
+        return () => {
+            stopCompass();
+            clearInterval(timer);
+        };
+    }, []);
+
+    // Initialize when ready
+    useEffect(() => {
+        if (mounted && hasPermission && userLocation && !compassStarted) {
+            initializeQibla();
+        }
+    }, [mounted, hasPermission, userLocation, compassStarted]);
+
+    // Reanimated Reaction
+    useAnimatedReaction(
+        () => headingSv.value,
+        (currentHeading) => {
+            const rounded = Math.round(currentHeading);
+            runOnJS(updateUIState)(rounded, qiblaAngle);
+        },
+        [qiblaAngle]
+    );
+
+    if (locationLoading || !mounted) {
         return (
             <View style={styles.container}>
                 <BackgroundPattern />
                 <SafeAreaView edges={['top']} style={[styles.safeArea, styles.loadingContainer]}>
-                    <Text style={styles.loadingText}>Konum alınıyor...</Text>
+                    <ActivityIndicator size="large" color="#4ECDC4" />
+                    <Text style={[styles.loadingText, { marginTop: 10 }]}>
+                        {locationLoading ? 'Konum alınıyor...' : 'Pusula hazırlanıyor...'}
+                    </Text>
                 </SafeAreaView>
             </View>
         );

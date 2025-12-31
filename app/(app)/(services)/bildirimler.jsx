@@ -83,116 +83,73 @@ export default function BildirimlerScreen() {
           <View className="w-9" />
         </View>
 
+        {/* Content Title */}
+        <View className="items-center mt-4 mb-2 px-10">
+          <Text style={{ fontFamily: 'Plus Jakarta Sans', color: '#FFFFFF', fontSize: 16, fontWeight: '700', marginBottom: 4 }}>Bildirim Ayarları</Text>
+          <Text className="text-center" style={{ fontFamily: 'Plus Jakarta Sans', color: 'rgba(255,255,255,0.6)', fontSize: 10, fontWeight: '400', lineHeight: 14 }}>
+            Takva'dan hangi bildirimleri ne zaman almak istediğini buradan ayarlayabilirsin.
+          </Text>
+        </View>
+
         <ScrollView
           showsVerticalScrollIndicator={false}
+          bounces={false}
+          overScrollMode="never"
           contentContainerStyle={{
-            paddingHorizontal: horizontalPadding,
-            paddingTop: 24,
-            paddingBottom: 40,
+            flexGrow: 1,
+            paddingTop: 12,
           }}
         >
           {/* Bildirimler Section */}
-          <View style={{ marginBottom: 32, alignItems: 'center' }}>
-            <Text
-              style={{
-                fontFamily,
-                fontSize: 16,
-                fontWeight: '700',
-                color: '#FFFFFF',
-                marginBottom: 8,
-                textAlign: 'center',
-              }}
-            >
-              Bildirim Ayarları
-            </Text>
-            <Text
-              style={{
-                fontFamily,
-                fontSize: 10,
-                fontWeight: '400',
-                color: 'rgba(255, 255, 255, 0.6)',
-                marginBottom: 24,
-                lineHeight: 13,
-                textAlign: 'center',
-              }}
-            >
-              Takva'dan hangi bildirimleri ne zaman almak istediğini buradan ayarlayabilirsin.
-            </Text>
-
-            {/* Notifications List */}
-            <View
-              style={{
-                width: '100%',
-                borderRadius: 15,
-                backgroundColor: 'rgba(24, 39, 35, 0.5)',
-                overflow: 'hidden',
-              }}
-            >
-              {notificationConfigs.map((notification, index) => (
-                <View key={notification.id}>
-                  <View
-                    style={{
-                      width: '100%',
-                      paddingVertical: 16,
-                      paddingHorizontal: 16,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <View style={{ flex: 1, marginRight: 12 }}>
-                      <Text
-                        style={{
-                          fontFamily,
-                          fontSize: 16,
-                          fontWeight: '500',
-                          color: '#FFFFFF',
-                          marginBottom: 4,
-                        }}
-                      >
-                        {notification.title}
-                      </Text>
-                      <Text
-                        style={{
-                          fontFamily,
-                          fontSize: 10,
-                          fontWeight: '400',
-                          color: 'rgba(255, 255, 255, 0.8)',
-                        }}
-                      >
-                        {notification.description}
-                      </Text>
-                    </View>
-                    <Switch
-                      value={notificationStates[notification.id]}
-                      onValueChange={() => toggleNotification(notification.id)}
-                      trackColor={{
-                        false: 'rgba(255, 255, 255, 0.2)',
-                        true: '#185C65',
-                      }}
-                      thumbColor="#FFFFFF"
-                      ios_backgroundColor="rgba(255, 255, 255, 0.2)"
+          <View className="flex-1 rounded-t-[20px] p-5 pt-7 pb-40" style={{ backgroundColor: 'rgba(24, 39, 35, 0.9)' }}>
+            {notificationConfigs.map((notification, index) => (
+              <View key={notification.id} className="mb-4">
+                <View
+                  className="flex-row items-center justify-between"
+                >
+                  <View className="flex-1 pr-4">
+                    <Text
                       style={{
-                        transform: Platform.OS === 'ios'
-                          ? [{ scaleX: 0.8 }, { scaleY: 0.8 }]
-                          : [{ scaleX: 1 }, { scaleY: 1 }],
+                        fontFamily,
+                        fontSize: 16,
+                        fontWeight: '500',
+                        color: '#FFFFFF',
                       }}
-                    />
+                    >
+                      {notification.title}
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily,
+                        fontSize: 12,
+                        fontWeight: '400',
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        marginTop: 2
+                      }}
+                    >
+                      {notification.description}
+                    </Text>
                   </View>
-
-                  {index < notificationConfigs.length - 1 && (
-                    <View
-                      style={{
-                        width: '100%',
-                        height: 0.5,
-                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                        marginLeft: 16,
-                      }}
-                    />
-                  )}
+                  <Switch
+                    value={notificationStates[notification.id]}
+                    onValueChange={() => toggleNotification(notification.id)}
+                    trackColor={{
+                      false: 'rgba(255, 255, 255, 0.2)',
+                      true: '#185C65',
+                    }}
+                    thumbColor="#FFFFFF"
+                    ios_backgroundColor="rgba(255, 255, 255, 0.2)"
+                    style={{
+                      transform: Platform.OS === 'ios'
+                        ? [{ scaleX: 0.8 }, { scaleY: 0.8 }]
+                        : [{ scaleX: 1 }, { scaleY: 1 }],
+                    }}
+                  />
                 </View>
-              ))}
-            </View>
+
+                <View className="h-[1px] bg-white/10 mt-4 w-full" />
+              </View>
+            ))}
           </View>
         </ScrollView>
       </SafeAreaView>

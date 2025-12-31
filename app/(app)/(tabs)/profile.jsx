@@ -13,6 +13,9 @@ import QuickStatsRow from '../../../components/profile/QuickStatsRow';
 import BadgeProgressSection from '../../../components/profile/BadgeProgressSection';
 import PersonalStatsGrid from '../../../components/profile/PersonalStatsGrid';
 import PremiumBanner from '../../../components/profile/PremiumBanner';
+import CreatorPostsSection from '../../../components/profile/CreatorPostsSection';
+import { KelamService } from '../../../services/KelamService';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = 20;
@@ -20,6 +23,25 @@ const horizontalPadding = 20;
 export default function ProfilScreen() {
   const router = useRouter();
   const { user, loading, profileData } = useProfile();
+  const [creatorVideos, setCreatorVideos] = useState([]);
+
+  const loadCreatorVideos = useCallback(async () => {
+    const creatorId = profileData?.id || user?.uid;
+    const isCreator = profileData && (profileData.role === 'creator' || profileData.applicationStatus === 'approved');
+
+    if (creatorId && isCreator) {
+      try {
+        const data = await KelamService.fetchCreatorVideos(creatorId);
+        setCreatorVideos(data);
+      } catch (error) {
+        console.error('Profile: loadCreatorVideos error', error);
+      }
+    }
+  }, [profileData?.id, profileData?.role, profileData?.applicationStatus, user?.uid]);
+
+  useEffect(() => {
+    loadCreatorVideos();
+  }, [loadCreatorVideos]);
 
   if (loading) {
     return (
@@ -50,13 +72,19 @@ export default function ProfilScreen() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: horizontalPadding, paddingTop: 24, paddingBottom: 40 }}
+          bounces={false}
+          overScrollMode="never"
+          contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 40 }}
         >
           <ProfileHeader
             name={profileData.name || user?.displayName || "Misafir Kullanıcı"}
             email={user?.email || "Giriş yapılmadı"}
             photoURL={user?.photoURL}
             onEditPress={() => { }}
+            role={profileData.role}
+            followerCount={profileData.followerCount}
+            postCount={profileData.postCount}
+            applicationStatus={profileData.applicationStatus}
           />
 
           <QuickStatsRow
@@ -65,6 +93,17 @@ export default function ProfilScreen() {
             isPremium={profileData.isPremium}
             following={profileData.following}
           />
+
+          {(profileData.role === 'creator' || profileData.applicationStatus === 'approved') && (
+            <>
+              <CreatorPostsSection
+                posts={creatorVideos}
+                isOwner={true}
+                onRefresh={loadCreatorVideos}
+              />
+              <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.1)', marginBottom: 24 }} />
+            </>
+          )}
 
           <BadgeProgressSection
             badgeCount={profileData.badgeCount}

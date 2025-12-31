@@ -143,7 +143,7 @@ export default function GuideDetailScreen() {
     } else if (service.title === 'Hatırlatıcılar') {
       router.push('/(app)/(services)/hatirlatici');
     } else if (service.title === 'Namaz Durumu') {
-      router.push('/(app)/(tabs)/namaz');
+      router.push('/(app)/(services)/namazdurumu');
     } else if (service.title === 'Günlük Ayet') {
       router.push('/(app)/(services)/hadith');
     } else if (service.title === 'Zikir & Dua') {
@@ -197,7 +197,7 @@ export default function GuideDetailScreen() {
           {/* Title Section */}
           <View className="px-5 mb-6 mt-2">
             <Text
-              style={{ 
+              style={{
                 fontFamily,
                 fontSize: 16,
                 fontWeight: '700',
@@ -210,7 +210,7 @@ export default function GuideDetailScreen() {
               Tüm Hizmetlerimiz
             </Text>
             <Text
-              style={{ 
+              style={{
                 fontFamily,
                 fontSize: 12,
                 fontWeight: '400',
@@ -243,7 +243,7 @@ export default function GuideDetailScreen() {
                 >
                   <View className="flex-1 p-4 items-center justify-center">
                     {/* Icon with Circle Background */}
-                    <View 
+                    <View
                       className="mb-3 items-center justify-center"
                       style={{
                         width: 50,
@@ -263,7 +263,7 @@ export default function GuideDetailScreen() {
 
                     {/* Title */}
                     <Text
-                      style={{ 
+                      style={{
                         fontFamily,
                         fontSize: 12,
                         fontWeight: '700',
@@ -278,7 +278,7 @@ export default function GuideDetailScreen() {
 
                     {/* Description */}
                     <Text
-                      style={{ 
+                      style={{
                         fontFamily,
                         fontSize: 10,
                         fontWeight: '400',

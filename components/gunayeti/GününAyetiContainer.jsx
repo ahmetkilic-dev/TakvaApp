@@ -1,4 +1,5 @@
-import { ScrollView, Dimensions } from 'react-native';
+import { ScrollView, Dimensions, View } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCallback, useState, useMemo } from 'react';
 import { useVerses } from './hooks/useVerses';
@@ -101,12 +102,27 @@ export default function GününAyetiContainer() {
           flex: 1,
         }}
       >
-        {/* Main Image veya Video */}
-        {isVideoPlaying ? (
-          <GününAyetiVideo onVideoEnd={handleVideoEnd} />
-        ) : (
-          <GününAyetiImage />
-        )}
+
+
+        {/* Media Container - Fixed Height to prevent layout shifts */}
+        <View style={{ marginBottom: 16, alignItems: 'center', height: Math.min(300 * (163 / 300), (SCREEN_WIDTH - horizontalPadding * 2) * (163 / 300)) }}>
+          {isVideoPlaying ? (
+            <Animated.View
+              entering={FadeIn.duration(600)}
+              style={{ width: '100%', height: '100%', alignItems: 'center' }}
+            >
+              <GününAyetiVideo onVideoEnd={handleVideoEnd} />
+            </Animated.View>
+          ) : (
+            <Animated.View
+              entering={FadeIn.duration(600)}
+              exiting={FadeOut.duration(600)}
+              style={{ width: '100%', height: '100%', alignItems: 'center', position: 'absolute' }}
+            >
+              <GününAyetiImage />
+            </Animated.View>
+          )}
+        </View>
 
         {/* Navigation Slider - Sadece bugün ayet gösterilmediyse aktif */}
         <VerseSlider

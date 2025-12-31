@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { auth } from '../../../firebaseConfig';
 import { supabase } from '../../../lib/supabase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -8,80 +8,18 @@ export const useProfile = () => {
     const {
         user,
         stats,
+        profile,
         badgeCount,
         categoryLevels,
         loading: statsLoading,
-        isInitialized
+        isInitialized,
+        refreshAll
     } = useUserStats();
 
-    const [profileLoading, setProfileLoading] = useState(true);
-    const [profileInfo, setProfileInfo] = useState({
-        name: '',
-        isPremium: false,
-        following: [],
-        followingCount: 0
-    });
-    const [hasFetchedThisSession, setHasFetchedThisSession] = useState(false);
-
-    const fetchProfileInfo = useCallback(async (uid, silent = false, forceRefresh = false) => {
-        if (!uid) return;
-
-        // Eğer bu session'da zaten çektiyse ve force refresh yoksa, çekme
-        if (hasFetchedThisSession && !forceRefresh) {
-            setProfileLoading(false);
-            return;
-        }
-
-        if (!silent) setProfileLoading(true);
-
-        try {
-            const { data: profile } = await supabase
-                .from('profiles')
-                .select('name, is_premium, following')
-                .eq('id', uid)
-                .maybeSingle();
-
-            if (profile) {
-                const profileData = {
-                    name: profile.name || '',
-                    isPremium: profile.is_premium || false,
-                    following: profile.following || [],
-                    followingCount: (profile.following || []).length
-                };
-                setProfileInfo(profileData);
-                setHasFetchedThisSession(true);
-            }
-        } catch (error) {
-            console.error('useProfile: fetchProfileInfo error', error);
-        } finally {
-            if (!silent) setProfileLoading(false);
-        }
-    }, [hasFetchedThisSession]);
-
-    useEffect(() => {
-        if (user?.uid) {
-            fetchProfileInfo(user.uid);
-
-            const profileSub = supabase
-                .channel(`profile_info:${user.uid}`)
-                .on('postgres_changes',
-                    { event: '*', schema: 'public', table: 'profiles', filter: `id=eq.${user.uid}` },
-                    () => fetchProfileInfo(user.uid, true, true) // Realtime güncellemelerde force refresh
-                )
-                .subscribe();
-
-            return () => {
-                supabase.removeChannel(profileSub);
-            };
-        } else if (isInitialized && !user) {
-            setProfileLoading(false);
-            setHasFetchedThisSession(false); // Çıkış yapınca session'ı sıfırla
-        }
-    }, [user?.uid, isInitialized, fetchProfileInfo]);
-
     // Data mapping for legacy UI compatibility
-    const profileData = {
-        name: profileInfo.name || user?.displayName || "Misafir Kullanıcı",
+    const profileData = useMemo(() => ({
+        id: profile.id,
+        name: profile.name || user?.displayName || "Misafir Kullanıcı",
         stats: {
             totalVerses: stats.total_verses || 0,
             totalSalavat: stats.total_salavat || 0,
@@ -90,19 +28,24 @@ export const useProfile = () => {
             quizCount: stats.quiz_count || 0,
             completedTasks: badgeCount,
         },
-        followingCount: profileInfo.followingCount,
+        followingCount: (profile.following || []).length,
         badgeCount: badgeCount,
-        isPremium: profileInfo.isPremium,
-        following: profileInfo.following,
+        isPremium: profile.is_premium || false,
+        following: profile.following || [],
         badges: getEarnedBadges(stats),
-        categoryLevels: categoryLevels
-    };
+        categoryLevels: categoryLevels,
+        role: profile.role || 'user',
+        followerCount: 0, // Fallback for missing DB column as previously discussed
+        postCount: 0,     // Fallback for missing DB column
+        applicationStatus: profile.application_status || 'none',
+        isApproved: profile.application_status === 'approved'
+    }), [profile, user, stats, badgeCount, categoryLevels]);
 
     return {
         user,
-        loading: statsLoading || (profileLoading && !isInitialized),
+        loading: !isInitialized || statsLoading,
         profileData,
-        refreshProfile: () => fetchProfileInfo(user?.uid, false, true)
+        refreshProfile: refreshAll
     };
 }
 

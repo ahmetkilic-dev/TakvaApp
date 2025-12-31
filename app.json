@@ -6,7 +6,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/t_icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#04100D",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/t_splash-icon.png",
@@ -34,15 +35,21 @@
         "foregroundImage": "./assets/t_icon.png",
         "backgroundColor": "#04100D"
       },
+      "backgroundColor": "#04100D",
       "edgeToEdgeEnabled": true,
       "package": "com.wezyapps.takvaapp",
       "permissions": [
         "INTERNET",
         "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
         "POST_NOTIFICATIONS",
         "SCHEDULE_EXACT_ALARM",
         "RECEIVE_BOOT_COMPLETED",
-        "WAKE_LOCK"
+        "WAKE_LOCK",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.WAKE_LOCK",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
       ]
     },
     "web": {
@@ -55,6 +62,12 @@
       "expo-apple-authentication",
       "expo-task-manager",
       "expo-background-fetch",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Namaz vakitlerini ve kıble yönünü doğru hesaplamak için konumunuz gereklidir."
+        }
+      ],
       [
         "@react-native-google-signin/google-signin",
         {
@@ -71,14 +84,15 @@
         }
       ],
       "expo-video",
-      "expo-audio"
+      "expo-audio",
+      "react-native-compressor"
     ],
     "extra": {
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "buraya-eas-project-id-gelecek"
+        "projectId": "d235fde8-3b89-42ca-8aac-3c1c62297778"
       }
     }
   }

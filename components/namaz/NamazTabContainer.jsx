@@ -23,9 +23,7 @@ export default function NamazTabContainer() {
       <SafeAreaView edges={['top']} style={styles.safeArea}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.backButton} activeOpacity={0.7}>
-            <Ionicons name="chevron-back" size={28} color="#FFFFFF" />
-          </TouchableOpacity>
+          <View style={styles.backButton} />
           <Text style={styles.headerTitle}>NAMAZ</Text>
           <View style={styles.headerRight} />
         </View>

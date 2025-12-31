@@ -56,8 +56,8 @@ export default function HakkindaScreen() {
       <SafeAreaView edges={['top']} className="flex-1">
         {/* Header */}
         <View className="flex-row items-center justify-between px-4 pt-2 pb-2">
-          <TouchableOpacity 
-            onPress={() => router.back()} 
+          <TouchableOpacity
+            onPress={() => router.back()}
             className="w-9 h-9 items-center justify-center"
           >
             <Ionicons name="chevron-back" size={28} color="#FFFFFF" />
@@ -76,114 +76,69 @@ export default function HakkindaScreen() {
           <View className="w-9" />
         </View>
 
+        {/* Content Title */}
+        <View className="items-center mt-4 mb-2 px-10">
+          <Text style={{ fontFamily: 'Plus Jakarta Sans', color: '#FFFFFF', fontSize: 16, fontWeight: '700', marginBottom: 4 }}>Hakkında</Text>
+          <Text className="text-center" style={{ fontFamily: 'Plus Jakarta Sans', color: 'rgba(255,255,255,0.6)', fontSize: 10, fontWeight: '400', lineHeight: 14 }}>
+            Takva uygulamasının hukuksal metinlerine ve genel bilgilere bu bölümden ulaşabilirsin.
+          </Text>
+        </View>
+
         <ScrollView
           showsVerticalScrollIndicator={false}
+          bounces={false}
+          overScrollMode="never"
           contentContainerStyle={{
-            paddingHorizontal: horizontalPadding,
-            paddingTop: 24,
-            paddingBottom: 0,
+            flexGrow: 1,
+            paddingTop: 12,
           }}
         >
           {/* Hakkında Section */}
-          <View style={{ marginBottom: 32, alignItems: 'center' }}>
-            <Text
-              style={{
-                fontFamily,
-                fontSize: 16,
-                fontWeight: '700',
-                color: '#FFFFFF',
-                marginBottom: 8,
-                textAlign: 'center',
-              }}
-            >
-              Hakkında
-            </Text>
-            <Text
-              style={{
-                fontFamily,
-                fontSize: 10,
-                fontWeight: '400',
-                color: 'rgba(255, 255, 255, 0.6)',
-                marginBottom: 24,
-                lineHeight: 13,
-                textAlign: 'center',
-                maxWidth: SCREEN_WIDTH - (horizontalPadding * 2),
-              }}
-            >
-              Takva uygulamasının hukuksal metinlerine ve genel bilgilere bu bölümden ulaşabilirsin.
-            </Text>
-
-            {/* About Items List */}
-            <View
-              style={{
-                width: '100%',
-                borderRadius: 15,
-                backgroundColor: 'rgba(24, 39, 35, 0.5)',
-                overflow: 'hidden',
-              }}
-            >
-              {aboutItems.map((item, index) => (
-                <View key={item.id}>
-                  <TouchableOpacity
-                    onPress={() => handleItemPress(item.id)}
-                    style={{
-                      width: '100%',
-                      paddingVertical: 16,
-                      paddingHorizontal: 16,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <View style={{ flex: 1, marginRight: 12 }}>
-                      <Text
-                        style={{
-                          fontFamily,
-                          fontSize: 16,
-                          fontWeight: '500',
-                          color: '#FFFFFF',
-                          marginBottom: 4,
-                        }}
-                      >
-                        {item.title}
-                      </Text>
-                      <Text
-                        style={{
-                          fontFamily,
-                          fontSize: 10,
-                          fontWeight: '400',
-                          color: 'rgba(255, 255, 255, 0.8)',
-                          lineHeight: 13,
-                        }}
-                      >
-                        {item.description}
-                      </Text>
-                    </View>
-                    <Ionicons name="chevron-forward" size={20} color="#FFFFFF" />
-                  </TouchableOpacity>
-                  
-                  {/* Divider Line */}
-                  {index < aboutItems.length - 1 && (
-                    <View
+          <View className="flex-1 rounded-t-[20px] p-5 pt-7 pb-20" style={{ backgroundColor: 'rgba(24, 39, 35, 0.9)' }}>
+            {aboutItems.map((item, index) => (
+              <View key={item.id} className="mb-4">
+                <TouchableOpacity
+                  onPress={() => handleItemPress(item.id)}
+                  className="flex-row items-center justify-between"
+                >
+                  <View className="flex-1 pr-4">
+                    <Text
                       style={{
-                        width: '100%',
-                        height: 0.5,
-                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                        marginLeft: 16,
+                        fontFamily,
+                        fontSize: 16,
+                        fontWeight: '500',
+                        color: '#FFFFFF',
                       }}
-                    />
-                  )}
-                </View>
-              ))}
-            </View>
+                    >
+                      {item.title}
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily,
+                        fontSize: 12,
+                        fontWeight: '400',
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        marginTop: 2,
+                        lineHeight: 16,
+                      }}
+                    >
+                      {item.description}
+                    </Text>
+                  </View>
+                  <Ionicons name="chevron-forward" size={20} color="#FFFFFF" />
+                </TouchableOpacity>
+
+                <View className="h-[1px] bg-white/10 mt-4 w-full" />
+              </View>
+            ))}
 
             {/* Copyright */}
             <Text
               style={{
                 fontFamily,
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: '400',
-                color: 'rgba(255, 255, 255, 0.8)',
+                color: 'rgba(255, 255, 255, 0.6)',
                 marginTop: 24,
                 textAlign: 'center',
               }}
@@ -191,6 +146,7 @@ export default function HakkindaScreen() {
               © 2025 Takva. Tüm hakları saklıdır.
             </Text>
           </View>
+
         </ScrollView>
       </SafeAreaView>
     </ScreenBackground>

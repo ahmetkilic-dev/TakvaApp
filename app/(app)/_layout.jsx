@@ -4,19 +4,23 @@ import { useSegments } from 'expo-router';
 import BottomNavBar from '../../components/common/BottomNavBar';
 
 export default function AppLayout() {
-  const segments = useSegments();
-  const isHocaAiScreen = segments?.[1] === '(services)' && segments?.[2] === 'hoca-ai';
+  // const segments = useSegments();
+  // const isHocaAiScreen = segments?.[1] === '(services)' && segments?.[2] === 'hoca-ai';
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: '#04100D' },
+          animation: 'fade', // Main tabs fade
+        }}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="(services)" />
         </Stack>
       </View>
 
-      {!isHocaAiScreen && <BottomNavBar />}
+      <BottomNavBar />
     </View>
   );
 }

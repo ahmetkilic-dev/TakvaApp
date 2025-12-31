@@ -27,6 +27,13 @@ export const UserStatsProvider = ({ children }) => {
         rated: false,
         follows: []
     });
+    const [profile, setProfile] = useState({
+        name: '',
+        role: 'user',
+        application_status: 'none',
+        following: [],
+        is_premium: false
+    });
     const [dailyTasks, setDailyTasks] = useState([]);
     const [isInitialized, setIsInitialized] = useState(false);
 
@@ -38,17 +45,19 @@ export const UserStatsProvider = ({ children }) => {
                 const parsed = JSON.parse(cached);
                 setStats(parsed.stats || stats);
                 setDailyTasks(parsed.dailyTasks || []);
+                if (parsed.profile) setProfile(parsed.profile);
             }
         } catch (e) {
             console.warn('UserStatsContext: Cache load error', e);
         }
     }, []);
 
-    const saveCache = useCallback(async (newStats, newTasks) => {
+    const saveCache = useCallback(async (newStats, newTasks, newProfile) => {
         try {
             await AsyncStorage.setItem(CACHE_KEY, JSON.stringify({
                 stats: newStats,
                 dailyTasks: newTasks,
+                profile: newProfile,
                 timestamp: new Date().getTime()
             }));
         } catch (e) {
@@ -61,9 +70,10 @@ export const UserStatsProvider = ({ children }) => {
         if (!silent) setLoading(true);
 
         try {
-            const [statsResult, tasksResult] = await Promise.all([
+            const [statsResult, tasksResult, profileResult] = await Promise.all([
                 supabase.from('user_stats').select('*').eq('user_id', uid).maybeSingle(),
-                TaskService.getDailyTasks()
+                TaskService.getDailyTasks(),
+                supabase.from('profiles').select('id, name, role, application_status, following, is_premium').eq('id', uid).maybeSingle()
             ]);
 
             let finalStats = stats;
@@ -78,7 +88,17 @@ export const UserStatsProvider = ({ children }) => {
             const finalTasks = tasksResult || [];
             setDailyTasks(finalTasks);
 
-            await saveCache(finalStats, finalTasks);
+            let finalProfile = profile;
+            if (profileResult.data) {
+                console.log('UserStatsContext: Profile data fetched:', profileResult.data);
+                finalProfile = {
+                    ...profileResult.data,
+                    following: profileResult.data.following || []
+                };
+                setProfile(finalProfile);
+            }
+
+            await saveCache(finalStats, finalTasks, finalProfile);
         } catch (error) {
             console.error('UserStatsContext: fetchAllData error', error);
         } finally {
@@ -114,11 +134,20 @@ export const UserStatsProvider = ({ children }) => {
                 )
                 .subscribe();
 
+            const profileSub = supabase
+                .channel(`global_profile:${user.uid}`)
+                .on('postgres_changes',
+                    { event: '*', schema: 'public', table: 'profiles', filter: `id=eq.${user.uid}` },
+                    () => fetchAllData(user.uid, true)
+                )
+                .subscribe();
+
             return () => {
                 supabase.removeChannel(statsSub);
+                supabase.removeChannel(profileSub);
             };
         }
-    }, [user?.uid]);
+    }, [user?.uid, fetchAllData]);
 
     // Computed Values
     const badgeLogic = useMemo(() => {
@@ -205,6 +234,7 @@ export const UserStatsProvider = ({ children }) => {
     const value = useMemo(() => ({
         user,
         stats,
+        profile,
         dailyTasks,
         loading,
         isInitialized,
@@ -213,7 +243,7 @@ export const UserStatsProvider = ({ children }) => {
         incrementTask,
         refreshTasks,
         refreshAll: () => fetchAllData(user?.uid)
-    }), [user, stats, dailyTasks, loading, isInitialized, badgeLogic, updateStat, incrementTask, refreshTasks]);
+    }), [user, stats, profile, dailyTasks, loading, isInitialized, badgeLogic, updateStat, incrementTask, refreshTasks]);
 
     return (
         <UserStatsContext.Provider value={value}>

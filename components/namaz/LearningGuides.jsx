@@ -12,7 +12,7 @@ export default function LearningGuides({ onAbdestPress, onNamazPress }) {
   return (
     <View style={styles.container}>
       <Text style={[fontStyle, styles.sectionTitle]}>Öğrenme Rehberleri</Text>
-      
+
       {/* Abdest Rehberi Kartı */}
       <View style={styles.guideCardAbdest}>
         <View style={styles.imageContainerLeft}>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   guideCardAbdest: {
     width: SCREEN_WIDTH * 0.9,
-    height: 130,
+    height: 130, // Kart yüksekliğini sabit tutabiliriz veya 'auto' + minHeight verebiliriz, ama kullanıcı iPhone 11 yapısını sevdiği için 130 iyi bir referans.
     alignSelf: 'center',
     backgroundColor: '#24322E',
     borderRadius: 20,
@@ -75,8 +75,9 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.3)',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 13,
+    padding: 10, // Padding'i biraz kıstım, içeriğe yer kalsın
     marginBottom: 14,
+    overflow: 'hidden', // Resimlerin radius taşmasını önlemek için
   },
   guideCardNamaz: {
     width: SCREEN_WIDTH * 0.9,
@@ -88,63 +89,65 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.3)',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 13,
+    padding: 10,
     marginBottom: 14,
+    overflow: 'hidden',
   },
   imageContainerLeft: {
-    width: 160,
-    height: 100,
-    marginRight: 12,
-    borderRadius: 10,
+    width: '43%', // iPhone 11'deki approx oran (160/375 ~ 0.43)
+    height: '100%',
+    marginRight: 10,
+    borderRadius: 12,
     overflow: 'hidden',
   },
   imageContainerRight: {
-    width: 160,
-    height: 100,
-    marginLeft: 12,
-    borderRadius: 10,
+    width: '43%',
+    height: '100%',
+    marginLeft: 10,
+    borderRadius: 12,
     overflow: 'hidden',
   },
   guideImageAbdest: {
     width: '100%',
     height: '100%',
-    borderRadius: 10,
   },
   guideImageNamaz: {
     width: '100%',
     height: '100%',
   },
   guideContentRight: {
-    flex: 1,
+    flex: 1, // Kalan alanı doldur
     justifyContent: 'center',
+    paddingVertical: 4,
   },
   guideContentLeft: {
-    flex: 1,
+    flex: 1, // Kalan alanı doldur
     justifyContent: 'center',
+    paddingVertical: 4,
   },
   guideTitle: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 16, // Font boyutunu sabit tutuyorum, çok küçük ekranlar hariç okunur
     fontWeight: '700',
-    marginBottom: 6,
+    marginBottom: 4,
   },
   guideDescription: {
     color: 'rgba(255, 255, 255, 0.7)',
-    fontSize: 12,
+    fontSize: 12, // Küçük ve okunabilir
     lineHeight: 16,
-    marginBottom: 10,
+    marginBottom: 8,
+    flexShrink: 1, // Yazı taşarsa sığmaya çalış
   },
   twoLineDescription: {
-    // 2 satırın tam sığması için (lineHeight * 2)
-    minHeight: 32,
+    // Esnek yükseklik
   },
   guideButton: {
     backgroundColor: 'transparent',
     borderWidth: 0.5,
     borderColor: 'rgba(255, 186, 74, 0.5)',
     borderRadius: 20,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingVertical: 6, // Buton görselden taşmasın diye biraz daha kompakt
+    paddingHorizontal: 16, // Genişliği koru
     alignSelf: 'flex-start',
   },
   guideButtonText: {

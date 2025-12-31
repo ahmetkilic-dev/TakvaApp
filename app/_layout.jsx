@@ -4,7 +4,8 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Platform, AppState } from 'react-native';
+import * as NavigationBar from 'expo-navigation-bar';
 import { useFonts, Cinzel_900Black } from '@expo-google-fonts/cinzel';
 import {
   PlusJakartaSans_300Light,
@@ -76,6 +77,30 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const setNavBar = async () => {
+        await NavigationBar.setBackgroundColorAsync("#04100D");
+        await NavigationBar.setButtonStyleAsync("light");
+        // İsteğe bağlı: Tam ekran (immersive) mod için gizle
+        // await NavigationBar.setVisibilityAsync("hidden"); 
+        // await NavigationBar.setBehaviorAsync("overlay-swipe");
+      };
+
+      setNavBar();
+
+      const subscription = AppState.addEventListener('change', (nextAppState) => {
+        if (nextAppState === 'active') {
+          setNavBar();
+        }
+      });
+
+      return () => {
+        subscription.remove();
+      };
+    }
+  }, []);
 
   if (!fontsLoaded) {
     return <InitialLoader />;
