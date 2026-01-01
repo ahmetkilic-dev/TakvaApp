@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "1063960456618",
+    "project_id": "wezy-takva",
+    "storage_bucket": "wezy-takva.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063960456618:android:d4218ee1f114ff299e0fd3",
+        "android_client_info": {
+          "package_name": "com.wezyapps.takvaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063960456618-34epnbg2u62qapsfcel2l2ut7vdifi9q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wezyapps.takvaapp",
+            "certificate_hash": "53fba3719fd479bac6dfad97a8e5eecbc6f6440a"
+          }
+        },
+        {
+          "client_id": "1063960456618-95sg327b1kev5lkfg86eqoo1p0lu29u8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wezyapps.takvaapp",
+            "certificate_hash": "dda49a11a5604535ef794671c01dbffdc76b8e06"
+          }
+        },
+        {
+          "client_id": "1063960456618-f5clq2ujmacf5dvaf7efqg6jpc6ie0d9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSwyE3j2yKMYZkDz66cIuR0qgSXub04J4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063960456618-f5clq2ujmacf5dvaf7efqg6jpc6ie0d9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1063960456618-806640ntfivqhaefi4nvfdt4edntv2sf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wezyapps.takvaapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

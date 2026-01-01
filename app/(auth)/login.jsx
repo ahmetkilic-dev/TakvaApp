@@ -16,7 +16,7 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import * as Crypto from 'expo-crypto';
 
 // Google Auth
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 // Görseller
 import bgIntro from '../../assets/images/bg-intro-register.png';
@@ -38,13 +38,12 @@ export default function LoginScreen() {
   // --- GOOGLE KONFİGÜRASYONU ---
   useEffect(() => {
     GoogleSignin.configure({
-      // BURAYA Google Cloud Console > Credentials > Web Client ID kısmındaki ID'yi yapıştırın.
-      // Genelde '...apps.googleusercontent.com' ile biter.
       webClientId: '1063960456618-f5clq2ujmacf5dvaf7efqg6jpc6ie0d9.apps.googleusercontent.com',
+      offlineAccess: true,
+      forceCodeForRefreshToken: true,
     });
   }, []);
 
-  // Görsel olarak +90 ekle
   const handleIdentifierChange = (text) => {
     if (/^[0-9]/.test(text) && !text.startsWith('+')) {
       setIdentifier('+90' + text);
@@ -59,10 +58,8 @@ export default function LoginScreen() {
       Alert.alert("Eksik Bilgi", "Lütfen giriş bilgilerinizi doldurunuz.");
       return;
     }
-
     setLoading(true);
     let loginEmail = identifier;
-
     try {
       if (!identifier.includes('@')) {
         const cleanPhone = identifier.replace(/\s/g, '');
@@ -79,12 +76,9 @@ export default function LoginScreen() {
           return Alert.alert("Hesap Bulunamadı", "Bu numara ile kayıtlı kullanıcı bulunamadı.");
         }
       }
-
       await signInWithEmailAndPassword(auth, loginEmail, password);
-
       setLoading(false);
       router.replace('/(app)/(tabs)/home');
-
     } catch (error) {
       setLoading(false);
       let msg = "Giriş yapılamadı.";
@@ -131,10 +125,8 @@ export default function LoginScreen() {
       };
 
       await supabase.from('profiles').upsert(userData);
-
       setLoading(false);
       router.replace('/(app)/(tabs)/home');
-
     } catch (e) {
       setLoading(false);
       if (e.code !== 'ERR_REQUEST_CANCELED') {
@@ -148,22 +140,20 @@ export default function LoginScreen() {
     try {
       setLoading(true);
 
-      // 1. Play Services Kontrolü
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
-      // 2. Google'dan Giriş İzni ve Token Alma
-      const { data: { idToken } } = await GoogleSignin.signIn();
+      const userInfo = await GoogleSignin.signIn();
+      console.log('GOOGLE USER INFO 👉', userInfo);
 
-      if (!idToken) throw new Error('Google ID Token alınamadı.');
+      // Bazı sürümlerde idToken direkt userInfo altında, bazılarında userInfo.data altında gelir.
+      const idToken = userInfo.data?.idToken || userInfo.idToken;
 
-      // 3. Firebase Kimlik Bilgisi Oluşturma
+      if (!idToken) throw new Error('Google ID Token alınamadı');
+
       const googleCredential = GoogleAuthProvider.credential(idToken);
-
-      // 4. Firebase'e Giriş Yapma
       const userCredential = await signInWithCredential(auth, googleCredential);
       const user = userCredential.user;
 
-      // 5. Supabase'e Kaydetme
       const userData = {
         id: user.uid,
         email: user.email,
@@ -173,17 +163,27 @@ export default function LoginScreen() {
       };
 
       await supabase.from('profiles').upsert(userData);
-
       setLoading(false);
       router.replace('/(app)/(tabs)/home');
 
     } catch (error) {
       setLoading(false);
-      if (error.code === '12501') { // Kullanıcı iptal etti
-        return;
+
+      // Detaylı loglama (Terminalden burayı takip et)
+      console.log('DETAYLI HATA KODU:', error.code);
+      console.log('HATA MESAJI:', error.message);
+
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        return; // Kullanıcı geri çıktı
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        Alert.alert("İşlem Sürüyor", "Giriş işlemi zaten devam ediyor.");
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert("Hata", "Google Play Hizmetleri kullanılamıyor.");
+      } else if (error.code === 'DEVELOPER_ERROR') {
+        Alert.alert("Yapılandırma Hatası", "SHA-1/SHA-256 kodları veya Paket Adı Firebase/Google Cloud ile eşleşmiyor.");
+      } else {
+        Alert.alert("Hata", "Google ile giriş yapılamadı: " + error.message);
       }
-      console.error(error);
-      Alert.alert("Hata", "Google ile giriş yapılamadı.");
     }
   };
 
@@ -218,12 +218,17 @@ export default function LoginScreen() {
 
             <View className="mt-8 gap-y-4">
               <View className="flex-row w-full gap-3 mb-1">
-                <TouchableOpacity onPress={handleAppleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
-                  <View className="w-[20%] ml-2 h-full items-center justify-center"><Image source={appleLogo} className="w-7 h-7" resizeMode="contain" /></View>
-                  <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular mr-4 text-[12px] leading-tight">Apple ile devam et</Text></View>
-                </TouchableOpacity>
+                {Platform.OS === 'ios' && (
+                  <TouchableOpacity onPress={handleAppleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
+                    <View className="w-[20%] ml-2 h-full items-center justify-center"><Image source={appleLogo} className="w-7 h-7" resizeMode="contain" /></View>
+                    <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular mr-4 text-[12px] leading-tight">Apple ile devam et</Text></View>
+                  </TouchableOpacity>
+                )}
 
-                <TouchableOpacity onPress={handleGoogleLogin} className="flex-1 h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm">
+                <TouchableOpacity
+                  onPress={handleGoogleLogin}
+                  className={`${Platform.OS === 'ios' ? 'flex-1' : 'w-full'} h-14 bg-[#15221E] border border-white/80 rounded-2xl flex-row overflow-hidden active:opacity-90 shadow-sm`}
+                >
                   <View className="w-[20%] h-full ml-2 items-center justify-center"><Image source={googleLogo} className="w-7 h-7" resizeMode="contain" /></View>
                   <View className="w-[80%] h-full justify-center pl-1"><Text style={fontStyle} className="text-white font-regular text-[12px] leading-tight">Google ile devam et</Text></View>
                 </TouchableOpacity>

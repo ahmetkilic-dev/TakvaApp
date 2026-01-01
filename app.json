@@ -37,6 +37,7 @@
       },
       "backgroundColor": "#04100D",
       "edgeToEdgeEnabled": true,
+      "googleServicesFile": "./google-services.json",
       "androidNavigationBar": {
         "visible": "none",
         "backgroundColor": "#04100D"
@@ -50,10 +51,12 @@
         "SCHEDULE_EXACT_ALARM",
         "RECEIVE_BOOT_COMPLETED",
         "WAKE_LOCK",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
         "android.permission.RECEIVE_BOOT_COMPLETED",
         "android.permission.WAKE_LOCK",
-        "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
       ]
     },
     "web": {
@@ -75,7 +78,8 @@
       [
         "@react-native-google-signin/google-signin",
         {
-          "iosUrlScheme": "com.googleusercontent.apps.1063960456618-cuioug118j594vt957cv74slnamru62d"
+          "iosUrlScheme": "com.googleusercontent.apps.1063960456618-cuioug118j594vt957cv74slnamru62d",
+          "webClientId": "1063960456618-f5clq2ujmacf5dvaf7efqg6jpc6ie0d9.apps.googleusercontent.com"
         }
       ],
       [
