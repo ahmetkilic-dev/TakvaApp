@@ -49,21 +49,7 @@ export default function TasksScreen() {
             paddingBottom: 0,
           }}
         >
-          {/* Background Rectangle - Visual effect from original design */}
-          <View
-            style={{
-              position: 'absolute',
-              top: 95, // Kullanıcı isteği üzerine 5px daha yukarı çekildi
-              left: -horizontalPadding * 3,
-              right: -horizontalPadding * 3,
-              height: SCREEN_HEIGHT * 10,
-              backgroundColor: '#182723',
-              opacity: 0.75,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              zIndex: -1,
-            }}
-          />
+
 
           {/* Daily Tasks Section */}
           <DailyTaskSection
