@@ -7,7 +7,7 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 /**
  * Main Feed Component for Kelam Videos
  */
-export const KelamFeed = ({ videos, onLike, onEndReached, initialIndex = 0 }) => {
+export const KelamFeed = ({ videos, onLike, onEndReached, initialIndex = 0, refreshing, onRefresh }) => {
     const [activeIndex, setActiveIndex] = useState(initialIndex);
     const [isMuted, setIsMuted] = useState(false);
 
@@ -51,13 +51,17 @@ export const KelamFeed = ({ videos, onLike, onEndReached, initialIndex = 0 }) =>
                 onViewableItemsChanged={onViewableItemsChanged}
                 viewabilityConfig={viewabilityConfig}
                 initialNumToRender={1}
-                maxToRenderPerBatch={2}
-                windowSize={3}
-                removeClippedSubviews={true}
+                maxToRenderPerBatch={3}
+                windowSize={5}
+                updateCellsBatchingPeriod={50}
+                removeClippedSubviews={false}
                 onEndReached={onEndReached}
                 onEndReachedThreshold={3}
                 initialScrollIndex={initialIndex}
                 getItemLayout={getItemLayout}
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                progressViewOffset={120} // Push below header (approx header height + status bar)
             />
         </View>
     );

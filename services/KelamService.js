@@ -4,10 +4,17 @@ import { supabase } from '../lib/supabase';
  * KelamService - Handles video metadata and interactions
  */
 export const KelamService = {
+    // Simple in-memory cache for instant loading
+    _feedCache: [],
+
+    getCachedFeed() {
+        return this._feedCache;
+    },
+
     /**
      * Fetch video feed with creator info
      */
-    async fetchVideos(limit = 20, offset = 0, userId = null) {
+    async fetchVideos(limit = 20, offset = 0, userId = null, shouldShuffle = true) {
         try {
             const { data, error } = await supabase
                 .from('kelam_videos')
@@ -39,9 +46,15 @@ export const KelamService = {
                 }));
             }
 
-            // Client-side shuffle
-            const shuffled = videos.sort(() => Math.random() - 0.5);
-            return shuffled;
+            // Client-side shuffle only if requested
+            if (shouldShuffle) {
+                const shuffled = videos.sort(() => Math.random() - 0.5);
+                if (offset === 0) this._feedCache = shuffled;
+                return shuffled;
+            }
+
+            if (offset === 0) this._feedCache = videos;
+            return videos;
         } catch (error) {
             console.error('KelamService: fetchVideos error', error);
             return [];

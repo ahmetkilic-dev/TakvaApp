@@ -32,7 +32,7 @@ export default function HomeScreen() {
       <SafeAreaView edges={['top']} className="flex-1">
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
         >
           {/* Ana sayfa başlık ve namaz vakitleri - ANINDA YÜKLENİR */}
           <HomeHeader />

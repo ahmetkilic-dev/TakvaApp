@@ -88,7 +88,7 @@ export default function RootLayout() {
     if (Platform.OS === 'android') {
       const setNavBar = async () => {
         try {
-          await NavigationBar.setBackgroundColorAsync("#04100D00"); // Transparent or matching
+          await NavigationBar.setBackgroundColorAsync("#00000000"); // Fully transparent
           await NavigationBar.setButtonStyleAsync("light");
           await NavigationBar.setVisibilityAsync("hidden");
           await NavigationBar.setBehaviorAsync("overlay-swipe");

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
+import { Ionicons } from '@expo/vector-icons';
 
 const fontFamily = 'Plus Jakarta Sans';
 
@@ -35,17 +36,21 @@ export const ProgressCircle = ({ percentage, size = 40 }) => {
                 />
             </Svg>
             <View style={{ position: 'absolute', width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
-                <Text
-                    style={{
-                        fontFamily,
-                        fontSize: size / 4,
-                        fontWeight: '400',
-                        color: '#FFFFFF',
-                        textAlign: 'center',
-                    }}
-                >
-                    %{Math.floor(percentage)}
-                </Text>
+                {percentage >= 100 ? (
+                    <Ionicons name="checkmark" size={size / 2} color="#8CD7C0" />
+                ) : (
+                    <Text
+                        style={{
+                            fontFamily,
+                            fontSize: size / 4,
+                            fontWeight: '400',
+                            color: '#FFFFFF',
+                            textAlign: 'center',
+                        }}
+                    >
+                        %{Math.floor(percentage)}
+                    </Text>
+                )}
             </View>
         </View>
     );

@@ -35,7 +35,7 @@ const abdestSteps = [
   {
     id: 3,
     title: 'Yüzü Yıkamak',
-    image: require('../../../assets/abdest/yüz.webp'),
+    image: require('../../../assets/abdest/yuz.webp'),
     descriptions: [
       'Alından çene altına ve iki kulak arası dahil olmak üzere yüz üç kez yıkanır.',
     ],

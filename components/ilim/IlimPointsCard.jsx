@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const günlükPuanIcon = require('../../assets/İlim/günlükpuan.png');
-const toplamPuanIcon = require('../../assets/İlim/toplampuan.png');
+const günlükPuanIcon = require('../../assets/ilim/gunlukpuan.png');
+const toplamPuanIcon = require('../../assets/ilim/toplampuan.png');
 
 const FONT_FAMILY = 'Rubik';
 
@@ -17,9 +17,9 @@ const IlimPointsCard = memo(({ dailyPoints = 0, totalPoints = 0 }) => {
     >
       {/* Left: Daily Points */}
       <View style={styles.leftSection}>
-        <Image 
-          source={günlükPuanIcon} 
-          style={styles.icon} 
+        <Image
+          source={günlükPuanIcon}
+          style={styles.icon}
           resizeMode="contain"
         />
         <View style={styles.pointsContainer}>
@@ -33,9 +33,9 @@ const IlimPointsCard = memo(({ dailyPoints = 0, totalPoints = 0 }) => {
 
       {/* Right: Total Points */}
       <View style={styles.rightSection}>
-        <Image 
-          source={toplamPuanIcon} 
-          style={styles.icon} 
+        <Image
+          source={toplamPuanIcon}
+          style={styles.icon}
           resizeMode="contain"
         />
         <View style={styles.pointsContainer}>

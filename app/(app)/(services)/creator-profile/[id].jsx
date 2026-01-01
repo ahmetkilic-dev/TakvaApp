@@ -1,10 +1,10 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Dimensions, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { useIsFocused } from '@react-navigation/native';
 import { supabase } from '../../../../lib/supabase';
 import ScreenBackground from '../../../../components/common/ScreenBackground';
 import { UserService } from '../../../../services/UserService';
@@ -22,13 +22,18 @@ export default function CreatorProfileScreen() {
     const [profile, setProfile] = useState(null);
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
     const [isFollowing, setIsFollowing] = useState(false);
-    const [followLoading, setFollowLoading] = useState(false); // Added followLoading state
-    const isFocused = useIsFocused();
+    const [followLoading, setFollowLoading] = useState(false);
 
-    const loadData = useCallback(async () => {
+    const loadData = useCallback(async (isRefresh = false) => {
         if (!id) return;
-        setLoading(true);
+
+        // Only trigger full screen loading if generic load and no data
+        if (!isRefresh && !profile) {
+            setLoading(true);
+        }
+
         try {
             // Modified profile fetch to include username directly from profiles table
             const [profileDataResult, videoData, followerCount] = await Promise.all([
@@ -53,13 +58,18 @@ export default function CreatorProfileScreen() {
         } finally {
             setLoading(false);
         }
-    }, [id, user]);
+    }, [id, user, profile]);
 
     useEffect(() => {
-        if (isFocused) {
-            loadData();
-        }
-    }, [isFocused, loadData]);
+        // Initial load only
+        loadData();
+    }, [loadData]);
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await loadData(true);
+        setRefreshing(false);
+    };
 
     const handleFollowToggle = async () => {
         if (!user) return;
@@ -114,7 +124,13 @@ export default function CreatorProfileScreen() {
                     </Text>
                 </View>
 
-                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 40 }}
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#D4AF37" />
+                    }
+                >
                     <View className="px-5 pt-8">
                         {/* Top Section: Avatar Left, Info Right */}
                         <View className="flex-row items-start">
@@ -143,9 +159,9 @@ export default function CreatorProfileScreen() {
 
                             {/* Right: Info (Username & Bio) */}
                             <View className="flex-1 pt-1">
-                                {/* Username (22px) */}
+                                {/* Name (22px) */}
                                 <Text style={{ fontSize: 22 }} className="text-white font-['Plus Jakarta Sans'] font-bold mb-1 leading-7">
-                                    {profile.username}
+                                    {profile.name}
                                 </Text>
 
                                 {/* Bio */}

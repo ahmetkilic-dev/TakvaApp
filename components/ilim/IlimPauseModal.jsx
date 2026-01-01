@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 const FONT_FAMILY = 'Plus Jakarta Sans';
-const istatistikIcon = require('../../assets/İlim/istatistik.png');
+const istatistikIcon = require('../../assets/ilim/istatistik.png');
 
 const IlimPauseModal = memo(({ visible, onClose, onStatistics }) => {
   const router = useRouter();

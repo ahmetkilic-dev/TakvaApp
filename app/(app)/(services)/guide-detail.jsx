@@ -19,10 +19,10 @@ import HatirlaticiIcon from '../../../assets/hizmetler/hatirlatici.png';
 import KibleIcon from '../../../assets/hizmetler/kible.png';
 import KelamIcon from '../../../assets/hizmetler/kelam.png';
 import IlimIcon from '../../../assets/hizmetler/ilim.png';
-import DiniGunIcon from '../../../assets/hizmetler/dinigün.png';
+import DiniGunIcon from '../../../assets/hizmetler/dinigun.png';
 import ImsakiyeIcon from '../../../assets/hizmetler/imsakiye.png';
 import HocaIcon from '../../../assets/hizmetler/hoca.png';
-import GorevRozetIcon from '../../../assets/hizmetler/görev-rozet.png';
+import GorevRozetIcon from '../../../assets/hizmetler/gorev-rozet.png';
 import ProfilIcon from '../../../assets/hizmetler/profil.png';
 
 const fontFamily = 'Plus Jakarta Sans';

@@ -18,29 +18,56 @@ export default function KelamScreen() {
     const { profile, user, loading } = useUserStats();
     // Creator check
     const isCreator = profile?.role === 'creator' || profile?.application_status === 'approved';
-    const [videos, setVideos] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [videos, setVideos] = useState(() => KelamService.getCachedFeed() || []);
+    // Initial loading is true only if we don't have cached videos
+    const [isLoading, setIsLoading] = useState(() => {
+        const cached = KelamService.getCachedFeed();
+        return !cached || cached.length === 0;
+    });
     const [isMoreLoading, setIsMoreLoading] = useState(false);
     const [page, setPage] = useState(0);
+    const [refreshing, setRefreshing] = useState(false);
     const LIMIT = 20;
 
     useEffect(() => {
+        // Always try to refresh/load updates on mount, but silenty if we have cache
         loadVideos(0);
     }, []);
 
-    const loadVideos = async (pageOffset) => {
-        if (pageOffset === 0) setIsLoading(true);
-        else setIsMoreLoading(true);
+    const loadVideos = async (pageOffset, isVideoRefresh = false) => {
+        const hasCache = videos.length > 0;
+
+        // Only show full screen loader if no content is visible (no cache)
+        if (pageOffset === 0 && !isVideoRefresh && !hasCache) setIsLoading(true);
+        else if (pageOffset > 0) setIsMoreLoading(true);
+
+        // First page (offset 0) -> No Shuffle (Show newest)
+        // Subsequent pages -> Shuffle (Show random)
+        const shouldShuffle = pageOffset > 0;
 
         // Pass user ID to check for likes
-        const newVideos = await KelamService.fetchVideos(LIMIT, pageOffset, user?.uid);
+        const newVideos = await KelamService.fetchVideos(LIMIT, pageOffset, user?.uid, shouldShuffle);
 
         if (newVideos.length > 0) {
-            setVideos(prev => pageOffset === 0 ? newVideos : [...prev, ...newVideos]);
+            setVideos(prev => (pageOffset === 0 ? newVideos : [...prev, ...newVideos]));
+        } else if (pageOffset === 0 && isVideoRefresh) {
+            // Special case: If refreshing and no videos found (maybe deleted), clear list
+            setVideos([]);
         }
 
-        if (pageOffset === 0) setIsLoading(false);
-        else setIsMoreLoading(false);
+        if (pageOffset === 0) {
+            setIsLoading(false);
+            setRefreshing(false); // Stop refreshing indicator
+        } else {
+            setIsMoreLoading(false);
+        }
+    };
+
+    const handleRefresh = () => {
+        setRefreshing(true);
+        setPage(0);
+        // Pass true to indicate this is a refresh operation
+        loadVideos(0, true);
     };
 
     const handleLoadMore = () => {
@@ -105,7 +132,13 @@ export default function KelamScreen() {
                     <Text style={[styles.emptyText, { marginTop: 20 }]}>Kelam yükleniyor...</Text>
                 </View>
             ) : videos.length > 0 ? (
-                <KelamFeed videos={videos} onLike={handleLike} onEndReached={handleLoadMore} />
+                <KelamFeed
+                    videos={videos}
+                    onLike={handleLike}
+                    onEndReached={handleLoadMore}
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
             ) : (
                 <View style={styles.centerContent}>
                     <Ionicons name="videocam-outline" size={64} color="rgba(255,255,255,0.1)" />

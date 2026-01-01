@@ -6,6 +6,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { KelamFeed } from '../../../components/kelam/KelamFeed';
 import KelamService from '../../../services/KelamService';
 import { useUserStats } from '../../../contexts/UserStatsContext';
+import { rsW, rsF } from '../../../utils/responsive';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -20,37 +21,48 @@ export default function CreatorFeedScreen() {
     const [initialIndex, setInitialIndex] = useState(0);
     const [isMoreLoading, setIsMoreLoading] = useState(false);
     const [page, setPage] = useState(0);
+    const [refreshing, setRefreshing] = useState(false);
     const LIMIT = 20;
 
-    const loadVideos = useCallback(async (pageOffset, isInitial = false) => {
-        if (isInitial) setIsLoading(true);
-        else setIsMoreLoading(true);
+    const loadVideos = useCallback(async (pageOffset, isInitial = false, isRefresh = false) => {
+        if (isInitial && !isRefresh) setIsLoading(true);
+        else if (pageOffset > 0) setIsMoreLoading(true);
 
         try {
+            // Fetch all videos for creator (Already ordered by created_at DESC)
             const newVideos = await KelamService.fetchCreatorVideos(creatorId, user?.uid);
 
             if (newVideos && newVideos.length > 0) {
                 // Find initial index if initialVideoId is provided
-                if (isInitial && initialVideoId) {
+                if (isInitial && initialVideoId && !isRefresh) { // Don't reset index on refresh
                     const idx = newVideos.findIndex(v => v.id === initialVideoId || v.id.toString() === initialVideoId);
                     if (idx !== -1) setInitialIndex(idx);
                 }
 
                 setVideos(newVideos);
+            } else if (isRefresh) {
+                // Handle empty case on refresh
+                setVideos([]);
             }
         } catch (error) {
             console.error('CreatorFeed: Load error', error);
         } finally {
             setIsLoading(false);
             setIsMoreLoading(false);
+            setRefreshing(false);
         }
-    }, [creatorId, initialVideoId]);
+    }, [creatorId, initialVideoId, user?.uid]);
 
     useEffect(() => {
         if (creatorId) {
             loadVideos(0, true);
         }
     }, [creatorId, loadVideos]);
+
+    const handleRefresh = useCallback(() => {
+        setRefreshing(true);
+        loadVideos(0, true, true);
+    }, [loadVideos]);
 
     const handleLike = async (video) => {
         if (!user) return;
@@ -68,16 +80,21 @@ export default function CreatorFeedScreen() {
 
             {/* Header Overlay */}
             <View style={[styles.headerContainer, { paddingTop: Math.max(insets.top, 8) }]}>
-                <TouchableOpacity
-                    style={styles.backButton}
-                    onPress={() => router.back()}
-                >
-                    <Ionicons name="chevron-back" size={28} color="#FFFFFF" />
-                </TouchableOpacity>
+                {/* Left: Back Button */}
+                <View style={styles.headerSide}>
+                    <TouchableOpacity
+                        style={styles.headerIconButton}
+                        onPress={() => router.back()}
+                    >
+                        <Ionicons name="chevron-back" size={28} color="#FFFFFF" />
+                    </TouchableOpacity>
+                </View>
 
+                {/* Center: Standardized Title */}
                 <Text style={styles.standardTitle}>KELÂM</Text>
 
-                <View style={{ width: 44 }} />
+                {/* Right: Empty Placeholder to balance title */}
+                <View style={styles.headerSide} />
             </View>
 
             {/* Content Area */}
@@ -90,6 +107,9 @@ export default function CreatorFeedScreen() {
                     videos={videos}
                     onLike={handleLike}
                     initialIndex={initialIndex}
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                    progressViewOffset={120}
                 />
             ) : (
                 <View style={styles.centerContent}>
@@ -113,22 +133,26 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 20,
+        paddingHorizontal: rsW(10),
         zIndex: 100,
-        backgroundColor: 'rgba(0,0,0,0.3)',
     },
-    backButton: {
-        width: 44,
-        height: 44,
+    headerSide: {
+        width: rsW(60),
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    headerIconButton: {
+        width: rsW(44),
+        height: rsW(44),
         alignItems: 'center',
         justifyContent: 'center',
     },
     standardTitle: {
         fontFamily: 'Cinzel-Black',
         color: '#FFFFFF',
-        fontSize: 20,
+        fontSize: rsF(26),
         textAlign: 'center',
-        letterSpacing: -1,
+        letterSpacing: rsW(1),
     },
     centerContent: {
         flex: 1,

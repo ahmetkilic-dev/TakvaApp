@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { StyleSheet, TouchableOpacity, View, Dimensions, useWindowDimensions } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Dimensions, useWindowDimensions, Platform } from 'react-native';
 import { useRouter, useSegments } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
@@ -51,11 +51,22 @@ const BottomNavBar = React.memo(({ activeTab }) => {
 
   if (isLandscape) return null;
 
-  const isKelam = resolvedActive === 'kelam';
-  const navBackgroundColor = isKelam ? '#101E1A' : '#182723';
+  const isVideoFeed = resolvedActive === 'kelam' || (segments?.[1] === '(services)' && segments?.[2] === 'creator-feed');
+  const navBackgroundColor = isVideoFeed ? 'rgba(0,0,0,0.2)' : '#182723';
 
   return (
-    <View style={[styles.container, { height: 50 + insets.bottom, paddingBottom: insets.bottom, backgroundColor: navBackgroundColor }]} pointerEvents="auto">
+    <View
+      style={[
+        styles.container,
+        isVideoFeed && styles.absoluteContainer,
+        {
+          paddingBottom: Platform.OS === 'android' ? 0 : insets.bottom,
+          backgroundColor: navBackgroundColor,
+          borderTopWidth: isVideoFeed ? 0 : 0.5
+        }
+      ]}
+      pointerEvents="auto"
+    >
       {items.map(({ key, Icon, to }) => {
         const focused = resolvedActive === key;
         return (
@@ -79,7 +90,7 @@ export default BottomNavBar;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 15,
+    paddingTop: 5,
     backgroundColor: '#182723',
     borderTopWidth: 0.5,
     borderTopColor: 'rgba(217, 217, 217, 0.5)',
@@ -89,7 +100,7 @@ const styles = StyleSheet.create({
   },
   item: {
     marginHorizontal: ITEM_MARGIN,
-    height: 60,
+    height: 48,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -103,6 +114,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 10,
     elevation: 5,
+  },
+  absoluteContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
 

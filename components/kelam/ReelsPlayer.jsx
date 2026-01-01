@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, TouchableOpacity, Animated } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { Image } from 'expo-image';
@@ -83,7 +83,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
         return () => subscription.remove();
     }, [player]);
 
-    // Progress tracking
+    // Progress tracking with smooth 60fps updates
     useEffect(() => {
         if (!player) return;
 
@@ -91,7 +91,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
             if (player.currentTime && player.duration) {
                 setProgress((player.currentTime / player.duration) * 100);
             }
-        }, 100);
+        }, 16); // ~60fps for smooth animation
 
         return () => clearInterval(interval);
     }, [player]);
@@ -127,7 +127,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                 <VideoView
                     player={player}
                     style={StyleSheet.absoluteFill}
-                    contentFit="contain"
+                    contentFit="cover"
                     nativeControls={false}
                     allowsFullscreen={false}
                     allowsPictureInPicture={false}
@@ -220,20 +220,14 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                     {video.title}
                 </Text>
 
-                {/* Interactive Progress Bar */}
+                {/* Full Width Progress Bar */}
                 <TouchableOpacity
                     style={styles.progressBarContainer}
                     activeOpacity={1}
-                    hitSlop={{ top: 10, bottom: 10, left: 0, right: 0 }}
+                    hitSlop={{ top: 15, bottom: 15 }}
                     onPress={(e) => {
-                        // We need the width of the container. 
-                        // Since we can't easily get layout here reliably without onLayout, 
-                        // we'll rely on the assumption or onLayout.
-                        // Let's use a simple heuristic: SCREEN_WIDTH - (left margin + right margin)
-                        // defined in styles. bottomInfo left=16, right=80. Width = SCREEN_WIDTH - 96.
-                        const containerWidth = SCREEN_WIDTH - (rsW(16) + rsW(80));
-                        const x = e.nativeEvent.locationX;
-                        const percentage = Math.max(0, Math.min(1, x / containerWidth));
+                        const x = e.nativeEvent.locationX + rsW(16);
+                        const percentage = x / SCREEN_WIDTH;
                         if (player && player.duration) {
                             player.currentTime = percentage * player.duration;
                         }
@@ -341,10 +335,11 @@ const styles = StyleSheet.create({
 
     // Progress Bar
     progressBarContainer: {
-        height: rsH(2),
+        marginLeft: -rsW(16),
+        marginRight: -rsW(80),
+        marginTop: rsH(8),
+        height: 2,
         backgroundColor: 'rgba(255,255,255,0.3)',
-        borderRadius: rsW(1),
-        overflow: 'hidden',
     },
     progressBar: {
         height: '100%',
