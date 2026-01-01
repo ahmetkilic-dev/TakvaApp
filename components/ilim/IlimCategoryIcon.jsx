@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
 import { getCategoryInfo } from './utils/questionUtils';
 
 const FONT_FAMILY = 'Plus Jakarta Sans';
@@ -13,7 +14,8 @@ const IlimCategoryIcon = memo(({ categoryKey, categoryName }) => {
         <Image
           source={categoryInfo.icon}
           style={styles.icon}
-          resizeMode="contain"
+          contentFit="contain"
+          transition={200}
         />
       </View>
       <Text style={styles.categoryText}>

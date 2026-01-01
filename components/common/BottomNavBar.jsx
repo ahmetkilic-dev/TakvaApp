@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { StyleSheet, TouchableOpacity, View, Dimensions } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Dimensions, useWindowDimensions } from 'react-native';
 import { useRouter, useSegments } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
@@ -28,6 +28,11 @@ const BottomNavBar = React.memo(({ activeTab }) => {
   const router = useRouter();
   const segments = useSegments();
   const insets = useSafeAreaInsets();
+  const { width, height } = useWindowDimensions();
+
+
+
+  const isLandscape = width > height;
 
   const resolvedActive = activeTab || getActiveTabFromSegments(segments);
 
@@ -43,6 +48,8 @@ const BottomNavBar = React.memo(({ activeTab }) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     router.replace(to);
   }, [router]);
+
+  if (isLandscape) return null;
 
   const isKelam = resolvedActive === 'kelam';
   const navBackgroundColor = isKelam ? '#101E1A' : '#182723';

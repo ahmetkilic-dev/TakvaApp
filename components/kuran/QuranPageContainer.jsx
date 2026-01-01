@@ -74,7 +74,7 @@ export default function QuranPageContainer() {
       <KuranHeader />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 0 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 0 }}
       >
         <SuraTitle title={`Sayfa ${currentPage}`} />
 

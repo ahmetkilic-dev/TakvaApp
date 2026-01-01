@@ -12,11 +12,15 @@ import {
   PlusJakartaSans_400Regular,
   PlusJakartaSans_700Bold
 } from '@expo-google-fonts/plus-jakarta-sans';
+import { ScheherazadeNew_400Regular } from '@expo-google-fonts/scheherazade-new';
 import * as SplashScreen from 'expo-splash-screen';
+
 import { LocationProvider } from '../contexts/LocationContext';
 import { DayChangeProvider } from '../contexts/DayChangeContext';
 import { UserStatsProvider } from '../contexts/UserStatsContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import * as ScreenOrientation from 'expo-screen-orientation';
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -70,7 +74,9 @@ export default function RootLayout() {
     'PlusJakartaSans-Light': PlusJakartaSans_300Light,
     'PlusJakartaSans-Regular': PlusJakartaSans_400Regular,
     'PlusJakartaSans-Bold': PlusJakartaSans_700Bold,
+    'ScheherazadeNew-Regular': ScheherazadeNew_400Regular,
   });
+
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -104,6 +110,14 @@ export default function RootLayout() {
       };
     }
   }, []);
+
+  useEffect(() => {
+    async function lockOrientation() {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    }
+    lockOrientation();
+  }, []);
+
 
   if (!fontsLoaded) {
     return <InitialLoader />;

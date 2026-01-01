@@ -107,7 +107,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
 
     const handleSeek = (e) => {
         if (!player || !player.duration) return;
-        const width = e.nativeEvent.layout.width || (SCREEN_WIDTH - 96); // Fallback width based on margins
+        const width = e.nativeEvent.layout.width || (SCREEN_WIDTH - (rsW(16) + rsW(80))); // Dynamic width based on responsive margins
         const x = e.nativeEvent.locationX;
         const percentage = x / width;
         const seekTime = percentage * player.duration;
@@ -231,7 +231,7 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                         // we'll rely on the assumption or onLayout.
                         // Let's use a simple heuristic: SCREEN_WIDTH - (left margin + right margin)
                         // defined in styles. bottomInfo left=16, right=80. Width = SCREEN_WIDTH - 96.
-                        const containerWidth = SCREEN_WIDTH - 96;
+                        const containerWidth = SCREEN_WIDTH - (rsW(16) + rsW(80));
                         const x = e.nativeEvent.locationX;
                         const percentage = Math.max(0, Math.min(1, x / containerWidth));
                         if (player && player.duration) {

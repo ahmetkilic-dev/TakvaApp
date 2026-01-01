@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenBackground from '../common/ScreenBackground';
 import { useIlimData } from './hooks/useIlimData';
-import { getRandomQuestion, getQuestionById, formatQuestionForDisplay } from './utils/questionUtils';
+
 import IlimHeader from './IlimHeader';
 import IlimPointsCard from './IlimPointsCard';
 import IlimProgressBar from './IlimProgressBar';
@@ -13,6 +13,10 @@ import IlimQuestionCard from './IlimQuestionCard';
 import IlimAnswerOptions from './IlimAnswerOptions';
 import IlimPauseModal from './IlimPauseModal';
 import IlimStatisticsModal from './IlimStatisticsModal';
+import * as questionUtils from './utils/questionUtils';
+
+const { getRandomQuestion, getQuestionById, formatQuestionForDisplay, getAllQuestions } = questionUtils;
+
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const FONT_FAMILY = 'Plus Jakarta Sans';
@@ -28,11 +32,11 @@ try {
 }
 
 export default function IlimContainer() {
-  const { 
-    loading: ilimLoading, 
-    totalPoints, 
-    dailyPoints, 
-    addPoints, 
+  const {
+    loading: ilimLoading,
+    totalPoints,
+    dailyPoints,
+    addPoints,
     getAllCategoryStats,
     answeredQuestions,
     currentQuestionId,
@@ -40,9 +44,14 @@ export default function IlimContainer() {
     saveCurrentQuestionId,
   } = useIlimData();
 
+  const scrollViewRef = useRef(null);
+
+
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [showExplanation, setShowExplanation] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
   const [isStatisticsModalVisible, setIsStatisticsModalVisible] = useState(false);
   const [questionLoading, setQuestionLoading] = useState(true);
 
@@ -51,17 +60,17 @@ export default function IlimContainer() {
     if (!ilimDataRaw) {
       return null;
     }
-    
+
     // Export default ise
     if (ilimDataRaw.default && typeof ilimDataRaw.default === 'object') {
       return ilimDataRaw.default;
     }
-    
+
     // Eğer direkt obje ise ve boş değilse
     if (typeof ilimDataRaw === 'object' && Object.keys(ilimDataRaw).length > 0) {
       return ilimDataRaw;
     }
-    
+
     // Hiçbiri değilse null döndür
     return null;
   }, []);
@@ -69,7 +78,7 @@ export default function IlimContainer() {
   // Toplam soru sayısını hesapla (1600 soru)
   const totalQuestionsCount = useMemo(() => {
     if (!ilimData) return 1600; // Fallback değer
-    
+
     try {
       const { getAllQuestions } = require('./utils/questionUtils');
       const allQuestions = getAllQuestions(ilimData);
@@ -84,10 +93,10 @@ export default function IlimContainer() {
     if (!answeredQuestions || answeredQuestions.length === 0) {
       return 0;
     }
-    
+
     const answeredCount = answeredQuestions.length;
     const progressPercentage = (answeredCount / totalQuestionsCount) * 100;
-    
+
     // 0-100 arası sınırla ve 2 ondalık basamağa yuvarla
     return Math.min(100, Math.max(0, Math.round(progressPercentage * 100) / 100));
   }, [answeredQuestions, totalQuestionsCount]);
@@ -103,28 +112,29 @@ export default function IlimContainer() {
 
     try {
       setQuestionLoading(true);
-      const { getAllQuestions } = require('./utils/questionUtils');
       const allQuestions = getAllQuestions(ilimData);
-      
+
       // Eğer hiç soru yoksa sessizce return et
       if (!allQuestions || allQuestions.length === 0) {
         setQuestionLoading(false);
         return;
       }
-      
+
       const randomQuestion = getRandomQuestion(ilimData, answeredQuestions || []);
-      
+
       if (randomQuestion) {
         const formattedQuestion = formatQuestionForDisplay(randomQuestion);
-        
+
         // Formatlama hatası kontrolü
         if (!formattedQuestion) {
           setQuestionLoading(false);
           return;
         }
-        
+
         setCurrentQuestion(formattedQuestion);
         setSelectedAnswer(null);
+        setShowExplanation(false);
+
         // Mevcut soru ID'sini kaydet
         if (saveCurrentQuestionId) {
           saveCurrentQuestionId(randomQuestion.id);
@@ -149,7 +159,7 @@ export default function IlimContainer() {
         try {
           setQuestionLoading(true);
           const existingQuestion = getQuestionById(ilimData, currentQuestionId);
-          
+
           if (existingQuestion) {
             const formattedQuestion = formatQuestionForDisplay(existingQuestion);
             setCurrentQuestion(formattedQuestion);
@@ -174,11 +184,11 @@ export default function IlimContainer() {
   // Cevap seçildiğinde
   const handleAnswerSelect = useCallback((answerId) => {
     if (!currentQuestion || selectedAnswer !== null) return; // Zaten cevap verilmişse tekrar seçilemez
-    
+
     setSelectedAnswer(answerId);
-    
+
     const isCorrect = answerId === currentQuestion.correctAnswer;
-    
+
     // Toplam soru sayısını al (tüm sorular çözüldüğünde yeniden başlatmak için)
     let allQuestionsCount = 0;
     try {
@@ -189,12 +199,12 @@ export default function IlimContainer() {
       // Hata durumunda 0 kullan
       allQuestionsCount = 0;
     }
-    
+
     // Soruyu çözülen sorular listesine ekle (tüm sorular çözüldüyse otomatik sıfırlanır)
     if (markQuestionAsAnswered && currentQuestion.id) {
       markQuestionAsAnswered(currentQuestion.id, allQuestionsCount);
     }
-    
+
     // Puan ekle
     if (isCorrect) {
       addPoints(currentQuestion.points, currentQuestion.category, true);
@@ -202,12 +212,28 @@ export default function IlimContainer() {
       addPoints(0, currentQuestion.category, false);
     }
 
-    // 2 saniye sonra yeni soru yükle
+    // 3 saniye sonra yeni soru yükle ve açıklamayı kapat
+    setShowExplanation(true);
+
     setTimeout(() => {
       setSelectedAnswer(null);
+      setShowExplanation(false);
       loadRandomQuestion();
-    }, 2000);
+    }, 4000);
+
+
   }, [currentQuestion, selectedAnswer, addPoints, loadRandomQuestion, markQuestionAsAnswered, ilimData]);
+
+  // Açıklama gösterilince otomatik aşağı kaydır
+  useEffect(() => {
+    if (showExplanation && scrollViewRef.current) {
+      const timer = setTimeout(() => {
+        scrollViewRef.current?.scrollToEnd({ animated: true });
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [showExplanation]);
+
 
   // İstatistikleri al - modal için formatla
   const categoryStatsForModal = useMemo(() => {
@@ -223,8 +249,8 @@ export default function IlimContainer() {
     return statsMap;
   }, [getAllCategoryStats]);
 
-  // Loading durumu
-  if (ilimLoading || questionLoading || !currentQuestion) {
+  // Loading durumu - Sadece başlangıçta veya soru yoksa tam ekran loader göster
+  if (ilimLoading || (questionLoading && !currentQuestion) || !currentQuestion) {
     return (
       <ScreenBackground>
         <SafeAreaView edges={['top']} style={styles.safeArea}>
@@ -243,24 +269,28 @@ export default function IlimContainer() {
         <IlimHeader />
 
         <ScrollView
+          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={[styles.scrollContent, showExplanation && { paddingTop: 10 }]}
         >
           {/* Title Section */}
-          <View style={styles.titleSection}>
-            <Text style={styles.titleText}>
-              İlim Yolculuğu
-            </Text>
-            <Text style={styles.subtitle}>
-              Bilgini ölç, ilmini artır.
-            </Text>
-          </View>
+          {!showExplanation && (
+            <View style={styles.titleSection}>
+              <Text style={styles.titleText}>
+                İlim Yolculuğu
+              </Text>
+              <Text style={styles.subtitle}>
+                Bilgini ölç, ilmini artır.
+              </Text>
+            </View>
+          )}
 
           {/* White Box Container */}
-          <View style={styles.whiteBox}>
+          <View style={[styles.whiteBox, showExplanation && { padding: 16, marginTop: 10 }]}>
+
             {/* Points Card */}
             <View style={styles.pointsCardContainer}>
-              <IlimPointsCard 
+              <IlimPointsCard
                 dailyPoints={dailyPoints}
                 totalPoints={totalPoints}
               />
@@ -272,18 +302,21 @@ export default function IlimContainer() {
             </View>
 
             {/* Pause Button */}
-            <View style={styles.pauseButtonContainer}>
-              <TouchableOpacity
-                onPress={() => setIsModalVisible(true)}
-                style={styles.pauseButton}
-              >
-                <Ionicons name="pause" size={20} color="#FFFFFF" />
-              </TouchableOpacity>
-            </View>
+            {!showExplanation && (
+              <View style={styles.pauseButtonContainer}>
+                <TouchableOpacity
+                  onPress={() => setIsModalVisible(true)}
+                  style={styles.pauseButton}
+                >
+                  <Ionicons name="pause" size={20} color="#FFFFFF" />
+                </TouchableOpacity>
+              </View>
+            )}
 
             {/* Category Section */}
-            <View style={styles.categorySection}>
-              <IlimCategoryIcon 
+            <View style={[styles.categorySection, showExplanation && { marginBottom: 12 }]}>
+
+              <IlimCategoryIcon
                 categoryKey={currentQuestion.category}
                 categoryName={currentQuestion.categoryName}
               />
@@ -303,7 +336,24 @@ export default function IlimContainer() {
                 onSelectAnswer={handleAnswerSelect}
               />
             </View>
+
+            {/* Explanation Section */}
+            {showExplanation && currentQuestion.explanation && (
+              <View style={styles.explanationSection}>
+                <View style={styles.explanationHeader}>
+                  <View style={styles.explanationIconBadge}>
+                    <Ionicons name="book-outline" size={14} color="#D4AF37" />
+                  </View>
+                  <Text style={styles.explanationTitle}>Biliyor muydunuz?</Text>
+                </View>
+                <Text style={styles.explanationText}>
+                  {currentQuestion.explanation}
+                </Text>
+              </View>
+            )}
+
           </View>
+
         </ScrollView>
       </SafeAreaView>
 
@@ -399,5 +449,44 @@ const styles = StyleSheet.create({
   answersSection: {
     width: '100%',
   },
+  explanationSection: {
+    marginTop: 20,
+    padding: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  explanationHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  explanationIconBadge: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: 'rgba(214, 175, 55, 0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 8,
+  },
+  explanationTitle: {
+    fontFamily: FONT_FAMILY,
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#D4AF37',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  explanationText: {
+    fontFamily: FONT_FAMILY,
+    fontSize: 14,
+    lineHeight: 22,
+    color: 'rgba(255, 255, 255, 0.9)',
+    fontWeight: '400',
+  },
+
 });
+
 

@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     subtitlesText: {
         fontFamily: 'Plus Jakarta Sans',
         color: '#FFFFFF',
-        fontSize: 28,
+        fontSize: rsF(28),
         fontWeight: 'bold',
         textAlign: 'center',
         textShadowColor: 'rgba(0,0,0,0.8)',
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     emptyText: {
         fontFamily: 'Plus Jakarta Sans',
         color: 'rgba(255,255,255,0.3)',
-        fontSize: 16,
+        fontSize: rsF(16),
         textAlign: 'center',
     },
 });
