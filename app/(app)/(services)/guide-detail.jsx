@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScreenBackground from '../../../components/common/ScreenBackground';
+import { useScrollJumpFix } from '../../../utils/scrollOptimization';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -129,6 +130,7 @@ const services = [
 
 export default function GuideDetailScreen() {
   const router = useRouter();
+  const scrollViewRef = useScrollJumpFix();
 
   const handleServicePress = (service) => {
     // Abdest Rehberi'ne basınca abdest ekranına git
@@ -191,7 +193,12 @@ export default function GuideDetailScreen() {
         </View>
 
         <ScrollView
+          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
+          removeClippedSubviews={true}
+          maxToRenderPerBatch={2}
+          windowSize={5}
+          scrollEventThrottle={16}
           contentContainerStyle={{ paddingBottom: 0 }}
         >
           {/* Title Section */}

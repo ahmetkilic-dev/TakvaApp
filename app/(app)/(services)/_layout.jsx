@@ -6,7 +6,7 @@ export default function ServicesLayout() {
         <Stack screenOptions={{
             headerShown: false,
             contentStyle: { backgroundColor: '#04100D' },
-            animation: 'slide_from_right',
+            animation: 'none',
         }}>
             <Stack.Screen name="abdest" />
             <Stack.Screen name="ayarlar" />

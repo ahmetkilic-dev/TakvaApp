@@ -69,12 +69,26 @@ export default function QuranPageContainer() {
     }
   }, [verses, loading, currentPage]);
 
+  const scrollViewRef = useRef(null);
+
+  // Reset scroll position when page changes
+  useEffect(() => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ y: 0, animated: false });
+    }
+  }, [currentPage]);
+
   return (
     <SafeAreaView edges={['top']} className="flex-1">
       <KuranHeader />
       <ScrollView
+        ref={scrollViewRef}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 0 }}
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={2}
+        windowSize={5}
+        scrollEventThrottle={16}
       >
         <SuraTitle title={`Sayfa ${currentPage}`} />
 

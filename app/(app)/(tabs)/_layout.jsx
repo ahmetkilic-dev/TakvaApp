@@ -64,6 +64,7 @@ export default function TabsLayout() {
         // Bottom bar artık app-level `BottomNavBar` olarak tek instance render ediliyor.
         // Tabs'in kendi barını kapatıyoruz ki çift bar olmasın.
         tabBarStyle: { display: 'none' },
+        animation: 'none',
       }}
     >
       {/* 1. KELAM (Hilal) */}

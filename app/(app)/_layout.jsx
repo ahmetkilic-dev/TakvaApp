@@ -13,7 +13,7 @@ export default function AppLayout() {
         <Stack screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: '#04100D' },
-          animation: 'fade', // Main tabs fade
+          animation: 'none',
         }}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="(services)" />

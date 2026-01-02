@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ScreenBackground from '../../../components/common/ScreenBackground';
+import { useScrollJumpFix, optimizedScrollProps } from '../../../utils/scrollOptimization';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -84,6 +85,7 @@ const abdestSteps = [
 
 export default function AbdestScreen() {
   const router = useRouter();
+  const scrollViewRef = useScrollJumpFix();
 
   return (
     <ScreenBackground>
@@ -108,7 +110,12 @@ export default function AbdestScreen() {
         </View>
 
         <ScrollView
+          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
+          removeClippedSubviews={true}
+          maxToRenderPerBatch={2}
+          windowSize={5}
+          scrollEventThrottle={16}
           contentContainerStyle={{ paddingBottom: 0 }}
         >
           {/* Title Section */}

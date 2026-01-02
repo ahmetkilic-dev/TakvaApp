@@ -20,6 +20,7 @@ import { R2UploadService } from '../../../services/R2UploadService';
 import { supabase } from '../../../lib/supabase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect, useCallback } from 'react';
+import { useScrollJumpFix, optimizedScrollProps } from '../../../utils/scrollOptimization';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = 20;
@@ -28,6 +29,7 @@ export default function ProfilScreen() {
   const router = useRouter();
   const { user, loading, profileData } = useProfile();
   const [creatorVideos, setCreatorVideos] = useState([]);
+  const scrollViewRef = useScrollJumpFix();
 
   const loadCreatorVideos = useCallback(async () => {
     const creatorId = profileData?.id || user?.uid;
@@ -126,7 +128,12 @@ export default function ProfilScreen() {
         </View>
 
         <ScrollView
+          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
+          removeClippedSubviews={true}
+          maxToRenderPerBatch={2}
+          windowSize={5}
+          scrollEventThrottle={16}
           contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 20 }}
         >
           {console.log('[Profile] ===== DEBUG START =====')}

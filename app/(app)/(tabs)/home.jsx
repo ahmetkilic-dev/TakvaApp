@@ -1,4 +1,4 @@
-import { ScrollView, StatusBar, View, InteractionManager } from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
 
@@ -14,15 +14,13 @@ import ReligiousDayCard from '../../../components/home/ReligiousDayCard';
 import FloatingHocaButton from '../../../components/common/FloatingHocaButton';
 
 export default function HomeScreen() {
-  const [isReady, setIsReady] = useState(false);
+  const [phase, setPhase] = useState(0); // 0: header, 1: critical, 2: rest
 
   useEffect(() => {
-    // Navigasyon animasyonu bittikten sonra ağır bileşenleri yükle
-    const task = InteractionManager.runAfterInteractions(() => {
-      setIsReady(true);
-    });
-
-    return () => task.cancel();
+    // Progressive rendering for instant feel
+    setPhase(1); // Critical content immediately
+    const timer = setTimeout(() => setPhase(2), 100); // Rest after 100ms
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -33,36 +31,30 @@ export default function HomeScreen() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
+          removeClippedSubviews={true}
+          maxToRenderPerBatch={2}
+          windowSize={5}
+          scrollEventThrottle={16}
         >
-          {/* Ana sayfa başlık ve namaz vakitleri - ANINDA YÜKLENİR */}
+          {/* Ana sayfa başlık ve namaz vakitleri - INSTANT */}
           <HomeHeader />
 
-          {/* Ağır içerikler - Deferred Loading */}
-          {isReady ? (
+          {/* Critical content - Immediate */}
+          {phase >= 1 && (
             <>
-              {/* Günlük içerik carousel */}
               <DailyCarousel />
-
-              {/* Salavat kartı */}
               <SalavatCard />
+            </>
+          )}
 
-              {/* Esmaü'l-Hüsna kartı */}
+          {/* Rest of content - 100ms delay */}
+          {phase >= 2 && (
+            <>
               <EsmaSlider />
-
-              {/* Kuran kartı */}
               <QuranSection />
-
-              {/* Hadis kartı */}
               <HadithCard />
-
-              {/* Dini Günler kartı */}
               <ReligiousDayCard />
             </>
-          ) : (
-            // Placeholder: Yüklenirken boşluk bırakarak layout shift'i engellemeye çalışabiliriz
-            // veya kullanıcıya "loading" hissi vermemek için boş bırakabiliriz.
-            // Header zaten dolu olduğu için boş kalmasında sakınca yok.
-            <View style={{ height: 1000 }} />
           )}
         </ScrollView>
       </SafeAreaView>

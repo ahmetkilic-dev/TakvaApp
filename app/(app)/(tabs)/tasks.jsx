@@ -43,6 +43,10 @@ export default function TasksScreen() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
+          removeClippedSubviews={true}
+          maxToRenderPerBatch={2}
+          windowSize={5}
+          scrollEventThrottle={16}
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,

@@ -60,9 +60,10 @@ const BottomNavBar = React.memo(({ activeTab }) => {
         styles.container,
         isVideoFeed && styles.absoluteContainer,
         {
-          paddingBottom: Platform.OS === 'android' ? 0 : insets.bottom,
+          paddingBottom: Platform.OS === 'android' ? 8 : Math.max(insets.bottom, 8),
           backgroundColor: navBackgroundColor,
-          borderTopWidth: isVideoFeed ? 0 : 0.5
+          borderTopWidth: isVideoFeed ? 0 : 0.5,
+          borderTopColor: isVideoFeed ? 'transparent' : 'rgba(217, 217, 217, 0.5)',
         }
       ]}
       pointerEvents="auto"
