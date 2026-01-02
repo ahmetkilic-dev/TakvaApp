@@ -1,4 +1,34 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import * as InAppPurchases from 'expo-in-app-purchases';
+// Satın alma ürün kimlikleri
+const PRODUCT_IDS = {
+  'plus_monthly': 'com.wezyapps.takvaapp.plus.monthly',
+  'plus_yearly': 'com.wezyapps.takvaapp.plus.yearly',
+  'premium_monthly': 'com.wezyapps.takvaapp.premium.monthly',
+  'premium_yearly': 'com.wezyapps.takvaapp.premium.yearly',
+};
+// Satın alma işlemi fonksiyonu
+const purchaseSubscription = async (tier, plan) => { 
+  let productId = '';
+  if (tier === Tiers.PLUS) {
+    productId = plan === 'annual' ? PRODUCT_IDS.plus_yearly : PRODUCT_IDS.plus_monthly;
+  } else {
+    productId = plan === 'annual' ? PRODUCT_IDS.premium_yearly : PRODUCT_IDS.premium_monthly;
+  }
+  try {
+    await InAppPurchases.connectAsync();
+    const products = await InAppPurchases.getProductsAsync([productId]);
+    if (!products || products.length === 0) {
+      console.warn('Ürün bulunamadı:', productId);
+      return;
+    }
+    await InAppPurchases.purchaseItemAsync(productId);
+  } catch (err) {
+    console.warn('Satın alma hatası:', err);
+  } finally {
+    InAppPurchases.disconnectAsync();
+  }
+};
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -158,12 +188,19 @@ const PlanList = React.memo(({ plans, selectedPlan, onSelectPlan, activeTier }) 
 ));
 
 export default function PremiumScreen() {
+  // ...existing code...
   const router = useRouter();
   const [activeTier, setActiveTier] = useState(Tiers.PREMIUM);
   const [selectedPlan, setSelectedPlan] = useState('monthly');
 
   const currentPlans = useMemo(() => plansData[activeTier], [activeTier]);
   const currentFeatures = useMemo(() => featuresData[activeTier], [activeTier]);
+
+  // react-native-iap bağlantısı için ilk renderda başlatma (isteğe bağlı, sade tutmak için butonda başlatıyoruz)
+  // ...existing code...
+  const handlePurchase = useCallback(() => {
+    purchaseSubscription(activeTier, selectedPlan);
+  }, [activeTier, selectedPlan]);
 
   return (
     <ScreenBackground>
@@ -203,7 +240,11 @@ export default function PremiumScreen() {
 
           {/* Call to Action Button */}
           <View style={{ alignItems: 'center', marginBottom: 24 }}>
-            <TouchableOpacity activeOpacity={0.8} style={{ width: Math.min(350, SCREEN_WIDTH - horizontalPadding * 2), height: 50, borderRadius: 12, borderWidth: 0.5, borderColor: activeTier === Tiers.PREMIUM ? 'rgba(207, 155, 71, 0.5)' : 'rgba(255,255,255,0.3)', backgroundColor: '#0D303A', alignItems: 'center', justifyContent: 'center' }}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={{ width: Math.min(350, SCREEN_WIDTH - horizontalPadding * 2), height: 50, borderRadius: 12, borderWidth: 0.5, borderColor: activeTier === Tiers.PREMIUM ? 'rgba(207, 155, 71, 0.5)' : 'rgba(255,255,255,0.3)', backgroundColor: '#0D303A', alignItems: 'center', justifyContent: 'center' }}
+              onPress={handlePurchase}
+            >
               <MaskedView style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} maskElement={<View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}><Text style={{ fontFamily, fontSize: 18, fontWeight: '700', lineHeight: 18, textAlign: 'center', color: '#FFFFFF' }}>{activeTier === Tiers.PREMIUM ? "Takva Premium'a Geç" : "Takva Plus'a Geç"}</Text></View>}>
                 <LinearGradient colors={activeTier === Tiers.PREMIUM ? ['#E9CC88', '#CF9B47'] : ['#FFFFFF', '#E0E0E0']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ width: '100%', height: '100%' }} />
               </MaskedView>
