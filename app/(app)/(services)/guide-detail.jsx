@@ -133,45 +133,52 @@ export default function GuideDetailScreen() {
   const scrollViewRef = useScrollJumpFix();
 
   const handleServicePress = (service) => {
-    // Abdest Rehberi'ne basınca abdest ekranına git
-    if (service.title === 'Abdest Rehberi') {
-      router.push('/(app)/(services)/abdest');
-    } else if (service.title === 'Kuran-ı Kerim') {
-      router.push('/(app)/(services)/quran');
-    } else if (service.title === 'Hutbe') {
-      router.push('/(app)/(services)/hutbe');
-    } else if (service.title === 'İmsakiye') {
-      router.push('/(app)/(services)/imsakiye');
-    } else if (service.title === 'Hatırlatıcılar') {
-      router.push('/(app)/(services)/hatirlatici');
-    } else if (service.title === 'Namaz Durumu') {
-      router.push('/(app)/(services)/namazdurumu');
-    } else if (service.title === 'Günlük Ayet') {
-      router.push('/(app)/(services)/hadith');
-    } else if (service.title === 'Zikir & Dua') {
-      router.push('/(app)/(services)/dhikr');
-    } else if (service.title === 'Kıble Pusulası') {
-      router.push('/(app)/(services)/qibla');
-    } else if (service.title === 'HocaAI') {
-      router.push('/(app)/(services)/hoca-ai');
-    } else if (service.title === 'Görevler & Rozetler') {
-      router.push('/(app)/(tabs)/tasks');
-    } else if (service.title === 'Dini Günler') {
-      router.push('/(app)/(services)/diniGunler');
-    } else if (service.title === 'Namaz Rehberi') {
-      router.push('/(app)/(services)/namazrehber');
-    } else if (service.title === 'Profil & İstatistikler') {
-      router.push('/(app)/(tabs)/profile');
-    } else if (service.title === 'İlim') {
-      router.push('/(app)/(services)/ilim');
-    } else {
-      // Diğer hizmetler için şimdilik console.log
-      console.log('Service pressed:', service.title);
-    }
+    // Navigation'ı frame sonuna alarak butonun anında tepki vermesini sağla
+    requestAnimationFrame(() => {
+      // Abdest Rehberi'ne basınca abdest ekranına git
+      if (service.title === 'Abdest Rehberi') {
+        router.push('/(app)/(services)/abdest');
+      } else if (service.title === 'Kuran-ı Kerim') {
+        router.push('/(app)/(services)/quran');
+      } else if (service.title === 'Hutbe') {
+        router.push('/(app)/(services)/hutbe');
+      } else if (service.title === 'İmsakiye') {
+        router.push('/(app)/(services)/imsakiye');
+      } else if (service.title === 'Hatırlatıcılar') {
+        router.push('/(app)/(services)/hatirlatici');
+      } else if (service.title === 'Namaz Durumu') {
+        router.push('/(app)/(services)/namazdurumu');
+      } else if (service.title === 'Günlük Ayet') {
+        router.push('/(app)/(services)/hadith');
+      } else if (service.title === 'Zikir & Dua') {
+        router.push('/(app)/(services)/dhikr');
+      } else if (service.title === 'Kıble Pusulası') {
+        router.push('/(app)/(services)/qibla');
+      } else if (service.title === 'HocaAI') {
+        router.push('/(app)/(services)/hoca-ai');
+      } else if (service.title === 'Görevler & Rozetler') {
+        router.push('/(app)/(tabs)/tasks');
+      } else if (service.title === 'Dini Günler') {
+        router.push('/(app)/(services)/diniGunler');
+      } else if (service.title === 'Namaz Rehberi') {
+        router.push('/(app)/(services)/namazrehber');
+      } else if (service.title === 'Profil & İstatistikler') {
+        router.push('/(app)/(tabs)/profile');
+      } else if (service.title === 'İlim') {
+        router.push('/(app)/(services)/ilim');
+      } else if (service.title === 'Kelâm') {
+        router.push('/(app)/(tabs)/kelam');
+      } else {
+        // Diğer hizmetler için şimdilik console.log
+        console.log('Service pressed:', service.title);
+      }
+    });
   };
 
   const handlePremiumPress = () => {
-    router.push('/(app)/(services)/premium');
+    requestAnimationFrame(() => {
+      router.push('/(app)/(services)/premium');
+    });
   };
 
   // Calculate card width for 2 columns with padding (matching design: 20px side padding = 40px total, 16px gap)

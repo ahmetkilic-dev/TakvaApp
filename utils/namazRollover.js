@@ -45,7 +45,36 @@ export async function rolloverNamazIfNeeded({ uid, todayKey }) {
       .limit(1)
       .single();
 
-    const prevDayKey = latestRecord?.date_key || todayKey;
+    // Eğer kayıt yoksa, profili kontrol et (yeni kullanıcı mı eski kullanıcı mı?)
+    let effectivePrevDateKey = latestRecord?.date_key;
+
+    if (!effectivePrevDateKey) {
+      // Hiç namaz kaydı yok. Kullanıcı ne zaman kayıt oldu?
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('created_at')
+        .eq('id', uid)
+        .single();
+
+      if (profile?.created_at) {
+        // created_at timestamp string'ini YYYY-MM-DD formatına çevir
+        const createdAt = new Date(profile.created_at);
+        const y = createdAt.getFullYear();
+        const m = String(createdAt.getMonth() + 1).padStart(2, '0');
+        const d = String(createdAt.getDate()).padStart(2, '0');
+        effectivePrevDateKey = `${y}-${m}-${d}`;
+
+        // Eğer kullanıcı bugün kayıt olduysa işlem yapma
+        if (effectivePrevDateKey === todayKey) {
+          return;
+        }
+      } else {
+        // Profil de yoksa veya hata varsa işlem yapma
+        return;
+      }
+    }
+
+    const prevDayKey = effectivePrevDateKey;
     const prevCompleted = latestRecord?.completed || emptyCompleted();
 
     const diffDays = dayDiff(prevDayKey, todayKey);

@@ -19,13 +19,11 @@ export function LocationProvider({ children }) {
     // Konum bilgisini al
     const fetchLocation = async () => {
         try {
-            console.log('📍 Konum alınıyor...');
             const position = await Location.getCurrentPositionAsync({
                 accuracy: Location.Accuracy.Balanced
             });
 
             const { latitude, longitude } = position.coords;
-            console.log('📍 Konum alındı:', latitude, longitude);
             setLocation({ latitude, longitude });
 
             // Persist location for background tasks or notification workers
@@ -37,41 +35,34 @@ export function LocationProvider({ children }) {
                 if (geocode.length > 0) {
                     const cityName = geocode[0].city || geocode[0].region || 'Bilinmiyor';
                     const districtName = geocode[0].district || geocode[0].subregion || '';
-                    console.log('📍 Şehir:', cityName, 'İlçe:', districtName);
                     setCity(cityName);
                     setDistrict(districtName);
                 }
             } catch (e) {
-                console.log('Geocode hatası:', e);
+                // geocode error
             }
 
             return { latitude, longitude };
         } catch (error) {
-            console.log('Konum alma hatası:', error);
             return null;
         }
     };
 
     // Konum izni kontrol et ve gerekirse al
     const checkAndRequestPermission = async () => {
-        console.log('🔍 Konum izni kontrol ediliyor...');
         setIsLoading(true);
 
         try {
             // Mevcut izin durumunu kontrol et
             const { status: existingStatus } = await Location.getForegroundPermissionsAsync();
-            console.log('📋 Mevcut izin durumu:', existingStatus);
 
             if (existingStatus === 'granted') {
-                console.log('✅ Konum izni verildi');
                 setPermissionStatus('granted');
                 setPermissionChecked(true);
                 await fetchLocation();
             } else if (existingStatus === 'undetermined') {
                 // Henüz sorulmamış - izin iste
-                console.log('❓ İzin henüz sorulmamış, isteniyor...');
                 const { status } = await Location.requestForegroundPermissionsAsync();
-                console.log('🔔 İzin durumu:', status);
                 setPermissionStatus(status);
                 setPermissionChecked(true);
 
@@ -80,12 +71,10 @@ export function LocationProvider({ children }) {
                 }
             } else {
                 // Denied
-                console.log('❌ Konum izni reddedilmiş');
                 setPermissionStatus('denied');
                 setPermissionChecked(true);
             }
         } catch (error) {
-            console.log('Konum izni hatası:', error);
             setPermissionStatus('denied');
             setPermissionChecked(true);
         } finally {
@@ -95,7 +84,6 @@ export function LocationProvider({ children }) {
 
     // İlk açılışta konum izni kontrolü
     useEffect(() => {
-        console.log('🚀 LocationContext başlatılıyor...');
         checkAndRequestPermission();
     }, []);
 
@@ -104,15 +92,12 @@ export function LocationProvider({ children }) {
         const subscription = AppState.addEventListener('change', async (nextAppState) => {
             // Uygulama arka plandan ön plana geldiğinde
             if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-                console.log('📱 Uygulama aktif oldu, izin kontrol ediliyor...');
 
                 // Sadece izin denied ise tekrar kontrol et
                 if (permissionStatus === 'denied') {
                     const { status } = await Location.getForegroundPermissionsAsync();
-                    console.log('📋 Güncel izin durumu:', status);
 
                     if (status === 'granted') {
-                        console.log('✅ İzin ayarlardan verildi!');
                         setPermissionStatus('granted');
                         await fetchLocation();
                     }
@@ -128,7 +113,6 @@ export function LocationProvider({ children }) {
 
     // Konum iznini tekrar iste / Ayarlara yönlendir
     const retryPermission = async () => {
-        console.log('🔄 Konum izni tekrar isteniyor...');
 
         const { status } = await Location.getForegroundPermissionsAsync();
 
@@ -162,7 +146,7 @@ export function LocationProvider({ children }) {
         }
     };
 
-    const value = {
+    const value = React.useMemo(() => ({
         location,
         city,
         district,
@@ -173,7 +157,7 @@ export function LocationProvider({ children }) {
         retryPermission,
         fetchLocation,
         hasPermission: permissionStatus === 'granted',
-    };
+    }), [location, city, district, permissionStatus, isLoading, permissionChecked]);
 
     return (
         <LocationContext.Provider value={value}>

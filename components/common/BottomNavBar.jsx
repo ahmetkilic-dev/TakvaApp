@@ -46,7 +46,10 @@ const BottomNavBar = React.memo(({ activeTab }) => {
 
   const handlePress = useCallback((to) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    router.replace(to);
+    // Instant feedback için navigation'ı bir sonraki frame'e al
+    requestAnimationFrame(() => {
+      router.replace(to);
+    });
   }, [router]);
 
   if (isLandscape) return null;

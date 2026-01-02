@@ -11,7 +11,8 @@ import icKible from '../../assets/images/kible.png';
 import icKuran from '../../assets/hizmetler/kuran.png';
 import icDahaFazla from '../../assets/images/daha-fazlasi.png';
 
-// 🚀 ALADHAN API
+import { PrayerTimesAPI } from '../../utils/prayerTimesApi';
+
 const API_BASE = 'https://api.aladhan.com/v1/timings';
 
 const createDateFromTime = (timeStr) => {
@@ -52,75 +53,24 @@ const HomeHeader = React.memo(() => {
 
   const [displayCity, setDisplayCity] = useState('Konum alınıyor...');
 
-  // 1. API İsteği - Konum değiştiğinde güncelle (CACHE ile optimize edildi)
+  // 1. API İsteği - PrayerTimesAPI kullanımı
   useEffect(() => {
     let mounted = true;
     const fetchTimes = async () => {
       try {
-        const now = new Date();
-        const dateStr = `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
+        const { data, displayCity: city } = await PrayerTimesAPI.fetchDailyTimes(
+          userLocation,
+          userCity,
+          hasPermission
+        );
 
-        let finalUrl;
-        let cacheKey;
-
-        // Eğer konum izni varsa ve konum alındıysa, koordinat ile sorgula
-        if (hasPermission && userLocation) {
-          const lat = userLocation.latitude.toFixed(2);
-          const lon = userLocation.longitude.toFixed(2);
-          cacheKey = `@prayer_times_${dateStr}_${lat}_${lon}`;
-          finalUrl = `${API_BASE}/${dateStr}?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&method=13`;
-          setDisplayCity(userCity || 'Türkiye');
-        } else {
-          // Varsayılan olarak İstanbul kullan
-          cacheKey = `@prayer_times_${dateStr}_istanbul`;
-          finalUrl = `${API_BASE}/${dateStr}?city=Istanbul&country=Turkey&method=13`;
-          if (mounted) setDisplayCity('İstanbul');
-        }
-
-        // Önce cache'i kontrol et
-        const cached = await AsyncStorage.getItem(cacheKey);
-        if (cached && mounted) {
-          const parsedCache = JSON.parse(cached);
-          setPrayerTimes(parsedCache);
-          return; // Cache varsa API çağrısı yapma
-        }
-
-        // Cache yoksa API'den çek
-        if (hasPermission && userLocation) {
-          console.log('🕌 Namaz vakitleri konuma göre alınıyor:', userCity, userLocation.latitude, userLocation.longitude);
-        }
-
-        const response = await fetch(finalUrl);
-        const result = await response.json();
-
-        if (mounted && result.data && result.data.timings) {
-          const t = result.data.timings;
-          const mapping = [
-            { label: 'İmsak', time: t.Fajr },
-            { label: 'Güneş', time: t.Sunrise },
-            { label: 'Öğle', time: t.Dhuhr },
-            { label: 'İkindi', time: t.Asr },
-            { label: 'Akşam', time: t.Maghrib },
-            { label: 'Yatsı', time: t.Isha }
-          ];
-          setPrayerTimes(mapping);
-          // Cache'e kaydet
-          await AsyncStorage.setItem(cacheKey, JSON.stringify(mapping));
-        } else if (mounted) {
-          useFallbackData();
+        if (mounted) {
+          setPrayerTimes(data);
+          setDisplayCity(city);
         }
       } catch (error) {
-        if (mounted) useFallbackData();
+        // Fallback PrayerTimesAPI içinde zaten yönetiliyor ama ekstra güvenlik
       }
-    };
-
-    const useFallbackData = () => {
-      setPrayerTimes([
-        { label: 'İmsak', time: '06:43' }, { label: 'Güneş', time: '08:15' },
-        { label: 'Öğle', time: '13:06' }, { label: 'İkindi', time: '15:24' },
-        { label: 'Akşam', time: '17:44' }, { label: 'Yatsı', time: '19:10' }
-      ]);
-      setDisplayCity('İstanbul');
     };
 
     // Konum yüklenirken bekle, sonra fetch et
@@ -185,7 +135,10 @@ const HomeHeader = React.memo(() => {
   const [hours, minutes, seconds] = displayData.remainingTime.split(':');
 
   const handleMenuPress = useCallback((path) => {
-    router.push(path);
+    // UI thread'i bloklamadan navigasyon yap (basıldığı an tepki versin)
+    requestAnimationFrame(() => {
+      router.push(path);
+    });
   }, [router]);
 
   const menuItems = useMemo(() => [

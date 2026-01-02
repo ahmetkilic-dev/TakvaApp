@@ -4,6 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { supabase } from '../lib/supabase';
 import TaskService from '../services/TaskService';
+import { UserStatsService } from '../services/UserStatsService';
 
 const UserStatsContext = createContext(null);
 
@@ -48,7 +49,7 @@ export const UserStatsProvider = ({ children }) => {
                 if (parsed.profile) setProfile(parsed.profile);
             }
         } catch (e) {
-            console.warn('UserStatsContext: Cache load error', e);
+            // silent cache error
         }
     }, []);
 
@@ -61,7 +62,7 @@ export const UserStatsProvider = ({ children }) => {
                 timestamp: new Date().getTime()
             }));
         } catch (e) {
-            console.warn('UserStatsContext: Cache save error', e);
+            // silent save error
         }
     }, []);
 
@@ -90,7 +91,6 @@ export const UserStatsProvider = ({ children }) => {
 
             let finalProfile = profile;
             if (profileResult.data) {
-                console.log('UserStatsContext: Profile data fetched:', profileResult.data);
                 finalProfile = {
                     ...profileResult.data,
                     following: profileResult.data.following || []
@@ -100,7 +100,7 @@ export const UserStatsProvider = ({ children }) => {
 
             await saveCache(finalStats, finalTasks, finalProfile);
         } catch (error) {
-            console.error('UserStatsContext: fetchAllData error', error);
+            // silent fetch error
         } finally {
             setLoading(false);
             setIsInitialized(true);
@@ -210,12 +210,18 @@ export const UserStatsProvider = ({ children }) => {
         return { badgeCount: total, categoryLevels: levels };
     }, [stats]);
 
-    const updateStat = useCallback((key, amount) => {
+    const updateStat = useCallback(async (key, amount) => {
+        // Optimistic update
         setStats(prev => ({
             ...prev,
             [key]: (prev[key] || 0) + amount
         }));
-    }, []);
+
+        // Sync with DB using Service
+        if (user?.uid) {
+            await UserStatsService.incrementField(user.uid, key, amount);
+        }
+    }, [user?.uid]);
 
     const incrementTask = useCallback(async (taskId, amount = 1) => {
         // Update local state for instant feedback

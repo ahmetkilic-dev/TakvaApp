@@ -4,11 +4,13 @@ import ScreenBackground from '../../../components/common/ScreenBackground';
 import { useTasks } from '../../../components/rozetgorev/hooks/useTasks';
 import DailyTaskSection from '../../../components/rozetgorev/DailyTaskSection';
 import BadgeCategorySection from '../../../components/rozetgorev/BadgeCategorySection';
+import { useScrollJumpFix } from '../../../utils/scrollOptimization';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const horizontalPadding = 20;
 
 export default function TasksScreen() {
+  const scrollViewRef = useScrollJumpFix();
   const { tasksData, loading, navigateToTask } = useTasks();
 
   if (loading) {
@@ -42,10 +44,9 @@ export default function TasksScreen() {
         </View>
 
         <ScrollView
+          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
-          removeClippedSubviews={true}
-          maxToRenderPerBatch={2}
-          windowSize={5}
+          removeClippedSubviews={false}
           scrollEventThrottle={16}
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,

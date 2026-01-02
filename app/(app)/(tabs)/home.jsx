@@ -12,16 +12,15 @@ import QuranSection from '../../../components/home/QuranSection';
 import HadithCard from '../../../components/home/HadithCard';
 import ReligiousDayCard from '../../../components/home/ReligiousDayCard';
 import FloatingHocaButton from '../../../components/common/FloatingHocaButton';
+import { useScrollJumpFix } from '../../../utils/scrollOptimization';
 
 export default function HomeScreen() {
-  const [phase, setPhase] = useState(0); // 0: header, 1: critical, 2: rest
+  const scrollViewRef = useScrollJumpFix();
+  const [phase, setPhase] = useState(2); // Start with all content for smooth top-down
 
-  useEffect(() => {
-    // Progressive rendering for instant feel
-    setPhase(1); // Critical content immediately
-    const timer = setTimeout(() => setPhase(2), 100); // Rest after 100ms
-    return () => clearTimeout(timer);
-  }, []);
+  // Render all content top-down for stability
+  // Phase state kept simple to ensure immediate render
+
 
   return (
     <ScreenBackground>
@@ -29,33 +28,24 @@ export default function HomeScreen() {
 
       <SafeAreaView edges={['top']} className="flex-1">
         <ScrollView
+          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
-          removeClippedSubviews={true}
-          maxToRenderPerBatch={2}
-          windowSize={5}
+          removeClippedSubviews={false}
           scrollEventThrottle={16}
         >
           {/* Ana sayfa başlık ve namaz vakitleri - INSTANT */}
           <HomeHeader />
 
-          {/* Critical content - Immediate */}
-          {phase >= 1 && (
-            <>
-              <DailyCarousel />
-              <SalavatCard />
-            </>
-          )}
+          {/* Phase 1: Critical Content */}
+          <DailyCarousel />
+          <SalavatCard />
 
-          {/* Rest of content - 100ms delay */}
-          {phase >= 2 && (
-            <>
-              <EsmaSlider />
-              <QuranSection />
-              <HadithCard />
-              <ReligiousDayCard />
-            </>
-          )}
+          {/* Phase 2: Secondary Content (Rendered immediately but after critical) */}
+          <EsmaSlider />
+          <QuranSection />
+          <HadithCard />
+          <ReligiousDayCard />
         </ScrollView>
       </SafeAreaView>
       <FloatingHocaButton />
