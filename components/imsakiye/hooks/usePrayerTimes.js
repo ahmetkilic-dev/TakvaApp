@@ -1,6 +1,6 @@
+import { useState, useEffect, useMemo } from 'react';
+import { useLocation } from '../../../contexts/LocationContext';
 import { PrayerTimesAPI } from '../../../utils/prayerTimesApi';
-
-// ... (other imports)
 
 export const usePrayerTimes = () => {
   const { location: userLocation, city: userCity, hasPermission, isLoading: locationLoading } = useLocation();
@@ -29,14 +29,19 @@ export const usePrayerTimes = () => {
 
         const data = await PrayerTimesAPI.fetchMonthlyTimes(userLocation, hasPermission);
 
-        // Geçmiş günleri filtrele
-        const filteredData = data.filter(item => {
-          const itemDate = new Date(item.date);
-          itemDate.setHours(0, 0, 0, 0);
-          return itemDate >= today;
-        });
+        // Verileri işle: Tarih string'ini Date objesine çevir ve geçmiş günleri filtrele
+        const processedData = data
+          .map(item => ({
+            ...item,
+            date: new Date(item.date)
+          }))
+          .filter(item => {
+            const itemDate = new Date(item.date);
+            itemDate.setHours(0, 0, 0, 0);
+            return itemDate >= today;
+          });
 
-        setPrayerTimesList(filteredData);
+        setPrayerTimesList(processedData);
         setLoading(false);
       } catch (error) {
         setError('Namaz vakitleri alınamadı');

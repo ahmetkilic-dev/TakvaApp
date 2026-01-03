@@ -36,6 +36,7 @@ export const UserStatsProvider = ({ children }) => {
         is_premium: false
     });
     const [dailyTasks, setDailyTasks] = useState([]);
+    const [userBadges, setUserBadges] = useState([]); // Array of { badge_id, is_completed, current_progress, badges: { title, category, ... } }
     const [isInitialized, setIsInitialized] = useState(false);
 
     // Initial cache loading
@@ -46,6 +47,7 @@ export const UserStatsProvider = ({ children }) => {
                 const parsed = JSON.parse(cached);
                 setStats(parsed.stats || stats);
                 setDailyTasks(parsed.dailyTasks || []);
+                setUserBadges(parsed.userBadges || []);
                 if (parsed.profile) setProfile(parsed.profile);
             }
         } catch (e) {
@@ -53,12 +55,13 @@ export const UserStatsProvider = ({ children }) => {
         }
     }, []);
 
-    const saveCache = useCallback(async (newStats, newTasks, newProfile) => {
+    const saveCache = useCallback(async (newStats, newTasks, newProfile, newUserBadges) => {
         try {
             await AsyncStorage.setItem(CACHE_KEY, JSON.stringify({
                 stats: newStats,
                 dailyTasks: newTasks,
                 profile: newProfile,
+                userBadges: newUserBadges,
                 timestamp: new Date().getTime()
             }));
         } catch (e) {
@@ -71,10 +74,12 @@ export const UserStatsProvider = ({ children }) => {
         if (!silent) setLoading(true);
 
         try {
-            const [statsResult, tasksResult, profileResult] = await Promise.all([
+            // user_badges tablosunu, badges tablosuyla join yaparak çekiyoruz
+            const [statsResult, tasksResult, profileResult, badgesResult] = await Promise.all([
                 supabase.from('user_stats').select('*').eq('user_id', uid).maybeSingle(),
                 TaskService.getDailyTasks(),
-                supabase.from('profiles').select('id, name, username, role, application_status, following, is_premium, profile_picture, bio, social_links').eq('id', uid).maybeSingle()
+                supabase.from('profiles').select('id, name, username, role, application_status, following, is_premium, profile_picture, bio, social_links').eq('id', uid).maybeSingle(),
+                supabase.from('user_badges').select('*, badges(title, category, icon_key, target_value)').eq('user_id', uid)
             ]);
 
             let finalStats = stats;
@@ -98,9 +103,13 @@ export const UserStatsProvider = ({ children }) => {
                 setProfile(finalProfile);
             }
 
-            await saveCache(finalStats, finalTasks, finalProfile);
+            const finalBadges = badgesResult.data || [];
+            setUserBadges(finalBadges);
+
+            await saveCache(finalStats, finalTasks, finalProfile, finalBadges);
         } catch (error) {
             // silent fetch error
+            console.error(error);
         } finally {
             setLoading(false);
             setIsInitialized(true);
@@ -142,73 +151,50 @@ export const UserStatsProvider = ({ children }) => {
                 )
                 .subscribe();
 
+            // Badge değişikliklerini de dinleyelim
+            const badgesSub = supabase
+                .channel(`global_badges:${user.uid}`)
+                .on('postgres_changes',
+                    { event: '*', schema: 'public', table: 'user_badges', filter: `user_id=eq.${user.uid}` },
+                    () => fetchAllData(user.uid, true)
+                )
+                .subscribe();
+
             return () => {
                 supabase.removeChannel(statsSub);
                 supabase.removeChannel(profileSub);
+                supabase.removeChannel(badgesSub);
             };
         }
     }, [user?.uid, fetchAllData]);
 
-    // Computed Values
+    // Computed Values - ARTIK SERVERSIDE VERİYİ KULLANIYOR
     const badgeLogic = useMemo(() => {
-        let total = 0;
+        // Tamamlananları say
+        const completedBadges = userBadges.filter(b => b.is_completed);
+        const total = completedBadges.length;
+
+        // Kategorilere göre seviye hesaplama (Basitçe kazanılan sayı olarak level veriyoruz şimdilik)
+        // Veya en yüksek target_value'ya sahip badge'in ikon numarasını level olarak alabiliriz.
+        // Şimdilik basit tutuyoruz.
         const levels = { kuran: 0, namaz: 0, zksl: 0, ilim: 0, uygulama: 0 };
 
-        const s = stats;
-
-        // Kur'an
-        if ((s.total_verses || 0) >= 50) { total++; levels.kuran = 1; }
-        if ((s.total_verses || 0) >= 250) { total++; levels.kuran = 2; }
-        if ((s.total_verses || 0) >= 1000) { total++; levels.kuran = 3; }
-        if ((s.total_juzs || 0) >= 15) { total++; levels.kuran = 4; }
-        if ((s.total_surahs || 0) >= 80) { total++; levels.kuran = 5; }
-        if ((s.total_verses || 0) >= 5000) { total++; levels.kuran = 6; }
-        if ((s.total_khatims || 0) >= 1) { total++; levels.kuran = 7; }
-
-        // Namaz
-        if ((s.total_prayers || 0) >= 5) { total++; levels.namaz = 1; }
-        if ((s.prayer_streak || 0) >= 35) { total++; levels.namaz = 2; }
-        if ((s.prayer_streak || 0) >= 150) { total++; levels.namaz = 3; }
-        if ((s.total_prayers || 0) >= 100) { total++; levels.namaz = 4; }
-        if ((s.total_prayers || 0) >= 200) { total++; levels.namaz = 5; }
-        if ((s.total_prayers || 0) >= 1000) { total++; levels.namaz = 6; }
-        if ((s.total_prayers || 0) >= 2500) { total++; levels.namaz = 7; }
-
-        // Zikir & Salavat
-        const zkslCount = Math.max(s.total_dhikr || 0, s.total_salavat || 0);
-        if (zkslCount >= 100) { total++; levels.zksl = 1; }
-        if (zkslCount >= 500) { total++; levels.zksl = 2; }
-        if (zkslCount >= 1000) { total++; levels.zksl = 3; }
-        if (zkslCount >= 5000) { total++; levels.zksl = 4; }
-        if (zkslCount >= 10000) { total++; levels.zksl = 5; }
-        if (zkslCount >= 25000) { total++; levels.zksl = 6; }
-        if (zkslCount >= 50000) { total++; levels.zksl = 7; }
-
-        // İlim
-        const qCount = s.quiz_count || 0;
-        if (qCount >= 5) { total++; levels.ilim = 1; }
-        if (qCount >= 15) { total++; levels.ilim = 2; }
-        if (qCount >= 30) { total++; levels.ilim = 3; }
-        if (qCount >= 50) { total++; levels.ilim = 4; }
-        if (qCount >= 100) { total++; levels.ilim = 5; }
-        if (qCount >= 200) { total++; levels.ilim = 6; }
-        if (qCount >= 500) { total++; levels.ilim = 7; }
-
-        // Uygulama
-        const shareCount = s.shares || 0;
-        const followCount = (s.follows || []).length;
-        const loginStr = s.login_streak || 1;
-
-        if (shareCount >= 1) { total++; levels.uygulama = 1; }
-        if (shareCount >= 10) { total++; levels.uygulama = 2; }
-        if ((s.follows || []).includes('takva_social')) { total++; levels.uygulama = 3; }
-        if (followCount >= 10) { total++; levels.uygulama = 4; }
-        if (loginStr >= 3) { total++; levels.uygulama = 5; }
-        if (loginStr >= 30) { total++; levels.uygulama = 6; }
-        if (s.rated) { total++; levels.uygulama = 7; }
+        // Kategorisel sayım
+        userBadges.forEach(b => {
+            if (b.is_completed && b.badges) {
+                const cat = b.badges.category; // 'namaz', 'zksl', 'ilim', 'kuran'
+                // Mevcut mantıkta categoryLevels sadece bir sayı (level).
+                // Biz basitçe o kategoride kazanılan rozet sayısını verelim.
+                if (cat === 'namaz') levels.namaz++;
+                if (cat === 'zksl') levels.zksl++;
+                if (cat === 'ilim') levels.ilim++;
+                if (cat === 'kuran') levels.kuran++;
+                if (cat === 'uygulama') levels.uygulama++;
+            }
+        });
 
         return { badgeCount: total, categoryLevels: levels };
-    }, [stats]);
+    }, [userBadges]);
 
     const updateStat = useCallback(async (key, amount) => {
         // Optimistic update
@@ -242,6 +228,7 @@ export const UserStatsProvider = ({ children }) => {
         stats,
         profile,
         dailyTasks,
+        userBadges, // Expose raw data
         loading,
         isInitialized,
         ...badgeLogic,
@@ -249,7 +236,7 @@ export const UserStatsProvider = ({ children }) => {
         incrementTask,
         refreshTasks,
         refreshAll: () => fetchAllData(user?.uid)
-    }), [user, stats, profile, dailyTasks, loading, isInitialized, badgeLogic, updateStat, incrementTask, refreshTasks]);
+    }), [user, stats, profile, dailyTasks, userBadges, loading, isInitialized, badgeLogic, updateStat, incrementTask, refreshTasks]);
 
     return (
         <UserStatsContext.Provider value={value}>

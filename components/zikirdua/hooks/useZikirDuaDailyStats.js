@@ -47,14 +47,8 @@ export const useZikirDuaDailyStats = () => {
       const dayKeyToUse = dayKeyOverride || dayKeyRef.current || todayKey;
 
       try {
-        // 1. Her zaman en önemli olanı, yani HESAP TOPLAMINI önce güncelle
-        await supabase.rpc('increment_user_stat', {
-          target_user_id: user.uid,
-          column_name: 'total_dhikr',
-          increment_by: pending
-        });
-
-        // Optimistik olarak global context'i de güncelle (Zıplama olmasın!)
+        // 1. Optimistik olarak global context'i güncelle (Zıplama olmasın!)
+        // Bu fonksiyon arkada UserStatsService.incrementField çağırır, bu da DB'de total_dhikr günceller.
         updateStat('total_dhikr', pending);
 
         // 2. Günlük kullanıcı istatistiğini güncelle

@@ -136,11 +136,7 @@ export default function ProfilScreen() {
           scrollEventThrottle={16}
           contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 20 }}
         >
-          {console.log('[Profile] ===== DEBUG START =====')}
-          {console.log('[Profile] user?.uid:', user?.uid)}
-          {console.log('[Profile] profileData:', JSON.stringify(profileData, null, 2))}
-          {console.log('[Profile] profile_picture:', profileData.profile_picture)}
-          {console.log('[Profile] ===== DEBUG END =====')}
+
           <ProfileHeader
             name={profileData.name || user?.displayName || "Misafir Kullanıcı"}
             email={user?.email || "Giriş yapılmadı"}

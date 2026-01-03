@@ -1,15 +1,23 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { auth } from '../../../firebaseConfig';
 import { supabase } from '../../../lib/supabase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
+
+const pad2 = (n) => String(n).padStart(2, '0');
+const toDayKeyLocal = (date) => {
+  const y = date.getFullYear();
+  const m = pad2(date.getMonth() + 1);
+  const d = pad2(date.getDate());
+  return `${y}-${m}-${d}`;
+};
 
 /**
  * İlim modülü için Supabase hook'u
  * Kullanıcı bazlı puan, istatistik ve ilerleme yönetimi
  */
 export const useIlimData = () => {
-  const { isDayChanged } = useDayChangeContext();
+  const { getToday, isDayChanged } = useDayChangeContext(); // isDayChanged is just a signal now, not used for local reset
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,10 +26,12 @@ export const useIlimData = () => {
   const [totalPoints, setTotalPoints] = useState(0);
   const [dailyPoints, setDailyPoints] = useState(0);
   const [categoryStats, setCategoryStats] = useState({});
-  const [lastDailyReset, setLastDailyReset] = useState(null);
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [currentQuestionId, setCurrentQuestionId] = useState(null);
-  const [quizCount, setQuizCount] = useState(0); // Toplam doğru cevap sayısı
+  const [quizCount, setQuizCount] = useState(0);
+
+  const today = useMemo(() => (getToday ? getToday() : new Date()), [getToday]);
+  const todayKey = useMemo(() => toDayKeyLocal(today), [today]);
 
   // Auth state dinle
   useEffect(() => {
@@ -36,29 +46,6 @@ export const useIlimData = () => {
     return unsubscribe;
   }, []);
 
-  // Günlük puan reset kontrolü - isDayChanged ile
-  useEffect(() => {
-    if (user && isDayChanged) {
-      console.log('📚 Gün değişti! İlim günlük puanı sıfırlanıyor...');
-      const resetDate = new Date().toISOString();
-      const resetIlimDaily = async () => {
-        try {
-          await supabase.from('user_stats').upsert({
-            user_id: user.uid,
-            ilim_last_daily_reset: resetDate,
-            ilim_daily_points: 0,
-            updated_at: resetDate
-          });
-          setLastDailyReset(new Date(resetDate));
-          setDailyPoints(0);
-        } catch (err) {
-          console.error('İlim günlük puan sıfırlama hatası:', err);
-        }
-      };
-      resetIlimDaily();
-    }
-  }, [user, isDayChanged]);
-
   /**
    * Kullanıcı verilerini Supabase'den yükle
    */
@@ -67,32 +54,49 @@ export const useIlimData = () => {
       setLoading(true);
       setError(null);
 
-      const { data: stats, error } = await supabase
+      // 1. Fetch persistent stats (Total points, Category stats, etc.)
+      const { data: mainStats } = await supabase
         .from('user_stats')
         .select('*')
         .eq('user_id', userId)
         .single();
 
-      if (stats) {
-        setTotalPoints(stats.ilim_total_points || 0);
-        setDailyPoints(stats.ilim_daily_points || 0);
-        setCategoryStats(stats.ilim_category_stats || {});
-        setLastDailyReset(stats.ilim_last_daily_reset ? new Date(stats.ilim_last_daily_reset) : null);
-        setAnsweredQuestions(stats.ilim_answered_questions || []);
-        setCurrentQuestionId(stats.ilim_current_question_id || null);
-        setQuizCount(stats.quiz_count || 0);
+      // 2. Fetch DAILY stats (Daily points for TODAY)
+      const { data: dailyStats } = await supabase
+        .from('daily_user_stats')
+        .select('ilim_points')
+        .eq('user_id', userId)
+        .eq('date_key', todayKey) // Only fetch for today
+        .maybeSingle();
+
+      if (mainStats) {
+        setTotalPoints(mainStats.ilim_total_points || 0);
+        setCategoryStats(mainStats.ilim_category_stats || {});
+        setAnsweredQuestions(mainStats.ilim_answered_questions || []);
+        setCurrentQuestionId(mainStats.ilim_current_question_id || null);
+        setQuizCount(mainStats.quiz_count || 0);
       } else {
+        // Initialize if user_stats doesn't exist
         await initializeUserData(userId);
       }
+
+      // Set Daily Points from the daily table
+      if (dailyStats) {
+        setDailyPoints(dailyStats.ilim_points || 0);
+      } else {
+        setDailyPoints(0); // No record for today = 0 points
+      }
+
     } catch (err) {
+      console.error('Error loading ilim data:', err);
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [todayKey]);
 
   /**
-   * Kullanıcı verilerini başlat
+   * Kullanıcı verilerini başlat (user_stats)
    */
   const initializeUserData = useCallback(async (userId) => {
     try {
@@ -100,9 +104,7 @@ export const useIlimData = () => {
       await supabase.from('user_stats').upsert({
         user_id: userId,
         ilim_total_points: 0,
-        ilim_daily_points: 0,
         ilim_category_stats: {},
-        ilim_last_daily_reset: now,
         ilim_answered_questions: [],
         ilim_current_question_id: null,
         quiz_count: 0,
@@ -110,9 +112,7 @@ export const useIlimData = () => {
       });
 
       setTotalPoints(0);
-      setDailyPoints(0);
       setCategoryStats({});
-      setLastDailyReset(new Date(now));
       setAnsweredQuestions([]);
       setCurrentQuestionId(null);
       setQuizCount(0);
@@ -140,20 +140,31 @@ export const useIlimData = () => {
         updatedCategoryStats[categoryKey].correct += 1;
         updatedCategoryStats[categoryKey].totalPoints += points;
 
+        // 1. Update TOTAL stats in user_stats
+        // Note: We don't update ilim_daily_points here anymore
         await supabase.from('user_stats').upsert({
           user_id: user.uid,
           ilim_total_points: newTotalPoints,
-          ilim_daily_points: newDailyPoints,
           ilim_category_stats: { ...categoryStats, [categoryKey]: updatedCategoryStats[categoryKey] },
           quiz_count: newQuizCount,
           updated_at: new Date().toISOString()
         });
+
+        // 2. Update DAILY stats in daily_user_stats (keying by todayKey)
+        // This ensures auto-reset on new day
+        await supabase.from('daily_user_stats').upsert({
+          user_id: user.uid,
+          date_key: todayKey,
+          ilim_points: newDailyPoints,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'user_id, date_key' }); // Ensure we strictly update today's row
 
         setTotalPoints(newTotalPoints);
         setDailyPoints(newDailyPoints);
         setCategoryStats(updatedCategoryStats);
         setQuizCount(newQuizCount);
       } else {
+        // Incorrect answer logic remains same (only category stats update)
         const updatedCategoryStats = { ...categoryStats };
         if (!updatedCategoryStats[categoryKey]) {
           updatedCategoryStats[categoryKey] = { correct: 0, incorrect: 0, totalPoints: 0 };
@@ -169,9 +180,10 @@ export const useIlimData = () => {
         setCategoryStats(updatedCategoryStats);
       }
     } catch (err) {
+      console.error('Error adding points:', err);
       setError(err.message);
     }
-  }, [user, totalPoints, dailyPoints, categoryStats]);
+  }, [user, totalPoints, dailyPoints, categoryStats, quizCount, todayKey]);
 
   const getCategoryScore = useCallback((categoryKey) => {
     const stats = categoryStats[categoryKey];

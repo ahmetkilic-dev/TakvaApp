@@ -34,7 +34,7 @@ import { UserStatsService } from '../../../services/UserStatsService';
 
 export function useNamazDurumu() {
   const { todayKey, arrived, currentPrayerKey, loading: timesLoading } = useDailyPrayerTimes();
-  const { user, incrementTask, updateStat } = useUserStats();
+  const { user, incrementTask, updateStat, loading: userStatsLoading } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(() => ({
@@ -42,15 +42,75 @@ export function useNamazDurumu() {
     completed: emptyCompleted(),
   }));
 
-  const appStateRef = useRef(AppState.currentState);
-  const midnightTimerRef = useRef(null);
-
   const ensureUserDoc = useCallback(async (uid) => {
     // Merkezi servis kullanarak user tablolarını garantiye al
     await UserInitService.initializeUser(uid);
   }, []);
 
-  // ... (rolloverIfNeeded, refreshFromSupabase, useEffects - keep same) ...
+  const refreshFromSupabase = useCallback(async (uid) => {
+    try {
+      // Not: rolloverNamazIfNeeded çağrısı buradan kaldırıldı. 
+      // Artık DailyResetService bu işi merkezi olarak yapıyor.
+
+      const { data, error } = await supabase
+        .from('daily_user_stats') // ARTIK daily_user_stats tablosunu kullanıyoruz
+        .select('namaz_completed')
+        .eq('user_id', uid)
+        .eq('date_key', todayKey)
+        .maybeSingle();
+
+      if (data && data.namaz_completed) {
+        setState(prev => ({ ...prev, completed: data.namaz_completed }));
+      } else {
+        // Yeni gün kaydı yoksa veya sütun boşsa sıfırla
+        setState(prev => ({ ...prev, completed: emptyCompleted() }));
+      }
+    } catch (err) {
+      console.log('Error fetching namaz durumu:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [todayKey]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const init = async () => {
+      if (userStatsLoading) return;
+
+      try {
+        if (user?.uid) {
+          await ensureUserDoc(user.uid);
+          if (mounted) await refreshFromSupabase(user.uid);
+        } else {
+          // Offline mode
+          const stored = await AsyncStorage.getItem('@takva_namaz_durumu_local');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed.dateKey === todayKey) {
+              if (mounted) setState(parsed);
+            } else {
+              // Farklı gün, resetle
+              if (mounted) {
+                setState({ dateKey: todayKey, completed: emptyCompleted() });
+                await AsyncStorage.removeItem('@takva_namaz_durumu_local');
+              }
+            }
+          } else {
+            if (mounted) setState({ dateKey: todayKey, completed: emptyCompleted() });
+          }
+          if (mounted) setLoading(false);
+        }
+      } catch (e) {
+        console.log('Init error:', e);
+        if (mounted) setLoading(false);
+      }
+    };
+
+    init();
+
+    return () => { mounted = false; };
+  }, [user?.uid, todayKey, refreshFromSupabase, userStatsLoading, ensureUserDoc]);
 
   const toggle = useCallback(
     async (key) => {
@@ -76,15 +136,17 @@ export function useNamazDurumu() {
 
         // Arka plan işlemleri - UI'yı bloklamadan paralel çalıştır
         void Promise.all([
-          supabase.from('namaz_durumu').upsert({
+          // ARTIK daily_user_stats tablosuna yazıyoruz
+          supabase.from('daily_user_stats').upsert({
             user_id: user.uid,
             date_key: todayKey,
-            completed: newState.completed,
+            namaz_completed: newState.completed,
             updated_at: new Date().toISOString()
-          }),
+          }, { onConflict: 'user_id, date_key' }),
+
           UserStatsService.rpcIncrement(user.uid, 'total_prayers', next ? 1 : -1)
         ]).catch(err => {
-          // silent error or generic log if needed
+          console.error('Namaz update error:', err);
         });
       } else {
         try {
@@ -120,7 +182,7 @@ export function useNamazDurumu() {
 
   return {
     user,
-    loading: timesLoading || loading,
+    loading: timesLoading || loading || userStatsLoading,
     todayKey,
     items,
     completedCount,

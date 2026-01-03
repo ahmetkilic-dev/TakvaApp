@@ -3,6 +3,7 @@ import { auth } from '../firebaseConfig';
 import { supabase } from '../lib/supabase';
 import { onAuthStateChanged } from 'firebase/auth';
 
+
 /**
  * Gün değişimi kontrolü hook'u
  * Supabase hesap bazlı gün kontrolü yapar
@@ -39,9 +40,22 @@ export const useDayChange = () => {
       if (profile && profile.last_active_date) {
         const lastDate = new Date(profile.last_active_date);
         lastDate.setHours(0, 0, 0, 0);
-        setLastActiveDate(lastDate);
-      } else {
+
         const todayDate = getToday();
+
+        // Eğer gün değişmişse, ÖNCE reset işlemini dene
+        if (lastDate.getTime() !== todayDate.getTime()) {
+          console.log('📅 Gün değişimi tespit edildi (Fetch sırasında). Reset servisi çalıştırılıyor...');
+
+          await updateLastActiveDate(userId); // Veritabanındaki tarihi güncelle
+        }
+
+        setLastActiveDate(lastDate); // State'i güncelle (UI için, ama bir sonraki renderda düzelir)
+      } else {
+        // İlk kez giriyor veya tarih yok
+        const todayDate = getToday();
+        // İlk giriş sayıldığı için reset atmaya gerek olmayabilir, ya da güvenli olsun diye atabiliriz.
+        // Şimdilik sadece tarihi set ediyoruz.
         await updateLastActiveDate(userId);
         setLastActiveDate(todayDate);
       }
@@ -61,6 +75,7 @@ export const useDayChange = () => {
       const now = new Date();
       const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
 
+      // NOT: Burada sadece tarihi güncelliyoruz. Reset işlemi çağrıldığı yerde (fetchLastActiveDate veya effect) yapılmalı.
       await supabase.from('profiles').upsert({
         id: userId,
         last_active_date: dateStr,

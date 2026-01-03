@@ -28,13 +28,7 @@ export const useVersesDailyStats = () => {
   const todayKey = useMemo(() => toDayKeyLocal(today), [today]);
 
   // Gün değişimi kontrolü
-  useEffect(() => {
-    if (isDayChanged) {
-      console.log('📖 Gün değişti! Ayet gösterme hakkı sıfırlanıyor...');
-      setVerseRevealed(false);
-      setCurrentVerseData(null);
-    }
-  }, [isDayChanged]);
+  /* Local daily reset logic removed - Date key handles uniqueness */
 
   // Supabase'den günlük ayet verisini yükle
   useEffect(() => {

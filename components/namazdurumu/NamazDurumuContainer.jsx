@@ -131,7 +131,7 @@ export default function NamazDurumuContainer() {
                 key={prayer.key}
                 prayer={prayer}
                 toggle={toggle}
-                disabled={!user?.uid || !prayer.enabled || loading}
+                disabled={!prayer.enabled || loading}
                 isLast={index === items.length - 1}
                 fontFamily={fontFamily}
               />
@@ -205,7 +205,7 @@ export default function NamazDurumuContainer() {
                   textAlign: 'center',
                 }}
               >
-                Kayıtlı takip için giriş yapman gerekiyor.
+                Giriş yapmadığınız için veriler sadece bu cihazda saklanır.
               </Text>
             )}
           </View>
