@@ -29,6 +29,48 @@ const dhikrData = {
   meaning: "Allah'ı tüm noksan sıfatlardan tenzih ederim.",
 };
 
+const StaticRings = React.memo(({ currentStageIndex }) => {
+  const circles = [];
+  for (let i = 0; i < currentStageIndex; i++) {
+    const stage = stages[i];
+    circles.push(
+      <Circle
+        key={`stage-${i}`}
+        cx={progressCircleSize / 2}
+        cy={progressCircleSize / 2}
+        r={progressRadius}
+        stroke={stage.barColor}
+        strokeWidth={strokeWidth}
+        fill="transparent"
+        strokeDasharray={circumference}
+        strokeDashoffset={0}
+        strokeLinecap="round"
+        transform={`rotate(-90 ${progressCircleSize / 2} ${progressCircleSize / 2})`}
+      />
+    );
+  }
+  return <>{circles}</>;
+});
+
+const ActiveRing = React.memo(({ currentStage, stageProgress }) => {
+  const currentOffset = circumference - (stageProgress / 100) * circumference;
+  return (
+    <Circle
+      key={`stage-current`}
+      cx={progressCircleSize / 2}
+      cy={progressCircleSize / 2}
+      r={progressRadius}
+      stroke={currentStage.barColor}
+      strokeWidth={strokeWidth}
+      fill="transparent"
+      strokeDasharray={circumference}
+      strokeDashoffset={currentOffset}
+      strokeLinecap="round"
+      transform={`rotate(-90 ${progressCircleSize / 2} ${progressCircleSize / 2})`}
+    />
+  );
+});
+
 const ZikirCounter = React.memo(() => {
   const { dhikrCount: count, incrementDhikr } = useZikirDuaDailyStats();
 
@@ -41,57 +83,13 @@ const ZikirCounter = React.memo(() => {
     return stages[0];
   }, [count]);
 
+  const currentStageIndex = useMemo(() => stages.findIndex(s => s === currentStage), [currentStage]);
+
   // Progress calculation
   const stageProgress = useMemo(() => {
     if (count >= currentStage.max) return 100;
     return ((count - currentStage.min) / (currentStage.max - currentStage.min)) * 100;
   }, [count, currentStage]);
-
-  // Progress circle'ları render et - Memoized
-  const renderedCircles = useMemo(() => {
-    const circles = [];
-    const currentStageIndex = stages.findIndex(s => s === currentStage);
-
-    // Önceki aşamaları tamamen dolu olarak render et
-    for (let i = 0; i < currentStageIndex; i++) {
-      const stage = stages[i];
-      circles.push(
-        <Circle
-          key={`stage-${i}`}
-          cx={progressCircleSize / 2}
-          cy={progressCircleSize / 2}
-          r={progressRadius}
-          stroke={stage.barColor}
-          strokeWidth={strokeWidth}
-          fill="transparent"
-          strokeDasharray={circumference}
-          strokeDashoffset={0}
-          strokeLinecap="round"
-          transform={`rotate(-90 ${progressCircleSize / 2} ${progressCircleSize / 2})`}
-        />
-      );
-    }
-
-    // Mevcut aşamayı kısmen dolu olarak render et
-    const currentOffset = circumference - (stageProgress / 100) * circumference;
-    circles.push(
-      <Circle
-        key={`stage-current`}
-        cx={progressCircleSize / 2}
-        cy={progressCircleSize / 2}
-        r={progressRadius}
-        stroke={currentStage.barColor}
-        strokeWidth={strokeWidth}
-        fill="transparent"
-        strokeDasharray={circumference}
-        strokeDashoffset={currentOffset}
-        strokeLinecap="round"
-        transform={`rotate(-90 ${progressCircleSize / 2} ${progressCircleSize / 2})`}
-      />
-    );
-
-    return circles;
-  }, [currentStage, stageProgress]);
 
   return (
     <View
@@ -128,7 +126,8 @@ const ZikirCounter = React.memo(() => {
               strokeWidth={strokeWidth}
               fill="transparent"
             />
-            {renderedCircles}
+            <StaticRings currentStageIndex={currentStageIndex} />
+            <ActiveRing currentStage={currentStage} stageProgress={stageProgress} />
           </Svg>
           <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
             <Text style={{ fontFamily, fontSize: isSmallScreen ? 16 : 18, fontWeight: '600', color: '#FFFFFF', marginBottom: 2 }}>

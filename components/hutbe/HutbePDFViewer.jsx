@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Dimensions, TouchableOpacity, Text, Linking } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { Ionicons } from '@expo/vector-icons';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const horizontalPadding = 20;
@@ -17,18 +18,31 @@ const HutbePDFViewer = memo(({ pdfUrl }) => {
 
   // PDF URL'ini Google Docs Viewer ile yükle
   let pdfViewerUrl = pdfUrl;
+  let fullUrl = pdfUrl;
 
   if (pdfUrl) {
     // URL'i tam URL haline getir
-    let fullUrl = pdfUrl;
     if (!pdfUrl.startsWith('http')) {
       fullUrl = `https://dinhizmetleri.diyanet.gov.tr${pdfUrl.startsWith('/') ? '' : '/'}${pdfUrl}`;
     }
 
-    // Google Docs Viewer kullan (CORS sorunlarını önlemek için)
-    // encodeURIComponent URL'i tamamen encode eder (Türkçe karakterler dahil)
+    // Google Docs Viewer kullan
     pdfViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`;
   }
+
+  const handleOpenExternal = async () => {
+    try {
+      const canOpen = await Linking.canOpenURL(fullUrl);
+      if (canOpen) {
+        await Linking.openURL(fullUrl);
+      } else {
+        // Fallback to viewer URL if direct link fails
+        await Linking.openURL(pdfViewerUrl);
+      }
+    } catch (e) {
+      console.error("Link açma hatası:", e);
+    }
+  };
 
   // Google Docs Viewer optimize edilmiş CSS
   const INJECTED_JAVASCRIPT = `
@@ -90,6 +104,16 @@ const HutbePDFViewer = memo(({ pdfUrl }) => {
         injectedJavaScript={INJECTED_JAVASCRIPT}
         scrollEnabled={true}
       />
+
+      {/* External Open / Download Button */}
+      <TouchableOpacity
+        style={styles.floatingButton}
+        onPress={handleOpenExternal}
+        activeOpacity={0.8}
+      >
+        <Ionicons name="open-outline" size={24} color="#FFF" />
+        <Text style={styles.floatingButtonText}>Tarayıcıda Aç</Text>
+      </TouchableOpacity>
     </View>
   );
 });
@@ -102,23 +126,41 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#182723',
     overflow: 'hidden',
-    // margin vs eklenecekse buraya değil parent'a eklenmeli
   },
   webview: {
     flex: 1,
     backgroundColor: 'transparent',
   },
   loadingContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
-    backgroundColor: '#182723', // Yüklenirken koyu ekran
+    backgroundColor: '#182723',
   },
+  floatingButton: {
+    position: 'absolute',
+    bottom: 24,
+    right: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#4ECDC4',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 6,
+    zIndex: 10,
+    gap: 8,
+  },
+  floatingButtonText: {
+    color: '#FFF',
+    fontWeight: '700',
+    fontSize: 14,
+  }
 });
 
 export default HutbePDFViewer;

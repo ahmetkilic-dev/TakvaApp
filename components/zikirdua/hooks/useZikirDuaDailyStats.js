@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
+import * as Haptics from 'expo-haptics';
 
 import { useUserStats } from '../../../contexts/UserStatsContext';
 
@@ -162,8 +163,12 @@ export const useZikirDuaDailyStats = () => {
     return () => sub.remove();
   }, [flushDhikr]);
 
+
+
   const incrementDhikr = useCallback(() => {
     if (!user?.uid) return;
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
     if (dayKeyRef.current && dayKeyRef.current !== todayKey) {
       void flushDhikr(dayKeyRef.current);

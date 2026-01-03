@@ -41,24 +41,38 @@ const parseHutbes = (html) => {
 
       // Ensure domain
       if (!cleaned.startsWith('http')) {
+        // Diyanet relative path fix
         cleaned = cleaned.startsWith('/') ? BASE_URL + cleaned : BASE_URL + '/' + cleaned;
       }
 
-      // Final encode for Turkish characters in filenames
-      try {
-        const urlObj = new URL(cleaned);
-        urlObj.pathname = encodeURI(decodeURI(urlObj.pathname));
-        return urlObj.toString();
-      } catch (e) {
-        return cleaned;
-      }
+      // NO PREMATURE ENCODING! Return raw URL string.
+      // Encoding will be handled by the viewer component.
+      return cleaned;
     };
 
     const processTitle = (url, rawTitle) => {
       let title = rawTitle ? rawTitle.replace(/<[^>]*>/g, '').trim() : '';
-      if (!title || title.length < 3 || /^(PDF|İndir|Hutbe)$/i.test(title)) {
-        title = url.split('/').pop()?.replace('.pdf', '') || 'Hutbe';
-        try { title = decodeURIComponent(title); } catch { }
+
+      // Clean up common prefixes/suffixes
+      title = title.replace(/^Hutbe:\s*/i, '').replace(/\.pdf$/i, '');
+
+      // If title is garbage or empty, try to derive from URL
+      if (!title || title.length < 5 || /^(PDF|İndir|Hutbe|Tıklayınız|Dosya)$/i.test(title)) {
+        // Try to decode URL part
+        try {
+          const filename = url.split('/').pop();
+          // Remove extension and common prefixes
+          let decoded = decodeURIComponent(filename).replace('.pdf', '');
+          // Remove date prefixes like "2024_01_01_" or "2024-01-01-"
+          decoded = decoded.replace(/^\d{4}[-_]\d{2}[-_]\d{2}[-_]/, '');
+          // Remove year prefix "2024_"
+          decoded = decoded.replace(/^\d{4}[-_]/, '');
+
+          if (decoded && decoded.length > 3) title = decoded.replace(/_/g, ' ');
+          else title = "Cuma Hutbesi";
+        } catch {
+          title = "Cuma Hutbesi";
+        }
       }
       return title;
     };
@@ -66,7 +80,7 @@ const parseHutbes = (html) => {
     const validUrls = new Set();
     const rawItems = [];
 
-    // Strategy 1: JSON/Script extraction
+    // Strategy 1: JSON/Script extraction (Common in SharePoint/ASP.NET sites)
     const jsonRegex = /"PDF"\s*:\s*"([^"]+)"/gi;
     let match;
     while ((match = jsonRegex.exec(html)) !== null) {
@@ -74,30 +88,35 @@ const parseHutbes = (html) => {
       if (url) rawItems.push({ url, title: null });
     }
 
-    // Strategy 2: HTML Anchor extraction
-    const anchorRegex = /<a[^>]+href=["']([^"']+\.pdf)["'][^>]*>(.*?)<\/a>/gi;
+    // Strategy 2: Improved HTML Tag extraction
+    // Matches href="..." containing .pdf OR "Hutbe" link text
+    // Capture Group 1: URL, Capture Group 2: Link Text
+    const anchorRegex = /<a[^>]+href=["']([^"']+)["'][^>]*>(.*?)<\/a>/gi;
     while ((match = anchorRegex.exec(html)) !== null) {
       const url = processUrl(match[1]);
-      if (url) rawItems.push({ url, title: match[2] });
-    }
+      const text = match[2];
 
-    // Strategy 3: Fallback - any string that looks like a PDF link
-    if (rawItems.length === 0) {
-      const fallbackRegex = /[^"'\s>]+\.pdf/gi;
-      const fallbackMatches = html.match(fallbackRegex) || [];
-      fallbackMatches.forEach(rawUrl => {
-        const url = processUrl(rawUrl);
-        if (url) rawItems.push({ url, title: null });
-      });
+      if (url && (url.toLowerCase().endsWith('.pdf') || /hutbe/i.test(url) || /hutbe/i.test(text))) {
+        // Filter out navigation links if possible
+        if (!url.includes('javascript:')) {
+          rawItems.push({ url, title: text });
+        }
+      }
     }
 
     // Process and deduplicate
     rawItems.forEach((item) => {
       if (validUrls.has(item.url)) return;
+
+      // Additional check: valid PDF extension or reliable source
+      if (!item.url.toLowerCase().endsWith('.pdf')) return;
+
       validUrls.add(item.url);
 
       const title = processTitle(item.url, item.title);
       const index = hutbes.length;
+
+      // Calculate date based on index (assuming blocking reverse chronological order)
       const hutbeDate = new Date(currentFriday);
       hutbeDate.setDate(currentFriday.getDate() - (index * 7));
 
@@ -105,7 +124,7 @@ const parseHutbes = (html) => {
         id: 2000 + index,
         title: title,
         date: formatDate(hutbeDate),
-        pdfUrl: item.url
+        pdfUrl: item.url // Raw URL
       });
     });
 
