@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Dimensions } from 'react-native';
-import { useReadingProgress } from './hooks/useReadingProgress';
+import { useUserStats } from '../../contexts/UserStatsContext';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
@@ -9,25 +9,21 @@ const fontFamily = 'Plus Jakarta Sans';
 
 export default function OkumayaDevamEt() {
   const router = useRouter();
-  const { progress, loading } = useReadingProgress();
+  const { stats, loading } = useUserStats();
 
-  // İlerleme varsa göster, yoksa varsayılan
-  // Artık her zaman sayfa bazlı
   const getDisplayInfo = () => {
-    if (loading || !progress) {
-      return {
-        number: 1,
-        name: '1. Sayfa',
-        progress: 0,
-      };
+    if (loading) {
+      return { number: 1, name: '1. Sayfa', progress: 0 };
     }
 
-    // Her zaman sayfa bazlı göster
-    const pageNumber = progress.number || 1;
+    const lastPage = stats.last_read_page || 1;
+    const totalRead = stats.total_pages_read || 0;
+    const progressPercent = (totalRead / 604) * 100;
+
     return {
-      number: pageNumber,
-      name: `${pageNumber}. Sayfa`,
-      progress: progress.progress || 0,
+      number: lastPage,
+      name: `${lastPage}. Sayfa`,
+      progress: progressPercent,
     };
   };
 

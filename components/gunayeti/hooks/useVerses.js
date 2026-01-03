@@ -1,57 +1,48 @@
 import { useState, useEffect, useCallback } from 'react';
 
-// Al Quran Cloud API - Tek bir ayeti hem Arapça hem de Türkçe mealiyle getirmek için
-const GET_AYAH_URL = (index) => `https://api.alquran.cloud/v1/ayah/${index}/editions/quran-uthmani,tr.yazir`;
-
-const TOTAL_AYHS = 6236; // Kuran'daki toplam ayet sayısı
+import { dailyQuranData } from '../../../constants/dailyQuranData';
 
 /**
- * Kuran ayetleri hook'u - OPTİMİZE EDİLDİ
- * Sadece ihtiyaç duyulan ayeti çeker, tüm Kuran'ı yüklemez.
+ * Kuran ayetleri hook'u - LOCAL DATA OPTIMIZED
+ * API yerine yerel JSON dosyasından anında veri çeker.
  */
 export const useVerses = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentVerse, setCurrentVerse] = useState(null);
 
-  // Rastgele bir ayet getir (API'den tekil çekim)
+  // Rastgele bir ayet getir (Yerel Veri)
   const fetchSingleRandomVerse = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
-      // 1 ile 6236 arasında rastgele bir ayet indexi
-      const randomIndex = Math.floor(Math.random() * TOTAL_AYHS) + 1;
+      // Yapay bir gecikme ekle (yumuşak geçiş için)
+      await new Promise(resolve => setTimeout(resolve, 300));
 
-      console.log(`📖 Ayet çekiliyor (Index: ${randomIndex})...`);
+      const totalVerses = dailyQuranData.length;
+      if (totalVerses === 0) throw new Error('Ayet verisi bulunamadı');
 
-      const response = await fetch(GET_AYAH_URL(randomIndex));
-      const result = await response.json();
+      const randomIndex = Math.floor(Math.random() * totalVerses);
+      const data = dailyQuranData[randomIndex];
 
-      if (result.code === 200 && result.data && Array.isArray(result.data)) {
-        // [0] Arapça, [1] Türkçe (tr.yazir)
-        const arabicData = result.data[0];
-        const turkishData = result.data[1];
+      console.log(`📖 Yerel Veriden Ayet Seçildi: ${data.sure_ad} ${data.ayet_no}`);
 
-        const surahNameTR = arabicData.surah.englishName || turkishData.surah.englishName || arabicData.surah.name;
+      const mappedVerse = {
+        id: `${data.id}`,
+        arabic: data.arapca.trim(),
+        turkish: data.meal.trim(),
+        surahNumber: 0, // Veride yok, kritik değil
+        surahName: data.sure_ad,
+        surahNameEnglish: data.sure_ad, // Veride yok
+        ayahNumber: data.ayet_no,
+        reference: `${data.sure_ad} ${data.ayet_no}. Ayet`,
+        kategori: data.kategori
+      };
 
-        const mappedVerse = {
-          id: `${arabicData.surah.number}-${arabicData.numberInSurah}`,
-          arabic: arabicData.text.trim(),
-          turkish: turkishData.text.trim(),
-          surahNumber: arabicData.surah.number,
-          surahName: surahNameTR,
-          surahNameEnglish: arabicData.surah.englishName,
-          ayahNumber: arabicData.numberInSurah,
-          reference: `${surahNameTR} ${arabicData.numberInSurah}.Ayet`,
-        };
+      setCurrentVerse(mappedVerse);
+      return mappedVerse;
 
-        setCurrentVerse(mappedVerse);
-        console.log(`✅ Ayet yüklendi: ${mappedVerse.reference}`);
-        return mappedVerse;
-      } else {
-        throw new Error('API verisi eksik veya hatalı');
-      }
     } catch (err) {
       console.error('📖 Ayet çekme hatası:', err);
       setError('Ayet yüklenirken bir hata oluştu');
@@ -69,7 +60,7 @@ export const useVerses = () => {
     loading,
     error,
     getRandomVerse: fetchSingleRandomVerse,
-    totalVerses: TOTAL_AYHS,
+    totalVerses: dailyQuranData.length,
   };
 };
 

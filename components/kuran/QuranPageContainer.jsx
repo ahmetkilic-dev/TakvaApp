@@ -7,7 +7,7 @@ import SuraTitle from './SuraTitle';
 import PageNavigation from './PageNavigation';
 import VerseContent from './VerseContent';
 import { usePageVerses } from './hooks/useQuran';
-import { useReadingProgress } from './hooks/useReadingProgress';
+import { usePageTimer } from './hooks/usePageTimer';
 import { useUserStats } from '../../contexts/UserStatsContext';
 
 const TOTAL_PAGES = 604;
@@ -15,61 +15,33 @@ const TOTAL_PAGES = 604;
 export default function QuranPageContainer() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const { user } = useUserStats();
+
+  // Initialize from params, fallback to 1
+  const initialPage = params?.number ? parseInt(params.number, 10) : 1;
+  const [currentPage, setCurrentPage] = useState(isNaN(initialPage) ? 1 : initialPage);
   const [activeTab, setActiveTab] = useState('Kur\'an');
-  const { saveProgress } = useReadingProgress();
-  const { incrementTask } = useUserStats();
 
-  // Her zaman page olarak işle
-  const pageNumber = params.number ? parseInt(params.number, 10) : 1;
-  const [currentPage, setCurrentPage] = useState(pageNumber);
-  const lastTrackedPageRef = useRef(null);
+  // Time-based reading progress logic
+  usePageTimer(currentPage, user);
 
-  // params.number değiştiğinde currentPage'i güncelle
+  // Sync state with URL params
   useEffect(() => {
-    if (params.number) {
-      const newPage = parseInt(params.number, 10);
-      if (newPage !== currentPage) {
-        setCurrentPage(newPage);
+    if (params?.number) {
+      const p = parseInt(params.number, 10);
+      if (!isNaN(p) && p !== currentPage) {
+        setCurrentPage(p);
       }
     }
-  }, [params.number]);
+  }, [params?.number]);
 
-  // Sadece sayfa verselerini çek
   const { verses, loading, error } = usePageVerses(currentPage);
+  const scrollViewRef = useRef(null);
 
   const handlePageChange = (pageNum) => {
     setCurrentPage(pageNum);
-    router.setParams({ number: pageNum.toString(), type: 'page' });
-    // İlerlemeyi kaydet
-    if (saveProgress) {
-      saveProgress({
-        type: 'page',
-        number: pageNum,
-        progress: (pageNum / TOTAL_PAGES) * 100,
-      });
-    }
+    router.setParams({ number: pageNum.toString() });
   };
-
-  // Sayfa değiştiğinde ilerlemeyi kaydet
-  useEffect(() => {
-    if (saveProgress && currentPage) {
-      saveProgress({
-        type: 'page',
-        number: currentPage,
-        progress: (currentPage / TOTAL_PAGES) * 100,
-      });
-    }
-  }, [currentPage, saveProgress]);
-
-  // Günlük görev ilerlemesini güncelle (Ayet okuma)
-  useEffect(() => {
-    if (verses && verses.length > 0 && !loading && lastTrackedPageRef.current !== currentPage) {
-      incrementTask(2, verses.length);
-      lastTrackedPageRef.current = currentPage;
-    }
-  }, [verses, loading, currentPage]);
-
-  const scrollViewRef = useRef(null);
 
   // Reset scroll position when page changes
   useEffect(() => {
@@ -85,10 +57,6 @@ export default function QuranPageContainer() {
         ref={scrollViewRef}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 0 }}
-        removeClippedSubviews={true}
-        maxToRenderPerBatch={2}
-        windowSize={5}
-        scrollEventThrottle={16}
       >
         <SuraTitle title={`Sayfa ${currentPage}`} />
 

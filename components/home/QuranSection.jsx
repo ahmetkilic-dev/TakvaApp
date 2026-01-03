@@ -15,12 +15,19 @@ const STREAM_SOURCES = [
 
 import React from 'react';
 
+import { useUserStats } from '../../contexts/UserStatsContext';
+
 const QuranSection = React.memo(() => {
    const router = useRouter();
+   const { stats, loading: contextLoading } = useUserStats();
    const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
    const [isPlaying, setIsPlaying] = useState(false);
 
    const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
+
+   const totalRead = stats.total_pages_read || 0;
+   const lastPage = stats.last_read_page || 1;
+   const progress = (totalRead / 604) * 100;
 
    // Initialize the audio player
    const player = useAudioPlayer(STREAM_SOURCES[currentSourceIndex]);
@@ -62,6 +69,14 @@ const QuranSection = React.memo(() => {
          player.play();
          setIsPlaying(true);
       }
+   };
+
+   const handleGoToQuran = () => {
+      // Navigate directly to the last read page
+      router.push({
+         pathname: '/(app)/(services)/quran-page',
+         params: { type: 'page', number: lastPage.toString() }
+      });
    };
 
    return (
@@ -110,17 +125,22 @@ const QuranSection = React.memo(() => {
          <View style={styles.ctaCard}>
             {/* Sol Metin Alanı */}
             <View style={styles.ctaTextContainer}>
-               <Text style={[fontStyle, styles.ctaTitle]}>Kuran-ı Kerim</Text>
+               <Text style={[fontStyle, styles.ctaTitle]}>Kuran Yolculuğun</Text>
                <Text style={[fontStyle, styles.ctaDescription]}>
-                  Kuran-ı Kerim'i okuyabilir, mealleri inceleyebilir, ayet bulabilirsin.
+                  {lastPage}. sayfadasın. Toplam {totalRead} sayfa okudun.
                </Text>
+
+               {/* Progress Bar */}
+               <View style={styles.progressBarBg}>
+                  <View style={[styles.progressBarFill, { width: `${Math.min(100, progress)}%` }]} />
+               </View>
 
                <TouchableOpacity
                   style={styles.ctaButton}
-                  onPress={() => router.push('/(app)/(services)/quran')}
+                  onPress={handleGoToQuran}
                   activeOpacity={0.8}
                >
-                  <Text style={[fontStyle, styles.ctaButtonText]}>Kuran'a git</Text>
+                  <Text style={[fontStyle, styles.ctaButtonText]}>Okumaya devam et</Text>
                </TouchableOpacity>
             </View>
 
@@ -253,6 +273,19 @@ const styles = StyleSheet.create({
       color: '#FFFFFF',
       fontSize: 10,
       fontWeight: '600',
+   },
+   progressBarBg: {
+      width: '100%',
+      height: 6,
+      backgroundColor: '#7C8381',
+      borderRadius: 3,
+      marginBottom: 12,
+      overflow: 'hidden',
+   },
+   progressBarFill: {
+      height: '100%',
+      backgroundColor: '#8CD7C0',
+      borderRadius: 3,
    },
    ctaImageContainer: {
       paddingRight: 16,

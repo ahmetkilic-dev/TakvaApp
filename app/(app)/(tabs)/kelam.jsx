@@ -7,6 +7,7 @@ import { useVideoPlayer, VideoView } from 'expo-video';
 import { useRouter } from 'expo-router';
 import { KelamFeed } from '../../../components/kelam/KelamFeed';
 import KelamService from '../../../services/KelamService';
+import { supabase } from '../../../lib/supabase';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -32,7 +33,17 @@ export default function KelamScreen() {
     useEffect(() => {
         // Always try to refresh/load updates on mount, but silenty if we have cache
         loadVideos(0);
-    }, []);
+
+        // Record daily activity: watched_kelam
+        if (user?.uid) {
+            supabase.rpc('record_daily_activity', {
+                p_user_id: user.uid,
+                p_activity_type: 'kelam'
+            }).then(({ error }) => {
+                if (error) console.error('Kelam activity error:', error);
+            });
+        }
+    }, [user?.uid]);
 
     const loadVideos = async (pageOffset, isVideoRefresh = false) => {
         const hasCache = videos.length > 0;

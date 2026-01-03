@@ -18,7 +18,7 @@ const toDayKeyLocal = (date) => {
  */
 export const useVersesDailyStats = () => {
   const { getToday, isLoading: dayLoading, isDayChanged } = useDayChangeContext();
-  const { user, incrementTask } = useUserStats();
+  const { user } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [verseRevealed, setVerseRevealed] = useState(false); // Bugün ayet gösterildi mi?
@@ -123,8 +123,8 @@ export const useVersesDailyStats = () => {
         setVerseRevealed(true);
         setCurrentVerseData(verseData);
 
-        // 1. Günlük görev tamamlama (CONTEXT üzerinden)
-        await incrementTask(1, 1);
+        // 1. Günlük görev tamamlama - ARTIK SUNUCU TARAFLI
+        // await incrementTask(1, 1);
 
         console.log(`📖 Ayet gösterildi ve kaydedildi (${todayKey}): ${verseData.reference}`);
         return { success: true, message: 'Ayet gösterildi' };

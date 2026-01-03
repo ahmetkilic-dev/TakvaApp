@@ -1,6 +1,8 @@
 import { View, Text, ScrollView } from 'react-native';
 import { Dimensions } from 'react-native';
 import React from 'react';
+import { useQuranProgress } from './hooks/useQuranProgress';
+import ProgressCircle from '../rozetgorev/ProgressCircle';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
@@ -19,6 +21,7 @@ const BISMILLAH_TURKISH = "Rahmân ve Rahîm olan Allah'ın adıyla.";
 
 
 const VerseContent = ({ verses, activeTab, loading, error }) => {
+  const { isPageRead } = useQuranProgress();
   if (loading) {
     return (
       <View
@@ -136,12 +139,10 @@ const VerseContent = ({ verses, activeTab, loading, error }) => {
                     color: '#000000',
                     lineHeight: 45,
                     letterSpacing: 2,
-
                     marginRight: 8,
                   }}
                 >
                   ({toArabicDigits(verse.verseNumber)})
-
                 </Text>
               )}
               <Text
@@ -154,10 +155,14 @@ const VerseContent = ({ verses, activeTab, loading, error }) => {
                   lineHeight: 45,
                   letterSpacing: 2,
                 }}
-
               >
                 {verse.arabic}
               </Text>
+            </View>
+
+            {/* Ayet İlerleme Çemberi */}
+            <View style={{ alignItems: 'center', marginTop: 12, marginBottom: 8 }}>
+              <ProgressCircle percentage={isPageRead(verse.pageNumber) ? 100 : 0} size={40} />
             </View>
 
             {/* Turkish Translation */}

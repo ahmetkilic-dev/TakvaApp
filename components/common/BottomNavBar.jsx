@@ -46,10 +46,8 @@ const BottomNavBar = React.memo(({ activeTab }) => {
 
   const handlePress = useCallback((to) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    // Instant feedback için navigation'ı bir sonraki frame'e al
-    requestAnimationFrame(() => {
-      router.replace(to);
-    });
+    // Direkt navigate - ANINDA!
+    router.push(to);
   }, [router]);
 
   if (isLandscape) return null;
@@ -76,9 +74,10 @@ const BottomNavBar = React.memo(({ activeTab }) => {
         return (
           <TouchableOpacity
             key={key}
-            activeOpacity={0.8}
+            activeOpacity={0.6}
             onPress={() => handlePress(to)}
             style={styles.item}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
             <View style={[styles.iconWrap, { opacity: focused ? 1 : 0.5 }]}>
               <Icon width={ICON_SIZE} height={ICON_SIZE} />

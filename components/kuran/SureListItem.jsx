@@ -1,9 +1,16 @@
 import { memo } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
+import { useQuranProgress } from './hooks/useQuranProgress';
+import ProgressCircle from '../rozetgorev/ProgressCircle';
+
 const fontFamily = 'Plus Jakarta Sans';
 
 const SureListItem = memo(({ surah, onPress }) => {
+  const { getSurahProgress } = useQuranProgress();
+  const progress = getSurahProgress(surah.number);
+  const isCompleted = progress >= 100;
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -13,8 +20,8 @@ const SureListItem = memo(({ surah, onPress }) => {
         height: 62,
         borderRadius: 20,
         borderWidth: 0.5,
-        borderColor: 'rgba(255, 255, 255, 0.5)',
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        borderColor: isCompleted ? '#8CD7C0' : 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: isCompleted ? 'rgba(140, 215, 192, 0.1)' : 'rgba(255, 255, 255, 0.05)',
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 16,
@@ -52,6 +59,11 @@ const SureListItem = memo(({ surah, onPress }) => {
         <Text style={{ fontFamily, fontSize: 10, fontWeight: '400', color: 'rgba(255, 255, 255, 0.7)' }}>
           {surah.ayahCount} Ayet
         </Text>
+      </View>
+
+      {/* Progress Section */}
+      <View style={{ marginLeft: 8 }}>
+        <ProgressCircle percentage={progress} size={44} />
       </View>
     </TouchableOpacity>
   );

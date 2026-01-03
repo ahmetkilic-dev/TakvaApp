@@ -1,9 +1,10 @@
+import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import HomeBg from '../../assets/images/home-bg.svg';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-export default function ScreenBackground({ children }) {
+function ScreenBackground({ children }) {
   return (
     <View style={styles.container}>
       {/* SVG Background */}
@@ -40,3 +41,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Memoize to prevent SVG re-render on every screen change
+export default React.memo(ScreenBackground);

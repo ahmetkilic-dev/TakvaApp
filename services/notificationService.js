@@ -129,7 +129,7 @@ export const NotificationService = {
         // Run in background slightly to not block UI transition
         setTimeout(async () => {
             try {
-                console.log('🔄 [NotificationService] Yeniden planlama başladı...');
+                console.log('🔄 [NotificationService] Yeniden planlama başladı (Aşama 1: İlk 3 Gün)...');
                 await Notifications.cancelAllScheduledNotificationsAsync();
 
                 const [prayerRemindersRaw, customRemindersRaw, appSettingsRaw, locationRaw] = await Promise.all([
@@ -148,138 +148,154 @@ export const NotificationService = {
                 const timings = await this.getPrayerTimesForRange(location.latitude, location.longitude, 10);
                 if (!timings || timings.length === 0) return;
 
-                let scheduledCount = 0;
-                let namazGeneralCount = 0;
-                let namazReminderCount = 0;
-                let customCount = 0;
                 const now = new Date();
 
-                const prayerKeyMap = { '1': 'Fajr', '2': 'Sunrise', '3': 'Dhuhr', '4': 'Asr', '5': 'Maghrib', '6': 'Isha' };
-                const prayerNameMap = { '1': 'İmsak', '2': 'Güneş', '3': 'Öğle', '4': 'İkindi', '5': 'Akşam', '6': 'Yatsı' };
+                // Helper to check if a date is within the "Priority Phase" (Next 3 days)
+                const isPriorityDay = (date) => {
+                    const diffDays = Math.ceil((date - now) / (1000 * 60 * 60 * 24));
+                    return diffDays <= 3;
+                };
 
-                // 1. GENEL NAMAZ BİLDİRİMLERİ (Ekrandaki "Namaz Vakitleri" anahtarı)
-                // Tüm 6 vakit, TAM vaktinde, Her gün.
-                if (appSettings.prayer) {
-                    for (const prayerId of ['1', '2', '3', '4', '5', '6']) {
+                const scheduleLogic = async (timingsSlice, isBackground = false) => {
+                    let count = 0;
+                    const prayerKeyMap = { '1': 'Fajr', '2': 'Sunrise', '3': 'Dhuhr', '4': 'Asr', '5': 'Maghrib', '6': 'Isha' };
+                    const prayerNameMap = { '1': 'İmsak', '2': 'Güneş', '3': 'Öğle', '4': 'İkindi', '5': 'Akşam', '6': 'Yatsı' };
+
+                    // Pre-calculate allowed background settings once
+                    const generalTasks = [
+                        { key: 'verse', t: 'Günün Ayeti', h: 11, m: 0 },
+                        { key: 'dhikr', t: 'Zikir Hatırlatıcısı', h: 21, m: 0 },
+                        { key: 'knowledge', t: 'İlim Hatırlatıcısı', h: 18, m: 0 }
+                    ];
+
+                    // --- 1. GENEL NAMAZ BİLDİRİMLERİ ---
+                    if (appSettings.prayer) {
+                        for (const prayerId of ['1', '2', '3', '4', '5', '6']) {
+                            for (const dayEntry of timingsSlice) {
+                                const rawTime = dayEntry.timings[prayerKeyMap[prayerId]].split(' ')[0];
+                                const [h, m] = rawTime.split(':').map(Number);
+                                const triggerDate = new Date(dayEntry.date);
+                                triggerDate.setHours(h, m, 0, 0);
+
+                                if (triggerDate > now) {
+                                    await Notifications.scheduleNotificationAsync({
+                                        content: {
+                                            title: 'Namaz Vakti',
+                                            body: `${cityName} için ${prayerNameMap[prayerId]} vakti girdi. 🕋`,
+                                            sound: true,
+                                            channelId: CHANNELS.PRAYER,
+                                        },
+                                        trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                                    });
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+
+                    // --- 2. HATIRLATICI NAMAZ BİLDİRİMLERİ ---
+                    for (const [prayerId, config] of Object.entries(prayerReminders)) {
+                        if (!config.enabled) continue;
+                        const allowedDays = this.parseDays(config.days);
+                        const offsetMinutes = this.parseOffset(config.offset);
                         const label = prayerNameMap[prayerId];
                         const key = prayerKeyMap[prayerId];
 
-                        for (const dayEntry of timings) {
-                            if (scheduledCount >= 40) break;
+                        for (const dayEntry of timingsSlice) {
+                            if (!allowedDays.includes(dayEntry.date.getDay())) continue;
                             const rawTime = dayEntry.timings[key].split(' ')[0];
                             const [h, m] = rawTime.split(':').map(Number);
                             const triggerDate = new Date(dayEntry.date);
-                            triggerDate.setHours(h, m, 0, 0);
+                            triggerDate.setHours(h, m - offsetMinutes, 0, 0);
 
                             if (triggerDate > now) {
                                 await Notifications.scheduleNotificationAsync({
                                     content: {
-                                        title: 'Namaz Vakti',
-                                        body: `${cityName} için ${label} vakti girdi. 🕋`,
+                                        title: `${label} Hatırlatıcısı`,
+                                        body: offsetMinutes > 0 ? `${offsetMinutes} dk sonra ${label} vakti girecek.` : `${label} vakti geldi.`,
                                         sound: true,
+                                        priority: config.isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
                                         channelId: CHANNELS.PRAYER,
+                                        data: { type: 'prayer_rem', prayerId },
                                     },
                                     trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
                                 });
-                                scheduledCount++;
-                                namazGeneralCount++;
+                                count++;
                             }
                         }
                     }
-                    console.log(`📡 [Genel Namaz] ${namazGeneralCount} bildirim kuruldu.`);
-                }
 
-                // 2. HATIRLATICI NAMAZ BİLDİRİMLERİ (Hatırlatıcı ekranındaki özel ayarlar)
-                for (const [prayerId, config] of Object.entries(prayerReminders)) {
-                    if (!config.enabled) continue;
-                    const allowedDays = this.parseDays(config.days);
-                    const offsetMinutes = this.parseOffset(config.offset);
-                    const label = prayerNameMap[prayerId];
-                    const key = prayerKeyMap[prayerId];
+                    // --- 3. ÖZEL HATIRLATICILAR ---
+                    for (const reminder of customReminders) {
+                        if (!reminder.enabled || !reminder.time) continue;
+                        const allowedDays = this.parseDays(reminder.days);
+                        const [h, m] = reminder.time.split(':').map(Number);
 
-                    for (const dayEntry of timings) {
-                        if (scheduledCount >= 54) break;
-                        if (!allowedDays.includes(dayEntry.date.getDay())) continue;
+                        for (const dayEntry of timingsSlice) {
+                            const triggerDate = new Date(dayEntry.date);
+                            triggerDate.setHours(h, m, 0, 0);
 
-                        const rawTime = dayEntry.timings[key].split(' ')[0];
-                        const [h, m] = rawTime.split(':').map(Number);
-                        const triggerDate = new Date(dayEntry.date);
-                        triggerDate.setHours(h, m - offsetMinutes, 0, 0);
-
-                        if (triggerDate > now) {
-                            await Notifications.scheduleNotificationAsync({
-                                content: {
-                                    title: `${label} Hatırlatıcısı`,
-                                    body: offsetMinutes > 0 ? `${offsetMinutes} dk sonra ${label} vakti girecek.` : `${label} vakti geldi.`,
-                                    sound: true,
-                                    priority: config.isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
-                                    channelId: CHANNELS.PRAYER,
-                                    data: { type: 'prayer_rem', prayerId },
-                                },
-                                trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
-                            });
-                            scheduledCount++;
-                            namazReminderCount++;
+                            if (allowedDays.includes(triggerDate.getDay()) && triggerDate > now) {
+                                await Notifications.scheduleNotificationAsync({
+                                    content: { title: reminder.name || 'Özel', body: `${reminder.name} vakti geldi.`, sound: true, channelId: CHANNELS.DEFAULT },
+                                    trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                                });
+                                count++;
+                            }
                         }
                     }
-                }
 
-                // 3. ÖZEL HATIRLATICILAR (Next 10 Days)
-                for (const reminder of customReminders) {
-                    if (!reminder.enabled || !reminder.time || scheduledCount >= 58) continue;
-                    const allowedDays = this.parseDays(reminder.days);
-                    const [h, m] = reminder.time.split(':').map(Number);
+                    // --- 4. GENEL UYGULAMA (Daily Triggers - Only in Phase 1) ---
+                    if (!isBackground) {
+                        for (const task of generalTasks) {
+                            if (appSettings[task.key]) {
+                                await Notifications.scheduleNotificationAsync({
+                                    content: { title: task.t, body: `${task.t} zamanı geldi.`, sound: true, channelId: CHANNELS.DEFAULT },
+                                    trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: task.h, minute: task.m },
+                                });
+                                count++;
+                            }
+                        }
 
-                    for (let i = 0; i < 10; i++) {
-                        if (scheduledCount >= 60) break;
-                        const triggerDate = new Date();
-                        triggerDate.setDate(now.getDate() + i);
-                        triggerDate.setHours(h, m, 0, 0);
+                        // --- 5. DİNİ GÜNLER ---
+                        if (appSettings.religious) {
+                            for (const day of STATIC_RELIGIOUS_DAYS_2026) {
+                                const triggerDate = new Date(day.dateObj);
+                                triggerDate.setDate(triggerDate.getDate() - 1);
+                                triggerDate.setHours(10, 0, 0, 0);
 
-                        if (allowedDays.includes(triggerDate.getDay()) && triggerDate > now) {
-                            await Notifications.scheduleNotificationAsync({
-                                content: { title: reminder.name || 'Özel', body: `${reminder.name} vakti geldi.`, sound: true, channelId: CHANNELS.DEFAULT },
-                                trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
-                            });
-                            scheduledCount++;
-                            customCount++;
+                                // If religous day is within our priority window
+                                if (triggerDate > now && isPriorityDay(triggerDate)) {
+                                    await Notifications.scheduleNotificationAsync({
+                                        content: { title: 'Dini Gün Hatırlatıcı', body: `Yarın ${day.name}. ✨`, sound: true },
+                                        trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                                    });
+                                    count++;
+                                }
+                            }
                         }
                     }
-                }
 
-                // 4. GENEL UYGULAMA (Günün Ayeti, Zikir vb.) - DAILY TRIGGER
-                const generalTasks = [{ key: 'verse', t: 'Günün Ayeti', h: 11, m: 0 }, { key: 'dhikr', t: 'Zikir Hatırlatıcısı', h: 21, m: 0 }, { key: 'knowledge', t: 'İlim Hatırlatıcısı', h: 18, m: 0 }];
-                for (const task of generalTasks) {
-                    if (appSettings[task.key] && scheduledCount < 62) {
-                        await Notifications.scheduleNotificationAsync({
-                            content: { title: task.t, body: `${task.t} zamanı geldi.`, sound: true, channelId: CHANNELS.DEFAULT },
-                            trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: task.h, minute: task.m },
-                        });
-                        scheduledCount++;
+                    return count;
+                };
+
+                // AŞAMA 1: İlk 3 Günü Hemen Kur (UI akıcı kalsın)
+                const priorityTimings = timings.slice(0, 3);
+                const p1Count = await scheduleLogic(priorityTimings, false);
+                console.log(`✅ [NotificationService] Aşama 1 Bitti: ${p1Count} bildirim kuruldu. İlk 72 saat güvende.`);
+
+                // AŞAMA 2: Kalan 7 Günü Arka Planda Kur (2 saniye bekle ki UI tamamen rahatlasın)
+                setTimeout(async () => {
+                    try {
+                        console.log('🔄 [NotificationService] Aşama 2 Başladı (Gelecek hafta planlanıyor)...');
+                        const futureTimings = timings.slice(3);
+                        const p2Count = await scheduleLogic(futureTimings, true);
+                        console.log(`✅ [NotificationService] Aşama 2 Bitti: ${p2Count} ek bildirim kuruldu.`);
+                    } catch (futureErr) {
+                        console.error('❌ Background reschedule error:', futureErr);
                     }
-                }
+                }, 2000);
 
-                // 5. DİNİ GÜNLER (1 Day Before)
-                if (appSettings.religious) {
-                    let relCount = 0;
-                    for (const day of STATIC_RELIGIOUS_DAYS_2026) {
-                        if (relCount >= 5 || scheduledCount >= 64) break;
-                        const triggerDate = new Date(day.dateObj);
-                        triggerDate.setDate(triggerDate.getDate() - 1);
-                        triggerDate.setHours(10, 0, 0, 0);
-
-                        if (triggerDate > now) {
-                            await Notifications.scheduleNotificationAsync({
-                                content: { title: 'Dini Gün Hatırlatıcı', body: `Yarın ${day.name}. ✨`, sound: true },
-                                trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
-                            });
-                            scheduledCount++;
-                            relCount++;
-                        }
-                    }
-                }
-
-                console.log(`✅ [NotificationService] TOPLAM ${scheduledCount} bildirim kuruldu. (Şehir: ${cityName})`);
             } catch (error) {
                 console.error('❌ Reschedule error:', error);
             }

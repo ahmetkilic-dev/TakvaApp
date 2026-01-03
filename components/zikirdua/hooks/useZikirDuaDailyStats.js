@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
-import TaskService from '../../../services/TaskService';
 
 import { useUserStats } from '../../../contexts/UserStatsContext';
 
@@ -18,7 +17,7 @@ const toDayKeyLocal = (date) => {
 
 export const useZikirDuaDailyStats = () => {
   const { getToday, isLoading: dayLoading } = useDayChangeContext();
-  const { user, incrementTask, updateStat } = useUserStats();
+  const { user, updateStat } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [dhikrBase, setDhikrBase] = useState(0);
@@ -63,8 +62,8 @@ export const useZikirDuaDailyStats = () => {
           console.warn('🧿 Daily zikir update failed:', dailyErr.message);
         }
 
-        // 3. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
-        await incrementTask(3, pending);
+        // 3. Günlük görev ilerlemesini CONTEXT üzerinden güncelle - ARTIK SUNUCU TARAFLI
+        // await incrementTask(3, pending);
 
         // Atomik olarak sayaçlardan düş
         pendingDhikrRef.current -= pending;
@@ -80,7 +79,7 @@ export const useZikirDuaDailyStats = () => {
         flushingRef.current = false;
       }
     },
-    [todayKey, user?.uid, incrementTask]
+    [todayKey, user?.uid]
   );
 
   useEffect(() => {

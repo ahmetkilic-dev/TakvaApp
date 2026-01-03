@@ -21,13 +21,14 @@ export default function NamazTabContainer() {
   return (
     <ScreenBackground>
       <SafeAreaView edges={['top']} style={styles.safeArea}>
-        {/* Header */}
+        {/* Header - SABİT, ZİPLAMAZ */}
         <View style={styles.header}>
           <View style={styles.backButton} />
           <Text style={styles.headerTitle}>NAMAZ</Text>
           <View style={styles.headerRight} />
         </View>
 
+        {/* Content - Scroll eder */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[styles.scrollContent, { paddingBottom: 0 }]}
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 8,
     paddingBottom: 8,
+    // Header sabit kalacak
   },
   backButton: {
     width: 36,
@@ -78,5 +80,4 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
 });
-
 

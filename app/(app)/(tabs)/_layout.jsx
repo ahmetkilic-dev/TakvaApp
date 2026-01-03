@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Tabs } from 'expo-router';
-import { View, Animated } from 'react-native';
+import { View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 
 // SVG İkonları import ediyoruz (Component olarak)
@@ -10,17 +10,10 @@ import IcKelam from '../../../assets/images/ic-kelam.svg';
 import IcTasks from '../../../assets/images/ic-tasks.svg';
 import IcProfile from '../../../assets/images/ic-profile.svg';
 
-// Tab İkon Bileşeni - SVG Component kullanıyor
+// Tab İkon Bileşeni - SVG Component kullanıyor (ANİMASYON KALDIRILDI)
 const TabIcon = ({ SvgIcon, focused, size = 36 }) => {
-  const opacityAnim = useRef(new Animated.Value(0.5)).current;
-
-  useEffect(() => {
-    Animated.timing(opacityAnim, {
-      toValue: focused ? 1 : 0.5,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  }, [focused]);
+  // Direkt opacity, animasyon yok!
+  const opacity = focused ? 1 : 0.5;
 
   return (
     <View
@@ -29,7 +22,6 @@ const TabIcon = ({ SvgIcon, focused, size = 36 }) => {
         height: 36,
         alignItems: 'center',
         justifyContent: 'center',
-        // Drop shadow: x0 y2 blur10 spread0 #ffffff 25%
         shadowColor: '#FFFFFF',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
@@ -37,13 +29,9 @@ const TabIcon = ({ SvgIcon, focused, size = 36 }) => {
         elevation: 5,
       }}
     >
-      <Animated.View
-        style={{
-          opacity: opacityAnim,
-        }}
-      >
+      <View style={{ opacity }}>
         <SvgIcon width={size} height={size} />
-      </Animated.View>
+      </View>
     </View>
   );
 };
@@ -71,6 +59,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="kelam"
         options={{
+          animation: 'none',
           tabBarIcon: ({ focused }) => (
             <TabIcon SvgIcon={IcKelam} focused={focused} size={36} />
           ),
@@ -81,6 +70,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="namaz"
         options={{
+          animation: 'none',
           tabBarIcon: ({ focused }) => (
             <TabIcon SvgIcon={IcNamaz} focused={focused} />
           ),
@@ -91,6 +81,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="home"
         options={{
+          animation: 'none',
           tabBarIcon: ({ focused }) => (
             <TabIcon SvgIcon={IcHome} focused={focused} />
           ),
@@ -101,6 +92,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="tasks"
         options={{
+          animation: 'none',
           tabBarIcon: ({ focused }) => (
             <TabIcon SvgIcon={IcTasks} focused={focused} />
           ),
@@ -111,6 +103,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="profile"
         options={{
+          animation: 'none',
           tabBarIcon: ({ focused }) => (
             <TabIcon SvgIcon={IcProfile} focused={focused} />
           ),

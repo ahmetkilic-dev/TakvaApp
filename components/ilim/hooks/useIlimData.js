@@ -122,92 +122,45 @@ export const useIlimData = () => {
   }, []);
 
   /**
-   * Doğru cevap verildiğinde puan ekle
+   * Doğru cevap verildiğinde puan ekle - ARTIK SUNUCU TARAFLI
    */
   const addPoints = useCallback(async (points, categoryKey, isCorrect) => {
     if (!user) return;
 
     try {
-      if (isCorrect) {
-        const newTotalPoints = totalPoints + points;
-        const newDailyPoints = dailyPoints + points;
-        const newQuizCount = quizCount + 1;
-        const updatedCategoryStats = { ...categoryStats };
+      // Tüm işlem artık Supabase RPC üzerinden yapılıyor
+      const { error } = await supabase.rpc('record_ilim_answer', {
+        p_user_id: user.uid,
+        p_category_key: categoryKey,
+        p_is_correct: isCorrect,
+        p_points: points
+      });
 
-        if (!updatedCategoryStats[categoryKey]) {
-          updatedCategoryStats[categoryKey] = { correct: 0, incorrect: 0, totalPoints: 0 };
-        }
-        updatedCategoryStats[categoryKey].correct += 1;
-        updatedCategoryStats[categoryKey].totalPoints += points;
+      if (error) throw error;
 
-        // 1. Update TOTAL stats in user_stats
-        // Note: We don't update ilim_daily_points here anymore
-        await supabase.from('user_stats').upsert({
-          user_id: user.uid,
-          ilim_total_points: newTotalPoints,
-          ilim_category_stats: { ...categoryStats, [categoryKey]: updatedCategoryStats[categoryKey] },
-          quiz_count: newQuizCount,
-          updated_at: new Date().toISOString()
-        });
+      // Real-time data loading will handle the state update via UserStatsContext or manual reload
+      // But for immediate UI feedback, we can trigger a reload
+      await loadUserData(user.uid);
 
-        // 2. Update DAILY stats in daily_user_stats (keying by todayKey)
-        // This ensures auto-reset on new day
-        await supabase.from('daily_user_stats').upsert({
-          user_id: user.uid,
-          date_key: todayKey,
-          ilim_points: newDailyPoints,
-          updated_at: new Date().toISOString()
-        }, { onConflict: 'user_id, date_key' }); // Ensure we strictly update today's row
-
-        setTotalPoints(newTotalPoints);
-        setDailyPoints(newDailyPoints);
-        setCategoryStats(updatedCategoryStats);
-        setQuizCount(newQuizCount);
-      } else {
-        // Incorrect answer logic remains same (only category stats update)
-        const updatedCategoryStats = { ...categoryStats };
-        if (!updatedCategoryStats[categoryKey]) {
-          updatedCategoryStats[categoryKey] = { correct: 0, incorrect: 0, totalPoints: 0 };
-        }
-        updatedCategoryStats[categoryKey].incorrect += 1;
-
-        await supabase.from('user_stats').upsert({
-          user_id: user.uid,
-          ilim_category_stats: { ...categoryStats, [categoryKey]: updatedCategoryStats[categoryKey] },
-          updated_at: new Date().toISOString()
-        });
-
-        setCategoryStats(updatedCategoryStats);
-      }
     } catch (err) {
-      console.error('Error adding points:', err);
+      console.error('Error recording ilim answer:', err);
       setError(err.message);
     }
-  }, [user, totalPoints, dailyPoints, categoryStats, quizCount, todayKey]);
-
-  const getCategoryScore = useCallback((categoryKey) => {
-    const stats = categoryStats[categoryKey];
-    if (!stats) return 0;
-    const total = stats.correct + stats.incorrect;
-    if (total === 0) return 0;
-    const percentage = (stats.correct / total) * 100;
-    return Math.round((percentage / 10) * 10) / 10;
-  }, [categoryStats]);
+  }, [user, loadUserData]);
 
   const getAllCategoryStats = useCallback(() => {
     const categories = ['fikih', 'kuran', 'hadis', 'ahlak', 'siyer', 'gunler', 'kavramlar', 'esma'];
     return categories.map((categoryKey) => {
-      const stats = categoryStats[categoryKey] || { correct: 0, incorrect: 0, totalPoints: 0 };
-      const score = getCategoryScore(categoryKey);
+      const stats = categoryStats[categoryKey] || { correct: 0, incorrect: 0, totalPoints: 0, score: 0 };
       return {
         categoryKey,
-        score,
+        score: stats.score || 0, // Artık sunucudan hazır geliyor
         correct: stats.correct || 0,
         incorrect: stats.incorrect || 0,
         total: (stats.correct || 0) + (stats.incorrect || 0),
       };
     });
-  }, [categoryStats, getCategoryScore]);
+  }, [categoryStats]);
 
   const markQuestionAsAnswered = useCallback(async (questionId, totalQuestionCount = null) => {
     if (!user || !questionId) return;
@@ -259,7 +212,6 @@ export const useIlimData = () => {
     answeredQuestions,
     currentQuestionId,
     addPoints,
-    getCategoryScore,
     getAllCategoryStats,
     markQuestionAsAnswered,
     saveCurrentQuestionId,

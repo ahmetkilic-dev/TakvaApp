@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -77,6 +77,13 @@ export default function NamazDurumuContainer() {
 
   const allCompleted = completedCount === totalCount;
 
+  // Image boyutlarını memoize et - her render'da hesaplama
+  const imageDimensions = useMemo(() => {
+    const width = Math.min(300, contentWidth);
+    const height = width * (163 / 300);
+    return { width, height };
+  }, []);
+
   useEffect(() => {
     if (!allCompleted) return;
     checkAnim.setValue(1);
@@ -104,8 +111,8 @@ export default function NamazDurumuContainer() {
             <Image
               source={require('../../assets/images/namaz-durumu.png')}
               style={{
-                width: Math.min(300, contentWidth),
-                height: Math.min(300 * (163 / 300), Math.min(300, contentWidth) * (163 / 300)),
+                width: imageDimensions.width,
+                height: imageDimensions.height,
                 borderRadius: 25,
                 borderWidth: 0.5,
                 borderColor: 'rgba(255, 255, 255, 0.5)',

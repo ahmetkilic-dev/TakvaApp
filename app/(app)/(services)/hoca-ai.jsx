@@ -87,8 +87,13 @@ export default function HocaAIScreen() {
     setMessages(prev => [...prev, botMessage]);
     setLoading(false);
 
-    // 7. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
-    await incrementTask(7, 1);
+    // 7. Günlük görev ilerlemesini SUPABASE üzerinden güncelle
+    if (user?.uid) {
+      supabase.rpc('record_daily_activity', {
+        p_user_id: user.uid,
+        p_activity_type: 'hoca_ai'
+      }).catch(e => console.error('Hoca activity error:', e));
+    }
 
     // Otomatik kaydır
     setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);

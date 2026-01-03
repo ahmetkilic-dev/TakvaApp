@@ -1,34 +1,29 @@
-import { View, Text, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 import { useTasks } from '../../../components/rozetgorev/hooks/useTasks';
 import DailyTaskSection from '../../../components/rozetgorev/DailyTaskSection';
 import BadgeCategorySection from '../../../components/rozetgorev/BadgeCategorySection';
-import { useScrollJumpFix } from '../../../utils/scrollOptimization';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const horizontalPadding = 20;
 
 export default function TasksScreen() {
-  const scrollViewRef = useScrollJumpFix();
-  const { tasksData, loading, navigateToTask } = useTasks();
-
-  if (loading) {
-    return (
-      <ScreenBackground>
-        <SafeAreaView className="flex-1 justify-center items-center">
-          <ActivityIndicator color="white" size="large" />
-        </SafeAreaView>
-      </ScreenBackground>
-    );
-  }
+  const { tasksData, navigateToTask } = useTasks();
 
   return (
     <ScreenBackground>
-      <SafeAreaView edges={['top']} className="flex-1">
-        {/* Header - Styled to match original Tasks UI */}
-        <View className="flex-row items-center justify-between px-4 pt-2 pb-2">
-          <View className="w-9" />
+      <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+        {/* Header - SABİT, ZİPLAMAZ */}
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingHorizontal: 16,
+          paddingTop: 8,
+          paddingBottom: 8
+        }}>
+          <View style={{ width: 36 }} />
           <Text
             style={{
               fontFamily: 'Cinzel-Black',
@@ -40,22 +35,19 @@ export default function TasksScreen() {
           >
             GÖREVLER
           </Text>
-          <View className="w-9" />
+          <View style={{ width: 36 }} />
         </View>
 
+        {/* Content - Scroll eder */}
         <ScrollView
-          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
           removeClippedSubviews={false}
-          scrollEventThrottle={16}
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,
             paddingBottom: 0,
           }}
         >
-
-
           {/* Daily Tasks Section */}
           <DailyTaskSection
             tasks={tasksData.daily || []}
@@ -67,7 +59,6 @@ export default function TasksScreen() {
             stats={tasksData.stats}
             onTaskPress={navigateToTask}
           />
-
         </ScrollView>
       </SafeAreaView>
     </ScreenBackground>

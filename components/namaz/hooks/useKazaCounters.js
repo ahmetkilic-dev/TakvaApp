@@ -3,7 +3,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../../firebaseConfig';
 import { supabase } from '../../../lib/supabase';
 import { getTodayKeyLocal } from '../../../utils/dateKey';
-import { rolloverNamazIfNeeded } from '../../../utils/namazRollover';
 
 const DEFAULT_KAZA_NAMAZ = {
   sabah: 0,
@@ -55,8 +54,8 @@ export function useKazaCounters() {
     setLoading(true);
     try {
       await ensureUserDoc(user.uid);
-      // Gün atladıysa kaza sayaçlarını otomatik artır (hesap bazlı)
-      await rolloverNamazIfNeeded({ uid: user.uid, todayKey: getTodayKeyLocal() });
+      // Gün atladıysa kaza sayaçlarını otomatik artır (hesap bazlı) - ARTIK SUNUCU TARAFLI (SİLİNDİ)
+      // await rolloverNamazIfNeeded({ uid: user.uid, todayKey: getTodayKeyLocal() });
 
       const { data: kazaData } = await supabase
         .from('kaza_counters')

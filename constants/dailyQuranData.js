@@ -1,4 +1,4 @@
-[
+export const dailyQuranData = [
   {
     "id": 1,
     "sure_ad": "Fatiha",
@@ -2791,7 +2791,7 @@
     "arapca": "وَاتَّقُوا اللّٰهَ الَّذ۪ي تَسَٓاءَلُونَ بِه۪ وَالْاَرْحَامَۜ",
     "meal": "Adını kullanarak birbirinizden dilekte bulunduğunuz Allah'tan ve akrabalık haklarına riayetsizlikten sakının."
   },
-{
+  {
     "id": 351,
     "sure_ad": "Mü'minûn",
     "ayet_no": "1-2",

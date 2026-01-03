@@ -14,7 +14,7 @@ const toDayKeyLocal = (date) => {
 
 export const useSalavatCounters = () => {
   const { getToday, isLoading: dayLoading } = useDayChange();
-  const { user, stats, incrementTask, updateStat } = useUserStats();
+  const { user, stats, updateStat } = useUserStats();
 
   const [loading, setLoading] = useState(true);
 
@@ -92,9 +92,11 @@ export const useSalavatCounters = () => {
         await supabase.rpc('increment_daily_stat', { stat_type: 'salavat', day_key: dayKeyToUse, increment_by: pending });
 
         // 3. Update User Total (This will trigger real-time update in Context)
-        await supabase.rpc('increment_user_stat', { target_user_id: user.uid, column_name: 'total_salavat', increment_by: pending });
+        // DUPLICATION FIX: We use updateStat below which handles DB sync via Service.
+        // await supabase.rpc('increment_user_stat', { target_user_id: user.uid, column_name: 'total_salavat', increment_by: pending });
 
         // Optimistik olarak global context'i de güncelle (Zıplama olmasın!)
+        // This also handles the DB sync securely via UserStatsService
         updateStat('total_salavat', pending);
 
         // Atomik olarak sayaçlardan düş
@@ -104,15 +106,18 @@ export const useSalavatCounters = () => {
         setGlobalTotalBase((v) => v + pending);
         if (dayKeyToUse === todayKey) setGlobalTodayBase((v) => v + pending);
 
-        // 4. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
-        await incrementTask(4, pending);
+        // 4. Günlük görev ilerlemesini SUPABASE üzerinden güncelle
+        await supabase.rpc('record_daily_activity', {
+          p_user_id: user.uid,
+          p_activity_type: 'salavat'
+        });
       } catch (e) {
         console.warn('📿 Salavat flush failed:', e?.message || e);
       } finally {
         flushingRef.current = false;
       }
     },
-    [todayKey, user?.uid, incrementTask]
+    [todayKey, user?.uid]
   );
 
   useEffect(() => {

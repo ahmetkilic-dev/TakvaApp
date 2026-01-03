@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { supabase } from '../lib/supabase';
-import TaskService from '../services/TaskService';
 import { UserStatsService } from '../services/UserStatsService';
 
 const UserStatsContext = createContext(null);
@@ -14,7 +13,8 @@ export const UserStatsProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState({
-        total_verses: 0,
+        total_verses: 0, // Daily Reveal count (Swipes)
+        quran_verses_read: 0, // Actual reading count
         total_salavat: 0,
         total_dhikr: 0,
         total_prayers: 0,
@@ -23,6 +23,8 @@ export const UserStatsProvider = ({ children }) => {
         total_juzs: 0,
         total_surahs: 0,
         total_khatims: 0,
+        total_pages_read: 0,
+        last_read_page: 1,
         shares: 0,
         login_streak: 1,
         rated: false,
@@ -39,16 +41,39 @@ export const UserStatsProvider = ({ children }) => {
     const [userBadges, setUserBadges] = useState([]); // Array of { badge_id, is_completed, current_progress, badges: { title, category, ... } }
     const [isInitialized, setIsInitialized] = useState(false);
 
+    // Refs to access latest state without adding to dependency array
+    const statsRef = useRef(stats);
+    const profileRef = useRef(profile);
+    const dailyTasksRef = useRef(dailyTasks);
+    const userBadgesRef = useRef(userBadges);
+
+    useEffect(() => { statsRef.current = stats; }, [stats]);
+    useEffect(() => { profileRef.current = profile; }, [profile]);
+    useEffect(() => { dailyTasksRef.current = dailyTasks; }, [dailyTasks]);
+    useEffect(() => { userBadgesRef.current = userBadges; }, [userBadges]);
+
     // Initial cache loading
     const loadCache = useCallback(async () => {
         try {
             const cached = await AsyncStorage.getItem(CACHE_KEY);
             if (cached) {
                 const parsed = JSON.parse(cached);
-                setStats(parsed.stats || stats);
-                setDailyTasks(parsed.dailyTasks || []);
-                setUserBadges(parsed.userBadges || []);
-                if (parsed.profile) setProfile(parsed.profile);
+                if (parsed.stats) {
+                    setStats(parsed.stats);
+                    statsRef.current = parsed.stats;
+                }
+                if (parsed.dailyTasks) {
+                    setDailyTasks(parsed.dailyTasks);
+                    dailyTasksRef.current = parsed.dailyTasks;
+                }
+                if (parsed.userBadges) {
+                    setUserBadges(parsed.userBadges);
+                    userBadgesRef.current = parsed.userBadges;
+                }
+                if (parsed.profile) {
+                    setProfile(parsed.profile);
+                    profileRef.current = parsed.profile;
+                }
             }
         } catch (e) {
             // silent cache error
@@ -69,52 +94,64 @@ export const UserStatsProvider = ({ children }) => {
         }
     }, []);
 
+    const fetchStats = useCallback(async (uid) => {
+        const { data } = await supabase.from('user_stats').select('*').eq('user_id', uid).maybeSingle();
+        if (data) {
+            const final = { ...data, follows: data.follows || [] };
+            setStats(final);
+            statsRef.current = final;
+            return final;
+        }
+        return statsRef.current;
+    }, []);
+
+    const fetchDailyTasks = useCallback(async (uid) => {
+        const { data } = await supabase.rpc('get_daily_tasks', { p_user_id: uid });
+        if (data) {
+            setDailyTasks(data);
+            dailyTasksRef.current = data;
+        }
+        return data || [];
+    }, []);
+
+    const fetchProfile = useCallback(async (uid) => {
+        const { data } = await supabase.from('profiles').select('id, name, username, role, application_status, following, is_premium, profile_picture, bio, social_links').eq('id', uid).maybeSingle();
+        if (data) {
+            const final = { ...data, following: data.following || [] };
+            setProfile(final);
+            profileRef.current = final;
+            return final;
+        }
+        return profileRef.current;
+    }, []);
+
+    const fetchUserBadges = useCallback(async (uid) => {
+        const { data } = await supabase.from('user_badges').select('*, badges(title, category, icon_key, target_value)').eq('user_id', uid);
+        if (data) {
+            setUserBadges(data);
+            userBadgesRef.current = data;
+        }
+        return data || [];
+    }, []);
+
     const fetchAllData = useCallback(async (uid, silent = false) => {
         if (!uid) return;
         if (!silent) setLoading(true);
-
         try {
-            // user_badges tablosunu, badges tablosuyla join yaparak çekiyoruz
-            const [statsResult, tasksResult, profileResult, badgesResult] = await Promise.all([
-                supabase.from('user_stats').select('*').eq('user_id', uid).maybeSingle(),
-                TaskService.getDailyTasks(),
-                supabase.from('profiles').select('id, name, username, role, application_status, following, is_premium, profile_picture, bio, social_links').eq('id', uid).maybeSingle(),
-                supabase.from('user_badges').select('*, badges(title, category, icon_key, target_value)').eq('user_id', uid)
+            const [s, t, p, b] = await Promise.all([
+                fetchStats(uid),
+                fetchDailyTasks(uid),
+                fetchProfile(uid),
+                fetchUserBadges(uid)
             ]);
-
-            let finalStats = stats;
-            if (statsResult.data) {
-                finalStats = {
-                    ...statsResult.data,
-                    follows: statsResult.data.follows || []
-                };
-                setStats(finalStats);
-            }
-
-            const finalTasks = tasksResult || [];
-            setDailyTasks(finalTasks);
-
-            let finalProfile = profile;
-            if (profileResult.data) {
-                finalProfile = {
-                    ...profileResult.data,
-                    following: profileResult.data.following || []
-                };
-                setProfile(finalProfile);
-            }
-
-            const finalBadges = badgesResult.data || [];
-            setUserBadges(finalBadges);
-
-            await saveCache(finalStats, finalTasks, finalProfile, finalBadges);
+            await saveCache(s, t, p, b);
         } catch (error) {
-            // silent fetch error
-            console.error(error);
+            console.error('Fetch all data error:', error);
         } finally {
             setLoading(false);
             setIsInitialized(true);
         }
-    }, [saveCache, stats]);
+    }, [fetchStats, fetchDailyTasks, fetchProfile, fetchUserBadges, saveCache]);
 
     // Auth Listener
     useEffect(() => {
@@ -132,14 +169,23 @@ export const UserStatsProvider = ({ children }) => {
         });
     }, []);
 
-    // Real-time Subscriptions
+    // Real-time Subscriptions - Granular Updates
     useEffect(() => {
         if (user?.uid) {
             const statsSub = supabase
                 .channel(`global_stats:${user.uid}`)
                 .on('postgres_changes',
                     { event: '*', schema: 'public', table: 'user_stats', filter: `user_id=eq.${user.uid}` },
-                    () => fetchAllData(user.uid, true)
+                    (payload) => {
+                        // Optimistic: Update immediately from payload if possible
+                        if (payload.new) {
+                            const updated = { ...statsRef.current, ...payload.new };
+                            setStats(updated);
+                            statsRef.current = updated;
+                        } else {
+                            fetchStats(user.uid);
+                        }
+                    }
                 )
                 .subscribe();
 
@@ -147,16 +193,23 @@ export const UserStatsProvider = ({ children }) => {
                 .channel(`global_profile:${user.uid}`)
                 .on('postgres_changes',
                     { event: '*', schema: 'public', table: 'profiles', filter: `id=eq.${user.uid}` },
-                    () => fetchAllData(user.uid, true)
+                    () => fetchProfile(user.uid)
                 )
                 .subscribe();
 
-            // Badge değişikliklerini de dinleyelim
             const badgesSub = supabase
                 .channel(`global_badges:${user.uid}`)
                 .on('postgres_changes',
                     { event: '*', schema: 'public', table: 'user_badges', filter: `user_id=eq.${user.uid}` },
-                    () => fetchAllData(user.uid, true)
+                    () => fetchUserBadges(user.uid)
+                )
+                .subscribe();
+
+            const dailySub = supabase
+                .channel(`daily_stats:${user.uid}`)
+                .on('postgres_changes',
+                    { event: '*', schema: 'public', table: 'daily_user_stats', filter: `user_id=eq.${user.uid}` },
+                    () => fetchDailyTasks(user.uid)
                 )
                 .subscribe();
 
@@ -164,9 +217,10 @@ export const UserStatsProvider = ({ children }) => {
                 supabase.removeChannel(statsSub);
                 supabase.removeChannel(profileSub);
                 supabase.removeChannel(badgesSub);
+                supabase.removeChannel(dailySub);
             };
         }
-    }, [user?.uid, fetchAllData]);
+    }, [user?.uid, fetchStats, fetchProfile, fetchUserBadges, fetchDailyTasks]);
 
     // Computed Values - ARTIK SERVERSIDE VERİYİ KULLANIYOR
     const badgeLogic = useMemo(() => {
@@ -209,19 +263,19 @@ export const UserStatsProvider = ({ children }) => {
         }
     }, [user?.uid]);
 
-    const incrementTask = useCallback(async (taskId, amount = 1) => {
-        // Update local state for instant feedback
-        setDailyTasks(prev => prev.map(t =>
-            t.id === taskId ? { ...t, progress: Math.min(t.target, t.progress + amount) } : t
-        ));
-        // Persist to storage
-        await TaskService.incrementTaskProgress(taskId, amount);
+    const setStatsDirect = useCallback((updates) => {
+        setStats(prev => ({
+            ...prev,
+            ...updates
+        }));
     }, []);
 
     const refreshTasks = useCallback(async () => {
-        const tasks = await TaskService.getDailyTasks();
-        setDailyTasks(tasks);
-    }, []);
+        if (user?.uid) {
+            const { data } = await supabase.rpc('get_daily_tasks', { p_user_id: user.uid });
+            if (data) setDailyTasks(data);
+        }
+    }, [user?.uid]);
 
     const value = useMemo(() => ({
         user,
@@ -233,10 +287,10 @@ export const UserStatsProvider = ({ children }) => {
         isInitialized,
         ...badgeLogic,
         updateStat,
-        incrementTask,
-        refreshTasks,
+        setStatsDirect,
+        refreshTasks: () => fetchAllData(user?.uid),
         refreshAll: () => fetchAllData(user?.uid)
-    }), [user, stats, profile, dailyTasks, userBadges, loading, isInitialized, badgeLogic, updateStat, incrementTask, refreshTasks]);
+    }), [user, stats, profile, dailyTasks, userBadges, loading, isInitialized, badgeLogic, updateStat, setStatsDirect, fetchAllData]);
 
     return (
         <UserStatsContext.Provider value={value}>

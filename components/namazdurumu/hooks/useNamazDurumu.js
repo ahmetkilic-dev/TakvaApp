@@ -5,8 +5,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../../firebaseConfig';
 import { supabase } from '../../../lib/supabase';
 import { useDailyPrayerTimes } from '../../../hooks/useDailyPrayerTimes';
-import { rolloverNamazIfNeeded } from '../../../utils/namazRollover';
-import TaskService from '../../../services/TaskService';
 
 import { useUserStats } from '../../../contexts/UserStatsContext';
 
@@ -34,7 +32,7 @@ import { UserStatsService } from '../../../services/UserStatsService';
 
 export function useNamazDurumu() {
   const { todayKey, arrived, currentPrayerKey, loading: timesLoading } = useDailyPrayerTimes();
-  const { user, incrementTask, updateStat, loading: userStatsLoading } = useUserStats();
+  const { user, updateStat, loading: userStatsLoading } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(() => ({
@@ -126,10 +124,10 @@ export function useNamazDurumu() {
 
       if (user?.uid) {
         // optimistik state güncellemeleri - UI anında tepki vermeli
-        // 1. Günlük görev ilerlemesini CONTEXT üzerinden güncelle
-        if (next) {
-          void incrementTask(5, 1);
-        }
+        // 1. Günlük görev ilerlemesini CONTEXT üzerinden güncelle - ARTIK SUNUCU TARAFLI
+        // if (next) {
+        //   void incrementTask(5, 1);
+        // }
 
         // 2. Optimistik olarak global context'i de güncelle (Zıplama olmasın!)
         updateStat('total_prayers', next ? 1 : -1);
@@ -156,7 +154,7 @@ export function useNamazDurumu() {
         }
       }
     },
-    [arrived, state, user?.uid, todayKey, incrementTask]
+    [arrived, state, user?.uid, todayKey]
   );
 
 
