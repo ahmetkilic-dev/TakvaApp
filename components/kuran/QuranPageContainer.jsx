@@ -1,6 +1,6 @@
 import { View, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import KuranHeader from './KuranHeader';
 import SuraTitle from './SuraTitle';
@@ -36,46 +36,44 @@ export default function QuranPageContainer() {
   }, [params?.number]);
 
   const { verses, loading, error } = usePageVerses(currentPage);
-  const scrollViewRef = useRef(null);
 
   const handlePageChange = (pageNum) => {
     setCurrentPage(pageNum);
     router.setParams({ number: pageNum.toString() });
   };
 
-  // Reset scroll position when page changes
-  useEffect(() => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({ y: 0, animated: false });
-    }
-  }, [currentPage]);
+  // Scroll reset is handled automatically by the "key" prop on ScrollView
+  // When key changes, React unmounts the old one and mounts a new one at scroll y=0
+
+  // Header bileşenlerini birleştir (useMemo ile optimize et)
+  // VerseContent içinde render edilecek component
+  const ListHeader = () => (
+    <View>
+      <SuraTitle title={`Sayfa ${currentPage}`} />
+
+      <PageNavigation
+        currentPage={currentPage}
+        totalPages={TOTAL_PAGES}
+        onPageChange={handlePageChange}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        showPageNumbers={true}
+      />
+    </View>
+  );
 
   return (
     <SafeAreaView edges={['top']} className="flex-1">
       <KuranHeader />
-      <ScrollView
-        ref={scrollViewRef}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 0 }}
-      >
-        <SuraTitle title={`Sayfa ${currentPage}`} />
 
-        <PageNavigation
-          currentPage={currentPage}
-          totalPages={TOTAL_PAGES}
-          onPageChange={handlePageChange}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-          showPageNumbers={true}
-        />
-
-        <VerseContent
-          verses={verses}
-          activeTab={activeTab}
-          loading={loading}
-          error={error}
-        />
-      </ScrollView>
+      {/* ScrollView kaldırıldı, VerseContent içindeki FlatList/ScrollView tüm sayfayı yönetecek */}
+      <VerseContent
+        verses={verses}
+        activeTab={activeTab}
+        loading={loading}
+        error={error}
+        ListHeaderComponent={<ListHeader />}
+      />
     </SafeAreaView>
   );
 }

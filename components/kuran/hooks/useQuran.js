@@ -173,25 +173,14 @@ export const useSurahVerses = (surahNumber) => {
  * Sayfa bazlı ayet çekme hook'u
  */
 export const usePageVerses = (pageNumber) => {
-  const [loading, setLoading] = useState(true);
-
-  // Memoize verses to prevent re-creation on every render
+  // Veriyi direkt useMemo ile hazırla - Loading state'e gerek yok çünkü veri local JSON
   const verses = useMemo(() => {
     if (!pageNumber) return [];
     const data = PAGE_DATA[pageNumber];
     return data || [];
   }, [pageNumber]);
 
-  useEffect(() => {
-    setLoading(true);
-    // Simulate async loading for consistency
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 0);
-    return () => clearTimeout(timer);
-  }, [pageNumber]);
-
-  return { verses, loading, error: null };
+  return { verses, loading: false, error: null };
 };
 
 /**

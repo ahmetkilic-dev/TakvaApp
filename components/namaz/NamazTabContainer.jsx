@@ -31,7 +31,7 @@ export default function NamazTabContainer() {
         {/* Content - Scroll eder */}
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={[styles.scrollContent, { paddingBottom: 0 }]}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: 100 }]}
         >
           {/* Kaza Namazlarım & Kaza Oruçlarım */}
           <KazaCounter />

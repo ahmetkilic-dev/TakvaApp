@@ -59,7 +59,7 @@ const BottomNavBar = React.memo(({ activeTab }) => {
     <View
       style={[
         styles.container,
-        isVideoFeed && styles.absoluteContainer,
+        (isVideoFeed || Platform.OS === 'android') && styles.absoluteContainer,
         {
           paddingBottom: Platform.OS === 'android' ? 8 : Math.max(insets.bottom, 8),
           backgroundColor: navBackgroundColor,

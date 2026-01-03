@@ -16,6 +16,7 @@ import { ScheherazadeNew_400Regular } from '@expo-google-fonts/scheherazade-new'
 import * as SplashScreen from 'expo-splash-screen';
 
 import { LocationProvider } from '../contexts/LocationContext';
+import { PrayerTimesProvider } from '../contexts/PrayerTimesContext';
 import { DayChangeProvider } from '../contexts/DayChangeContext';
 import { UserStatsProvider } from '../contexts/UserStatsContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -126,12 +127,14 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <LocationProvider>
-        <DayChangeProvider>
-          <UserStatsProvider>
-            <AuthGuard />
-            <StatusBar style="light" />
-          </UserStatsProvider>
-        </DayChangeProvider>
+        <PrayerTimesProvider>
+          <DayChangeProvider>
+            <UserStatsProvider>
+              <AuthGuard />
+              <StatusBar style="light" />
+            </UserStatsProvider>
+          </DayChangeProvider>
+        </PrayerTimesProvider>
       </LocationProvider>
     </GestureHandlerRootView>
   );

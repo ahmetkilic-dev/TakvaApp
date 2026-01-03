@@ -30,7 +30,7 @@ export default function HomeScreen() {
         <ScrollView
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
           removeClippedSubviews={false}
           scrollEventThrottle={16}
         >

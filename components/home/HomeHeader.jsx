@@ -1,8 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useLocation } from '../../contexts/LocationContext';
+import { usePrayerTimes } from '../../contexts/PrayerTimesContext';
 
 // İkonlar
 import icHatirlatici from '../../assets/images/hatirlatici.png';
@@ -10,10 +9,6 @@ import icIlim from '../../assets/images/ilim.png';
 import icKible from '../../assets/images/kible.png';
 import icKuran from '../../assets/hizmetler/kuran.png';
 import icDahaFazla from '../../assets/images/daha-fazlasi.png';
-
-import { PrayerTimesAPI } from '../../utils/prayerTimesApi';
-
-const API_BASE = 'https://api.aladhan.com/v1/timings';
 
 const createDateFromTime = (timeStr) => {
   if (!timeStr) return null;
@@ -41,46 +36,16 @@ const HomeHeader = React.memo(() => {
   const ACTIVE_COLOR = '#FFBA4A';
   const INACTIVE_COLOR = 'white';
 
-  // Konum context'inden al
-  const { location: userLocation, city: userCity, hasPermission, isLoading: locationLoading } = useLocation();
+  // Global context'ten namaz vakitlerini al - API çağrısı yok!
+  const { dailyTimes: prayerTimes, displayCity, loading } = usePrayerTimes();
 
-  const [prayerTimes, setPrayerTimes] = useState([]);
   const [displayData, setDisplayData] = useState({
     nextPrayerName: "Yükleniyor",
     remainingTime: "--:--:--",
     activeVakitIndex: -1
   });
 
-  const [displayCity, setDisplayCity] = useState('Konum alınıyor...');
-
-  // 1. API İsteği - PrayerTimesAPI kullanımı
-  useEffect(() => {
-    let mounted = true;
-    const fetchTimes = async () => {
-      try {
-        const { data, displayCity: city } = await PrayerTimesAPI.fetchDailyTimes(
-          userLocation,
-          userCity,
-          hasPermission
-        );
-
-        if (mounted) {
-          setPrayerTimes(data);
-          setDisplayCity(city);
-        }
-      } catch (error) {
-        // Fallback PrayerTimesAPI içinde zaten yönetiliyor ama ekstra güvenlik
-      }
-    };
-
-    // Konum yüklenirken bekle, sonra fetch et
-    if (!locationLoading) {
-      fetchTimes();
-    }
-    return () => { mounted = false; };
-  }, [userLocation, hasPermission, userCity, locationLoading]);
-
-  // 2. Geri Sayım - Optimize Edilmiş
+  // 1. Geri Sayım - Optimize Edilmiş
   useEffect(() => {
     if (prayerTimes.length === 0) return;
 

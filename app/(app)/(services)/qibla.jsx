@@ -145,30 +145,60 @@ export default function QiblaScreen() {
         return (qibla + 360) % 360;
     };
 
-    const updateUIState = (roundedHeading, targetAngle) => {
-        setDisplayHeading(roundedHeading);
+    // Lemaire Filter (Low Pass Filter) için değişkenler
+    const PREV_HEADING = useRef(0);
+    const ALPHA = 0.15; // 0.1 (çok yumuşak) - 1.0 (filtresiz). 0.15 idealdir.
 
-        if (targetAngle !== null) {
-            let diff = Math.abs(roundedHeading - targetAngle);
-            if (diff > 180) diff = 360 - diff;
-
-            const isOn = diff <= 2;
-            if (isOn !== isQiblaDirection) {
-                setIsQiblaDirection(isOn);
-                if (isOn && Date.now() - lastVibration.current > 1000) {
-                    Vibration.vibrate(100);
-                    lastVibration.current = Date.now();
-                }
-            }
-        }
+    // İki açı arasındaki en kısa farkı bulur (-180 ile 180 arası)
+    const getShortestDiff = (a, b) => {
+        let diff = (b - a + 180) % 360 - 180;
+        return diff < -180 ? diff + 360 : diff;
     };
 
     const startCompass = async () => {
         try {
             subscriptionRef.current = await Location.watchHeadingAsync((headingData) => {
                 const mag = headingData.magHeading;
-                headingSv.value = mag;
-                smoothedHeading.value = withTiming(mag, { duration: 100, easing: Easing.linear });
+
+                // LPF Uygula: Yeni açıyı, eski açıya göre en kısa yoldan yumuşat
+                let diff = getShortestDiff(PREV_HEADING.current, mag);
+
+                // Gürültü Filtresi: Eğer değişim 0.5 dereceden azsa güncelleme (jitter önleme)
+                if (Math.abs(diff) < 0.5) return;
+
+                const newHeading = PREV_HEADING.current + (diff * ALPHA);
+                const normalizedHeading = (newHeading + 360) % 360;
+
+                PREV_HEADING.current = normalizedHeading;
+
+                // Animasyon değerlerini güncelle
+                headingSv.value = normalizedHeading;
+                smoothedHeading.value = withTiming(normalizedHeading, { duration: 150, easing: Easing.linear });
+
+                // UI State Güncellemesi (Callback içinde inline)
+                const currentQiblaAngle = qiblaAngle; // Closure uyarısı: qiblaAngle değişirse burası eski kalabilir.
+                // Ancak qiblaAngle genelde sabittir (konum değişmedikçe).
+
+                if (currentQiblaAngle !== null) {
+                    let angleDiff = Math.abs(normalizedHeading - currentQiblaAngle);
+                    if (angleDiff > 180) angleDiff = 360 - angleDiff;
+
+                    setDisplayHeading(Math.round(normalizedHeading));
+
+                    setIsQiblaDirection(prevIsOn => {
+                        const threshold = prevIsOn ? 4.5 : 2.5;
+                        const newIsOn = angleDiff <= threshold;
+
+                        if (newIsOn && !prevIsOn && Date.now() - lastVibration.current > 2000) {
+                            Vibration.vibrate([0, 50, 50, 50]);
+                            lastVibration.current = Date.now();
+                        }
+
+                        return newIsOn;
+                    });
+                } else {
+                    setDisplayHeading(Math.round(normalizedHeading));
+                }
             });
         } catch (error) {
             console.log('Pusula başlatma hatası:', error);
@@ -255,15 +285,6 @@ export default function QiblaScreen() {
         }
     }, [mounted, hasPermission, userLocation, compassStarted]);
 
-    // Reanimated Reaction
-    useAnimatedReaction(
-        () => headingSv.value,
-        (currentHeading) => {
-            const rounded = Math.round(currentHeading);
-            runOnJS(updateUIState)(rounded, qiblaAngle);
-        },
-        [qiblaAngle]
-    );
 
     if (locationLoading || !mounted) {
         return (
@@ -478,6 +499,4 @@ const styles = StyleSheet.create({
     retryButton: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#4ECDC4', paddingVertical: 16, paddingHorizontal: 32, borderRadius: 30, gap: 10, marginBottom: 16 },
     retryButtonText: { fontSize: 16, fontWeight: '600', color: '#fff' },
     backHomeButton: { paddingVertical: 12, paddingHorizontal: 24 },
-    backHomeButtonText: { fontSize: 14, color: '#8BA89E' },
-    backHomeButtonText: { fontSize: 14, color: '#8BA89E' },
 });
