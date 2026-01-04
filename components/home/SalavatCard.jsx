@@ -1,10 +1,10 @@
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  withTiming, // Yaylanma olmadan hareket için
   runOnJS,
   interpolate,
   Extrapolation
@@ -126,21 +126,20 @@ export default function SalavatCard() {
         <Image
           source={roseLeft}
           style={styles.roseLeft}
-          resizeMode="contain"
+          contentFit="contain"
+          transition={500}
         />
         <Image
           source={roseRight}
           style={styles.roseRight}
-          resizeMode="contain"
+          contentFit="contain"
+          transition={500}
         />
 
         {/* Metin Alanı */}
         <View style={styles.textContainer}>
 
-          {/* ARAPÇA METİN YAPISI (Hizalama Düzeltildi)
-              Her iki metin de (Beyaz ve Altın) aynı container içinde
-              absolute pozisyonda üst üste bindirildi.
-          */}
+          {/* ARAPÇA METİN YAPISI */}
           <View style={styles.arabicTextWrapper}>
 
             {/* 1. Katman: Beyaz Metin (Arka Plan) */}
@@ -150,9 +149,6 @@ export default function SalavatCard() {
 
             {/* 2. Katman: Altın Metin (Maskelenmiş - Sağdan Sola Açılır) */}
             <Animated.View style={[styles.arabicTextMaskContainer, textMaskStyle]}>
-              {/* İçerideki metin kapsayıcısı sabit genişlikte (Parent kadar) olmalı ki
-                  maske daralsa bile metin kaymasın.
-               */}
               <View style={styles.arabicTextInnerFixed}>
                 <Text style={[styles.arabicTextBase, { color: '#FFBA4A' }]}>
                   {arabicText}
@@ -181,7 +177,7 @@ export default function SalavatCard() {
               <Image
                 source={salavatSwipeIcon}
                 style={{ width: 20, height: 20 }}
-                resizeMode="contain"
+                contentFit="contain"
               />
               {/* Arrow */}
               <Ionicons name="chevron-forward" size={12} color="rgba(255, 255, 255, 0.8)" />
@@ -257,43 +253,39 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     paddingHorizontal: 16,
   },
-
-  // --- YENİLENEN METİN STİLLERİ ---
   arabicTextWrapper: {
-    height: 40, // Yüksekliği sabitledik (font boyutuna göre ayarla)
+    height: 40,
     width: '100%',
     marginBottom: 8,
     position: 'relative',
-    justifyContent: 'center', // Dikey ortala
+    justifyContent: 'center',
   },
   arabicTextBase: {
     fontSize: 20,
-    textAlign: 'right', // Sağa yaslı
+    textAlign: 'right',
     writingDirection: 'rtl',
     fontWeight: '400',
     width: '100%',
-    lineHeight: 40, // Wrapper height ile aynı yaparak dikey hizalamayı garantiledik
-    position: 'absolute', // Üst üste binmeleri için
+    lineHeight: 40,
+    position: 'absolute',
     right: 0,
     top: 0,
   },
   arabicTextMaskContainer: {
     height: '100%',
     position: 'absolute',
-    right: 0, // Sağa yaslı (maske buradan açılacak)
+    right: 0,
     top: 0,
-    overflow: 'hidden', // Taşan kısmı gizle
+    overflow: 'hidden',
     zIndex: 2,
   },
   arabicTextInnerFixed: {
-    width: CARD_WIDTH - 32, // Container padding'i çıkarılmış net genişlik
+    width: CARD_WIDTH - 32,
     height: '100%',
     position: 'absolute',
-    right: 0, // Metni sağa sabitle ki maske daraldığında metin kaymasın
+    right: 0,
     top: 0,
   },
-  // ------------------------------
-
   turkishText: {
     fontSize: 14,
     textAlign: 'left',

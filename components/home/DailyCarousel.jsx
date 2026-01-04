@@ -1,6 +1,7 @@
-import { View, Text, FlatList, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { useRouter } from 'expo-router';
 
 // Görseller
@@ -60,6 +61,47 @@ const ORIGINAL_DATA = [
 const DATA = [...ORIGINAL_DATA, ...ORIGINAL_DATA, ...ORIGINAL_DATA];
 const CLONE_COUNT = ORIGINAL_DATA.length;
 
+const getRealIndex = (index) => index % ORIGINAL_DATA.length;
+
+const CarouselItem = React.memo(({ item, index, activeIndex }) => {
+  const realActiveIndex = getRealIndex(activeIndex);
+  const realItemIndex = getRealIndex(index);
+  const isActive = realItemIndex === realActiveIndex;
+
+  const imageHeight = isActive ? CENTER_IMAGE_HEIGHT : SIDE_IMAGE_HEIGHT;
+  const imageWidth = isActive ? CENTER_IMAGE_WIDTH : SIDE_IMAGE_WIDTH;
+
+  return (
+    <View
+      style={{
+        width: SNAP_INTERVAL,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <View
+        style={{
+          height: imageHeight,
+          width: imageWidth,
+          borderRadius: 25,
+          overflow: 'hidden',
+          backgroundColor: '#1a1a1a',
+        }}
+      >
+        <Image
+          source={item.image}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          contentFit="cover"
+          transition={200}
+        />
+      </View>
+    </View>
+  );
+});
+
 export default function DailyCarousel() {
   const router = useRouter();
   // Ortadan başla (ikinci set)
@@ -68,7 +110,6 @@ export default function DailyCarousel() {
   const isScrolling = useRef(false);
 
   // Gerçek data index'ini hesapla
-  const getRealIndex = (index) => index % ORIGINAL_DATA.length;
   const currentItem = ORIGINAL_DATA[getRealIndex(activeIndex)];
 
   const onViewableItemsChanged = useRef(({ viewableItems }) => {
@@ -112,45 +153,6 @@ export default function DailyCarousel() {
     }
   }, []);
 
-  const renderItem = ({ item, index }) => {
-    const realActiveIndex = getRealIndex(activeIndex);
-    const realItemIndex = getRealIndex(index);
-    const isActive = realItemIndex === realActiveIndex;
-
-    const imageHeight = isActive ? CENTER_IMAGE_HEIGHT : SIDE_IMAGE_HEIGHT;
-    const imageWidth = isActive ? CENTER_IMAGE_WIDTH : SIDE_IMAGE_WIDTH;
-
-    return (
-      <View
-        style={{
-          width: SNAP_INTERVAL,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {/* Görsel Kartı */}
-        <View
-          style={{
-            height: imageHeight,
-            width: imageWidth,
-            borderRadius: 25,
-            overflow: 'hidden',
-            backgroundColor: '#1a1a1a',
-          }}
-        >
-          <Image
-            source={item.image}
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            resizeMode="cover"
-          />
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={{ marginTop: 48, marginBottom: 24 }}>
       {/* Sabit Header - Carousel dışında */}
@@ -184,7 +186,13 @@ export default function DailyCarousel() {
       <FlatList
         ref={flatListRef}
         data={DATA}
-        renderItem={renderItem}
+        renderItem={({ item, index }) => (
+          <CarouselItem
+            item={item}
+            index={index}
+            activeIndex={activeIndex}
+          />
+        )}
         keyExtractor={(item, index) => `${item.id}-${index}`}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -207,7 +215,7 @@ export default function DailyCarousel() {
 
       {/* Alt Buton */}
       <View style={{ alignItems: 'center', marginTop: 12 }}>
-        <TouchableOpacity 
+        <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
             // Zikir ve Dua butonuna basınca dhikr ekranına git

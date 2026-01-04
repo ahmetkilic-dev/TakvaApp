@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { auth } from '../../../firebaseConfig';
-import { supabase } from '../../../lib/supabase';
-import { onAuthStateChanged } from 'firebase/auth';
+
 import { useUserStats } from '../../../contexts/UserStatsContext';
 
 export const useProfile = () => {

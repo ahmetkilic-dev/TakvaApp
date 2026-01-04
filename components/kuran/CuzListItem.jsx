@@ -1,14 +1,12 @@
 import { memo } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 
-import { useQuranProgress } from './hooks/useQuranProgress';
 import ProgressCircle from '../rozetgorev/ProgressCircle';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-const CuzListItem = memo(({ juz, onPress }) => {
-  const { getJuzProgress } = useQuranProgress();
-  const progress = getJuzProgress(juz.number);
+const CuzListItem = memo(({ juz, progress = 0, onPress }) => {
   const isCompleted = progress >= 100;
 
   return (
@@ -34,7 +32,8 @@ const CuzListItem = memo(({ juz, onPress }) => {
         <Image
           source={require('../../assets/images/kuranicc.png')}
           style={{ width: 40, height: 40 }}
-          resizeMode="contain"
+          contentFit="contain"
+          cachePolicy="memory-disk"
         />
         <View
           style={{

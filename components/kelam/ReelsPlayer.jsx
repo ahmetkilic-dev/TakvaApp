@@ -10,6 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { formatRelativeTime } from '../../utils/timeFormat';
 import { useUserStats } from '../../contexts/UserStatsContext';
 import { UserService } from '../../services/UserService';
+import { rsW } from '../../utils/responsive';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 

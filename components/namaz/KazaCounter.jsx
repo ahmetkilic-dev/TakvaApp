@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useKazaCounters } from './hooks/useKazaCounters';
@@ -37,11 +38,79 @@ const PRAYER_NAMES = {
 
 export default function KazaCounter() {
   const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
-
   const { canEdit, kazaNamazlari, kazaOruclari, updateNamaz, updateOruc } = useKazaCounters();
 
-  // Sayaç satırı componenti
-  const CounterRow = ({ type, value, onDecrease, onIncrease }) => (
+  return (
+    <View style={styles.container}>
+      {/* Kaza Namazlarım */}
+      <View style={styles.section}>
+        <Text style={[fontStyle, styles.sectionTitle]}>Kaza Namazlarım</Text>
+
+        <CounterRow
+          type="sabah"
+          value={kazaNamazlari.sabah}
+          onDecrease={() => updateNamaz('sabah', -1)}
+          onIncrease={() => updateNamaz('sabah', 1)}
+          canEdit={canEdit}
+        />
+        <CounterRow
+          type="ogle"
+          value={kazaNamazlari.ogle}
+          onDecrease={() => updateNamaz('ogle', -1)}
+          onIncrease={() => updateNamaz('ogle', 1)}
+          canEdit={canEdit}
+        />
+        <CounterRow
+          type="ikindi"
+          value={kazaNamazlari.ikindi}
+          onDecrease={() => updateNamaz('ikindi', -1)}
+          onIncrease={() => updateNamaz('ikindi', 1)}
+          canEdit={canEdit}
+        />
+        <CounterRow
+          type="aksam"
+          value={kazaNamazlari.aksam}
+          onDecrease={() => updateNamaz('aksam', -1)}
+          onIncrease={() => updateNamaz('aksam', 1)}
+          canEdit={canEdit}
+        />
+        <CounterRow
+          type="yatsi"
+          value={kazaNamazlari.yatsi}
+          onDecrease={() => updateNamaz('yatsi', -1)}
+          onIncrease={() => updateNamaz('yatsi', 1)}
+          canEdit={canEdit}
+        />
+        <CounterRow
+          type="vitir"
+          value={kazaNamazlari.vitir}
+          onDecrease={() => updateNamaz('vitir', -1)}
+          onIncrease={() => updateNamaz('vitir', 1)}
+          canEdit={canEdit}
+        />
+      </View>
+
+      {/* Kaza Oruçlarım */}
+      <View style={styles.section}>
+        <Text style={[fontStyle, styles.sectionTitle]}>Kaza Oruçlarım</Text>
+
+        <CounterRow
+          type="oruc"
+          value={kazaOruclari.oruc}
+          onDecrease={() => updateOruc('oruc', -1)}
+          onIncrease={() => updateOruc('oruc', 1)}
+          canEdit={canEdit}
+        />
+      </View>
+    </View>
+  );
+}
+
+// Sayaç satırı componenti - Dışarı alındı ve Memoize edildi
+const CounterRow = React.memo(({ type, value, onDecrease, onIncrease, canEdit }) => {
+  const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
+
+  return (
     <View style={styles.counterRow}>
       <View style={styles.counterLeft}>
         <Image source={PRAYER_ICONS[type]} style={styles.counterIcon} resizeMode="contain" />
@@ -61,65 +130,7 @@ export default function KazaCounter() {
       </View>
     </View>
   );
-
-  return (
-    <View style={styles.container}>
-      {/* Kaza Namazlarım */}
-      <View style={styles.section}>
-        <Text style={[fontStyle, styles.sectionTitle]}>Kaza Namazlarım</Text>
-        
-        <CounterRow 
-          type="sabah"
-          value={kazaNamazlari.sabah}
-          onDecrease={() => updateNamaz('sabah', -1)}
-          onIncrease={() => updateNamaz('sabah', 1)}
-        />
-        <CounterRow 
-          type="ogle"
-          value={kazaNamazlari.ogle}
-          onDecrease={() => updateNamaz('ogle', -1)}
-          onIncrease={() => updateNamaz('ogle', 1)}
-        />
-        <CounterRow 
-          type="ikindi"
-          value={kazaNamazlari.ikindi}
-          onDecrease={() => updateNamaz('ikindi', -1)}
-          onIncrease={() => updateNamaz('ikindi', 1)}
-        />
-        <CounterRow 
-          type="aksam"
-          value={kazaNamazlari.aksam}
-          onDecrease={() => updateNamaz('aksam', -1)}
-          onIncrease={() => updateNamaz('aksam', 1)}
-        />
-        <CounterRow 
-          type="yatsi"
-          value={kazaNamazlari.yatsi}
-          onDecrease={() => updateNamaz('yatsi', -1)}
-          onIncrease={() => updateNamaz('yatsi', 1)}
-        />
-        <CounterRow 
-          type="vitir"
-          value={kazaNamazlari.vitir}
-          onDecrease={() => updateNamaz('vitir', -1)}
-          onIncrease={() => updateNamaz('vitir', 1)}
-        />
-      </View>
-
-      {/* Kaza Oruçlarım */}
-      <View style={styles.section}>
-        <Text style={[fontStyle, styles.sectionTitle]}>Kaza Oruçlarım</Text>
-        
-        <CounterRow 
-          type="oruc"
-          value={kazaOruclari.oruc}
-          onDecrease={() => updateOruc('oruc', -1)}
-          onIncrease={() => updateOruc('oruc', 1)}
-        />
-      </View>
-    </View>
-  );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

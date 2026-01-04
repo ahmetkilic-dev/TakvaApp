@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { auth } from '../firebaseConfig';
 import { supabase } from '../lib/supabase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -16,6 +16,9 @@ export const useDayChange = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Gereksiz tekrarları önlemek için son kontrol zamanı
+  const lastCheckTimeRef = useRef(0);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
@@ -30,6 +33,14 @@ export const useDayChange = () => {
   }, []);
 
   const fetchLastActiveDate = useCallback(async (userId) => {
+    // Son kontrolden bu yana 2 saniye geçmediyse tekrar etme (debounce/throttle)
+    const nowTime = Date.now();
+    if (nowTime - lastCheckTimeRef.current < 2000) {
+      setIsLoading(false);
+      return;
+    }
+    lastCheckTimeRef.current = nowTime;
+
     try {
       const { data: profile, error } = await supabase
         .from('profiles')
@@ -45,7 +56,7 @@ export const useDayChange = () => {
 
         // Eğer gün değişmişse, ÖNCE reset işlemini dene
         if (lastDate.getTime() !== todayDate.getTime()) {
-          console.log('📅 Gün değişimi tespit edildi (Fetch sırasında). Reset servisi çalıştırılıyor...');
+          console.log('📅 Gün değişimi tespit edildi. Reset servisi tetikleniyor...');
 
           await updateLastActiveDate(userId); // Veritabanındaki tarihi güncelle
         }
@@ -54,8 +65,6 @@ export const useDayChange = () => {
       } else {
         // İlk kez giriyor veya tarih yok
         const todayDate = getToday();
-        // İlk giriş sayıldığı için reset atmaya gerek olmayabilir, ya da güvenli olsun diye atabiliriz.
-        // Şimdilik sadece tarihi set ediyoruz.
         await updateLastActiveDate(userId);
         setLastActiveDate(todayDate);
       }
@@ -85,7 +94,7 @@ export const useDayChange = () => {
       const normalizedNow = new Date(dateStr);
       normalizedNow.setHours(0, 0, 0, 0);
       setLastActiveDate(normalizedNow);
-      console.log('✅ Son aktif tarih güncellendi:', dateStr);
+      // console.log('✅ Son aktif tarih güncellendi:', dateStr); // Gereksiz log kaldırıldı
     } catch (err) {
       console.error('🔴 Son aktif tarih güncelleme hatası:', err);
       setError(err);

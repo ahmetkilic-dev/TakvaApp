@@ -1,7 +1,7 @@
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useCallback, useMemo } from 'react';
-import { Dimensions } from 'react-native';
+
 import { useRouter } from 'expo-router';
 import KuranHeader from './KuranHeader';
 import KuranYolculuğu from './KuranYolculuğu';
@@ -12,6 +12,7 @@ import CuzListItem from './CuzListItem';
 import SayfaListItem from './SayfaListItem';
 import { useSurahs, useJuzs, usePages } from './hooks/useQuran';
 import { getSurahStartPage, getJuzStartPage } from './hooks/useSurahPageMapping';
+import { useQuranProgress } from './hooks/useQuranProgress';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
@@ -24,6 +25,7 @@ export default function KuranContainer() {
   const { surahs } = useSurahs();
   const { juzs } = useJuzs();
   const { pages } = usePages();
+  const { getSurahProgress, getJuzProgress } = useQuranProgress();
 
   // Memoize handlers
   const handleSurahPress = useCallback((surah) => {
@@ -52,15 +54,23 @@ export default function KuranContainer() {
   // Render functions for FlatList
   const renderSurah = useCallback(({ item }) => (
     <View style={{ paddingHorizontal: horizontalPadding }}>
-      <SureListItem surah={item} onPress={() => handleSurahPress(item)} />
+      <SureListItem
+        surah={item}
+        onPress={() => handleSurahPress(item)}
+        progress={getSurahProgress(item.number)}
+      />
     </View>
-  ), [handleSurahPress]);
+  ), [handleSurahPress, getSurahProgress]);
 
   const renderJuz = useCallback(({ item }) => (
     <View style={{ paddingHorizontal: horizontalPadding }}>
-      <CuzListItem juz={item} onPress={() => handleJuzPress(item)} />
+      <CuzListItem
+        juz={item}
+        onPress={() => handleJuzPress(item)}
+        progress={getJuzProgress(item.number)}
+      />
     </View>
-  ), [handleJuzPress]);
+  ), [handleJuzPress, getJuzProgress]);
 
   const renderPage = useCallback(({ item }) => (
     <View style={{ paddingHorizontal: horizontalPadding }}>

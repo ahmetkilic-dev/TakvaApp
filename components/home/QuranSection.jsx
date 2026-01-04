@@ -1,4 +1,5 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
@@ -149,7 +150,8 @@ const QuranSection = React.memo(() => {
                <Image
                   source={QuranCta}
                   style={styles.ctaImage}
-                  resizeMode="cover"
+                  contentFit="cover"
+                  transition={200}
                />
             </View>
          </View>

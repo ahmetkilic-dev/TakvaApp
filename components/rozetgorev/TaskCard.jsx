@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { Image } from 'expo-image';
 import ProgressCircle from './ProgressCircle';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -34,7 +35,8 @@ export const TaskCard = ({ text, label, icon, progress, target, onPress }) => {
                     <Image
                         source={icon}
                         style={{ width: 40, height: 40, marginRight: 12 }}
-                        resizeMode="contain"
+                        contentFit="contain"
+                        transition={200}
                     />
                 )}
                 <View style={{ flex: 1 }}>

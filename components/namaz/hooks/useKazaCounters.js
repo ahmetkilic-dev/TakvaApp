@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../../firebaseConfig';
 import { supabase } from '../../../lib/supabase';
-import { getTodayKeyLocal } from '../../../utils/dateKey';
+
 
 const DEFAULT_KAZA_NAMAZ = {
   sabah: 0,
@@ -15,24 +15,34 @@ const DEFAULT_KAZA_NAMAZ = {
 
 const DEFAULT_KAZA_ORUC = { oruc: 0 };
 
+// In-memory cache
+let globalCache = {
+  namaz: { ...DEFAULT_KAZA_NAMAZ },
+  oruc: { ...DEFAULT_KAZA_ORUC },
+  isLoaded: false,
+  timestamp: 0
+};
+
 export function useKazaCounters() {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [kazaNamazlari, setKazaNamazlari] = useState(DEFAULT_KAZA_NAMAZ);
-  const [kazaOruclari, setKazaOruclari] = useState(DEFAULT_KAZA_ORUC);
+  const [loading, setLoading] = useState(!globalCache.isLoaded);
+  const [kazaNamazlari, setKazaNamazlari] = useState(globalCache.namaz);
+  const [kazaOruclari, setKazaOruclari] = useState(globalCache.oruc);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => setUser(firebaseUser));
+    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+    });
     return unsub;
   }, []);
 
   const ensureUserDoc = useCallback(async (uid) => {
-    const { data: profile } = await supabase.from('profiles').select('id').eq('id', uid).single();
+    const { data: profile } = await supabase.from('profiles').select('id').eq('id', uid).maybeSingle();
     if (!profile) {
       await supabase.from('profiles').insert({ id: uid });
     }
 
-    const { data: kaza } = await supabase.from('kaza_counters').select('user_id').eq('user_id', uid).single();
+    const { data: kaza } = await supabase.from('kaza_counters').select('user_id').eq('user_id', uid).maybeSingle();
     if (!kaza) {
       await supabase.from('kaza_counters').insert({
         user_id: uid,
@@ -43,7 +53,7 @@ export function useKazaCounters() {
     }
   }, []);
 
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (force = false) => {
     if (!user?.uid) {
       setKazaNamazlari(DEFAULT_KAZA_NAMAZ);
       setKazaOruclari(DEFAULT_KAZA_ORUC);
@@ -51,21 +61,36 @@ export function useKazaCounters() {
       return;
     }
 
+    // Eğer cache yüklüyse ve force değilse, cache'i kullan
+    if (globalCache.isLoaded && !force) {
+      setKazaNamazlari(globalCache.namaz);
+      setKazaOruclari(globalCache.oruc);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     try {
       await ensureUserDoc(user.uid);
-      // Gün atladıysa kaza sayaçlarını otomatik artır (hesap bazlı) - ARTIK SUNUCU TARAFLI (SİLİNDİ)
-      // await rolloverNamazIfNeeded({ uid: user.uid, todayKey: getTodayKeyLocal() });
 
       const { data: kazaData } = await supabase
         .from('kaza_counters')
         .select('*')
         .eq('user_id', user.uid)
-        .single();
+        .maybeSingle();
 
       if (kazaData) {
-        setKazaNamazlari({ ...DEFAULT_KAZA_NAMAZ, ...(kazaData.namaz_counts || {}) });
-        setKazaOruclari({ ...DEFAULT_KAZA_ORUC, ...(kazaData.oruc_counts || {}) });
+        const newNamaz = { ...DEFAULT_KAZA_NAMAZ, ...(kazaData.namaz_counts || {}) };
+        const newOruc = { ...DEFAULT_KAZA_ORUC, ...(kazaData.oruc_counts || {}) };
+
+        // Update local state and global cache
+        setKazaNamazlari(newNamaz);
+        setKazaOruclari(newOruc);
+
+        globalCache.namaz = newNamaz;
+        globalCache.oruc = newOruc;
+        globalCache.isLoaded = true;
+        globalCache.timestamp = Date.now();
       }
     } catch (error) {
       console.error('Error refreshing kaza counters from Supabase:', error);
@@ -74,9 +99,12 @@ export function useKazaCounters() {
     }
   }, [ensureUserDoc, user?.uid]);
 
+  // Initial load
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    if (user?.uid) {
+      refresh();
+    }
+  }, [user?.uid, refresh]);
 
   const updateNamaz = useCallback(
     async (type, delta) => {
@@ -90,6 +118,9 @@ export function useKazaCounters() {
       // UI sync first for responsiveness
       setKazaNamazlari(nextNamaz);
 
+      // Update Cache immediately
+      globalCache.namaz = nextNamaz;
+
       try {
         await supabase.from('kaza_counters').upsert({
           user_id: user.uid,
@@ -98,6 +129,7 @@ export function useKazaCounters() {
         });
       } catch (error) {
         console.error('Error updating kaza namaz in Supabase:', error);
+        // Rollback strategy could be added here
       }
     },
     [user?.uid, kazaNamazlari]
@@ -113,6 +145,9 @@ export function useKazaCounters() {
       };
 
       setKazaOruclari(nextOruc);
+
+      // Update Cache immediately
+      globalCache.oruc = nextOruc;
 
       try {
         await supabase.from('kaza_counters').upsert({

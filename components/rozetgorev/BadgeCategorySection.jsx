@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, InteractionManager } from 'react-native';
 import TaskCard from './TaskCard';
 import { useUserBadges } from './hooks/useUserBadges';
 
@@ -145,6 +145,21 @@ const BADGE_DEFINITIONS = [
 export const BadgeCategorySection = ({ stats, onTaskPress }) => {
     const { userBadges, loading: badgesLoading } = useUserBadges();
 
+    // Lazy Load: İlk başta sadece 2 kategori göster, kalanı sonra yükle
+    const [renderedCount, setRenderedCount] = React.useState(2);
+
+    React.useEffect(() => {
+        const task = InteractionManager.runAfterInteractions(() => {
+            setRenderedCount(BADGE_DEFINITIONS.length);
+        });
+        return () => task.cancel();
+    }, []);
+
+    const visibleCategories = React.useMemo(() =>
+        BADGE_DEFINITIONS.slice(0, renderedCount),
+        [renderedCount]
+    );
+
     return (
         <View style={{ marginBottom: 0 }}>
             {/* Başlık ve Açıklama */}
@@ -175,8 +190,8 @@ export const BadgeCategorySection = ({ stats, onTaskPress }) => {
             </Text>
 
             {/* Kategoriler */}
-            {BADGE_DEFINITIONS.map((category, categoryIndex) => (
-                <View key={categoryIndex} style={{ marginBottom: categoryIndex === BADGE_DEFINITIONS.length - 1 ? 0 : 32 }}>
+            {visibleCategories.map((category, categoryIndex) => (
+                <View key={categoryIndex} style={{ marginBottom: categoryIndex === visibleCategories.length - 1 ? 0 : 32 }}>
                     <Text
                         style={{
                             fontFamily,
@@ -198,7 +213,6 @@ export const BadgeCategorySection = ({ stats, onTaskPress }) => {
                             icon={BADGE_ICONS[category.iconKey][task.icon]}
                             progress={getBadgeProgress(userBadges, task.id, 0)}
                             target={task.target}
-                            isCompleted={isBadgeCompleted(userBadges, task.id)}
                             onPress={() => onTaskPress(task.route)}
                         />
                     ))}
@@ -209,3 +223,4 @@ export const BadgeCategorySection = ({ stats, onTaskPress }) => {
 };
 
 export default React.memo(BadgeCategorySection);
+

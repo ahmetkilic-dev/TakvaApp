@@ -64,7 +64,8 @@ export const useZikirDuaDailyStats = () => {
         }
 
         // 3. Günlük görev ilerlemesini CONTEXT üzerinden güncelle - ARTIK SUNUCU TARAFLI
-        // await incrementTask(3, pending);
+        // (Kod silindi)
+
 
         // Atomik olarak sayaçlardan düş
         pendingDhikrRef.current -= pending;

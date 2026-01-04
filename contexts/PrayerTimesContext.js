@@ -10,7 +10,9 @@ const createDateFromTime = (timeStr) => {
     const cleanTime = timeStr.split(' ')[0];
     const now = new Date();
     const [hours, minutes] = cleanTime.split(':').map(Number);
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
+    const date = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
+    // console.log(`Debug Time: ${cleanTime} -> ${date.toLocaleTimeString()} vs Now: ${now.toLocaleTimeString()}`);
+    return date;
 };
 
 const toDayKey = (date) => {
@@ -155,12 +157,12 @@ export function PrayerTimesProvider({ children }) {
         // Namaz Durumu için sadece 5 vakit lazım (İmsak ve Güneş hariç)
         const prayerMap = {};
         dailyTimes.forEach(prayer => {
-            const label = prayer.label.toLowerCase();
-            if (label === 'öğle') prayerMap.ogle = prayer.time;
-            else if (label === 'ikindi') prayerMap.ikindi = prayer.time;
-            else if (label === 'akşam') prayerMap.aksam = prayer.time;
-            else if (label === 'yatsı') prayerMap.yatsi = prayer.time;
-            else if (label === 'imsak') prayerMap.sabah = prayer.time;
+            const label = prayer.label.toLocaleLowerCase('tr-TR');
+            if (label.includes('öğle') || label.includes('ogle')) prayerMap.ogle = prayer.time;
+            else if (label.includes('ikindi')) prayerMap.ikindi = prayer.time;
+            else if (label.includes('akşam') || label.includes('aksam')) prayerMap.aksam = prayer.time;
+            else if (label.includes('yatsı') || label.includes('yatsi')) prayerMap.yatsi = prayer.time;
+            else if (label.includes('imsak') || label.includes('sabah')) prayerMap.sabah = prayer.time;
         });
 
         return {
@@ -180,12 +182,12 @@ export function PrayerTimesProvider({ children }) {
         const prayerMap = {};
 
         dailyTimes.forEach(prayer => {
-            const label = prayer.label.toLowerCase();
-            if (label === 'öğle') prayerMap.ogle = prayer.time;
-            else if (label === 'ikindi') prayerMap.ikindi = prayer.time;
-            else if (label === 'akşam') prayerMap.aksam = prayer.time;
-            else if (label === 'yatsı') prayerMap.yatsi = prayer.time;
-            else if (label === 'imsak') prayerMap.sabah = prayer.time;
+            const label = prayer.label.toLocaleLowerCase('tr-TR');
+            if (label.includes('öğle') || label.includes('ogle')) prayerMap.ogle = prayer.time;
+            else if (label.includes('ikindi')) prayerMap.ikindi = prayer.time;
+            else if (label.includes('akşam') || label.includes('aksam')) prayerMap.aksam = prayer.time;
+            else if (label.includes('yatsı') || label.includes('yatsi')) prayerMap.yatsi = prayer.time;
+            else if (label.includes('imsak') || label.includes('sabah')) prayerMap.sabah = prayer.time;
         });
 
         const keys = ['yatsi', 'aksam', 'ikindi', 'ogle', 'sabah'];

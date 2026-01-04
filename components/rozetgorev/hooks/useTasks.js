@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useRouter } from 'expo-router';
 import { useUserStats } from '../../../contexts/UserStatsContext';
 

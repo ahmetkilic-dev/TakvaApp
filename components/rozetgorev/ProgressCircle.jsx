@@ -56,4 +56,4 @@ export const ProgressCircle = ({ percentage, size = 40 }) => {
     );
 };
 
-export default ProgressCircle;
+export default React.memo(ProgressCircle);

@@ -17,7 +17,7 @@ const toDayKeyLocal = (date) => {
  * Kullanıcı bazlı puan, istatistik ve ilerleme yönetimi
  */
 export const useIlimData = () => {
-  const { getToday, isDayChanged } = useDayChangeContext(); // isDayChanged is just a signal now, not used for local reset
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,7 +30,7 @@ export const useIlimData = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState(null);
   const [quizCount, setQuizCount] = useState(0);
 
-  const today = useMemo(() => (getToday ? getToday() : new Date()), [getToday]);
+  const today = useMemo(() => new Date(), []);
   const todayKey = useMemo(() => toDayKeyLocal(today), [today]);
 
   // Auth state dinle
@@ -49,9 +49,9 @@ export const useIlimData = () => {
   /**
    * Kullanıcı verilerini Supabase'den yükle
    */
-  const loadUserData = useCallback(async (userId) => {
+  const loadUserData = useCallback(async (userId, silent = false) => {
     try {
-      setLoading(true);
+      if (!silent) setLoading(true);
       setError(null);
 
       // 1. Fetch persistent stats (Total points, Category stats, etc.)
@@ -91,7 +91,7 @@ export const useIlimData = () => {
       console.error('Error loading ilim data:', err);
       setError(err.message);
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   }, [todayKey]);
 
@@ -140,7 +140,7 @@ export const useIlimData = () => {
 
       // Real-time data loading will handle the state update via UserStatsContext or manual reload
       // But for immediate UI feedback, we can trigger a reload
-      await loadUserData(user.uid);
+      await loadUserData(user.uid, true);
 
     } catch (err) {
       console.error('Error recording ilim answer:', err);

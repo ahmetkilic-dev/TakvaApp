@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { supabase } from '../../../lib/supabase';
-import { useDayChange } from '../../../hooks/useDayChange';
+import { useDayChangeContext } from '../../../contexts/DayChangeContext';
 import { useUserStats } from '../../../contexts/UserStatsContext';
 
 const pad2 = (n) => String(n).padStart(2, '0');
@@ -13,7 +13,7 @@ const toDayKeyLocal = (date) => {
 };
 
 export const useSalavatCounters = () => {
-  const { getToday, isLoading: dayLoading } = useDayChange();
+  const { getToday, isLoading: dayLoading } = useDayChangeContext();
   const { user, stats, updateStat } = useUserStats();
 
   const [loading, setLoading] = useState(true);

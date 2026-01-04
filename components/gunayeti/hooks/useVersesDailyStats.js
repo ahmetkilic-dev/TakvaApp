@@ -136,6 +136,7 @@ export const useVersesDailyStats = () => {
     [todayKey, user?.uid, verseRevealed]
   );
 
+
   return {
     user,
     todayKey,

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { SURAH_DATA, PAGE_DATA, JUZ_DATA } from './quranData';
+import { PAGE_DATA } from './quranData';
 
 /**
  * Kuran Yerel Veri hook'u
@@ -142,34 +142,6 @@ export const useJuzs = () => ({ juzs: JUZ_INFO, loading: false, totalJuzs: 30 })
 export const usePages = () => ({ pages: PAGE_INFO, loading: false, totalPages: 604 });
 
 /**
- * Sure bazlı ayet çekme hook'u
- */
-export const useSurahVerses = (surahNumber) => {
-  const [verses, setVerses] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!surahNumber) return;
-    setLoading(true);
-    const data = SURAH_DATA[surahNumber];
-    if (data) {
-      const combined = data.ayahs.map(ayah => ({
-        id: ayah.number,
-        arabic: ayah.text,
-        turkish: ayah.translation,
-        verseNumber: ayah.numberInSurah,
-        surahNumber: data.number,
-        surahName: data.name,
-      }));
-      setVerses(combined);
-    }
-    setLoading(false);
-  }, [surahNumber]);
-
-  return { verses, loading, error: null };
-};
-
-/**
  * Sayfa bazlı ayet çekme hook'u
  */
 export const usePageVerses = (pageNumber) => {
@@ -183,21 +155,4 @@ export const usePageVerses = (pageNumber) => {
   return { verses, loading: false, error: null };
 };
 
-/**
- * Cüz bazlı ayet çekme hook'u
- */
-export const useJuzVerses = (juzNumber) => {
-  const [verses, setVerses] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!juzNumber) return;
-    setLoading(true);
-    const data = JUZ_DATA[juzNumber];
-    if (data) setVerses(data);
-    setLoading(false);
-  }, [juzNumber]);
-
-  return { verses, loading, error: null };
-};
 

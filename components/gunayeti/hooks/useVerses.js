@@ -9,7 +9,6 @@ import { dailyQuranData } from '../../../constants/dailyQuranData';
 export const useVerses = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [currentVerse, setCurrentVerse] = useState(null);
 
   // Rastgele bir ayet getir (Yerel Veri)
   const fetchSingleRandomVerse = useCallback(async () => {
@@ -40,7 +39,6 @@ export const useVerses = () => {
         kategori: data.kategori
       };
 
-      setCurrentVerse(mappedVerse);
       return mappedVerse;
 
     } catch (err) {
@@ -56,7 +54,6 @@ export const useVerses = () => {
   // Bu sayede eğer ayet zaten gösterilmişse boşuna API isteği atmıyoruz.
 
   return {
-    currentVerse,
     loading,
     error,
     getRandomVerse: fetchSingleRandomVerse,

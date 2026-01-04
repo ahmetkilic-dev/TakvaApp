@@ -41,7 +41,7 @@ export default function TasksScreen() {
         {/* Content - Scroll eder */}
         <ScrollView
           showsVerticalScrollIndicator={false}
-          removeClippedSubviews={false}
+          removeClippedSubviews={true}
           contentContainerStyle={{
             paddingHorizontal: horizontalPadding,
             paddingTop: 24,

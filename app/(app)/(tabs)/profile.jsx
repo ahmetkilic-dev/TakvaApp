@@ -20,7 +20,7 @@ import { R2UploadService } from '../../../services/R2UploadService';
 import { supabase } from '../../../lib/supabase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect, useCallback } from 'react';
-import { useScrollJumpFix, optimizedScrollProps } from '../../../utils/scrollOptimization';
+import { useScrollJumpFix } from '../../../utils/scrollOptimization';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = 20;

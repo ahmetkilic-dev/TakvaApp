@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../../firebaseConfig';
@@ -18,12 +17,6 @@ const emptyCompleted = () => ({
   yatsi: false,
 });
 
-const parseDayKey = (dayKey) => {
-  if (!dayKey || typeof dayKey !== 'string') return null;
-  const [y, m, d] = dayKey.split('-').map((x) => Number(x));
-  if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) return null;
-  return new Date(y, m - 1, d, 0, 0, 0, 0);
-};
 
 import { UserInitService } from '../../../services/UserInitService';
 import { UserStatsService } from '../../../services/UserStatsService';

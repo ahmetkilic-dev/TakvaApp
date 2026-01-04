@@ -18,7 +18,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 
 export default function GününAyetiContainer() {
-  const { currentVerse, loading: versesLoading, error: versesError, getRandomVerse } = useVerses();
+  const { loading: versesLoading, error: versesError, getRandomVerse } = useVerses();
   const {
     loading: dailyStatsLoading,
     verseRevealed,
