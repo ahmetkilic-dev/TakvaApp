@@ -91,15 +91,21 @@ const parseHutbes = (html) => {
     // Strategy 2: Improved HTML Tag extraction
     // Matches href="..." containing .pdf OR "Hutbe" link text
     // Capture Group 1: URL, Capture Group 2: Link Text
-    const anchorRegex = /<a[^>]+href=["']([^"']+)["'][^>]*>(.*?)<\/a>/gi;
+    // Strategy 2: Improved HTML Tag extraction
+    // Matches href="..." containing .pdf OR "Hutbe" link text
+    // Capture Group 1: URL, Capture Group 2: Link Text
+    // Updated Regex to be tolerant of whitespace and attributes order
+    const anchorRegex = /<a\s+(?:[^>]*?\s+)?href=["']([^"']+)["'][^>]*>(.*?)<\/a>/gi;
     while ((match = anchorRegex.exec(html)) !== null) {
       const url = processUrl(match[1]);
-      const text = match[2];
+      const text = match[2]; // This might contain HTML tags
 
-      if (url && (url.toLowerCase().endsWith('.pdf') || /hutbe/i.test(url) || /hutbe/i.test(text))) {
-        // Filter out navigation links if possible
+      if (url && (url.toLowerCase().endsWith('.pdf') || /hutbe/i.test(url))) {
+        // Clean the text from HTML tags (like <span>, <strong> etc.)
+        const cleanText = text.replace(/<[^>]+>/g, '').trim();
+
         if (!url.includes('javascript:')) {
-          rawItems.push({ url, title: text });
+          rawItems.push({ url, title: cleanText });
         }
       }
     }
@@ -128,7 +134,7 @@ const parseHutbes = (html) => {
       });
     });
 
-    return hutbes;
+    return hutbes.slice(0, 10);
   } catch (error) {
     console.error('ParseHutbes error:', error);
     return [];

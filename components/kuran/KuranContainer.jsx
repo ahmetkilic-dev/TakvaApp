@@ -13,6 +13,7 @@ import SayfaListItem from './SayfaListItem';
 import { useSurahs, useJuzs, usePages } from './hooks/useQuran';
 import { getSurahStartPage, getJuzStartPage } from './hooks/useSurahPageMapping';
 import { useQuranProgress } from './hooks/useQuranProgress';
+import { useUserStats } from '../../contexts/UserStatsContext';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
@@ -26,6 +27,11 @@ export default function KuranContainer() {
   const { juzs } = useJuzs();
   const { pages } = usePages();
   const { getSurahProgress, getJuzProgress } = useQuranProgress();
+  const { isPlusOrAbove, isPremium } = useUserStats();
+
+  // Access Control Helpers
+  const showLastPage = isPlusOrAbove();
+  const showListStats = isPremium();
 
   // Memoize handlers
   const handleSurahPress = useCallback((surah) => {
@@ -58,9 +64,10 @@ export default function KuranContainer() {
         surah={item}
         onPress={() => handleSurahPress(item)}
         progress={getSurahProgress(item.number)}
+        showStats={showListStats}
       />
     </View>
-  ), [handleSurahPress, getSurahProgress]);
+  ), [handleSurahPress, getSurahProgress, showListStats]);
 
   const renderJuz = useCallback(({ item }) => (
     <View style={{ paddingHorizontal: horizontalPadding }}>
@@ -68,15 +75,20 @@ export default function KuranContainer() {
         juz={item}
         onPress={() => handleJuzPress(item)}
         progress={getJuzProgress(item.number)}
+        showStats={showListStats}
       />
     </View>
-  ), [handleJuzPress, getJuzProgress]);
+  ), [handleJuzPress, getJuzProgress, showListStats]);
 
   const renderPage = useCallback(({ item }) => (
     <View style={{ paddingHorizontal: horizontalPadding }}>
-      <SayfaListItem page={item} onPress={() => handlePagePress(item)} />
+      <SayfaListItem
+        page={item}
+        onPress={() => handlePagePress(item)}
+        showStats={showListStats}
+      />
     </View>
-  ), [handlePagePress]);
+  ), [handlePagePress, showListStats]);
 
   // Key extractors
   const keyExtractor = useCallback((item) => item.number.toString(), []);
@@ -99,13 +111,13 @@ export default function KuranContainer() {
       case 'Sayfa': return renderPage;
       default: return renderSurah;
     }
-  }, [activeTab, renderSurah, renderJuz, renderPage]);
+  }, [activeTab, renderSurah, renderJuz, renderPage, showListStats]);
 
   // Header component for FlatList
   const ListHeader = useMemo(() => (
     <View>
       <KuranYolculuğu />
-      <OkumayaDevamEt />
+      {showLastPage && <OkumayaDevamEt />}
 
       {/* Kuran Section Header */}
       <View style={{ paddingHorizontal: horizontalPadding, marginBottom: 16 }}>
@@ -117,7 +129,7 @@ export default function KuranContainer() {
         </View>
       </View>
     </View>
-  ), [activeTab]);
+  ), [activeTab, showLastPage]);
 
   return (
     <SafeAreaView edges={['top']} className="flex-1">

@@ -216,7 +216,11 @@ const HomeHeader = React.memo(() => {
                 alignItems: 'center', justifyContent: 'center'
               }}
             >
-              <Image source={item.image} style={{ width: 22, height: 22, tintColor: '#FFFFFF' }} resizeMode="contain" />
+              <Image
+                source={item.image}
+                style={{ width: 22, height: 22, tintColor: '#FFFFFF' }}
+                contentFit="contain"
+              />
             </TouchableOpacity>
 
             <Text style={{ fontFamily, fontSize: 12, fontWeight: '400' }} className="text-gray-300 text-center">

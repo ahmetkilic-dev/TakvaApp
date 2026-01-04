@@ -6,9 +6,10 @@ import ProgressCircle from '../rozetgorev/ProgressCircle';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-const SayfaListItem = memo(({ page, onPress }) => {
+const SayfaListItem = memo(({ page, onPress, showStats = false }) => {
   const { isPageRead } = useQuranProgress();
-  const isRead = isPageRead(page.number);
+  // Only consider it "visually read" if it's read AND stats are enabled (Premium)
+  const isRead = showStats && isPageRead(page.number);
 
   return (
     <TouchableOpacity
@@ -61,9 +62,11 @@ const SayfaListItem = memo(({ page, onPress }) => {
       </View>
 
       {/* Progress Section */}
-      <View style={{ marginLeft: 8 }}>
-        <ProgressCircle percentage={isRead ? 100 : 0} size={44} />
-      </View>
+      {showStats && (
+        <View style={{ marginLeft: 8 }}>
+          <ProgressCircle percentage={isRead ? 100 : 0} size={44} />
+        </View>
+      )}
     </TouchableOpacity>
   );
 });

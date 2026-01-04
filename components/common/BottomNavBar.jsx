@@ -59,9 +59,9 @@ const BottomNavBar = React.memo(({ activeTab }) => {
     <View
       style={[
         styles.container,
-        (isVideoFeed || Platform.OS === 'android') && styles.absoluteContainer,
+        (isVideoFeed) && styles.absoluteContainer,
         {
-          paddingBottom: Platform.OS === 'android' ? 8 : Math.max(insets.bottom, 8),
+          paddingBottom: Math.max(insets.bottom, 8),
           backgroundColor: navBackgroundColor,
           borderTopWidth: isVideoFeed ? 0 : 0.5,
           borderTopColor: isVideoFeed ? 'transparent' : 'rgba(217, 217, 217, 0.5)',

@@ -114,9 +114,9 @@ export default function DuaCard() {
       </View>
 
       {/* Bottom Action Bar */}
-      <View style={{ 
-        flexDirection: 'row', 
-        alignItems: 'center', 
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 24,
       }}>
@@ -148,7 +148,7 @@ export default function DuaCard() {
               color: '#FFFFFF',
             }}
           >
-            Yeni dua ({duaRemaining}/3)
+            Yeni dua
           </Text>
         </TouchableOpacity>
       </View>

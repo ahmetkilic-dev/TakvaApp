@@ -32,26 +32,52 @@ const BackgroundPattern = React.memo(() => (
 ));
 
 // Pusula Yüzü Çizimi - Memoized
+// Pusula Yüzü Çizimi - Single Path Optimization
 const CompassFace = React.memo(({ size }) => {
     const center = size / 2;
     const outerR = size / 2 - 10;
     const innerR = outerR - 30;
     const directions = [{ label: 'K', angle: 0 }, { label: 'D', angle: 90 }, { label: 'G', angle: 180 }, { label: 'B', angle: 270 }];
 
+    // 72 çizgiyi tek bir Path string'i olarak hesapla (Performans için kritik)
+    const ticksPath = React.useMemo(() => {
+        let d = '';
+        for (let i = 0; i < 72; i++) {
+            const degree = i * 5;
+            const angle = (degree * Math.PI) / 180;
+            const isMajor = degree % 90 === 0;
+            const isMedium = degree % 30 === 0;
+
+            let startR = innerR + 5;
+            let endR = innerR + 12;
+
+            if (isMajor) {
+                startR = innerR - 5;
+                endR = innerR + 18;
+            } else if (isMedium) {
+                endR = innerR + 15;
+            }
+
+            const x1 = center + startR * Math.sin(angle);
+            const y1 = center - startR * Math.cos(angle);
+            const x2 = center + endR * Math.sin(angle);
+            const y2 = center - endR * Math.cos(angle);
+
+            d += `M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)} `;
+        }
+        return d;
+    }, [center, innerR]);
+
     return (
         <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+            {/* Dış Çemberler */}
             <Circle cx={center} cy={center} r={outerR} fill="#F0F7FE" fillOpacity={0.95} stroke="#96D0D0" strokeWidth={8} />
             <Circle cx={center - 5} cy={center - 5} r={outerR - 20} fill="white" fillOpacity={0.5} />
-            {[...Array(72)].map((_, i) => {
-                const degree = i * 5;
-                const angle = (degree * Math.PI) / 180;
-                const isMajor = degree % 90 === 0;
-                const isMedium = degree % 30 === 0;
-                let startR = innerR + 5; let endR = innerR + 12; let strokeW = 1; let color = 'rgba(0,0,0,0.2)';
-                if (isMajor) { startR = innerR - 5; endR = innerR + 18; strokeW = 2; color = 'rgba(0,0,0,0.5)'; }
-                else if (isMedium) { endR = innerR + 15; color = 'rgba(0,0,0,0.3)'; }
-                return <Line key={i} x1={center + startR * Math.sin(angle)} y1={center - startR * Math.cos(angle)} x2={center + endR * Math.sin(angle)} y2={center - endR * Math.cos(angle)} stroke={color} strokeWidth={strokeW} />;
-            })}
+
+            {/* Tek Path ile 72 Çizgi */}
+            <Path d={ticksPath} stroke="rgba(0,0,0,0.3)" strokeWidth={1.5} strokeLinecap="round" />
+
+            {/* Yön Harfleri */}
             {directions.map((dir, i) => {
                 const angle = (dir.angle * Math.PI) / 180;
                 const textR = innerR - 25;
@@ -59,6 +85,8 @@ const CompassFace = React.memo(({ size }) => {
                 const y = center - textR * Math.cos(angle);
                 return <SvgText key={i} x={x} y={y + 8} fill={dir.label === 'K' ? '#E74C3C' : '#4A90A4'} fontSize={24} fontWeight="bold" textAnchor="middle">{dir.label}</SvgText>;
             })}
+
+            {/* İç Çember */}
             <Circle cx={center} cy={center} r={innerR - 45} fill="#E8F4F8" stroke="#B8D8D8" strokeWidth={2} />
         </Svg>
     );
@@ -123,6 +151,12 @@ export default function QiblaScreen() {
 
     const subscriptionRef = useRef(null);
     const lastVibration = useRef(0);
+    const qiblaAngleRef = useRef(null);
+
+    // Keep ref in sync with state
+    useEffect(() => {
+        qiblaAngleRef.current = qiblaAngle;
+    }, [qiblaAngle]);
 
     // --- HELPER FUNCTIONS (Defined before effects) ---
 
@@ -147,9 +181,8 @@ export default function QiblaScreen() {
 
     // Lemaire Filter (Low Pass Filter) için değişkenler
     const PREV_HEADING = useRef(0);
-    const ALPHA = 0.15; // 0.1 (çok yumuşak) - 1.0 (filtresiz). 0.15 idealdir.
+    const ALPHA = 0.15;
 
-    // İki açı arasındaki en kısa farkı bulur (-180 ile 180 arası)
     const getShortestDiff = (a, b) => {
         let diff = (b - a + 180) % 360 - 180;
         return diff < -180 ? diff + 360 : diff;
@@ -157,13 +190,20 @@ export default function QiblaScreen() {
 
     const startCompass = async () => {
         try {
+            // Önceki abonelik varsa temizle
+            if (subscriptionRef.current) {
+                subscriptionRef.current.remove();
+            }
+
             subscriptionRef.current = await Location.watchHeadingAsync((headingData) => {
-                const mag = headingData.magHeading;
+                // IMPORTANT: Use True Heading if available (accurate for Qibla), otherwise Magnetic
+                // Qibla API returns direction relative to True North.
+                let heading = headingData.trueHeading >= 0 ? headingData.trueHeading : headingData.magHeading;
 
-                // LPF Uygula: Yeni açıyı, eski açıya göre en kısa yoldan yumuşat
-                let diff = getShortestDiff(PREV_HEADING.current, mag);
+                // Fallback for safety
+                if (heading === undefined || heading === null) heading = headingData.magHeading;
 
-                // Gürültü Filtresi: Eğer değişim 0.5 dereceden azsa güncelleme (jitter önleme)
+                let diff = getShortestDiff(PREV_HEADING.current, heading);
                 if (Math.abs(diff) < 0.5) return;
 
                 const newHeading = PREV_HEADING.current + (diff * ALPHA);
@@ -171,16 +211,14 @@ export default function QiblaScreen() {
 
                 PREV_HEADING.current = normalizedHeading;
 
-                // Animasyon değerlerini güncelle
                 headingSv.value = normalizedHeading;
                 smoothedHeading.value = withTiming(normalizedHeading, { duration: 150, easing: Easing.linear });
 
-                // UI State Güncellemesi (Callback içinde inline)
-                const currentQiblaAngle = qiblaAngle; // Closure uyarısı: qiblaAngle değişirse burası eski kalabilir.
-                // Ancak qiblaAngle genelde sabittir (konum değişmedikçe).
+                // REF kullanarak en güncel açıyı al (Closure sorununu çözer)
+                const targetAngle = qiblaAngleRef.current;
 
-                if (currentQiblaAngle !== null) {
-                    let angleDiff = Math.abs(normalizedHeading - currentQiblaAngle);
+                if (targetAngle !== null) {
+                    let angleDiff = Math.abs(normalizedHeading - targetAngle);
                     if (angleDiff > 180) angleDiff = 360 - angleDiff;
 
                     setDisplayHeading(Math.round(normalizedHeading));

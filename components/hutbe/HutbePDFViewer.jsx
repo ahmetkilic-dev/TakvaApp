@@ -21,13 +21,18 @@ const HutbePDFViewer = memo(({ pdfUrl }) => {
   let fullUrl = pdfUrl;
 
   if (pdfUrl) {
-    // URL'i tam URL haline getir
+    // 1. Base URL fix
     if (!pdfUrl.startsWith('http')) {
-      fullUrl = `https://dinhizmetleri.diyanet.gov.tr${pdfUrl.startsWith('/') ? '' : '/'}${pdfUrl}`;
+      // Diyanet often returns relative paths like '/Documents/...'
+      const cleanPath = pdfUrl.startsWith('/') ? pdfUrl.substring(1) : pdfUrl;
+      fullUrl = `https://dinhizmetleri.diyanet.gov.tr/${cleanPath}`;
     }
 
-    // Google Docs Viewer kullan
-    pdfViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`;
+    // 2. Google Docs Viewer URL construction
+    // IMPORTANT: Android WebView struggles if the embedded URL isn't perfectly encoded.
+    // We encode the full URL to ensure special chars (Turkish) and slashes pass through safely.
+    const encodedTarget = encodeURIComponent(fullUrl);
+    pdfViewerUrl = `https://docs.google.com/viewer?url=${encodedTarget}&embedded=true`;
   }
 
   const handleOpenExternal = async () => {

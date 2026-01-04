@@ -6,8 +6,8 @@ import ProgressCircle from '../rozetgorev/ProgressCircle';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-const SureListItem = memo(({ surah, progress = 0, onPress }) => {
-  const isCompleted = progress >= 100;
+const SureListItem = memo(({ surah, progress = 0, onPress, showStats = false }) => {
+  const isCompleted = showStats && progress >= 100;
 
   return (
     <TouchableOpacity
@@ -27,7 +27,7 @@ const SureListItem = memo(({ surah, progress = 0, onPress }) => {
         marginBottom: 12,
       }}
     >
-      {/* Kuran Icon with Number */}
+      {/* ... (Icon section remains same) */}
       <View style={{ marginRight: 12, width: 40, height: 40, position: 'relative' }}>
         <Image
           source={require('../../assets/images/kuranicc.png')}
@@ -61,9 +61,11 @@ const SureListItem = memo(({ surah, progress = 0, onPress }) => {
       </View>
 
       {/* Progress Section */}
-      <View style={{ marginLeft: 8 }}>
-        <ProgressCircle percentage={progress} size={44} />
-      </View>
+      {showStats && (
+        <View style={{ marginLeft: 8 }}>
+          <ProgressCircle percentage={progress} size={44} />
+        </View>
+      )}
     </TouchableOpacity>
   );
 });

@@ -6,8 +6,8 @@ import ProgressCircle from '../rozetgorev/ProgressCircle';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-const CuzListItem = memo(({ juz, progress = 0, onPress }) => {
-  const isCompleted = progress >= 100;
+const CuzListItem = memo(({ juz, progress = 0, onPress, showStats = false }) => {
+  const isCompleted = showStats && progress >= 100;
 
   return (
     <TouchableOpacity
@@ -53,17 +53,19 @@ const CuzListItem = memo(({ juz, progress = 0, onPress }) => {
       {/* Text Content */}
       <View style={{ flex: 1 }}>
         <Text style={{ fontFamily, fontSize: 20, fontWeight: '400', color: '#FFFFFF', marginBottom: 4 }}>
-          {juz.name}
+          {juz.number}. Cüz
         </Text>
         <Text style={{ fontFamily, fontSize: 10, fontWeight: '400', color: 'rgba(255, 255, 255, 0.7)' }}>
-          Kuran-ı Kerim
+          {juz.startPage} - {juz.endPage}. Sayfa
         </Text>
       </View>
 
       {/* Progress Section */}
-      <View style={{ marginLeft: 8 }}>
-        <ProgressCircle percentage={progress} size={44} />
-      </View>
+      {showStats && (
+        <View style={{ marginLeft: 8 }}>
+          <ProgressCircle percentage={progress} size={44} />
+        </View>
+      )}
     </TouchableOpacity>
   );
 });

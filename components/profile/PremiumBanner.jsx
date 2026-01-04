@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-export const PremiumBanner = ({ onPress, isPremium }) => {
+export const PremiumBanner = ({ onPress, isPremium, isPlus }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -62,7 +62,12 @@ export const PremiumBanner = ({ onPress, isPremium }) => {
                         adjustsFontSizeToFit={true}
                         minimumFontScale={0.8}
                     >
-                        {isPremium ? 'Tüm ayrıcalıklardan yararlanıyorsun.' : 'Daha fazla özellik ve reklamsız deneyim için Premium\'u keşfet.'}
+                        {isPremium
+                            ? 'Tüm ayrıcalıklardan yararlanıyorsun.'
+                            : (isPlus
+                                ? 'Premium\'a geç, sınırları kaldır.'
+                                : 'Daha fazla özellik ve reklamsız deneyim için Premium\'u keşfet.')
+                        }
                     </Text>
                 </View>
                 <Ionicons name="chevron-forward" size={20} color="#CF9B47" />

@@ -1,4 +1,5 @@
-import { View, Image, Dimensions } from 'react-native';
+import { View, Dimensions } from 'react-native';
+import { Image } from 'expo-image';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
@@ -19,7 +20,8 @@ export default function GününAyetiImage() {
           borderWidth: 0.5,
           borderColor: 'rgba(255, 255, 255, 0.5)',
         }}
-        resizeMode="cover"
+        contentFit="cover"
+        transition={200}
       />
     </View>
   );

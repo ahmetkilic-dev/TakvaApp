@@ -35,7 +35,7 @@ export const UserStatsProvider = ({ children }) => {
         role: 'user',
         application_status: 'none',
         following: [],
-        is_premium: false
+        premium_state: 'free'
     });
     const [dailyTasks, setDailyTasks] = useState([]);
     const [userBadges, setUserBadges] = useState([]); // Array of { badge_id, is_completed, current_progress, badges: { title, category, ... } }
@@ -115,7 +115,7 @@ export const UserStatsProvider = ({ children }) => {
     }, []);
 
     const fetchProfile = useCallback(async (uid) => {
-        const { data } = await supabase.from('profiles').select('id, name, username, role, application_status, following, is_premium, profile_picture, bio, social_links').eq('id', uid).maybeSingle();
+        const { data } = await supabase.from('profiles').select('id, name, username, role, application_status, following, premium_state, profile_picture, bio, social_links').eq('id', uid).maybeSingle();
         if (data) {
             const final = { ...data, following: data.following || [] };
             setProfile(final);
@@ -286,6 +286,10 @@ export const UserStatsProvider = ({ children }) => {
         loading,
         isInitialized,
         ...badgeLogic,
+        // Helper functions
+        isPlus: () => profile?.premium_state === 'plus',
+        isPremium: () => profile?.premium_state === 'premium',
+        isPlusOrAbove: () => ['plus', 'premium'].includes(profile?.premium_state),
         updateStat,
         setStatsDirect,
         refreshTasks: () => fetchAllData(user?.uid),

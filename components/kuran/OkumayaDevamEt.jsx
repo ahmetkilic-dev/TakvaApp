@@ -1,4 +1,5 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { Dimensions } from 'react-native';
 import { useUserStats } from '../../contexts/UserStatsContext';
@@ -100,7 +101,7 @@ export default function OkumayaDevamEt() {
             <Image
               source={require('../../assets/images/arrow.png')}
               style={{ width: 14, height: 14, tintColor: '#FFFFFF' }}
-              resizeMode="contain"
+              contentFit="contain"
             />
           </TouchableOpacity>
 
@@ -151,7 +152,8 @@ export default function OkumayaDevamEt() {
               borderWidth: 0.5,
               borderColor: 'rgba(255, 255, 255, 0.5)',
             }}
-            resizeMode="cover"
+            contentFit="cover"
+            transition={300}
           />
         </View>
       </View>

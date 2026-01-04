@@ -6,7 +6,7 @@ import * as Haptics from 'expo-haptics';
 
 import { useUserStats } from '../../../contexts/UserStatsContext';
 
-const DEFAULT_DUA_RIGHTS = 3;
+const DEFAULT_DUA_RIGHTS = 1;
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const toDayKeyLocal = (date) => {

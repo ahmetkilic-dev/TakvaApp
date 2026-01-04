@@ -7,14 +7,14 @@ const horizontalPadding = 20;
 const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
 const fontFamily = 'Plus Jakarta Sans';
 
-export const PersonalStatsGrid = ({ stats }) => {
+export const PersonalStatsGrid = ({ stats, badgeCount }) => {
     const statistics = [
-        { id: 1, title: 'Toplam okunan ayet', value: stats.totalVerses.toString(), icon: 'book' },
-        { id: 2, title: 'Toplam salavat', value: stats.totalSalavat.toString(), icon: 'beads' },
-        { id: 3, title: 'Toplam zikir sayısı', value: stats.totalDhikr.toString(), icon: 'dhikr' },
-        { id: 4, title: 'Toplam kılınan namaz', value: stats.totalPrayers.toString(), icon: 'prayer' },
-        { id: 5, title: 'İlim doğru cevap', value: stats.quizCount.toString(), icon: 'knowledge' },
-        { id: 6, title: 'Tamamlanan görevler', value: stats.completedTasks.toString(), icon: 'tasks' },
+        { id: 1, title: 'Toplam okunan ayet', value: (stats?.total_verses || 0).toString(), icon: 'book' },
+        { id: 2, title: 'Toplam salavat', value: (stats?.total_salavat || 0).toString(), icon: 'beads' },
+        { id: 3, title: 'Toplam zikir sayısı', value: (stats?.total_dhikr || 0).toString(), icon: 'dhikr' },
+        { id: 4, title: 'Toplam kılınan namaz', value: (stats?.total_prayers || 0).toString(), icon: 'prayer' },
+        { id: 5, title: 'İlim doğru cevap', value: (stats?.quiz_count || 0).toString(), icon: 'knowledge' },
+        { id: 6, title: 'Tamamlanan görevler', value: (badgeCount || 0).toString(), icon: 'tasks' },
     ];
 
     return (

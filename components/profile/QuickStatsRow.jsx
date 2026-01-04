@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, following = [] }) => {
+export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, isPlus, following = [] }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -40,13 +40,13 @@ export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, following
                         fontFamily,
                         fontSize: 14,
                         fontWeight: '700',
-                        color: isPremium ? '#CF9B47' : '#FFFFFF',
+                        color: (isPremium || isPlus) ? '#CF9B47' : '#FFFFFF',
                         marginBottom: 4
                     }}>
-                        {isPremium ? 'Aktif' : 'Aktif değil'}
+                        {isPremium ? 'Premium' : (isPlus ? 'Plus' : 'Aktif değil')}
                     </Text>
                     <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)', textAlign: 'center' }}>
-                        Premium
+                        Üyelik Durumu
                     </Text>
                 </View>
             </View>

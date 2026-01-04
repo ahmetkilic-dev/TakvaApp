@@ -155,6 +155,7 @@ export default function ProfilScreen() {
             followingCount={profileData.followingCount}
             badgeCount={profileData.badgeCount}
             isPremium={profileData.isPremium}
+            isPlus={profileData.isPlus}
             following={profileData.following}
           />
 
@@ -182,10 +183,12 @@ export default function ProfilScreen() {
 
           <PersonalStatsGrid
             stats={profileData.stats}
+            badgeCount={profileData.badgeCount}
           />
 
           <PremiumBanner
             isPremium={profileData.isPremium}
+            isPlus={profileData.isPlus}
             onPress={() => router.push('/(app)/(services)/premium')}
           />
         </ScrollView>
