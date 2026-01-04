@@ -3,6 +3,7 @@ import { auth } from '../../../firebaseConfig';
 import { supabase } from '../../../lib/supabase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const toDayKeyLocal = (date) => {
@@ -25,6 +26,7 @@ export const useIlimData = () => {
   // Kullanıcı verileri
   const [totalPoints, setTotalPoints] = useState(0);
   const [dailyPoints, setDailyPoints] = useState(0);
+  const [dailyQuestionCount, setDailyQuestionCount] = useState(0);
   const [categoryStats, setCategoryStats] = useState({});
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [currentQuestionId, setCurrentQuestionId] = useState(null);
@@ -64,7 +66,7 @@ export const useIlimData = () => {
       // 2. Fetch DAILY stats (Daily points for TODAY)
       const { data: dailyStats } = await supabase
         .from('daily_user_stats')
-        .select('ilim_points')
+        .select('ilim_points, question_count')
         .eq('user_id', userId)
         .eq('date_key', todayKey) // Only fetch for today
         .maybeSingle();
@@ -80,11 +82,12 @@ export const useIlimData = () => {
         await initializeUserData(userId);
       }
 
-      // Set Daily Points from the daily table
       if (dailyStats) {
         setDailyPoints(dailyStats.ilim_points || 0);
+        setDailyQuestionCount(dailyStats.question_count || 0);
       } else {
         setDailyPoints(0); // No record for today = 0 points
+        setDailyQuestionCount(0);
       }
 
     } catch (err) {
@@ -200,6 +203,16 @@ export const useIlimData = () => {
       setError(err.message);
     }
   }, [user]);
+  // Günlük limit kontrolü (Server state'e göre)
+  const checkDailyLimit = useCallback((tier) => {
+    // Premium sınırsız
+    if (tier === 'premium') return { allowed: true, limit: Infinity, used: dailyQuestionCount };
+
+    const limit = tier === 'plus' ? 10 : 3;
+    const used = dailyQuestionCount;
+
+    return { allowed: used < limit, limit, used };
+  }, [dailyQuestionCount]);
 
   return {
     user,
@@ -216,6 +229,7 @@ export const useIlimData = () => {
     markQuestionAsAnswered,
     saveCurrentQuestionId,
     reloadData: () => user && loadUserData(user.uid),
+    checkDailyLimit
   };
 };
 

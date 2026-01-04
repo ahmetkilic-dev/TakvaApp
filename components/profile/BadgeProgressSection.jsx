@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, Image, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -55,23 +55,68 @@ const badgeIconsSet = {
     },
 };
 
-export const BadgeProgressSection = ({ badgeCount, categoryLevels }) => {
-    // 35 total badges in the system
-    const percentage = Math.min(100, Math.floor((badgeCount / 35) * 100));
+import { BADGE_DEFINITIONS } from '../../constants/badgeDefinitions';
+import { canUnlockBadge } from '../../constants/badgeTiers';
 
-    const renderBadge = (category) => {
-        const level = (categoryLevels && categoryLevels[category]) || 0;
-        const icon = level > 0 ? badgeIconsSet[category][level] : badgeIconsSet[category][1];
+
+// ... existing badgeIconsSet ...
+
+export const BadgeProgressSection = ({ badgeCount, categoryLevels, userTier = 'free' }) => {
+
+    // Calculate total eligible badges based on user tier
+    const totalEligible = useMemo(() => {
+        let count = 0;
+        BADGE_DEFINITIONS.forEach(cat => {
+            cat.tasks.forEach(task => {
+                if (canUnlockBadge(userTier, task.id)) {
+                    count++;
+                }
+            });
+        });
+        return count || 1; // Avoid division by zero
+    }, [userTier]);
+
+    const percentage = Math.min(100, Math.floor((badgeCount / totalEligible) * 100));
+
+    const renderBadge = (categoryKey) => {
+        // 1. Kategorinin tanımını bul (örn: 'namaz')
+        const catDef = BADGE_DEFINITIONS.find(d => d.iconKey === categoryKey);
+        if (!catDef) return null;
+
+        // 2. Bu kategoride kullanıcının tier'ına göre alabileceği MAKSiMUM rozet sayısını bul
+        let maxEligible = 0;
+        catDef.tasks.forEach(task => {
+            if (canUnlockBadge(userTier, task.id)) {
+                maxEligible++;
+            }
+        });
+        if (maxEligible === 0) maxEligible = 1;
+
+        // 3. Kullanıcının kazandığı sayısı
+        const earned = (categoryLevels && categoryLevels[categoryKey]) || 0;
+
+        // 4. Seviyeyi Normalize Et (1 ile 7 arasına yay)
+        // Örn: Free user max 3 alabiliyor. 1 tane aldıysa -> (1/3)*7 = 2.3 -> Level 3
+        // 3 tane aldıysa -> (3/3)*7 = 7 -> Level 7 (En kral ikon)
+        let normalizedLevel = 0;
+        if (earned > 0) {
+            const ratio = earned / maxEligible;
+            normalizedLevel = Math.ceil(ratio * 7);
+            if (normalizedLevel < 1) normalizedLevel = 1;
+            if (normalizedLevel > 7) normalizedLevel = 7;
+        }
+
+        const icon = normalizedLevel > 0 ? badgeIconsSet[categoryKey][normalizedLevel] : badgeIconsSet[categoryKey][1];
 
         return (
             <Image
-                key={category}
+                key={categoryKey}
                 source={icon}
                 style={{
                     width: 32,
                     height: 32,
                     marginHorizontal: 15,
-                    opacity: level > 0 ? 1 : 0.2 // Level 0 ise silik göster
+                    opacity: earned > 0 ? 1 : 0.2 // Hiç kazanmamışsa silik
                 }}
                 resizeMode="contain"
             />

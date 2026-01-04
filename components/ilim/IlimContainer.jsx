@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenBackground from '../common/ScreenBackground';
 import { useIlimData } from './hooks/useIlimData';
+import { useUserStats } from '../../contexts/UserStatsContext';
+import { Alert } from 'react-native';
 
 import IlimHeader from './IlimHeader';
 import IlimPointsCard from './IlimPointsCard';
@@ -42,7 +44,11 @@ export default function IlimContainer() {
     currentQuestionId,
     markQuestionAsAnswered,
     saveCurrentQuestionId,
+    checkDailyLimit
   } = useIlimData();
+
+  const { profile } = useUserStats();
+  const userTier = profile?.premium_state || 'free';
 
   const scrollViewRef = useRef(null);
 
@@ -182,8 +188,25 @@ export default function IlimContainer() {
   }, [ilimLoading, ilimData]);
 
   // Cevap seçildiğinde
-  const handleAnswerSelect = useCallback((answerId) => {
+  const handleAnswerSelect = useCallback(async (answerId) => {
     if (!currentQuestion || selectedAnswer !== null) return; // Zaten cevap verilmişse tekrar seçilemez
+
+    // Limit Kontrolü
+    const { allowed, limit, used } = await checkDailyLimit(userTier);
+    if (!allowed) {
+      Alert.alert(
+        "Günlük Limit Doldu",
+        `Mevcut paketinizle günde ${limit} soru çözebilirsiniz. Daha fazlası için Premium'a geçin.`,
+        [
+          { text: "Vazgeç", style: "cancel" },
+          { text: "Premium'a Geç", onPress: () => { /* router.push('/premium') - import router needed */ } }
+        ]
+      );
+      return;
+    }
+
+    // Limiti artır (Artık backend hallediyor)
+    // incrementDailyCount(); -> REMOVED
 
     setSelectedAnswer(answerId);
 

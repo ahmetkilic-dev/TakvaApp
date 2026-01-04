@@ -4,6 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { supabase } from '../lib/supabase';
 import { UserStatsService } from '../services/UserStatsService';
+import { canUnlockBadge } from '../constants/badgeTiers';
 
 const UserStatsContext = createContext(null);
 
@@ -224,31 +225,39 @@ export const UserStatsProvider = ({ children }) => {
 
     // Computed Values - ARTIK SERVERSIDE VERİYİ KULLANIYOR
     const badgeLogic = useMemo(() => {
-        // Tamamlananları say
-        const completedBadges = userBadges.filter(b => b.is_completed);
+        const currentTier = profile?.premium_state || 'free';
+
+        // Tamamlananları say - STATE'E GÖRE FİLTRELE
+        // Sadece kullanıcının paketine dahil olan (unlockable) ve tamamlanmış rozetleri sayıyoruz.
+        const completedBadges = userBadges.filter(b => {
+            if (!b.is_completed) return false;
+            return canUnlockBadge(currentTier, b.badge_id); // Önemli: Paket yetiyor mu?
+        });
+
         const total = completedBadges.length;
 
-        // Kategorilere göre seviye hesaplama (Basitçe kazanılan sayı olarak level veriyoruz şimdilik)
-        // Veya en yüksek target_value'ya sahip badge'in ikon numarasını level olarak alabiliriz.
-        // Şimdilik basit tutuyoruz.
+        // Kategorilere göre seviye hesaplama
         const levels = { kuran: 0, namaz: 0, zksl: 0, ilim: 0, uygulama: 0 };
 
-        // Kategorisel sayım
-        userBadges.forEach(b => {
-            if (b.is_completed && b.badges) {
+        // Kategorisel sayım (Sadece filtrelenmiş rozetler üzerinden)
+        completedBadges.forEach(b => {
+            if (b.badges) {
                 const cat = b.badges.category; // 'namaz', 'zksl', 'ilim', 'kuran'
-                // Mevcut mantıkta categoryLevels sadece bir sayı (level).
-                // Biz basitçe o kategoride kazanılan rozet sayısını verelim.
-                if (cat === 'namaz') levels.namaz++;
-                if (cat === 'zksl') levels.zksl++;
-                if (cat === 'ilim') levels.ilim++;
-                if (cat === 'kuran') levels.kuran++;
-                if (cat === 'uygulama') levels.uygulama++;
+                // DB'den gelen category key'i ile eşleşmeli. 
+                // BADGE_DEFINITIONS'da iconKey kullandık. DB'de category sütunu 'namaz', 'kuran' vb. olmalı.
+                // Eğer DB'de 'Namaz Görevleri' yazıyorsa maplemek gerekebilir.
+                // Ancak step 1669'da BadgeProgressSection'da iconKey kullandık.
+                // context'ten gelen veride b.badges.category ne dönüyor?
+                // Genelde 'namaz', 'kuran' gibi key dönüyor diye varsayıyoruz. 
+                // Güvenlik için key kontrolü yapalım.
+                if (levels.hasOwnProperty(cat)) {
+                    levels[cat]++;
+                }
             }
         });
 
         return { badgeCount: total, categoryLevels: levels };
-    }, [userBadges]);
+    }, [userBadges, profile?.premium_state]);
 
     const updateStat = useCallback(async (key, amount) => {
         // Optimistic update
