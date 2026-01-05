@@ -1,41 +1,15 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import * as InAppPurchases from 'expo-in-app-purchases';
-// Satın alma ürün kimlikleri
-const PRODUCT_IDS = {
-  'plus_monthly': 'com.wezyapps.takvaapp.plus.monthly',
-  'plus_yearly': 'com.wezyapps.takvaapp.plus.yearly',
-  'premium_monthly': 'com.wezyapps.takvaapp.premium.monthly',
-  'premium_yearly': 'com.wezyapps.takvaapp.premium.yearly',
-};
-// Satın alma işlemi fonksiyonu
-const purchaseSubscription = async (tier, plan) => { 
-  let productId = '';
-  if (tier === Tiers.PLUS) {
-    productId = plan === 'annual' ? PRODUCT_IDS.plus_yearly : PRODUCT_IDS.plus_monthly;
-  } else {
-    productId = plan === 'annual' ? PRODUCT_IDS.premium_yearly : PRODUCT_IDS.premium_monthly;
-  }
-  try {
-    await InAppPurchases.connectAsync();
-    const products = await InAppPurchases.getProductsAsync([productId]);
-    if (!products || products.length === 0) {
-      console.warn('Ürün bulunamadı:', productId);
-      return;
-    }
-    await InAppPurchases.purchaseItemAsync(productId);
-  } catch (err) {
-    console.warn('Satın alma hatası:', err);
-  } finally {
-    InAppPurchases.disconnectAsync();
-  }
-};
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image } from 'react-native';
+import React, { useState, useMemo } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, ActivityIndicator, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import ScreenBackground from '../../../components/common/ScreenBackground';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
+
+import ScreenBackground from '../../../components/common/ScreenBackground';
+
+// Import from Context and Constants
+import { useIAP, Tiers, PRODUCT_IDS } from '../../../contexts/IAPContext';
 
 // Premium icon section uses this
 const PremiumIcon = require('../../../assets/hizmetler/hoca.png');
@@ -44,13 +18,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
 const horizontalPadding = 20;
 
-// Data for Tabs
-const Tiers = {
-  PLUS: 'plus',
-  PREMIUM: 'premium',
-};
-
-// Features Data (Moved outside component to prevent recreation)
+// Features Data
 const featuresData = {
   [Tiers.PLUS]: [
     { id: 'adfree', title: 'Sadece Huzur (Reklamsız)', description: 'Araya giren reklamlar dikkatinizi dağıtmasın, ibadetin tadı kaçmasın.', icon: 'shield-outline' },
@@ -63,7 +31,7 @@ const featuresData = {
   [Tiers.PREMIUM]: [
     { id: 'adfree_prem', title: 'En Saf Deneyim (Reklamsız)', description: 'Uygulamayı hiçbir engel olmadan, en duru ve en akıcı haliyle yaşayın.' },
     { id: 'hocaai_prem', title: 'Sınırsız Rehberlik (Hoca AI)', description: 'Soru sınırı düşünmeden, dilediğiniz kadar sorun, ilmin derinliklerine inin.' },
-    { id: 'badges_prem', title: 'Büyük Hedefler (Elit Rozetler)', description: 'Hatim ve sabah namazı serileri gibi özel hedeflerle şevkiniz hep canlı kalsın.' },
+    { id: 'badges_prem', title: 'Büyük Hedefler (Elit Rozetler)', description: 'Hatim ve sabah namazı serileri gibi özel hedeflerle şevkiniz hep canlı kalsın.', icon: 'ribbon-outline' },
     { id: 'tracking', title: 'Hatim Yolculuğunuz (Detaylı Takip)', description: 'Hatimlerinizi, cüzlerinizi ve ilerlemenizi sizin yerinize biz takip edelim.' },
     { id: 'ilim_prem', title: 'Engelsiz İlim (Sınırsız Can)', description: 'Can derdi olmadan, özgürce yarışın. Öğrenmenin önünde sınır olmasın.' },
     { id: 'analysis', title: 'Büyük Resim (Yıllık Analiz)', description: 'Geçmişten bugüne manevi yolculuğunuzu ve gelişiminizi bir bakışta görün.' },
@@ -188,19 +156,26 @@ const PlanList = React.memo(({ plans, selectedPlan, onSelectPlan, activeTier }) 
 ));
 
 export default function PremiumScreen() {
-  // ...existing code...
   const router = useRouter();
+  const { isProcessing, requestPurchase, restorePurchases } = useIAP(); // Use global IAP context
+
   const [activeTier, setActiveTier] = useState(Tiers.PREMIUM);
   const [selectedPlan, setSelectedPlan] = useState('monthly');
 
   const currentPlans = useMemo(() => plansData[activeTier], [activeTier]);
   const currentFeatures = useMemo(() => featuresData[activeTier], [activeTier]);
 
-  // react-native-iap bağlantısı için ilk renderda başlatma (isteğe bağlı, sade tutmak için butonda başlatıyoruz)
-  // ...existing code...
-  const handlePurchase = useCallback(() => {
-    purchaseSubscription(activeTier, selectedPlan);
-  }, [activeTier, selectedPlan]);
+  const handleBuy = async () => {
+    let productId = '';
+    if (activeTier === Tiers.PLUS) {
+      productId = selectedPlan === 'annual' ? PRODUCT_IDS.plus_yearly : PRODUCT_IDS.plus_monthly;
+    } else {
+      productId = selectedPlan === 'annual' ? PRODUCT_IDS.premium_yearly : PRODUCT_IDS.premium_monthly;
+    }
+
+    // Call Context to start purchase flow
+    requestPurchase(productId);
+  };
 
   return (
     <ScreenBackground>
@@ -239,17 +214,32 @@ export default function PremiumScreen() {
           </Text>
 
           {/* Call to Action Button */}
-          <View style={{ alignItems: 'center', marginBottom: 24 }}>
+          <View style={{ alignItems: 'center', marginBottom: 12 }}>
             <TouchableOpacity
               activeOpacity={0.8}
-              style={{ width: Math.min(350, SCREEN_WIDTH - horizontalPadding * 2), height: 50, borderRadius: 12, borderWidth: 0.5, borderColor: activeTier === Tiers.PREMIUM ? 'rgba(207, 155, 71, 0.5)' : 'rgba(255,255,255,0.3)', backgroundColor: '#0D303A', alignItems: 'center', justifyContent: 'center' }}
-              onPress={handlePurchase}
+              style={{ width: Math.min(350, SCREEN_WIDTH - horizontalPadding * 2), height: 50, borderRadius: 12, borderWidth: 0.5, borderColor: activeTier === Tiers.PREMIUM ? 'rgba(207, 155, 71, 0.5)' : 'rgba(255,255,255,0.3)', backgroundColor: '#0D303A', alignItems: 'center', justifyContent: 'center', opacity: isProcessing ? 0.7 : 1 }}
+              onPress={handleBuy}
+              disabled={isProcessing}
             >
-              <MaskedView style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} maskElement={<View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}><Text style={{ fontFamily, fontSize: 18, fontWeight: '700', lineHeight: 18, textAlign: 'center', color: '#FFFFFF' }}>{activeTier === Tiers.PREMIUM ? "Takva Premium'a Geç" : "Takva Plus'a Geç"}</Text></View>}>
+              <MaskedView style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} maskElement={<View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                {isProcessing ? (
+                  <ActivityIndicator color="#FFFFFF" />
+                ) : (
+                  <Text style={{ fontFamily, fontSize: 18, fontWeight: '700', lineHeight: 18, textAlign: 'center', color: '#FFFFFF' }}>{activeTier === Tiers.PREMIUM ? "Takva Premium'a Geç" : "Takva Plus'a Geç"}</Text>
+                )}
+              </View>}>
                 <LinearGradient colors={activeTier === Tiers.PREMIUM ? ['#E9CC88', '#CF9B47'] : ['#FFFFFF', '#E0E0E0']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ width: '100%', height: '100%' }} />
               </MaskedView>
             </TouchableOpacity>
           </View>
+
+          {/* RESTORE BUTTON KODDA VAR (İsteğe bağlı gizlenebilir, ama user için iyi) */}
+          <TouchableOpacity onPress={restorePurchases} disabled={isProcessing} style={{ padding: 10 }}>
+            <Text style={{ fontFamily, color: 'rgba(255,255,255,0.6)', fontSize: 14, textDecorationLine: 'underline', textAlign: 'center' }}>
+              Satın Alımları Geri Yükle
+            </Text>
+          </TouchableOpacity>
+
         </ScrollView>
       </SafeAreaView>
     </ScreenBackground>

@@ -1,11 +1,46 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const fontFamily = 'Plus Jakarta Sans';
 
+const GradientText = ({ colors, style, children }) => {
+    return (
+        <MaskedView
+            maskElement={
+                <Text style={[style, { backgroundColor: 'transparent' }]}>
+                    {children}
+                </Text>
+            }
+        >
+            <LinearGradient
+                colors={colors}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={style}
+            >
+                <Text style={[style, { opacity: 0 }]}>{children}</Text>
+            </LinearGradient>
+        </MaskedView>
+    );
+};
+
 export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, isPlus, following = [] }) => {
     const [modalVisible, setModalVisible] = useState(false);
+
+    // Determine colors and label
+    let statusLabel = 'Aktif değil';
+    let statusColors = ['#FFFFFF', '#FFFFFF']; // Default white
+
+    if (isPremium) {
+        statusLabel = 'Premium';
+        statusColors = ['#E9CC88', '#CF9B47']; // Gold Gradient
+    } else if (isPlus) {
+        statusLabel = 'Plus';
+        statusColors = ['#FFFFFF', '#D6DCE5']; // White/Silver Gradient
+    }
 
     return (
         <View style={{ marginBottom: 16 }}>
@@ -36,15 +71,20 @@ export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, isPlus, f
                 </View>
 
                 <View style={{ alignItems: 'center' }}>
-                    <Text style={{
-                        fontFamily,
-                        fontSize: 14,
-                        fontWeight: '700',
-                        color: (isPremium || isPlus) ? '#CF9B47' : '#FFFFFF',
-                        marginBottom: 4
-                    }}>
-                        {isPremium ? 'Premium' : (isPlus ? 'Plus' : 'Aktif değil')}
-                    </Text>
+                    {/* Gradient Text Implementation */}
+                    {statusLabel === 'Aktif değil' ? (
+                        <Text style={{ fontFamily, fontSize: 14, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
+                            {statusLabel}
+                        </Text>
+                    ) : (
+                        <GradientText
+                            colors={statusColors}
+                            style={{ fontFamily, fontSize: 14, fontWeight: '700', marginBottom: 4 }}
+                        >
+                            {statusLabel}
+                        </GradientText>
+                    )}
+
                     <Text style={{ fontFamily, fontSize: 13, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)', textAlign: 'center' }}>
                         Üyelik Durumu
                     </Text>

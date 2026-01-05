@@ -19,6 +19,7 @@ import { LocationProvider } from '../contexts/LocationContext';
 import { PrayerTimesProvider } from '../contexts/PrayerTimesContext';
 import { DayChangeProvider } from '../contexts/DayChangeContext';
 import { UserStatsProvider } from '../contexts/UserStatsContext';
+import { IAPProvider } from '../contexts/IAPContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
@@ -130,8 +131,10 @@ export default function RootLayout() {
         <PrayerTimesProvider>
           <DayChangeProvider>
             <UserStatsProvider>
-              <AuthGuard />
-              <StatusBar style="light" />
+              <IAPProvider>
+                <AuthGuard />
+                <StatusBar style="light" />
+              </IAPProvider>
             </UserStatsProvider>
           </DayChangeProvider>
         </PrayerTimesProvider>
