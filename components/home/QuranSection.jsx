@@ -20,7 +20,7 @@ import { useUserStats } from '../../contexts/UserStatsContext';
 
 const QuranSection = React.memo(() => {
    const router = useRouter();
-   const { stats, loading: contextLoading } = useUserStats();
+   const { stats, loading: contextLoading, isPlusOrAbove, isPremium } = useUserStats();
    const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
    const [isPlaying, setIsPlaying] = useState(false);
 
@@ -29,6 +29,10 @@ const QuranSection = React.memo(() => {
    const totalRead = stats.total_pages_read || 0;
    const lastPage = stats.last_read_page || 1;
    const progress = (totalRead / 604) * 100;
+
+   const displayDescription = isPlusOrAbove()
+      ? `${lastPage}. sayfadasın. Toplam ${totalRead} sayfa okudun.`
+      : 'Kur\'an okumaya hemen başla.';
 
    // Initialize the audio player
    const player = useAudioPlayer(STREAM_SOURCES[currentSourceIndex]);
@@ -126,15 +130,17 @@ const QuranSection = React.memo(() => {
          <View style={styles.ctaCard}>
             {/* Sol Metin Alanı */}
             <View style={styles.ctaTextContainer}>
-               <Text style={[fontStyle, styles.ctaTitle]}>Kuran Yolculuğun</Text>
+               <Text style={[fontStyle, styles.ctaTitle]}>Kur'an Yolculuğun</Text>
                <Text style={[fontStyle, styles.ctaDescription]}>
-                  {lastPage}. sayfadasın. Toplam {totalRead} sayfa okudun.
+                  {displayDescription}
                </Text>
 
-               {/* Progress Bar */}
-               <View style={styles.progressBarBg}>
-                  <View style={[styles.progressBarFill, { width: `${Math.min(100, progress)}%` }]} />
-               </View>
+               {/* Progress Bar - Only for Premium */}
+               {isPremium() && (
+                  <View style={styles.progressBarBg}>
+                     <View style={[styles.progressBarFill, { width: `${Math.min(100, progress)}%` }]} />
+                  </View>
+               )}
 
                <TouchableOpacity
                   style={styles.ctaButton}
