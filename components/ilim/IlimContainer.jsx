@@ -196,10 +196,10 @@ export default function IlimContainer() {
     if (!allowed) {
       Alert.alert(
         "Günlük Limit Doldu",
-        `Mevcut paketinizle günde ${limit} yanlış cevap verme hakkınız bulunmaktadır. Daha fazlası Takva Plus ve ya Takva Premiuma geçin..`,
+        `Mevcut paketinizle günde ${limit} yanlış cevap verme hakkınız bulunmaktadır.\nDaha fazlası için Takva Plus veya Takva Premium'a geçin..`,
         [
           { text: "Vazgeç", style: "cancel" },
-          { text: "Premium'a Geç", onPress: () => { /* router.push('/premium') - import router needed */ } }
+          { text: "Premium'a Geç", onPress: () => { /* router.push('/premium') */ } }
         ]
       );
       return;
