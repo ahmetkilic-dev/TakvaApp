@@ -18,12 +18,10 @@ export const useSalavatCounters = () => {
 
   const [loading, setLoading] = useState(true);
 
-  // Base values (merged from context stats)
+  // Base values (merged from aggregation RPC)
   const [globalTotalBase, setGlobalTotalBase] = useState(0);
   const [globalTodayBase, setGlobalTodayBase] = useState(0);
-
-  // User total from context is more reliable
-  const userTotalBase = stats.total_salavat || 0;
+  const [userTotalBase, setUserTotalBase] = useState(0);
 
   // Local delta for instant UI (not yet flushed)
   const [localDelta, setLocalDelta] = useState(0);
@@ -53,24 +51,23 @@ export const useSalavatCounters = () => {
   const readCounts = useCallback(
     async () => {
       try {
-        // Global total (still need to fetch these as they aren't in user_stats)
-        const { data: gTotal } = await supabase.from('global_stats').select('total').eq('type', 'salavat').maybeSingle();
+        const { data, error } = await supabase.rpc('get_realtime_salavat_counts', {
+          query_date: todayKey,
+          p_user_id: user?.uid
+        });
 
-        const { data: gDaily } = await supabase
-          .from('daily_stats')
-          .select('total')
-          .eq('type', 'salavat')
-          .eq('date_key', todayKey)
-          .maybeSingle();
+        if (error) throw error;
 
-        if (gTotal) setGlobalTotalBase(gTotal.total || 0);
-        if (gDaily) setGlobalTodayBase(gDaily.total || 0);
-        else setGlobalTodayBase(0);
+        if (data) {
+          setGlobalTotalBase(data.global_total || 0);
+          setGlobalTodayBase(data.global_today || 0);
+          setUserTotalBase(data.user_total || 0);
+        }
       } catch (err) {
         console.warn('📿 Salavat readCounts error:', err);
       }
     },
-    [todayKey]
+    [todayKey, user?.uid]
   );
 
   const flushPending = useCallback(
@@ -85,28 +82,21 @@ export const useSalavatCounters = () => {
       const dayKeyToUse = dayKeyOverride || dayKeyRef.current || todayKey;
 
       try {
-        // 1. Update Global Total
-        await supabase.rpc('increment_global_stat', { stat_type: 'salavat', increment_by: pending });
-
-        // 2. Update Global Daily
-        await supabase.rpc('increment_daily_stat', { stat_type: 'salavat', day_key: dayKeyToUse, increment_by: pending });
-
-        // 3. Update User Total (This will trigger real-time update in Context)
-        // DUPLICATION FIX: We use updateStat below which handles DB sync via Service.
-        // await supabase.rpc('increment_user_stat', { target_user_id: user.uid, column_name: 'total_salavat', increment_by: pending });
-
-        // Optimistik olarak global context'i de güncelle (Zıplama olmasın!)
-        // This also handles the DB sync securely via UserStatsService
-        updateStat('total_salavat', pending);
+        // 1. Update User Stats & Daily Activity (The ONLY source of truth now)
 
         // Atomik olarak sayaçlardan düş
         pendingRef.current -= pending;
         setLocalDelta((prev) => Math.max(0, prev - pending));
 
+        // Optimistic UI update for global and user counters
+        // (Since we know our contribution will eventually be part of the SUM)
         setGlobalTotalBase((v) => v + pending);
+        setUserTotalBase((v) => v + pending);
         if (dayKeyToUse === todayKey) setGlobalTodayBase((v) => v + pending);
 
-        // 4. Günlük görev ilerlemesini SUPABASE üzerinden güncelle
+        // 2. Günlük görev ilerlemesini ve istatistikleri SUPABASE'e işle
+        // Bu işlem daily_user_stats tablosunu günceller.
+        // Get_realtime_salavat_counts fonksiyonu da bu tabloyu okuyup toplar.
         await supabase.rpc('record_daily_activity', {
           p_user_id: user.uid,
           p_activity_type: 'salavat'

@@ -27,6 +27,7 @@ export const useIlimData = () => {
   const [totalPoints, setTotalPoints] = useState(0);
   const [dailyPoints, setDailyPoints] = useState(0);
   const [dailyQuestionCount, setDailyQuestionCount] = useState(0);
+  const [dailyWrongCount, setDailyWrongCount] = useState(0);
   const [categoryStats, setCategoryStats] = useState({});
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [currentQuestionId, setCurrentQuestionId] = useState(null);
@@ -66,7 +67,7 @@ export const useIlimData = () => {
       // 2. Fetch DAILY stats (Daily points for TODAY)
       const { data: dailyStats } = await supabase
         .from('daily_user_stats')
-        .select('ilim_points, question_count')
+        .select('ilim_points, question_count, wrong_answer_count')
         .eq('user_id', userId)
         .eq('date_key', todayKey) // Only fetch for today
         .maybeSingle();
@@ -85,9 +86,11 @@ export const useIlimData = () => {
       if (dailyStats) {
         setDailyPoints(dailyStats.ilim_points || 0);
         setDailyQuestionCount(dailyStats.question_count || 0);
+        setDailyWrongCount(dailyStats.wrong_answer_count || 0);
       } else {
         setDailyPoints(0); // No record for today = 0 points
         setDailyQuestionCount(0);
+        setDailyWrongCount(0);
       }
 
     } catch (err) {
@@ -208,8 +211,9 @@ export const useIlimData = () => {
     // Premium sınırsız
     if (tier === 'premium') return { allowed: true, limit: Infinity, used: dailyQuestionCount };
 
+    // Plus: 10 yanlış, Free: 3 yanlış
     const limit = tier === 'plus' ? 10 : 3;
-    const used = dailyQuestionCount;
+    const used = dailyWrongCount;
 
     return { allowed: used < limit, limit, used };
   }, [dailyQuestionCount]);

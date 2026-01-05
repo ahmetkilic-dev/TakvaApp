@@ -59,9 +59,9 @@ export const BADGE_DEFINITIONS = [
             { id: 'app_share_10', text: 'Toplam 10 içerik paylaş.', label: 'Tebliğ', icon: 2, target: 10, route: '/(app)/(tabs)/kelam' },
             { id: 'app_social_1', text: 'Takva’nın resmi sosyal medya hesaplarını takip et', label: 'Destek', icon: 3, target: 1, route: '/(app)/(services)/social' },
             { id: 'app_follow_10', text: '10 içerik üreticisini takip et.', label: 'Cemiyet', icon: 4, target: 10, route: '/(app)/(tabs)/kelam' },
-            { id: 'app_entry_3', text: '3 gün üst üste uygulamaya giriş yap.', label: 'Süreklilik', icon: 5, target: 3, route: '/' },
-            { id: 'app_entry_30', text: '30 gün boyunca düzenli giriş yap.', label: 'Sadakat', icon: 6, target: 30, route: '/' },
-            { id: 'app_rating_1', text: 'Uygulamaya mağazada puan ver / yorum yap.', label: 'Minnet', icon: 7, target: 1, route: '/' },
+            { id: 'app_rating_1', text: 'Uygulamaya mağazada puan ver / yorum yap.', label: 'Minnet', icon: 5, target: 1, route: '/' },
+            { id: 'app_entry_3', text: '30 gün boyunca düzenli giriş yap.', label: 'Süreklilik', icon: 6, target: 30, route: '/' },
+            { id: 'app_entry_30', text: '1 yıl boyunca düzenli giriş yap.', label: 'Sadakat', icon: 7, target: 365, route: '/' },
         ],
     },
 ];

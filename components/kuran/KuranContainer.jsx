@@ -30,7 +30,7 @@ export default function KuranContainer() {
   const { isPlusOrAbove, isPremium } = useUserStats();
 
   // Access Control Helpers
-  const showLastPage = isPlusOrAbove();
+  const showLastPage = true;
   const showListStats = isPremium();
 
   // Memoize handlers

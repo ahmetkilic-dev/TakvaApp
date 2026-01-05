@@ -10,7 +10,7 @@ const fontFamily = 'Plus Jakarta Sans';
 
 export default function OkumayaDevamEt() {
   const router = useRouter();
-  const { stats, loading } = useUserStats();
+  const { stats, loading, isPlusOrAbove, isPremium } = useUserStats();
 
   const getDisplayInfo = () => {
     if (loading) {
@@ -80,7 +80,7 @@ export default function OkumayaDevamEt() {
                 marginBottom: 4,
               }}
             >
-              {displayInfo.name}
+              {isPlusOrAbove() ? displayInfo.name : 'Kuran-ı Kerim'}
             </Text>
           </View>
 
@@ -96,7 +96,7 @@ export default function OkumayaDevamEt() {
                 color: '#FFFFFF',
               }}
             >
-              Devam et
+              {isPlusOrAbove() ? 'Devam et' : 'Kuran Oku'}
             </Text>
             <Image
               source={require('../../assets/images/arrow.png')}
@@ -105,40 +105,42 @@ export default function OkumayaDevamEt() {
             />
           </TouchableOpacity>
 
-          {/* Progress Bar */}
-          <View
-            style={{
-              width: '100%',
-              height: 16,
-              borderRadius: 10,
-              backgroundColor: '#7C8381',
-              borderWidth: 0.5,
-              borderColor: 'rgba(255, 255, 255, 0.5)',
-              overflow: 'hidden',
-            }}
-          >
+          {/* Progress Bar - Only for Premium */}
+          {isPremium() && (
             <View
               style={{
-                width: `${Math.min(100, Math.max(0, displayInfo.progress))}%`,
-                height: '100%',
-                backgroundColor: '#8CD7C0',
+                width: '100%',
+                height: 16,
                 borderRadius: 10,
-                alignItems: 'center',
-                justifyContent: 'center',
+                backgroundColor: '#7C8381',
+                borderWidth: 0.5,
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                overflow: 'hidden',
               }}
             >
-              <Text
+              <View
                 style={{
-                  fontFamily,
-                  fontSize: 10,
-                  fontWeight: '600',
-                  color: '#FFFFFF',
+                  width: `${Math.min(100, Math.max(0, displayInfo.progress))}%`,
+                  height: '100%',
+                  backgroundColor: '#8CD7C0',
+                  borderRadius: 10,
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                %{Math.round(displayInfo.progress)}
-              </Text>
+                <Text
+                  style={{
+                    fontFamily,
+                    fontSize: 10,
+                    fontWeight: '600',
+                    color: '#FFFFFF',
+                  }}
+                >
+                  %{Math.round(displayInfo.progress)}
+                </Text>
+              </View>
             </View>
-          </View>
+          )}
         </View>
 
         {/* Right Side - Image */}
@@ -160,4 +162,3 @@ export default function OkumayaDevamEt() {
     </View>
   );
 }
-

@@ -55,17 +55,23 @@ const CuzListItem = memo(({ juz, progress = 0, onPress, showStats = false }) => 
         <Text style={{ fontFamily, fontSize: 20, fontWeight: '400', color: '#FFFFFF', marginBottom: 4 }}>
           {juz.number}. Cüz
         </Text>
-        <Text style={{ fontFamily, fontSize: 10, fontWeight: '400', color: 'rgba(255, 255, 255, 0.7)' }}>
-          {juz.startPage} - {juz.endPage}. Sayfa
-        </Text>
+
       </View>
 
       {/* Progress Section */}
-      {showStats && (
-        <View style={{ marginLeft: 8 }}>
+      <View style={{ marginLeft: 8 }}>
+        {showStats ? (
           <ProgressCircle percentage={progress} size={44} />
-        </View>
-      )}
+        ) : (
+          <View>
+            <Image
+              source={require('../../assets/statistics/kilitic.png')}
+              style={{ width: 44, height: 44, opacity: 0.8 }}
+              contentFit="contain"
+            />
+          </View>
+        )}
+      </View>
     </TouchableOpacity>
   );
 });

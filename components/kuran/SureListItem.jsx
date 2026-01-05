@@ -61,11 +61,19 @@ const SureListItem = memo(({ surah, progress = 0, onPress, showStats = false }) 
       </View>
 
       {/* Progress Section */}
-      {showStats && (
-        <View style={{ marginLeft: 8 }}>
+      <View style={{ marginLeft: 8 }}>
+        {showStats ? (
           <ProgressCircle percentage={progress} size={44} />
-        </View>
-      )}
+        ) : (
+          <View>
+            <Image
+              source={require('../../assets/statistics/kilitic.png')}
+              style={{ width: 44, height: 44, opacity: 0.8 }}
+              contentFit="contain"
+            />
+          </View>
+        )}
+      </View>
     </TouchableOpacity>
   );
 });

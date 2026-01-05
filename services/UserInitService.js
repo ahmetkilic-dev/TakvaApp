@@ -18,10 +18,13 @@ export const UserInitService = {
 
             const promises = [];
 
-            // Profil yoksa oluştur
+            // Profil oluşturma işi artık sadece Kayıt/Giriş ekranlarının sorumluluğunda.
+            // Burada otomatik oluşturursak NULL satırlara sebep oluyor.
+            /*
             if (!profileRes.data) {
                 promises.push(supabase.from('profiles').insert({ id: userId }));
             }
+            */
 
             // Kaza sayacı yoksa oluştur
             if (!kazaRes.data) {

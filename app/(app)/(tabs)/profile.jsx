@@ -12,7 +12,7 @@ import { useProfile } from '../../../components/profile/hooks/useProfile';
 import ProfileHeader from '../../../components/profile/ProfileHeader';
 import QuickStatsRow from '../../../components/profile/QuickStatsRow';
 import BadgeProgressSection from '../../../components/profile/BadgeProgressSection';
-import PersonalStatsGrid from '../../../components/profile/PersonalStatsGrid';
+import ManeviGelisimCard from '../../../components/profile/ManeviGelisimCard';
 import PremiumBanner from '../../../components/profile/PremiumBanner';
 import CreatorPostsSection from '../../../components/profile/CreatorPostsSection';
 import { KelamService } from '../../../services/KelamService';
@@ -123,7 +123,7 @@ export default function ProfilScreen() {
             onPress={() => router.push('/(app)/(services)/ayarlar')}
             className="w-9 h-9 items-center justify-center"
           >
-            <Ionicons name="ellipsis-horizontal" size={24} color="#FFFFFF" />
+            <Ionicons name="menu" size={28} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
 
@@ -182,10 +182,8 @@ export default function ProfilScreen() {
             userTier={profileData.premiumState}
           />
 
-          <PersonalStatsGrid
-            stats={profileData.stats}
-            badgeCount={profileData.badgeCount}
-          />
+          {/* Manevi Gelisim Card */}
+          <ManeviGelisimCard />
 
           <PremiumBanner
             isPremium={profileData.isPremium}

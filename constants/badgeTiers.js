@@ -60,8 +60,8 @@ export const BADGE_TIERS = {
     // User Free List: "Uygulamaya puan ver".
     // User Plus List: "30 gün giriş".
     // I will keep defaults 'free' unless specified higher.
-    'app_entry_3': 'free',
-    'app_entry_30': 'plus',
+    'app_entry_3': 'plus',
+    'app_entry_30': 'premium',
     'app_rating_1': 'free',
 };
 
