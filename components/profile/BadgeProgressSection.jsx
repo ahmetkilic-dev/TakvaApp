@@ -83,28 +83,16 @@ export const BadgeProgressSection = ({ badgeCount, categoryLevels, userTier = 'f
         const catDef = BADGE_DEFINITIONS.find(d => d.iconKey === categoryKey);
         if (!catDef) return null;
 
-        // 2. Bu kategoride kullanıcının tier'ına göre alabileceği MAKSiMUM rozet sayısını bul
-        let maxEligible = 0;
-        catDef.tasks.forEach(task => {
-            if (canUnlockBadge(userTier, task.id)) {
-                maxEligible++;
-            }
-        });
-        if (maxEligible === 0) maxEligible = 1;
-
         // 3. Kullanıcının kazandığı sayısı
         const earned = (categoryLevels && categoryLevels[categoryKey]) || 0;
 
-        // 4. Seviyeyi Normalize Et (1 ile 7 arasına yay)
-        // Örn: Free user max 3 alabiliyor. 1 tane aldıysa -> (1/3)*7 = 2.3 -> Level 3
-        // 3 tane aldıysa -> (3/3)*7 = 7 -> Level 7 (En kral ikon)
-        let normalizedLevel = 0;
-        if (earned > 0) {
-            const ratio = earned / maxEligible;
-            normalizedLevel = Math.ceil(ratio * 7);
-            if (normalizedLevel < 1) normalizedLevel = 1;
-            if (normalizedLevel > 7) normalizedLevel = 7;
-        }
+        // 4. Seviyeyi Normalize ETME - Direkt Kazanılan Sayısını Göster
+        // Kullanıcı isteği: 1. görevi yapınca 1. rozet, 2.yi yapınca 2. rozet gözüksün.
+        // Oranlama (Normalization) kullanıcının kafasını karıştırıyor.
+        let normalizedLevel = earned;
+
+        // Güvenlik sınırları (Max 7 seviye var)
+        if (normalizedLevel > 7) normalizedLevel = 7;
 
         const icon = normalizedLevel > 0 ? badgeIconsSet[categoryKey][normalizedLevel] : badgeIconsSet[categoryKey][1];
 

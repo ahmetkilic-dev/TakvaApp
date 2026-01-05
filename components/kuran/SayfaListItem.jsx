@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 
 import { useQuranProgress } from './hooks/useQuranProgress';
 import ProgressCircle from '../rozetgorev/ProgressCircle';
@@ -34,7 +35,7 @@ const SayfaListItem = memo(({ page, onPress, showStats = false }) => {
         <Image
           source={require('../../assets/images/kuranicc.png')}
           style={{ width: 40, height: 40 }}
-          resizeMode="contain"
+          contentFit="contain"
         />
         <View
           style={{
@@ -62,11 +63,19 @@ const SayfaListItem = memo(({ page, onPress, showStats = false }) => {
       </View>
 
       {/* Progress Section */}
-      {showStats && (
-        <View style={{ marginLeft: 8 }}>
+      <View style={{ marginLeft: 8 }}>
+        {showStats ? (
           <ProgressCircle percentage={isRead ? 100 : 0} size={44} />
-        </View>
-      )}
+        ) : (
+          <View>
+            <Image
+              source={require('../../assets/statistics/kilitic.png')}
+              style={{ width: 44, height: 44, opacity: 0.8 }}
+              contentFit="contain"
+            />
+          </View>
+        )}
+      </View>
     </TouchableOpacity>
   );
 });
