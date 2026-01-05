@@ -47,11 +47,8 @@ export const useZikirDuaDailyStats = () => {
       const dayKeyToUse = dayKeyOverride || dayKeyRef.current || todayKey;
 
       try {
-        // 1. Optimistik olarak global context'i güncelle (Zıplama olmasın!)
-        // Bu fonksiyon arkada UserStatsService.incrementField çağırır, bu da DB'de total_dhikr günceller.
-        updateStat('total_dhikr', pending);
-
-        // 2. Günlük kullanıcı istatistiğini güncelle
+        // 1. Günlük kullanıcı istatistiğini güncelle
+        // DB Trigger (tr_sync_lifetime_stats) otomatik olarak user_stats.total_dhikr'ı güncelleyecektir.
         try {
           await supabase.rpc('increment_daily_user_stat', {
             target_user_id: user.uid,
@@ -111,28 +108,36 @@ export const useZikirDuaDailyStats = () => {
         }
 
         setLoading(true);
-        const { data, error } = await supabase
-          .from('daily_user_stats')
-          .select('*')
-          .eq('user_id', user.uid)
-          .eq('date_key', todayKey)
-          .single();
+        // Fetch daily row and total from user_stats (synced by trigger)
+        const [dailyRes, totalRes] = await Promise.all([
+          supabase
+            .from('daily_user_stats')
+            .select('*')
+            .eq('user_id', user.uid)
+            .eq('date_key', todayKey)
+            .maybeSingle(),
+          supabase
+            .from('user_stats')
+            .select('total_dhikr')
+            .eq('user_id', user.uid)
+            .maybeSingle()
+        ]);
 
         if (!alive) return;
 
-        if (data) {
-          setDhikrBase(Number(data.dhikr_count || 0));
+        if (dailyRes.data) {
+          setDhikrBase(Number(dailyRes.data.dhikr_count || 0));
           setDuaRemaining(
-            typeof data.dua_remaining === 'number' ? data.dua_remaining : DEFAULT_DUA_RIGHTS
+            typeof dailyRes.data.dua_remaining === 'number' ? dailyRes.data.dua_remaining : DEFAULT_DUA_RIGHTS
           );
         } else {
           setDhikrBase(0);
           setDuaRemaining(DEFAULT_DUA_RIGHTS);
         }
+
+        // We could also store totalDhikrBase if we needed it for a "Total Zikir" display in this screen
       } catch (e) {
         console.warn('🧿 Daily stats read failed:', e?.message || e);
-        setDhikrBase(0);
-        setDuaRemaining(DEFAULT_DUA_RIGHTS);
       } finally {
         if (alive) setLoading(false);
       }
