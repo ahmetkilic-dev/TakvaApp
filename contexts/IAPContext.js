@@ -76,7 +76,7 @@ export const IAPProvider = ({ children }) => {
 
 
     // --- SUPABASE UPDATE ---
-    const updateSupabaseProfile = async (premiumState) => {
+    const upsertSubscription = async (purchase) => {
         try {
             const user = auth.currentUser;
             if (!user) {
@@ -84,26 +84,100 @@ export const IAPProvider = ({ children }) => {
                 return false;
             }
 
-            console.log(`Supabase update: ${premiumState} (${user.uid})`);
-            const { data, error } = await supabase
-                .from('profiles')
-                .update({ premium_state: premiumState })
+            // Product ID'den type ve plan ayırma
+            let type = null;
+            let plan = null;
+
+            if (purchase.productId.includes('plus')) type = 'plus';
+            else if (purchase.productId.includes('premium')) type = 'premium';
+
+            if (purchase.productId.includes('monthly')) plan = 'monthly';
+            else if (purchase.productId.includes('yearly')) plan = 'yearly';
+
+            if (!type) return false;
+
+            // Güvenli tarih parse etme
+            let newPurchaseDate;
+            const newPurchaseDateStr = (() => {
+                let date;
+                const ts = purchase.transactionDate || purchase.purchaseTime;
+
+                if (!ts) date = new Date();
+                else {
+                    date = new Date(ts);
+                    if (isNaN(date.getTime())) date = new Date();
+                }
+
+                // Türkiye saati (UTC+3) düzenlemesi
+                const trDate = new Date(date.getTime() + (3 * 60 * 60 * 1000));
+                newPurchaseDate = trDate;
+                return trDate.toISOString();
+            })();
+
+            // ÖNCE MEVCUT VERİYİ KONTROL ET
+            const { data: existingData } = await supabase
+                .from('subscription')
+                .select('purchase_date')
                 .eq('id', user.uid)
-                .select();
+                .single();
+
+            if (existingData && existingData.purchase_date) {
+                const existingDate = new Date(existingData.purchase_date);
+                // Eğer yeni gelen satın alma tarihi, veritabanındaki tarihten eskiyse GÜNCELLEME
+                if (newPurchaseDate < existingDate) {
+                    console.log('Eski satın alma verisi, güncelleme atlandı.',
+                        `Mevcut: ${existingData.purchase_date}, Yeni: ${newPurchaseDateStr}`);
+                    return false;
+                }
+            }
+
+            console.log(`Supabase upsert: ${type} - ${plan} (${user.uid})`);
+
+            const { error } = await supabase
+                .from('subscription')
+                .upsert({
+                    id: user.uid,
+                    email: user.email,
+                    subscription_type: type,
+                    subscription_plan: plan,
+                    purchase_date: newPurchaseDateStr,
+                });
 
             if (error) {
-                console.error('Update Hatası:', error.message);
+                console.error('Upsert Hatası:', error.message);
                 return false;
             }
 
-            if (!data || data.length === 0) {
-                console.error('Hata: Profil bulunamadı!');
-                return false;
-            }
             return true;
         } catch (error) {
             console.error('Supabase Kritik Hata:', error);
             return false;
+        }
+    };
+
+    // --- FREE ÇEKME (Süre Dolunca) ---
+    const setSubscriptionToFree = async () => {
+        try {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            console.log(`Abonelik Free'ye çekiliyor (${user.uid})`);
+
+            const { error } = await supabase
+                .from('subscription')
+                .upsert({
+                    id: user.uid,
+                    email: user.email,
+                    subscription_type: 'Free',
+                    subscription_plan: null, // Boş
+                    purchase_date: new Date().toISOString(), // Son güncelleme tarihi olarak kalsın
+                });
+
+            if (error) {
+                console.error('Free Update Hatası:', error.message);
+            }
+        } catch (error) {
+            console.error('Kritik Hata:', error);
         }
     };
 
@@ -126,31 +200,56 @@ export const IAPProvider = ({ children }) => {
 
             if (responseCode === InAppPurchases.IAPResponseCode.OK) {
                 if (results && results.length > 0) {
-                    let activeTierFound = null;
+                    // Tarihe göre sırala (En yeni en üstte)
+                    const sortedResults = results.sort((a, b) => {
+                        const getDate = (p) => p.transactionDate || p.purchaseTime || 0;
+                        return getDate(b) - getDate(a);
+                    });
 
-                    for (const purchase of results) {
-                        let premiumType = null;
-                        if (purchase.productId.includes('premium')) premiumType = 'premium';
-                        else if (purchase.productId.includes('plus')) premiumType = 'plus';
+                    const latestPurchase = sortedResults[0];
 
-                        if (premiumType) {
-                            activeTierFound = premiumType;
-                            await updateSupabaseProfile(premiumType);
-                            // Burada hemen return etmiyoruz, hepsini tarıyoruz
-                        }
+                    // Debug: İlk objenin anahtarlarını görelim (Sadece bir kere)
+                    if (latestPurchase) {
+                        console.log('Latest Purchase Keys:', Object.keys(latestPurchase));
+                        console.log('Selected Latest:', latestPurchase.productId,
+                            new Date(latestPurchase.transactionDate || latestPurchase.purchaseTime || 0).toISOString());
                     }
 
-                    if (activeTierFound) {
-                        // Eğer sessiz moddaysa bile, eğer bu fonksiyon BUY sonrası çağrılmışsa
-                        // kullanıcıya reload teklif etmeliyiz. Ancak "isSilent" genelde app launch için.
-                        // Buy sonrası çağrıldığında isSilent=false olacak.
-                        if (!isSilent) {
-                            handleSuccess(activeTierFound);
+                    if (latestPurchase) {
+                        // --- SÜRE KONTROLÜ ---
+                        const purchaseDate = new Date(latestPurchase.transactionDate || latestPurchase.purchaseTime || 0);
+                        const now = new Date();
+                        const diffTime = Math.abs(now - purchaseDate);
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                        let isExpired = false;
+                        const isMonthly = latestPurchase.productId.includes('monthly');
+                        const isYearly = latestPurchase.productId.includes('yearly');
+
+                        if (isMonthly && diffDays > 32) isExpired = true;
+                        if (isYearly && diffDays > 370) isExpired = true;
+
+                        if (isExpired) {
+                            console.log(`Abonelik süresi doldu (${diffDays} gün). Free'ye düşürülüyor...`);
+                            await setSubscriptionToFree();
                         } else {
-                            console.log('Silent restore success:', activeTierFound);
+                            const success = await upsertSubscription(latestPurchase);
+
+                            // Eğer veritabanı güncellendiyse (veya zaten güncelse)
+                            // Kullanıcıya bir geri bildirim verelim (sadece sesli modda)
+                            if (success) {
+                                let type = latestPurchase.productId.includes('premium') ? 'premium' :
+                                    latestPurchase.productId.includes('plus') ? 'plus' : null;
+
+                                if (type) {
+                                    if (!isSilent) {
+                                        handleSuccess(type);
+                                    } else {
+                                        console.log('Silent restore success:', type);
+                                    }
+                                }
+                            }
                         }
-                    } else {
-                        if (!isSilent) Alert.alert('Bilgi', 'Aktif abonelik bulunamadı.');
                     }
                 } else {
                     if (!isSilent) Alert.alert('Bilgi', 'Geçmiş satın alım bulunamadı.');
@@ -189,7 +288,7 @@ export const IAPProvider = ({ children }) => {
                                         purchase.productId.includes('plus') ? 'plus' : null;
 
                                     if (type) {
-                                        const success = await updateSupabaseProfile(type);
+                                        const success = await upsertSubscription(purchase);
                                         if (success) {
                                             try {
                                                 await InAppPurchases.finishTransactionAsync(purchase, false);
