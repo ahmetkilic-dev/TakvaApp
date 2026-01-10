@@ -1,4 +1,4 @@
-[
+export default [
     {
         "id": 1,
         "title": "Rabbena Atina Duası",

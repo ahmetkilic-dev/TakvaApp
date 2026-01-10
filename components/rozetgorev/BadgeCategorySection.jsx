@@ -79,8 +79,8 @@ import { BADGE_DEFINITIONS } from '../../constants/badgeDefinitions';
 
 export const BadgeCategorySection = ({ stats, onTaskPress }) => {
     const { userBadges, loading: badgesLoading } = useUserBadges();
-    const { profile } = useUserStats();
-    const userTier = profile?.premium_state || 'free';
+    const { subscription } = useUserStats();
+    const userTier = subscription?.subscription_type || 'free';
 
 
     // Lazy Load: İlk başta sadece 2 kategori göster, kalanı sonra yükle

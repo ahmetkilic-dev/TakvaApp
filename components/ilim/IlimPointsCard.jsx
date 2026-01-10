@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 
 const günlükPuanIcon = require('../../assets/ilim/gunlukpuan.png');
 const toplamPuanIcon = require('../../assets/ilim/toplampuan.png');
 
 const FONT_FAMILY = 'Rubik';
 
-const IlimPointsCard = memo(({ dailyPoints = 0, totalPoints = 0 }) => {
+const IlimPointsCard = memo(({ dailyPoints = 0, totalPoints = 0, remainingLives = 3 }) => {
   return (
     <LinearGradient
       colors={['#182724', '#28312F']}
@@ -28,8 +29,13 @@ const IlimPointsCard = memo(({ dailyPoints = 0, totalPoints = 0 }) => {
         </View>
       </View>
 
-      {/* Vertical Divider */}
-      <View style={styles.divider} />
+      {/* Center: Remaining Lives (Heart) */}
+      <View style={styles.centerSection}>
+        <View style={styles.heartWrapper}>
+          <Ionicons name="heart" size={44} color="#FF0000" />
+          <Text style={styles.remainingLivesText}>{remainingLives}</Text>
+        </View>
+      </View>
 
       {/* Right: Total Points */}
       <View style={styles.rightSection}>
@@ -94,10 +100,23 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     letterSpacing: 0.24,
   },
-  divider: {
-    width: 0.5,
-    height: 48,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+  centerSection: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  heartWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  remainingLivesText: {
+    position: 'absolute',
+    fontFamily: FONT_FAMILY,
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    top: '22%', // Büyük kalbin tam ortasında durması için
   },
 });
 

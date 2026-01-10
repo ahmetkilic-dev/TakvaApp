@@ -41,11 +41,11 @@ const featuresData = {
 // Plans Data
 const plansData = {
   [Tiers.PLUS]: [
-    { id: 'annual', title: 'Yıllık Plan', price: '₺24,99', period: '/ ay', billing: '₺299,88 / yıl olarak faturalandırılır', topLabel: 'Avantajlı plan', bottomLabel: 'İlk kullanıcılarına özel' },
+    { id: 'annual', title: 'Yıllık Plan', price: '₺24,99', period: '/ ay', billing: '₺299,99 / yıl olarak faturalandırılır', topLabel: 'Avantajlı plan', bottomLabel: 'İlk kullanıcılarına özel' },
     { id: 'monthly', title: 'Aylık Plan', price: '₺29,99', period: '/ ay', description: 'İstediğin zaman iptal edebilirsin.', topLabel: 'Esnek kullanım' },
   ],
   [Tiers.PREMIUM]: [
-    { id: 'annual', title: 'Yıllık Plan', price: '₺74,99', period: '/ ay', billing: '₺899,88 / yıl olarak faturalandırılır', topLabel: 'Avantajlı plan', bottomLabel: 'İlk kullanıcılarına özel' },
+    { id: 'annual', title: 'Yıllık Plan', price: '₺74,99', period: '/ ay', billing: '₺899,99 / yıl olarak faturalandırılır', topLabel: 'Avantajlı plan', bottomLabel: 'İlk kullanıcılarına özel' },
     { id: 'monthly', title: 'Aylık Plan', price: '₺79,99', period: '/ ay', description: 'İstediğin zaman iptal edebilirsin.', topLabel: 'Esnek kullanım' },
   ],
 };
@@ -233,7 +233,7 @@ export default function PremiumScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* RESTORE BUTTON KODDA VAR (İsteğe bağlı gizlenebilir, ama user için iyi) */}
+          {/* RESTORE BUTTON */}
           <TouchableOpacity onPress={restorePurchases} disabled={isProcessing} style={{ padding: 10 }}>
             <Text style={{ fontFamily, color: 'rgba(255,255,255,0.6)', fontSize: 14, textDecorationLine: 'underline', textAlign: 'center' }}>
               Satın Alımları Geri Yükle

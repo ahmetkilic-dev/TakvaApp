@@ -41,6 +41,12 @@ const getSettingsOptions = (role, applicationStatus) => {
 
     options.push(
         {
+            id: 'aboneliklerim',
+            title: 'Aboneliklerim',
+            description: 'Mevcut planını gör, yükselt veya aboneliğini yönet.',
+            route: '/(app)/(services)/aboneliklerim',
+        },
+        {
             id: 'bildirimler',
             title: 'Bildirimler',
             description: 'Namaz vakti, günlük görev ve hatırlatma bildirimlerini düzenle.',
@@ -188,7 +194,7 @@ export default function AyarlarScreen() {
                                     color: '#FF4444',
                                 }}
                             >
-                                Çıkış Yap
+                                Çıkış yap
                             </Text>
                         </TouchableOpacity>
                     </View>

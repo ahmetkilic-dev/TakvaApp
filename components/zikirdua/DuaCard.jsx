@@ -1,19 +1,45 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { useDuas } from './hooks/useDuas';
-import { useZikirDuaDailyStats } from './hooks/useZikirDuaDailyStats';
 
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 const fontFamily = 'Plus Jakarta Sans';
 
 export default function DuaCard() {
-  const { currentDua, getRandomDua } = useDuas();
-  const { duaRemaining, consumeDuaRight } = useZikirDuaDailyStats();
+  const { currentDua, loading } = useDuas();
 
-  if (!currentDua) {
+  if (loading || !currentDua) {
     return null;
   }
 
   return (
-    <>
+    <View style={{ paddingBottom: 40 }}>
+      {/* Title Section - Full Width Rectangle */}
+      <View
+        style={{
+          height: 45,
+          backgroundColor: '#1C1C1C',
+          borderWidth: 3,
+          borderColor: '#186853',
+          marginHorizontal: -horizontalPadding, // To span full width
+          width: SCREEN_WIDTH,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 24,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily,
+            fontSize: 20,
+            fontWeight: '600',
+            color: '#FFFFFF',
+          }}
+        >
+          {currentDua.title}
+        </Text>
+      </View>
+
       {/* Dua Section */}
       <View style={{ marginBottom: 24 }}>
         <Text
@@ -29,12 +55,11 @@ export default function DuaCard() {
         </Text>
         <Text
           style={{
-            fontFamily: 'Noto Sans Arabic',
-            fontSize: 20,
-            fontWeight: '300',
-            color: '#FFBA4A',
-            lineHeight: 37,
-            letterSpacing: 0.4,
+            fontFamily: 'Scheherazade New',
+            fontSize: 24,
+            fontWeight: '400',
+            color: 'rgba(255, 186, 74, 0.9)',
+            lineHeight: 40,
             textAlign: 'right',
             marginBottom: 16,
           }}
@@ -70,11 +95,11 @@ export default function DuaCard() {
             fontFamily,
             fontSize: 16,
             fontWeight: '300',
-            color: '#FFFFFF',
-            lineHeight: 24,
+            color: 'rgba(255, 255, 255, 0.9)',
+            lineHeight: 22,
           }}
         >
-          {currentDua.turkish}
+          {currentDua.meaning}
         </Text>
       </View>
 
@@ -88,7 +113,7 @@ export default function DuaCard() {
       />
 
       {/* Açıklama Section */}
-      <View style={{ marginBottom: 24 }}>
+      <View style={{ marginBottom: 40 }}>
         <Text
           style={{
             fontFamily,
@@ -112,47 +137,6 @@ export default function DuaCard() {
           {currentDua.explanation}
         </Text>
       </View>
-
-      {/* Bottom Action Bar */}
-      <View style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 24,
-      }}>
-        <TouchableOpacity
-          onPress={async () => {
-            const res = await consumeDuaRight();
-            if (res.ok) {
-              getRandomDua();
-            }
-          }}
-          disabled={duaRemaining <= 0}
-          style={{
-            width: 95,
-            height: 38,
-            borderRadius: 10,
-            borderWidth: 1,
-            borderColor: duaRemaining > 0 ? '#8CD7C0' : 'rgba(255,255,255,0.25)',
-            backgroundColor: '#1C1C1C',
-            alignItems: 'center',
-            justifyContent: 'center',
-            opacity: duaRemaining > 0 ? 1 : 0.6,
-          }}
-        >
-          <Text
-            style={{
-              fontFamily,
-              fontSize: 14,
-              fontWeight: '300',
-              color: '#FFFFFF',
-            }}
-          >
-            Yeni dua
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </>
+    </View>
   );
 }
-

@@ -7,6 +7,7 @@ export const useProfile = () => {
         user,
         stats,
         profile,
+        subscription,
         badgeCount,
         categoryLevels,
         userBadges, // ARTIK CONTEXT'TEN GELİYOR
@@ -27,7 +28,7 @@ export const useProfile = () => {
             user,
             stats,
             profile,
-            name: profile.name,
+            name: profile.surname ? `${profile.name} ${profile.surname}` : profile.name,
             following: profile.following || [],
             followingCount: (profile.following || []).length,
             badgeCount: badgeCount,
@@ -35,7 +36,7 @@ export const useProfile = () => {
             userBadges,
             isPremium: isPremium(), // Helper from context
             isPlus: isPlus(),       // Helper from context
-            premiumState: profile.premium_state || 'free',
+            premiumState: subscription?.subscription_type || 'free',
             role: profile.role || 'user',
             followerCount: 0, // Fallback for missing DB column as previously discussed
             postCount: 0,     // Fallback for missing DB column

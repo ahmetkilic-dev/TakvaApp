@@ -1,16 +1,16 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Svg, { Circle } from 'react-native-svg';
 import { useZikirDuaDailyStats } from './hooks/useZikirDuaDailyStats';
+import dhikrList from '../../constants/dhikrData';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const fontFamily = 'Plus Jakarta Sans';
 
-// Responsive sizes
-const isSmallScreen = SCREEN_WIDTH < 375;
-const progressCircleSize = isSmallScreen ? 90 : 110;
-const strokeWidth = 20;
+// Progress circle size
+const progressCircleSize = 200;
+const strokeWidth = 37;
 const progressRadius = (progressCircleSize - strokeWidth) / 2;
 const circumference = 2 * Math.PI * progressRadius;
 
@@ -22,12 +22,6 @@ const stages = [
   { name: 'Sekîne', min: 1000, max: 2500, titleColor: '#6749C1', barColor: '#6749C1' },
   { name: 'Feyz', min: 2500, max: 5000, titleColor: '#F5D76E', barColor: '#F5D76E' },
 ];
-
-// Zikir metni (Moved outside or memoized)
-const dhikrData = {
-  arabic: 'Sübhanallah',
-  meaning: "Allah'ı tüm noksan sıfatlardan tenzih ederim.",
-};
 
 const StaticRings = React.memo(({ currentStageIndex }) => {
   const circles = [];
@@ -73,6 +67,17 @@ const ActiveRing = React.memo(({ currentStage, stageProgress }) => {
 
 const ZikirCounter = React.memo(() => {
   const { dhikrCount: count, incrementDhikr } = useZikirDuaDailyStats();
+  const [currentDhikrIndex, setCurrentDhikrIndex] = useState(0);
+
+  const currentDhikr = useMemo(() => dhikrList[currentDhikrIndex], [currentDhikrIndex]);
+
+  const handlePrev = () => {
+    setCurrentDhikrIndex((prev) => (prev === 0 ? dhikrList.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentDhikrIndex((prev) => (prev === dhikrList.length - 1 ? 0 : prev + 1));
+  };
 
   // Mevcut aşamayı bul
   const currentStage = useMemo(() => {
@@ -94,86 +99,98 @@ const ZikirCounter = React.memo(() => {
   return (
     <View
       style={{
-        width: '100%',
-        maxWidth: 400,
-        borderRadius: 15,
+        width: 350,
+        height: 434,
+        borderRadius: 32,
         backgroundColor: '#1C1C1C',
         borderWidth: 0.5,
         borderColor: 'rgba(255, 255, 255, 0.5)',
-        padding: 16,
+        padding: 20,
         marginBottom: 40,
         alignSelf: 'center',
-        position: 'relative',
+        position: 'relative'
       }}
     >
-      {/* Left Arrow */}
-      <TouchableOpacity
-        style={{ width: 22, height: 35, alignItems: 'center', justifyContent: 'center', position: 'absolute', left: -38, bottom: 16 }}
-      >
-        <Ionicons name="chevron-back" size={16} color="#FFFFFF" />
-      </TouchableOpacity>
+      {/* Top Section: Text Content - Restricted height to prevent overlap */}
+      <View style={{ height: 140 }}>
+        {/* Title */}
+        <Text style={{ fontFamily, fontSize: 28, fontWeight: '600', color: '#FFFFFF', marginBottom: 4 }} numberOfLines={1} adjustsFontSizeToFit>
+          {currentDhikr.title}
+        </Text>
 
-      <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-        {/* Progress Circle */}
-        <View style={{ marginRight: 16, alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-          <Svg width={progressCircleSize} height={progressCircleSize}>
-            {/* Background circle */}
-            <Circle
-              cx={progressCircleSize / 2}
-              cy={progressCircleSize / 2}
-              r={progressRadius}
-              stroke="#7C8381"
-              strokeWidth={strokeWidth}
-              fill="transparent"
-            />
-            <StaticRings currentStageIndex={currentStageIndex} />
-            <ActiveRing currentStage={currentStage} stageProgress={stageProgress} />
-          </Svg>
-          <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontFamily, fontSize: isSmallScreen ? 16 : 18, fontWeight: '600', color: '#FFFFFF', marginBottom: 2 }}>
-              {count}
-            </Text>
-            <Text style={{ fontFamily, fontSize: isSmallScreen ? 11 : 12, fontWeight: '500', color: '#AAA9A9' }}>
-              {count >= 5000 ? `${count}/5000+` : `${count}/${currentStage.max}`}
-            </Text>
-          </View>
-        </View>
+        {/* Arabic Text */}
+        <Text style={{ fontFamily, fontSize: 18, fontWeight: '400', color: '#FFFFFF', marginBottom: 2, lineHeight: 22 }} numberOfLines={2}>
+          {currentDhikr.arabic_pronunciation}
+        </Text>
 
-        {/* Right Content */}
-        <View style={{ flex: 1 }}>
-          <Text style={{ fontFamily, fontSize: 14, fontWeight: '600', color: currentStage.titleColor, letterSpacing: 1.4, marginBottom: 8 }}>
-            {currentStage.name}
-          </Text>
-          <Text style={{ fontFamily, fontSize: 12, fontWeight: '300', color: '#FFFFFF', marginBottom: 4 }}>
-            {dhikrData.arabic}
-          </Text>
-          <Text style={{ fontFamily, fontSize: 12, fontWeight: '300', color: '#898989', marginBottom: 12, lineHeight: 16 }}>
-            {dhikrData.meaning}
-          </Text>
-
-          {/* Zikir çek Button */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
-            <TouchableOpacity
-              onPress={incrementDhikr}
-              style={{ width: 90, height: 35, borderRadius: 10, borderWidth: 1, borderColor: currentStage.titleColor, backgroundColor: '#1C1C1C', alignItems: 'center', justifyContent: 'center' }}
-            >
-              <Text style={{ fontFamily, fontSize: 14, fontWeight: '300', color: '#FFFFFF' }}>
-                Zikir çek
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        {/* Turkish Meaning */}
+        <Text style={{ fontFamily, fontSize: 15, fontWeight: '300', color: 'rgba(255, 255, 255, 0.6)', lineHeight: 18 }} numberOfLines={3}>
+          {currentDhikr.meaning}
+        </Text>
       </View>
 
-      {/* Right Arrow */}
-      <TouchableOpacity
-        style={{ width: 22, height: 35, alignItems: 'center', justifyContent: 'center', position: 'absolute', right: -38, bottom: 16 }}
-      >
-        <Ionicons name="chevron-forward" size={16} color="#FFFFFF" />
-      </TouchableOpacity>
+      {/* Bottom Section: Progress Circle and Navigation - Absolute Pinned to Bottom */}
+      <View style={{
+        position: 'absolute',
+        bottom: 20,
+        left: 20,
+        right: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          {/* Left Arrow */}
+          <TouchableOpacity
+            onPress={handlePrev}
+            style={{ position: 'absolute', left: -5, padding: 5, zIndex: 10 }}
+          >
+            <Ionicons name="chevron-back" size={48} color="#FFFFFF" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={incrementDhikr}
+            activeOpacity={0.7}
+            style={{ alignItems: 'center', justifyContent: 'center', position: 'relative' }}
+          >
+            <Svg width={progressCircleSize} height={progressCircleSize}>
+              {/* Background circle */}
+              <Circle
+                cx={progressCircleSize / 2}
+                cy={progressCircleSize / 2}
+                r={progressRadius}
+                stroke="#7C8381"
+                strokeWidth={strokeWidth}
+                fill="transparent"
+              />
+              <StaticRings currentStageIndex={currentStageIndex} />
+              <ActiveRing currentStage={currentStage} stageProgress={stageProgress} />
+            </Svg>
+            <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontFamily, fontSize: 32, fontWeight: '600', color: '#FFFFFF', marginBottom: 4 }}>
+                {count}
+              </Text>
+              <Text style={{ fontFamily, fontSize: 20, fontWeight: '500', color: '#AAA9A9' }}>
+                {count >= 5000 ? `${count}/5000+` : `${count}/${currentStage.max}`}
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          {/* Right Arrow */}
+          <TouchableOpacity
+            onPress={handleNext}
+            style={{ position: 'absolute', right: -5, padding: 5, zIndex: 10 }}
+          >
+            <Ionicons name="chevron-forward" size={48} color="#FFFFFF" />
+          </TouchableOpacity>
+        </View>
+
+        {/* Stage Name Below Circle */}
+        <Text style={{ fontFamily, fontSize: 28, fontWeight: '600', color: currentStage.titleColor, letterSpacing: 1.12, marginTop: 12 }}>
+          {currentStage.name}
+        </Text>
+      </View>
     </View>
   );
 });
 
 export default ZikirCounter;
-

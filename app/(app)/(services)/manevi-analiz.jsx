@@ -156,10 +156,10 @@ const Divider = () => (
 export default function ManeviAnalizScreen() {
     const router = useRouter();
     const { stats, loading } = useManeviAnaliz();
-    const { profile } = useUserStats();
+    const { isPlusOrAbove, isPremium } = useUserStats();
 
-    const isPlus = profile?.premium_state === 'plus' || profile?.premium_state === 'premium';
-    const isPremium = profile?.premium_state === 'premium';
+    const canSeePlus = isPlusOrAbove();
+    const canSeePremium = isPremium();
 
     if (loading) {
         return (
@@ -232,7 +232,7 @@ export default function ManeviAnalizScreen() {
                     <Divider />
 
                     {/* Haftalık - Plus Required */}
-                    {isPlus ? (
+                    {canSeePlus ? (
                         <AnalysisSection title="Haftalık Disiplin Çizelgesi" data={stats.weekly} />
                     ) : (
                         <LockedAnalysisSection title="Haftalık Disiplin Çizelgesi" required="plus" />
@@ -241,7 +241,7 @@ export default function ManeviAnalizScreen() {
                     <Divider />
 
                     {/* Aylık - Plus Required */}
-                    {isPlus ? (
+                    {canSeePlus ? (
                         <AnalysisSection title="Aylık Gelişim Raporu" data={stats.monthly} />
                     ) : (
                         <LockedAnalysisSection title="Aylık Gelişim Raporu" required="plus" />
@@ -250,7 +250,7 @@ export default function ManeviAnalizScreen() {
                     <Divider />
 
                     {/* Yıllık - Premium Required */}
-                    {isPremium ? (
+                    {canSeePremium ? (
                         <AnalysisSection title="Yıllık Kümülatif Analiz" data={stats.yearly} variant="gold" />
                     ) : (
                         <LockedAnalysisSection title="Yıllık Kümülatif Analiz" required="premium" />

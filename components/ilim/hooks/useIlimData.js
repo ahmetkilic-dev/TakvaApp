@@ -209,14 +209,14 @@ export const useIlimData = () => {
   // Günlük limit kontrolü (Server state'e göre)
   const checkDailyLimit = useCallback((tier) => {
     // Premium sınırsız
-    if (tier === 'premium') return { allowed: true, limit: Infinity, used: dailyQuestionCount };
+    if (tier === 'premium') return { allowed: true, limit: Infinity, used: dailyWrongCount };
 
     // Plus: 10 yanlış, Free: 3 yanlış
     const limit = tier === 'plus' ? 10 : 3;
     const used = dailyWrongCount;
 
     return { allowed: used < limit, limit, used };
-  }, [dailyQuestionCount]);
+  }, [dailyWrongCount]);
 
   return {
     user,
@@ -224,6 +224,7 @@ export const useIlimData = () => {
     error,
     totalPoints,
     dailyPoints,
+    dailyWrongCount,
     quizCount,
     categoryStats,
     answeredQuestions,

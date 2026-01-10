@@ -6,8 +6,6 @@ import * as Haptics from 'expo-haptics';
 
 import { useUserStats } from '../../../contexts/UserStatsContext';
 
-const DEFAULT_DUA_RIGHTS = 1;
-
 const pad2 = (n) => String(n).padStart(2, '0');
 const toDayKeyLocal = (date) => {
   const y = date.getFullYear();
@@ -18,11 +16,10 @@ const toDayKeyLocal = (date) => {
 
 export const useZikirDuaDailyStats = () => {
   const { getToday, isLoading: dayLoading } = useDayChangeContext();
-  const { user, updateStat } = useUserStats();
+  const { user } = useUserStats();
 
   const [loading, setLoading] = useState(true);
   const [dhikrBase, setDhikrBase] = useState(0);
-  const [duaRemaining, setDuaRemaining] = useState(DEFAULT_DUA_RIGHTS);
   const [localDhikrDelta, setLocalDhikrDelta] = useState(0);
 
   const pendingDhikrRef = useRef(0);
@@ -47,8 +44,6 @@ export const useZikirDuaDailyStats = () => {
       const dayKeyToUse = dayKeyOverride || dayKeyRef.current || todayKey;
 
       try {
-        // 1. Günlük kullanıcı istatistiğini güncelle
-        // DB Trigger (tr_sync_lifetime_stats) otomatik olarak user_stats.total_dhikr'ı güncelleyecektir.
         try {
           await supabase.rpc('increment_daily_user_stat', {
             target_user_id: user.uid,
@@ -60,11 +55,6 @@ export const useZikirDuaDailyStats = () => {
           console.warn('🧿 Daily zikir update failed:', dailyErr.message);
         }
 
-        // 3. Günlük görev ilerlemesini CONTEXT üzerinden güncelle - ARTIK SUNUCU TARAFLI
-        // (Kod silindi)
-
-
-        // Atomik olarak sayaçlardan düş
         pendingDhikrRef.current -= pending;
         setLocalDhikrDelta((prev) => Math.max(0, prev - pending));
 
@@ -91,7 +81,6 @@ export const useZikirDuaDailyStats = () => {
       dayKeyRef.current = todayKey;
       setLocalDhikrDelta(0);
       setDhikrBase(0);
-      setDuaRemaining(DEFAULT_DUA_RIGHTS);
     }
   }, [todayKey, flushDhikr]);
 
@@ -102,24 +91,17 @@ export const useZikirDuaDailyStats = () => {
         if (!alive) return;
         if (!user?.uid) {
           setDhikrBase(0);
-          setDuaRemaining(DEFAULT_DUA_RIGHTS);
           setLoading(false);
           return;
         }
 
         setLoading(true);
-        // Fetch daily row and total from user_stats (synced by trigger)
-        const [dailyRes, totalRes] = await Promise.all([
+        const [dailyRes] = await Promise.all([
           supabase
             .from('daily_user_stats')
             .select('*')
             .eq('user_id', user.uid)
             .eq('date_key', todayKey)
-            .maybeSingle(),
-          supabase
-            .from('user_stats')
-            .select('total_dhikr')
-            .eq('user_id', user.uid)
             .maybeSingle()
         ]);
 
@@ -127,15 +109,9 @@ export const useZikirDuaDailyStats = () => {
 
         if (dailyRes.data) {
           setDhikrBase(Number(dailyRes.data.dhikr_count || 0));
-          setDuaRemaining(
-            typeof dailyRes.data.dua_remaining === 'number' ? dailyRes.data.dua_remaining : DEFAULT_DUA_RIGHTS
-          );
         } else {
           setDhikrBase(0);
-          setDuaRemaining(DEFAULT_DUA_RIGHTS);
         }
-
-        // We could also store totalDhikrBase if we needed it for a "Total Zikir" display in this screen
       } catch (e) {
         console.warn('🧿 Daily stats read failed:', e?.message || e);
       } finally {
@@ -169,8 +145,6 @@ export const useZikirDuaDailyStats = () => {
     return () => sub.remove();
   }, [flushDhikr]);
 
-
-
   const incrementDhikr = useCallback(() => {
     if (!user?.uid) return;
 
@@ -183,33 +157,7 @@ export const useZikirDuaDailyStats = () => {
 
     pendingDhikrRef.current += 1;
     setLocalDhikrDelta((d) => d + 1);
-
-    // Constant context updates causing lag. Flushing is now handled by interval.
   }, [flushDhikr, todayKey, user?.uid]);
-
-  const consumeDuaRight = useCallback(async () => {
-    if (!user?.uid) return { ok: false, remaining: 0 };
-
-    try {
-      const { data, error } = await supabase.rpc('consume_dua_right', {
-        target_user_id: user.uid,
-        day_key: todayKey,
-        default_rights: DEFAULT_DUA_RIGHTS
-      });
-
-      if (error) throw error;
-
-      if (data && data.ok) {
-        setDuaRemaining(data.remaining);
-        return { ok: true, remaining: data.remaining };
-      } else {
-        return { ok: false, remaining: 0 };
-      }
-    } catch (e) {
-      console.warn('🧿 consumeDuaRight failed:', e?.message || e);
-      return { ok: false, remaining: duaRemaining };
-    }
-  }, [duaRemaining, todayKey, user?.uid]);
 
   const dhikrCount = dhikrBase + localDhikrDelta;
 
@@ -218,13 +166,9 @@ export const useZikirDuaDailyStats = () => {
     todayKey,
     loading: dayLoading || loading,
     dhikrCount,
-    duaRemaining,
     incrementDhikr,
-    consumeDuaRight,
     flushDhikr,
   };
 };
 
 export default useZikirDuaDailyStats;
-
-

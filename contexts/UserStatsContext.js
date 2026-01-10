@@ -38,6 +38,11 @@ export const UserStatsProvider = ({ children }) => {
         following: [],
         premium_state: 'free'
     });
+    const [subscription, setSubscription] = useState({
+        subscription_type: 'free',
+        subscription_plan: null,
+        purchase_date: null
+    });
     const [dailyTasks, setDailyTasks] = useState([]);
     const [userBadges, setUserBadges] = useState([]); // Array of { badge_id, is_completed, current_progress, badges: { title, category, ... } }
     const [isInitialized, setIsInitialized] = useState(false);
@@ -75,19 +80,23 @@ export const UserStatsProvider = ({ children }) => {
                     setProfile(parsed.profile);
                     profileRef.current = parsed.profile;
                 }
+                if (parsed.subscription) {
+                    setSubscription(parsed.subscription);
+                }
             }
         } catch (e) {
             // silent cache error
         }
     }, []);
 
-    const saveCache = useCallback(async (newStats, newTasks, newProfile, newUserBadges) => {
+    const saveCache = useCallback(async (newStats, newTasks, newProfile, newUserBadges, newSub) => {
         try {
             await AsyncStorage.setItem(CACHE_KEY, JSON.stringify({
                 stats: newStats,
                 dailyTasks: newTasks,
                 profile: newProfile,
                 userBadges: newUserBadges,
+                subscription: newSub,
                 timestamp: new Date().getTime()
             }));
         } catch (e) {
@@ -135,24 +144,42 @@ export const UserStatsProvider = ({ children }) => {
         return data || [];
     }, []);
 
+    const fetchSubscription = useCallback(async (uid) => {
+        const { data } = await supabase.from('subscription').select('subscription_type, subscription_plan, purchase_date').eq('id', uid).maybeSingle();
+        if (data) {
+            const normalized = {
+                ...data,
+                subscription_type: (data.subscription_type || 'free').toLowerCase()
+            };
+            console.log('Subscription data fetched:', normalized);
+            setSubscription(normalized);
+            return normalized;
+        } else {
+            const defaultSub = { subscription_type: 'free', subscription_plan: null, purchase_date: null };
+            setSubscription(defaultSub);
+            return defaultSub;
+        }
+    }, []);
+
     const fetchAllData = useCallback(async (uid, silent = false) => {
         if (!uid) return;
         if (!silent) setLoading(true);
         try {
-            const [s, t, p, b] = await Promise.all([
+            const [s, t, p, b, sub] = await Promise.all([
                 fetchStats(uid),
                 fetchDailyTasks(uid),
                 fetchProfile(uid),
-                fetchUserBadges(uid)
+                fetchUserBadges(uid),
+                fetchSubscription(uid)
             ]);
-            await saveCache(s, t, p, b);
+            await saveCache(s, t, p, b, sub);
         } catch (error) {
             console.error('Fetch all data error:', error);
         } finally {
             setLoading(false);
             setIsInitialized(true);
         }
-    }, [fetchStats, fetchDailyTasks, fetchProfile, fetchUserBadges, saveCache]);
+    }, [fetchStats, fetchDailyTasks, fetchProfile, fetchUserBadges, fetchSubscription, saveCache]);
 
     // Auth Listener
     useEffect(() => {
@@ -225,7 +252,7 @@ export const UserStatsProvider = ({ children }) => {
 
     // Computed Values - ARTIK SERVERSIDE VERİYİ KULLANIYOR
     const badgeLogic = useMemo(() => {
-        const currentTier = profile?.premium_state || 'free';
+        const currentTier = subscription?.subscription_type || 'free';
 
         // Tamamlananları say - STATE'E GÖRE FİLTRELE
         // Sadece kullanıcının paketine dahil olan (unlockable) ve tamamlanmış rozetleri sayıyoruz.
@@ -257,7 +284,7 @@ export const UserStatsProvider = ({ children }) => {
         });
 
         return { badgeCount: total, categoryLevels: levels };
-    }, [userBadges, profile?.premium_state]);
+    }, [userBadges, subscription?.subscription_type]);
 
     const updateStat = useCallback(async (key, amount) => {
         // Optimistic update
@@ -290,20 +317,21 @@ export const UserStatsProvider = ({ children }) => {
         user,
         stats,
         profile,
+        subscription,
         dailyTasks,
         userBadges, // Expose raw data
         loading,
         isInitialized,
         ...badgeLogic,
         // Helper functions
-        isPlus: () => profile?.premium_state === 'plus',
-        isPremium: () => profile?.premium_state === 'premium',
-        isPlusOrAbove: () => ['plus', 'premium'].includes(profile?.premium_state),
+        isPlus: () => subscription?.subscription_type === 'plus',
+        isPremium: () => subscription?.subscription_type === 'premium',
+        isPlusOrAbove: () => ['plus', 'premium'].includes(subscription?.subscription_type),
         updateStat,
         setStatsDirect,
         refreshTasks: () => fetchAllData(user?.uid),
         refreshAll: () => fetchAllData(user?.uid)
-    }), [user, stats, profile, dailyTasks, userBadges, loading, isInitialized, badgeLogic, updateStat, setStatsDirect, fetchAllData]);
+    }), [user, stats, profile, subscription, dailyTasks, userBadges, loading, isInitialized, badgeLogic, updateStat, setStatsDirect, fetchAllData]);
 
     return (
         <UserStatsContext.Provider value={value}>

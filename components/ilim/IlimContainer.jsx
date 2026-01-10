@@ -44,11 +44,12 @@ export default function IlimContainer() {
     currentQuestionId,
     markQuestionAsAnswered,
     saveCurrentQuestionId,
-    checkDailyLimit
+    checkDailyLimit,
+    dailyWrongCount
   } = useIlimData();
 
-  const { profile } = useUserStats();
-  const userTier = profile?.premium_state || 'free';
+  const { subscription } = useUserStats();
+  const userTier = subscription?.subscription_type || 'free';
 
   const scrollViewRef = useRef(null);
 
@@ -60,6 +61,13 @@ export default function IlimContainer() {
 
   const [isStatisticsModalVisible, setIsStatisticsModalVisible] = useState(false);
   const [questionLoading, setQuestionLoading] = useState(true);
+
+  const remainingLives = useMemo(() => {
+    if (userTier === 'premium') return '∞';
+    const limit = userTier === 'plus' ? 10 : 3;
+    const remaining = Math.max(0, limit - (dailyWrongCount || 0));
+    return remaining;
+  }, [userTier, dailyWrongCount]);
 
   // ilimData'yı işle - export default veya named export olabilir
   const ilimData = useMemo(() => {
@@ -316,6 +324,7 @@ export default function IlimContainer() {
               <IlimPointsCard
                 dailyPoints={dailyPoints}
                 totalPoints={totalPoints}
+                remainingLives={remainingLives}
               />
             </View>
 
