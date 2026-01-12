@@ -78,8 +78,11 @@ export default function HocaSorularScreen() {
     const { category } = useLocalSearchParams();
 
     const filteredQuestions = useMemo(() => {
-        if (!category) return hocaData;
-        return hocaData.filter(q => q.category.toLowerCase() === category.toLowerCase());
+        let questions = hocaData;
+        if (category) {
+            questions = hocaData.filter(q => q.category.toLowerCase() === category.toLowerCase());
+        }
+        return questions.sort((a, b) => a.question.localeCompare(b.question, 'tr'));
     }, [category]);
 
     return (
@@ -103,21 +106,7 @@ export default function HocaSorularScreen() {
                     <View className="w-9" />
                 </View>
 
-                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
-                    {/* Hoca Info Section (Like Hoca Tab) */}
-                    <View style={{ width: '100%', height: 220, alignItems: 'center', justifyContent: 'center', marginBottom: -40 }}>
-                        {/* Mandala Pattern Overlay */}
-                        <View style={{ position: 'absolute', opacity: 0.15 }}>
-                            <Ionicons name="sunny-outline" size={260} color="#CF9B47" />
-                        </View>
-                        <View style={{
-                            width: 70, height: 70, borderRadius: 35, borderWidth: 1.5,
-                            borderColor: 'rgba(255, 255, 255, 0.5)', overflow: 'hidden',
-                            backgroundColor: '#24322E', marginTop: 0,
-                        }}>
-                            <Image source={hocaImage} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
-                        </View>
-                    </View>
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40, paddingTop: 30 }}>
 
                     <Text style={{
                         fontFamily,

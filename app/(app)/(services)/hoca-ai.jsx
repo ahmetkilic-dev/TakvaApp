@@ -28,7 +28,7 @@ const suggestedQuestions = [
 ];
 
 // Categories will be extracted from hocaData.js
-const uniqueCategories = [...new Set(hocaData.map(item => item.category))];
+const uniqueCategories = [...new Set(hocaData.map(item => item.category))].sort((a, b) => a.localeCompare(b, 'tr'));
 const hocaCategories = uniqueCategories.map(cat => ({ title: cat }));
 
 const MandalaPattern = () => (

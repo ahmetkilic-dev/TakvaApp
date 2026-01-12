@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, TextInput, ScrollView, Platform } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, TextInput, ScrollView, Platform, Dimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import { useUserStats } from '../../../contexts/UserStatsContext';
 import KelamService from '../../../services/KelamService';
 import { R2UploadService } from '../../../services/R2UploadService';
-import { Video } from 'react-native-compressor';
+import { Video as VideoCompressor } from 'react-native-compressor';
+import ScreenBackground from '../../../components/common/ScreenBackground';
+import { LinearGradient } from 'expo-linear-gradient';
+import { rsW, rsH, rsF } from '../../../utils/responsive';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function KelamUploadScreen() {
     const router = useRouter();
+    const insets = useSafeAreaInsets();
     const { user, profile } = useUserStats();
 
     const [title, setTitle] = useState('');
@@ -49,7 +55,7 @@ export default function KelamUploadScreen() {
             setUploadStep('compressing');
             console.log('[Compressor] Sıkıştırma başlatılıyor...', videoUri);
 
-            const compressedUri = await Video.compress(
+            const compressedUri = await VideoCompressor.compress(
                 videoUri,
                 {
                     compressionMethod: 'auto',
@@ -69,7 +75,7 @@ export default function KelamUploadScreen() {
             console.log('[Compressor] Thumbnail oluşturuluyor...');
             let thumbnailUri = null;
             try {
-                const thumbnailResult = await Video.getVideoThumbnail(videoUri, {
+                const thumbnailResult = await VideoCompressor.getVideoThumbnail(videoUri, {
                     quality: 0.5,
                 });
                 thumbnailUri = thumbnailResult.path;
@@ -115,47 +121,59 @@ export default function KelamUploadScreen() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-                    <Ionicons name="chevron-back" size={28} color="#FFFFFF" />
+        <ScreenBackground>
+            <View style={[styles.header, { paddingTop: Math.max(insets.top, 8) }]}>
+                <TouchableOpacity onPress={() => router.back()} style={styles.headerSide}>
+                    <Ionicons name="chevron-back" size={30} color="#FFFFFF" />
                 </TouchableOpacity>
-                <Text style={styles.headerTitle}>Video Yükle</Text>
-                <View style={{ width: 28 }} />
+                <Text style={styles.standardTitle}>KELÂM</Text>
+                <View style={styles.headerSide} />
             </View>
 
-            <ScrollView contentContainerStyle={styles.content}>
-                <TouchableOpacity
-                    style={styles.pickerArea}
-                    onPress={pickVideo}
-                    disabled={isUploading}
-                >
-                    {videoUri ? (
-                        <View style={styles.selectedVideoInfo}>
-                            <Ionicons name="videocam" size={48} color="#D4AF37" />
-                            <Text style={styles.videoUriText} numberOfLines={1}>{videoUri.split('/').pop()}</Text>
-                            <Text style={styles.changeText}>Videoyu Değiştir</Text>
-                        </View>
-                    ) : (
-                        <>
-                            <Ionicons name="cloud-upload-outline" size={64} color="rgba(255,255,255,0.3)" />
-                            <Text style={styles.pickerText}>Video Seçmek İçin Dokun</Text>
-                            <Text style={styles.limitText}>Max 60 saniye, 720p önerilir.</Text>
-                        </>
-                    )}
-                </TouchableOpacity>
+            <ScrollView contentContainerStyle={styles.content} bounces={false}>
+                <View style={styles.formContainer}>
+                    {/* Left: Description Area */}
+                    <View style={styles.textInputContainer}>
+                        <LinearGradient
+                            colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0)']}
+                            locations={[0.0002, 0.4723, 0.7996, 1.0]}
+                            style={StyleSheet.absoluteFill}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Açıklama ekleyin..."
+                            placeholderTextColor="rgba(255,255,255,0.3)"
+                            value={title}
+                            onChangeText={setTitle}
+                            multiline
+                            maxLength={500}
+                        />
+                    </View>
 
-                <View style={styles.inputGroup}>
-                    <Text style={styles.inputLabel}>Başlık</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Videonuz için etkileyici bir başlık..."
-                        placeholderTextColor="rgba(255,255,255,0.3)"
-                        value={title}
-                        onChangeText={setTitle}
-                        multiline
-                        maxLength={100}
-                    />
+                    {/* Right: Picker Area */}
+                    <TouchableOpacity
+                        style={styles.pickerArea}
+                        onPress={pickVideo}
+                        disabled={isUploading}
+                    >
+                        <LinearGradient
+                            colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0)']}
+                            locations={[0.0002, 0.4723, 0.7996, 1.0]}
+                            style={StyleSheet.absoluteFill}
+                        />
+                        {videoUri ? (
+                            <View style={styles.selectedVideoInfo}>
+                                <Ionicons name="videocam" size={36} color="#D4AF37" />
+                                <Text style={styles.changeText}>Videonuz Seçildi</Text>
+                                <Text style={styles.changeSubText}>Değiştir</Text>
+                            </View>
+                        ) : (
+                            <View style={styles.pickerHint}>
+                                <Ionicons name="share-outline" size={42} color="#FFFFFF" />
+                                <Text style={styles.pickerText}>Video seçmek için dokun</Text>
+                            </View>
+                        )}
+                    </TouchableOpacity>
                 </View>
 
                 <TouchableOpacity
@@ -163,9 +181,14 @@ export default function KelamUploadScreen() {
                     onPress={handleUpload}
                     disabled={isUploading || !videoUri || !title}
                 >
+                    <LinearGradient
+                        colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0)']}
+                        locations={[0.0002, 0.4723, 0.7996, 1.0]}
+                        style={StyleSheet.absoluteFill}
+                    />
                     {isUploading ? (
                         <View style={styles.loadingRow}>
-                            <ActivityIndicator color="#04100D" size="small" />
+                            <ActivityIndicator color="#FFFFFF" size="small" />
                             <Text style={styles.uploadButtonText}>
                                 {uploadStep === 'compressing' ? 'Optimize Ediliyor...' :
                                     uploadStep === 'thumbnailing' ? 'Kapak Oluşturuluyor...' : 'Yükleniyor...'}
@@ -176,118 +199,119 @@ export default function KelamUploadScreen() {
                     )}
                 </TouchableOpacity>
             </ScrollView>
-        </SafeAreaView>
+        </ScreenBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#04100D',
-    },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        height: 60,
+        paddingHorizontal: rsW(10),
+        zIndex: 100,
+        height: 60 + rsH(10),
     },
-    headerTitle: {
-        fontFamily: 'Plus Jakarta Sans',
-        color: '#FFFFFF',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    backButton: {
-        padding: 5,
-    },
-    content: {
-        padding: 20,
-    },
-    pickerArea: {
-        width: '100%',
-        aspectRatio: 9 / 12,
-        backgroundColor: 'rgba(255,255,255,0.05)',
-        borderRadius: 15,
-        borderWidth: 2,
-        borderColor: 'rgba(255,255,255,0.1)',
-        borderStyle: 'dashed',
+    headerSide: {
+        width: rsW(44),
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 24,
+    },
+    standardTitle: {
+        fontFamily: 'Cinzel-Black',
+        color: '#FFFFFF',
+        fontSize: rsF(26),
+        textAlign: 'center',
+        letterSpacing: rsW(1),
+    },
+    content: {
+        flexGrow: 1,
+        paddingHorizontal: rsW(20),
+        paddingTop: rsH(30),
+    },
+    formContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: rsH(20),
+    },
+    textInputContainer: {
+        flex: 2.5,
+        height: rsH(178),
+        backgroundColor: 'rgba(255,255,255,0.02)',
+        borderRadius: 10,
+        borderWidth: 0.5,
+        borderColor: 'rgba(255,255,255,0.5)',
+        marginRight: rsW(10),
+        overflow: 'hidden',
+    },
+    input: {
+        flex: 1,
+        padding: 15,
+        color: '#FFFFFF',
+        fontFamily: 'PlusJakartaSans-Regular',
+        fontSize: rsF(14),
+        textAlignVertical: 'top',
+    },
+    pickerArea: {
+        flex: 1,
+        height: rsH(178),
+        backgroundColor: 'rgba(255,255,255,0.02)',
+        borderRadius: 10,
+        borderWidth: 0.5,
+        borderColor: 'rgba(255,255,255,0.5)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+    },
+    pickerHint: {
+        alignItems: 'center',
+        paddingHorizontal: rsW(10),
     },
     pickerText: {
-        fontFamily: 'Plus Jakarta Sans',
+        fontFamily: 'PlusJakartaSans-Light',
         color: '#FFFFFF',
-        fontSize: 16,
-        marginTop: 12,
-    },
-    limitText: {
-        fontFamily: 'Plus Jakarta Sans',
-        color: 'rgba(255,255,255,0.3)',
-        fontSize: 12,
-        marginTop: 4,
+        fontSize: rsF(12),
+        marginTop: 15,
+        textAlign: 'center',
+        letterSpacing: rsW(-12 * 0.02),
     },
     selectedVideoInfo: {
         alignItems: 'center',
     },
-    videoUriText: {
-        fontFamily: 'Plus Jakarta Sans',
+    changeText: {
+        fontFamily: 'PlusJakartaSans-Bold',
         color: '#D4AF37',
-        fontSize: 14,
+        fontSize: rsF(12),
         marginTop: 10,
-        width: 200,
         textAlign: 'center',
     },
-    changeText: {
-        fontFamily: 'Plus Jakarta Sans',
+    changeSubText: {
+        fontFamily: 'PlusJakartaSans-Regular',
         color: 'rgba(255,255,255,0.5)',
-        fontSize: 12,
-        marginTop: 8,
+        fontSize: rsF(10),
+        marginTop: 4,
         textDecorationLine: 'underline',
     },
-    inputGroup: {
-        marginBottom: 32,
-    },
-    inputLabel: {
-        fontFamily: 'Plus Jakarta Sans',
-        color: '#FFFFFF',
-        fontSize: 14,
-        fontWeight: '600',
-        marginBottom: 8,
-    },
-    input: {
-        backgroundColor: 'rgba(255,255,255,0.05)',
-        borderRadius: 10,
-        padding: 15,
-        color: '#FFFFFF',
-        fontFamily: 'Plus Jakarta Sans',
-        fontSize: 16,
-        textAlignVertical: 'top',
-        minHeight: 80,
-    },
     uploadButton: {
-        backgroundColor: '#D4AF37',
-        height: 56,
-        borderRadius: 28,
+        width: '100%',
+        height: rsH(48),
+        borderRadius: 10,
+        borderWidth: 0.5,
+        borderColor: 'rgba(255,255,255,0.5)',
+        backgroundColor: 'rgba(255,255,255,0.05)',
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: '#D4AF37',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 5,
+        marginTop: rsH(10),
+        overflow: 'hidden',
     },
     disabledButton: {
-        backgroundColor: 'rgba(255,255,255,0.1)',
-        shadowOpacity: 0,
-        elevation: 0,
+        opacity: 0.5,
     },
     uploadButtonText: {
-        fontFamily: 'Plus Jakarta Sans',
-        color: '#04100D',
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'PlusJakartaSans-Light',
+        color: '#FFFFFF',
+        fontSize: rsF(18),
+        letterSpacing: rsW(-18 * 0.02),
     },
     loadingRow: {
         flexDirection: 'row',

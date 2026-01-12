@@ -16,23 +16,15 @@ const STREAM_SOURCES = [
 
 import React from 'react';
 
-import { useUserStats } from '../../contexts/UserStatsContext';
+
 
 const QuranSection = React.memo(() => {
    const router = useRouter();
-   const { stats, loading: contextLoading, isPlusOrAbove, isPremium } = useUserStats();
    const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
    const [isPlaying, setIsPlaying] = useState(false);
 
    const fontStyle = { fontFamily: 'Plus Jakarta Sans' };
 
-   const totalRead = stats.total_pages_read || 0;
-   const lastPage = stats.last_read_page || 1;
-   const progress = (totalRead / 604) * 100;
-
-   const displayDescription = isPlusOrAbove()
-      ? `${lastPage}. sayfadasın. Toplam ${totalRead} sayfa okudun.`
-      : 'Kur\'an okumaya hemen başla.';
 
    // Initialize the audio player
    const player = useAudioPlayer(STREAM_SOURCES[currentSourceIndex]);
@@ -77,11 +69,7 @@ const QuranSection = React.memo(() => {
    };
 
    const handleGoToQuran = () => {
-      // Navigate directly to the last read page
-      router.push({
-         pathname: '/(app)/(services)/quran-page',
-         params: { type: 'page', number: lastPage.toString() }
-      });
+      router.push('/(app)/(services)/quran');
    };
 
    return (
@@ -130,24 +118,17 @@ const QuranSection = React.memo(() => {
          <View style={styles.ctaCard}>
             {/* Sol Metin Alanı */}
             <View style={styles.ctaTextContainer}>
-               <Text style={[fontStyle, styles.ctaTitle]}>Kur'an Yolculuğun</Text>
+               <Text style={[fontStyle, styles.ctaTitle]}>Kuran-ı Kerim</Text>
                <Text style={[fontStyle, styles.ctaDescription]}>
-                  {displayDescription}
+                  Kuran-ı Kerim'i okuyabilir, meallerini inceleyebilir ve aradığınız ayeti kolayca bulabilirsiniz.
                </Text>
-
-               {/* Progress Bar - Only for Premium */}
-               {isPremium() && (
-                  <View style={styles.progressBarBg}>
-                     <View style={[styles.progressBarFill, { width: `${Math.min(100, progress)}%` }]} />
-                  </View>
-               )}
 
                <TouchableOpacity
                   style={styles.ctaButton}
                   onPress={handleGoToQuran}
                   activeOpacity={0.8}
                >
-                  <Text style={[fontStyle, styles.ctaButtonText]}>Okumaya devam et</Text>
+                  <Text style={[fontStyle, styles.ctaButtonText]}>Kuran'a git</Text>
                </TouchableOpacity>
             </View>
 
@@ -239,7 +220,7 @@ const styles = StyleSheet.create({
    },
    ctaCard: {
       width: SCREEN_WIDTH * 0.9,
-      height: 135,
+      minHeight: 135,
       backgroundColor: '#24322E',
       borderRadius: 20,
       borderWidth: 0.5,
@@ -247,12 +228,12 @@ const styles = StyleSheet.create({
       marginTop: 16,
       flexDirection: 'row',
       alignItems: 'center',
-      overflow: 'hidden',
+      paddingLeft: 16,
+      paddingRight: 10,
+      paddingVertical: 12,
    },
    ctaTextContainer: {
       flex: 1,
-      paddingLeft: 20,
-      paddingRight: 8,
       justifyContent: 'center',
    },
    ctaTitle: {
@@ -265,44 +246,33 @@ const styles = StyleSheet.create({
       color: '#FFFFFF',
       fontSize: 12,
       fontWeight: '300',
-      lineHeight: 16,
+      lineHeight: 15,
       marginBottom: 12,
    },
    ctaButton: {
       backgroundColor: '#182723',
-      borderWidth: 0.5,
-      borderColor: 'rgba(255, 186, 74, 0.5)',
-      borderRadius: 8,
+      borderWidth: 0.8,
+      borderColor: '#FFBA4A80',
+      borderRadius: 10,
       paddingVertical: 6,
-      paddingHorizontal: 12,
+      paddingHorizontal: 16,
       alignSelf: 'flex-start',
    },
    ctaButtonText: {
       color: '#FFFFFF',
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: '600',
    },
-   progressBarBg: {
-      width: '100%',
-      height: 6,
-      backgroundColor: '#7C8381',
-      borderRadius: 3,
-      marginBottom: 12,
-      overflow: 'hidden',
-   },
-   progressBarFill: {
-      height: '100%',
-      backgroundColor: '#8CD7C0',
-      borderRadius: 3,
-   },
    ctaImageContainer: {
-      paddingRight: 16,
+      marginLeft: 8,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
    },
    ctaImage: {
-      width: 140,
-      height: 108,
+      width: 155,
+      height: 100,
+      borderRadius: 8,
       borderWidth: 0.5,
       borderColor: 'rgba(255, 255, 255, 0.5)',
-      borderRadius: 10,
    }
 });

@@ -109,16 +109,6 @@ const HutbePDFViewer = memo(({ pdfUrl }) => {
         injectedJavaScript={INJECTED_JAVASCRIPT}
         scrollEnabled={true}
       />
-
-      {/* External Open / Download Button */}
-      <TouchableOpacity
-        style={styles.floatingButton}
-        onPress={handleOpenExternal}
-        activeOpacity={0.8}
-      >
-        <Ionicons name="open-outline" size={24} color="#FFF" />
-        <Text style={styles.floatingButtonText}>Tarayıcıda Aç</Text>
-      </TouchableOpacity>
     </View>
   );
 });
@@ -143,29 +133,6 @@ const styles = StyleSheet.create({
     zIndex: 1,
     backgroundColor: '#182723',
   },
-  floatingButton: {
-    position: 'absolute',
-    bottom: 24,
-    right: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#4ECDC4',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 6,
-    zIndex: 10,
-    gap: 8,
-  },
-  floatingButtonText: {
-    color: '#FFF',
-    fontWeight: '700',
-    fontSize: 14,
-  }
 });
 
 export default HutbePDFViewer;

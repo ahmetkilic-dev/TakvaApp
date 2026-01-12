@@ -1,5 +1,7 @@
 import { View, Text, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
+import gunayetIcon from '../../assets/images/gunayet.png';
 import { useCallback } from 'react';
 import Animated, {
   useSharedValue,
@@ -70,7 +72,7 @@ export default function VerseSlider({ onComplete, disabled = false, message = nu
           if (finished) {
             // Tamamlandıktan sonra callback'i çağır (runOnJS ile güvenli)
             runOnJS(handleComplete)();
-            
+
             // Geri dön - smooth spring
             translateX.value = withSpring(0, {
               damping: 20,
@@ -166,7 +168,11 @@ export default function VerseSlider({ onComplete, disabled = false, message = nu
               buttonAnimatedStyle,
             ]}
           >
-            <Ionicons name="book" size={20} color="#FFFFFF" />
+            <Image
+              source={gunayetIcon}
+              style={{ width: 22, height: 22 }}
+              contentFit="contain"
+            />
             <Ionicons name="chevron-forward" size={16} color="#FFFFFF" />
           </Animated.View>
         </GestureDetector>

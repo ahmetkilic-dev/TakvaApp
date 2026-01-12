@@ -19,7 +19,8 @@ export default function DuaCard() {
         style={{
           height: 45,
           backgroundColor: '#1C1C1C',
-          borderWidth: 3,
+          borderTopWidth: 3,
+          borderBottomWidth: 3,
           borderColor: '#186853',
           marginHorizontal: -horizontalPadding, // To span full width
           width: SCREEN_WIDTH,

@@ -66,10 +66,13 @@ const ActiveRing = React.memo(({ currentStage, stageProgress }) => {
 });
 
 const ZikirCounter = React.memo(() => {
-  const { dhikrCount: count, incrementDhikr } = useZikirDuaDailyStats();
+  const { dhikrCount: globalTotal, incrementDhikr, perDhikrCounts } = useZikirDuaDailyStats();
   const [currentDhikrIndex, setCurrentDhikrIndex] = useState(0);
 
   const currentDhikr = useMemo(() => dhikrList[currentDhikrIndex], [currentDhikrIndex]);
+
+  // Mevcut zikrin yerel sayısı
+  const count = perDhikrCounts[currentDhikr.id] || 0;
 
   const handlePrev = () => {
     setCurrentDhikrIndex((prev) => (prev === 0 ? dhikrList.length - 1 : prev - 1));
@@ -79,7 +82,11 @@ const ZikirCounter = React.memo(() => {
     setCurrentDhikrIndex((prev) => (prev === dhikrList.length - 1 ? 0 : prev + 1));
   };
 
-  // Mevcut aşamayı bul
+  const handleIncrement = () => {
+    incrementDhikr(currentDhikr.id);
+  };
+
+  // Mevcut aşamayı bul (Her zikir kendi aşamasını takip etsin diye zikir özelindeki count kullanılıyor)
   const currentStage = useMemo(() => {
     if (count >= 5000) return stages[4];
     for (let i = stages.length - 1; i >= 0; i--) {
@@ -148,7 +155,7 @@ const ZikirCounter = React.memo(() => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={incrementDhikr}
+            onPress={handleIncrement}
             activeOpacity={0.7}
             style={{ alignItems: 'center', justifyContent: 'center', position: 'relative' }}
           >

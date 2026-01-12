@@ -24,7 +24,7 @@ const PrayerItem = React.memo(({ prayer, toggle, disabled, isLast, fontFamily })
           justifyContent: 'space-between',
           paddingVertical: 12,
           paddingHorizontal: 12,
-          backgroundColor: prayer.isCurrent ? 'rgba(255, 186, 74, 0.08)' : 'transparent',
+          backgroundColor: 'transparent',
           opacity: disabled ? 0.45 : 1,
         }}
         activeOpacity={0.7}

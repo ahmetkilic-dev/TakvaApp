@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
 import * as Haptics from 'expo-haptics';
@@ -14,6 +15,8 @@ const toDayKeyLocal = (date) => {
   return `${y}-${m}-${d}`;
 };
 
+const LOCAL_DHIKR_COUNTS_KEY = '@takva_local_per_dhikr_counts';
+
 export const useZikirDuaDailyStats = () => {
   const { getToday, isLoading: dayLoading } = useDayChangeContext();
   const { user } = useUserStats();
@@ -21,6 +24,9 @@ export const useZikirDuaDailyStats = () => {
   const [loading, setLoading] = useState(true);
   const [dhikrBase, setDhikrBase] = useState(0);
   const [localDhikrDelta, setLocalDhikrDelta] = useState(0);
+
+  // Her zikir için ayrı sayaç tutan state
+  const [perDhikrCounts, setPerDhikrCounts] = useState({});
 
   const pendingDhikrRef = useRef(0);
   const flushingRef = useRef(false);
@@ -81,8 +87,34 @@ export const useZikirDuaDailyStats = () => {
       dayKeyRef.current = todayKey;
       setLocalDhikrDelta(0);
       setDhikrBase(0);
+      setPerDhikrCounts({}); // Gün değişince yerel sayaçları sıfırla
     }
   }, [todayKey, flushDhikr]);
+
+  // Yerel sayaçları yükle
+  useEffect(() => {
+    let alive = true;
+    const loadLocalCounts = async () => {
+      try {
+        const stored = await AsyncStorage.getItem(LOCAL_DHIKR_COUNTS_KEY);
+        if (stored && alive) {
+          const parsed = JSON.parse(stored);
+          // Sadece bugünün verisi ise yükle
+          if (parsed.dateKey === todayKey) {
+            setPerDhikrCounts(parsed.counts || {});
+          } else {
+            // Eski gün verisi, temizle
+            setPerDhikrCounts({});
+            await AsyncStorage.removeItem(LOCAL_DHIKR_COUNTS_KEY);
+          }
+        }
+      } catch (e) {
+        console.warn('🧿 Local dhikr counts load failed:', e);
+      }
+    };
+    loadLocalCounts();
+    return () => { alive = false; };
+  }, [todayKey]);
 
   useEffect(() => {
     let alive = true;
@@ -145,9 +177,7 @@ export const useZikirDuaDailyStats = () => {
     return () => sub.remove();
   }, [flushDhikr]);
 
-  const incrementDhikr = useCallback(() => {
-    if (!user?.uid) return;
-
+  const incrementDhikr = useCallback(async (dhikrId) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
     if (dayKeyRef.current && dayKeyRef.current !== todayKey) {
@@ -155,8 +185,24 @@ export const useZikirDuaDailyStats = () => {
       dayKeyRef.current = todayKey;
     }
 
-    pendingDhikrRef.current += 1;
-    setLocalDhikrDelta((d) => d + 1);
+    // 1. Global sayaç güncellemesi (Supabase'e gidecek olan)
+    if (user?.uid) {
+      pendingDhikrRef.current += 1;
+      setLocalDhikrDelta((d) => d + 1);
+    }
+
+    // 2. Yerel, zikir bazlı sayaç güncellemesi (Her zaman çalışır)
+    if (dhikrId) {
+      setPerDhikrCounts(prev => {
+        const next = { ...prev, [dhikrId]: (prev[dhikrId] || 0) + 1 };
+        // AsyncStorage'a kaydet (Debounce-suz basit kaydetme, zikir hızı için yeterli)
+        void AsyncStorage.setItem(LOCAL_DHIKR_COUNTS_KEY, JSON.stringify({
+          dateKey: todayKey,
+          counts: next
+        }));
+        return next;
+      });
+    }
   }, [flushDhikr, todayKey, user?.uid]);
 
   const dhikrCount = dhikrBase + localDhikrDelta;
@@ -166,6 +212,7 @@ export const useZikirDuaDailyStats = () => {
     todayKey,
     loading: dayLoading || loading,
     dhikrCount,
+    perDhikrCounts, // Component'e aç
     incrementDhikr,
     flushDhikr,
   };
