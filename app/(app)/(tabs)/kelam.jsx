@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, StatusBar, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useUserStats } from '../../../contexts/UserStatsContext';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { useRouter } from 'expo-router';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import { KelamFeed } from '../../../components/kelam/KelamFeed';
 import KelamService from '../../../services/KelamService';
 import { supabase } from '../../../lib/supabase';
@@ -108,6 +109,27 @@ export default function KelamScreen() {
                 <View style={[StyleSheet.absoluteFill, { backgroundColor: '#04100D' }]} />
             </View>
 
+            {/* Content Area */}
+            {isLoading ? (
+                <View style={styles.centerContent}>
+                    <ActivityIndicator color="#D4AF37" size="large" />
+                    <Text style={[styles.emptyText, { marginTop: 20 }]}>Kelam yükleniyor...</Text>
+                </View>
+            ) : videos.length > 0 ? (
+                <KelamFeed
+                    videos={videos}
+                    onLike={handleLike}
+                    onEndReached={handleLoadMore}
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            ) : (
+                <View style={styles.centerContent}>
+                    <Ionicons name="videocam-outline" size={64} color="rgba(255,255,255,0.1)" />
+                    <Text style={styles.emptyText}>Henüz bir kelam paylaşılmamış.</Text>
+                </View>
+            )}
+
             {/* Header Overlay */}
             <View style={[styles.headerContainer, { paddingTop: Math.max(insets.top, 8) }]}>
                 {/* Left: Add Icon (Creator Only) */}
@@ -135,27 +157,6 @@ export default function KelamScreen() {
                     </TouchableOpacity>
                 </View>
             </View>
-
-            {/* Content Area */}
-            {isLoading ? (
-                <View style={styles.centerContent}>
-                    <ActivityIndicator color="#D4AF37" size="large" />
-                    <Text style={[styles.emptyText, { marginTop: 20 }]}>Kelam yükleniyor...</Text>
-                </View>
-            ) : videos.length > 0 ? (
-                <KelamFeed
-                    videos={videos}
-                    onLike={handleLike}
-                    onEndReached={handleLoadMore}
-                    refreshing={refreshing}
-                    onRefresh={handleRefresh}
-                />
-            ) : (
-                <View style={styles.centerContent}>
-                    <Ionicons name="videocam-outline" size={64} color="rgba(255,255,255,0.1)" />
-                    <Text style={styles.emptyText}>Henüz bir kelam paylaşılmamış.</Text>
-                </View>
-            )}
         </View>
     );
 }

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Dimensions, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, Dimensions, ActivityIndicator, TouchableOpacity, Alert, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -27,9 +27,12 @@ const horizontalPadding = 20;
 
 export default function ProfilScreen() {
   const router = useRouter();
-  const { user, loading, profileData } = useProfile();
+  const { user, loading, profileData, refreshProfile } = useProfile();
   const [creatorVideos, setCreatorVideos] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   const scrollViewRef = useScrollJumpFix();
+
+  // ---------------- GESTURE LOGIC REMOVED ----------------
 
   const loadCreatorVideos = useCallback(async () => {
     const creatorId = profileData?.id || user?.uid;
@@ -44,6 +47,21 @@ export default function ProfilScreen() {
       }
     }
   }, [profileData?.id, profileData?.role, profileData?.applicationStatus, user?.uid]);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      // Hem profil verilerini (rozetler, takipçi vs.) hem de videoları yenile
+      await Promise.all([
+        refreshProfile(true), // Silent refresh (No full screen loader)
+        loadCreatorVideos()
+      ]);
+    } catch (error) {
+      console.error('Profile refresh error:', error);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refreshProfile, loadCreatorVideos]);
 
   useEffect(() => {
     loadCreatorVideos();
@@ -89,14 +107,27 @@ export default function ProfilScreen() {
 
       if (error) throw error;
 
+      // Clear cache to ensure fresh fetch
+      await AsyncStorage.removeItem('@user_stats_cache');
+
+      // Update Context (Wait for it)
+      await refreshProfile();
+
       Alert.alert('Başarılı', 'Profil fotoğrafınız güncellendi!');
 
-      // Clear cache and force reload
-      await AsyncStorage.removeItem('@user_stats_cache');
-      router.replace('/(app)/(tabs)/profile');
     } catch (error) {
       console.error('Profile picture upload error:', error);
       Alert.alert('Hata', 'Profil fotoğrafı yüklenirken bir sorun oluştu.');
+    }
+  };
+
+
+
+  const handleScrollEndDrag = (e) => {
+    const offsetY = e.nativeEvent.contentOffset.y;
+    // Trigger refresh if pulled down significantly
+    if (offsetY < -80 && !refreshing) {
+      onRefresh();
     }
   };
 
@@ -113,8 +144,8 @@ export default function ProfilScreen() {
   return (
     <ScreenBackground>
       <SafeAreaView edges={['top']} className="flex-1">
-        {/* Header - Styled to match original Tasks UI / Profil UI Header Title */}
-        <View className="flex-row items-center justify-between px-4 pt-2 pb-2">
+        {/* Header */}
+        <View className="flex-row items-center justify-between px-4 pt-2 pb-2" style={{ zIndex: 20 }}>
           <View className="w-9" />
           <Text style={{ fontFamily: 'Cinzel-Black', color: '#FFFFFF', fontSize: 24, textAlign: 'center', letterSpacing: -2 }}>
             PROFİL
@@ -127,6 +158,13 @@ export default function ProfilScreen() {
           </TouchableOpacity>
         </View>
 
+        {/* Custom Overlay Spinner - Bounce Refresh */}
+        {refreshing && (
+          <View style={{ position: 'absolute', top: 100, left: 0, right: 0, zIndex: 10, alignItems: 'center' }}>
+            <ActivityIndicator size="small" color="#D4AF37" />
+          </View>
+        )}
+
         <ScrollView
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
@@ -134,6 +172,7 @@ export default function ProfilScreen() {
           maxToRenderPerBatch={2}
           windowSize={5}
           scrollEventThrottle={16}
+          onScrollEndDrag={handleScrollEndDrag}
           contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 20 }}
         >
 
@@ -150,7 +189,6 @@ export default function ProfilScreen() {
             socialLinks={profileData.social_links}
           />
 
-
           <QuickStatsRow
             followingCount={profileData.followingCount}
             badgeCount={profileData.badgeCount}
@@ -166,9 +204,15 @@ export default function ProfilScreen() {
                 isOwner={true}
                 onRefresh={loadCreatorVideos}
                 onPostPress={(video, index) => {
+                  const targetId = profileData?.id || user?.uid;
+                  console.log('[Profile] Navigating to feed. ID:', targetId, 'Video:', video.id);
+                  if (!targetId) {
+                    Alert.alert('Hata', 'Kullanıcı kimliği bulunamadı.');
+                    return;
+                  }
                   router.push({
                     pathname: '/(app)/(services)/creator-feed',
-                    params: { id: profileData.id, initialVideoId: video.id }
+                    params: { id: targetId, initialVideoId: video.id }
                   });
                 }}
               />
@@ -182,7 +226,6 @@ export default function ProfilScreen() {
             userTier={profileData.premiumState}
           />
 
-          {/* Manevi Gelisim Card */}
           <ManeviGelisimCard />
 
           <PremiumBanner

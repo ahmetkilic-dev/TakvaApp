@@ -25,17 +25,26 @@ export default function CreatorFeedScreen() {
     const LIMIT = 20;
 
     const loadVideos = useCallback(async (pageOffset, isInitial = false, isRefresh = false) => {
+        console.log(`[CreatorFeed] loadVideos called. Offset: ${pageOffset}, Initial: ${isInitial}, Refresh: ${isRefresh}`);
+        console.log(`[CreatorFeed] Params - CreatorID: ${creatorId}, InitialVideoID: ${initialVideoId}`);
+
         if (isInitial && !isRefresh) setIsLoading(true);
         else if (pageOffset > 0) setIsMoreLoading(true);
 
         try {
             // Fetch all videos for creator (Already ordered by created_at DESC)
             const newVideos = await KelamService.fetchCreatorVideos(creatorId, user?.uid);
+            console.log(`[CreatorFeed] Fetched ${newVideos?.length} videos.`);
 
             if (newVideos && newVideos.length > 0) {
                 // Find initial index if initialVideoId is provided
                 if (isInitial && initialVideoId && !isRefresh) { // Don't reset index on refresh
-                    const idx = newVideos.findIndex(v => v.id === initialVideoId || v.id.toString() === initialVideoId);
+                    // Type-safe comparison
+                    const targetId = String(initialVideoId);
+                    const idx = newVideos.findIndex(v => String(v.id) === targetId);
+
+                    console.log(`[CreatorFeed] Initial video search. Target: ${targetId}, Found Index: ${idx}`);
+
                     if (idx !== -1) setInitialIndex(idx);
                 }
 
@@ -45,8 +54,9 @@ export default function CreatorFeedScreen() {
                 setVideos([]);
             }
         } catch (error) {
-            console.error('CreatorFeed: Load error', error);
+            console.error('[CreatorFeed] Load error:', error);
         } finally {
+            console.log('[CreatorFeed] Loading finished.');
             setIsLoading(false);
             setIsMoreLoading(false);
             setRefreshing(false);
@@ -55,7 +65,10 @@ export default function CreatorFeedScreen() {
 
     useEffect(() => {
         if (creatorId) {
+            console.log('[CreatorFeed] Mount effect triggered. CreatorID exists.');
             loadVideos(0, true);
+        } else {
+            console.warn('[CreatorFeed] Mount effect skipped. No CreatorID.');
         }
     }, [creatorId, loadVideos]);
 

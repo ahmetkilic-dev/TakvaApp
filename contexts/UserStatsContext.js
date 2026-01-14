@@ -344,7 +344,7 @@ export const UserStatsProvider = ({ children }) => {
         updateStat,
         setStatsDirect,
         refreshTasks: () => fetchAllData(user?.uid),
-        refreshAll: () => fetchAllData(user?.uid)
+        refreshAll: (silent = false) => fetchAllData(user?.uid, silent)
     }), [user, stats, profile, subscription, dailyTasks, userBadges, loading, isInitialized, badgeLogic, updateStat, setStatsDirect, fetchAllData]);
 
     return (

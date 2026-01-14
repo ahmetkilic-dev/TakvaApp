@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity, Animated } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useVideoPlayer, VideoView } from 'expo-video';
@@ -85,18 +85,34 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
         return () => subscription.remove();
     }, [player]);
 
-    // Progress tracking with smooth 60fps updates
+    // Scrubbing Logic
+    const [isScrubbing, setIsScrubbing] = useState(false);
+
+    // Progress tracking
     useEffect(() => {
-        if (!player) return;
+        if (!player || !isPlaying || !isActive || isScrubbing) return;
 
         const interval = setInterval(() => {
             if (player.currentTime && player.duration) {
-                setProgress((player.currentTime / player.duration) * 100);
+                const val = (player.currentTime / player.duration) * 100;
+                setProgress(val);
             }
-        }, 16); // ~60fps for smooth animation
+        }, 50);
 
         return () => clearInterval(interval);
-    }, [player]);
+    }, [player, isPlaying, isActive, isScrubbing]);
+
+    const handleScrub = (e, isEnd = false) => {
+        const x = e.nativeEvent.locationX;
+        const p = Math.max(0, Math.min(1, x / SCREEN_WIDTH));
+
+        setProgress(p * 100);
+
+        if (isEnd && player?.duration) {
+            player.currentTime = p * player.duration;
+            setIsScrubbing(false);
+        }
+    };
 
     const togglePlayPause = () => {
         if (!player) return;
@@ -107,17 +123,12 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
         }
     };
 
-    const handleSeek = (e) => {
-        if (!player || !player.duration) return;
-        const width = e.nativeEvent.layout.width || (SCREEN_WIDTH - (rsW(16) + rsW(80))); // Dynamic width based on responsive margins
-        const x = e.nativeEvent.locationX;
-        const percentage = x / width;
-        const seekTime = percentage * player.duration;
-        player.currentTime = seekTime;
-        setProgress(percentage * 100);
-    };
-
     const relativeTime = formatRelativeTime(video.created_at);
+
+    // Calculate visible area for video (Screen - TabBar)
+    // BottomNavBar height = 53 (padding+icon) + bottom inset
+    const tabBarHeight = 53 + Math.max(insets.bottom, 8);
+    const videoHeight = SCREEN_HEIGHT - tabBarHeight;
 
     return (
         <View style={styles.container}>
@@ -126,14 +137,29 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                 onPress={togglePlayPause}
                 style={StyleSheet.absoluteFill}
             >
-                <VideoView
-                    player={player}
-                    style={StyleSheet.absoluteFill}
-                    contentFit="cover"
-                    nativeControls={false}
-                    allowsFullscreen={false}
-                    allowsPictureInPicture={false}
-                />
+                {/* Blurred Background for Immersive Feel (Fills Full Screen) */}
+                {video.thumbnail_url && (
+                    <Image
+                        source={{ uri: video.thumbnail_url }}
+                        style={[StyleSheet.absoluteFill, { opacity: 0.6 }]}
+                        contentFit="cover"
+                        blurRadius={50}
+                    />
+                )}
+
+                {/* Video Container - Ends above Tab Bar */}
+                <View style={{ width: SCREEN_WIDTH, height: videoHeight, overflow: 'hidden' }}>
+                    <VideoView
+                        player={player}
+                        style={{
+                            width: SCREEN_WIDTH,
+                            height: videoHeight,
+                            backgroundColor: 'transparent'
+                        }}
+                        contentFit="cover"
+                        nativeControls={false}
+                    />
+                </View>
 
                 {/* Play/Pause Indicator (Optional - simplistic overlay if paused) */}
                 {!isPlaying && isActive && isFocused && (
@@ -189,7 +215,6 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                     )}
                 </View>
 
-
                 {/* Like Button */}
                 <TouchableOpacity style={styles.actionButton} onPress={onLike}>
                     <Ionicons
@@ -223,21 +248,27 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                     {video.title}
                 </Text>
 
-                {/* Full Width Progress Bar */}
-                <TouchableOpacity
+                {/* Full Width Progress Bar - Scrubbable (Native) */}
+                <View
                     style={styles.progressBarContainer}
-                    activeOpacity={1}
-                    hitSlop={{ top: 15, bottom: 15 }}
-                    onPress={(e) => {
-                        const x = e.nativeEvent.locationX + rsW(16);
-                        const percentage = x / SCREEN_WIDTH;
-                        if (player && player.duration) {
-                            player.currentTime = percentage * player.duration;
-                        }
+                    hitSlop={{ top: 20, bottom: 20 }}
+                    onStartShouldSetResponder={() => true}
+                    onResponderGrant={(e) => {
+                        setIsScrubbing(true);
+                        handleScrub(e, false);
+                    }}
+                    onResponderMove={(e) => {
+                        handleScrub(e, false);
+                    }}
+                    onResponderRelease={(e) => {
+                        handleScrub(e, true);
                     }}
                 >
-                    <View style={[styles.progressBar, { width: `${progress}%` }]} />
-                </TouchableOpacity>
+                    {/* Background Track (Subtle) */}
+                    <View style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.2)' }}>
+                        <View style={[styles.progressBar, { width: `${progress}%` }]} />
+                    </View>
+                </View>
             </View>
         </View>
     );
@@ -341,7 +372,7 @@ const styles = StyleSheet.create({
         marginLeft: -16,
         marginRight: -80,
         marginTop: 8,
-        height: 2,
+        height: 2, // Keeps it thin like Instagram
         backgroundColor: 'rgba(255,255,255,0.3)',
     },
     progressBar: {

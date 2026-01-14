@@ -35,10 +35,12 @@ export const ProfileHeader = ({ name, email, photoURL, onEditPress, role, follow
                     >
                         {photoURL ? (
                             <Image
+                                key={photoURL} // FORCE RE-RENDER on URL change
                                 source={{ uri: photoURL }}
                                 style={{ width: 88, height: 88, borderRadius: 44 }}
                                 contentFit="cover"
                                 transition={500}
+                                cachePolicy="memory-disk"
                             />
                         ) : (
                             <Ionicons name="person" size={44} color="#FFFFFF" />

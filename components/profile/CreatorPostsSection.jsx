@@ -1,5 +1,6 @@
 import React, { memo, useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native';
+import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import { KelamService } from '../../services/KelamService';
 import { Alert } from 'react-native';
@@ -7,37 +8,10 @@ import * as VideoThumbnails from 'expo-video-thumbnails';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-// Individual Post Item with Thumbnail Generation
+// Individual Post Item with Expo Image
 const PostItem = memo(({ post, index, isOwner, onPostPress, onDelete, width }) => {
-    const [thumbnail, setThumbnail] = useState(post.thumbnail_url || null);
-    const [loading, setLoading] = useState(!post.thumbnail_url);
-
-    useEffect(() => {
-        let isMounted = true;
-
-        const generateThumbnail = async () => {
-            if (post.thumbnail_url) return;
-
-            try {
-                // Generate thumbnail from video URL (from 1st second)
-                const { uri } = await VideoThumbnails.getThumbnailAsync(post.video_url, {
-                    time: 1000,
-                });
-
-                if (isMounted) {
-                    setThumbnail(uri);
-                    setLoading(false);
-                }
-            } catch (e) {
-                console.warn("Thumbnail generation failed, using fallback", e);
-                if (isMounted) setLoading(false);
-            }
-        };
-
-        generateThumbnail();
-
-        return () => { isMounted = false; };
-    }, [post.thumbnail_url, post.video_url]);
+    // Debugging: Check why thumbnail is missing
+    // console.log(`[PostItem] ID: ${post.id}, Thumb: ${post.thumbnail_url}`);
 
     return (
         <TouchableOpacity
@@ -57,20 +31,17 @@ const PostItem = memo(({ post, index, isOwner, onPostPress, onDelete, width }) =
                 borderColor: 'rgba(255,255,255,0.05)'
             }}
         >
-            {loading ? (
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#0F1A17' }}>
-                    <ActivityIndicator size="small" color="rgba(255,255,255,0.3)" />
-                </View>
-            ) : thumbnail ? (
+            {post.thumbnail_url ? (
                 <Image
-                    source={{ uri: thumbnail }}
+                    source={{ uri: post.thumbnail_url }}
                     style={{ width: '100%', height: '100%' }}
-                    resizeMode="cover"
+                    contentFit="cover"
+                    transition={500}
+                    cachePolicy="memory-disk"
                 />
             ) : (
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#0F1A17' }}>
-                    {/* Fallback if generation fails */}
-                    <Ionicons name="videocam" size={32} color="rgba(255,255,255,0.1)" />
+                    <Ionicons name="videocam" size={32} color="rgba(255,255,255,0.2)" />
                 </View>
             )}
 
@@ -81,18 +52,18 @@ const PostItem = memo(({ post, index, isOwner, onPostPress, onDelete, width }) =
                 left: 6,
                 flexDirection: 'row',
                 alignItems: 'center',
-                backgroundColor: 'rgba(0,0,0,0.5)',
-                paddingHorizontal: 4,
-                paddingVertical: 1,
-                borderRadius: 4
+                backgroundColor: 'rgba(0,0,0,0.6)',
+                paddingHorizontal: 6,
+                paddingVertical: 3,
+                borderRadius: 6
             }}>
-                <Ionicons name="eye-outline" size={10} color="#FFFFFF" />
+                <Ionicons name="play" size={10} color="#FFFFFF" />
                 <Text style={{
                     fontFamily,
-                    fontSize: 9,
-                    fontWeight: '500',
+                    fontSize: 10,
+                    fontWeight: '600',
                     color: '#FFFFFF',
-                    marginLeft: 3
+                    marginLeft: 4
                 }}>
                     {post.views_count || '0'}
                 </Text>
@@ -106,16 +77,18 @@ const PostItem = memo(({ post, index, isOwner, onPostPress, onDelete, width }) =
                         position: 'absolute',
                         top: 6,
                         right: 6,
-                        backgroundColor: 'rgba(239, 68, 68, 0.8)',
-                        width: 24,
-                        height: 24,
-                        borderRadius: 12,
+                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                        width: 28,
+                        height: 28,
+                        borderRadius: 14,
                         alignItems: 'center',
                         justifyContent: 'center',
-                        zIndex: 10
+                        zIndex: 10,
+                        borderWidth: 1,
+                        borderColor: 'rgba(255,255,255,0.1)'
                     }}
                 >
-                    <Ionicons name="trash-outline" size={14} color="#FFFFFF" />
+                    <Ionicons name="trash-outline" size={16} color="#FF4B4B" />
                 </TouchableOpacity>
             )}
         </TouchableOpacity>

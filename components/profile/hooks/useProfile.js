@@ -28,6 +28,7 @@ export const useProfile = () => {
             user,
             stats,
             profile,
+            profile_picture: profile?.profile_picture,
             name: profile.surname ? `${profile.name} ${profile.surname}` : profile.name,
             following: profile.following || [],
             followingCount: (profile.following || []).length,

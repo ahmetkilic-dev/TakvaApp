@@ -1,13 +1,17 @@
 import React, { useState, useCallback, useRef } from 'react';
-import { View, StyleSheet, Dimensions, FlatList } from 'react-native';
+import { View, StyleSheet, Dimensions, FlatList, ActivityIndicator } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { rsH } from '../../utils/responsive';
 import { ReelsPlayer } from './ReelsPlayer';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 /**
  * Main Feed Component for Kelam Videos
+ * Custom Pull-to-Refresh implemented with standard Scroll events.
  */
 export const KelamFeed = ({ videos, onLike, onEndReached, initialIndex = 0, refreshing, onRefresh }) => {
+    const insets = useSafeAreaInsets();
     const [activeIndex, setActiveIndex] = useState(initialIndex);
     const [isMuted, setIsMuted] = useState(false);
 
@@ -36,8 +40,24 @@ export const KelamFeed = ({ videos, onLike, onEndReached, initialIndex = 0, refr
         index,
     }), []);
 
+    // Custom Pull-to-Refresh Logic
+    const handleScrollEndDrag = (e) => {
+        const offsetY = e.nativeEvent.contentOffset.y;
+        // Trigger refresh if pulled down significantly (e.g., -80px)
+        if (offsetY < -80 && !refreshing && onRefresh) {
+            onRefresh();
+        }
+    };
+
     return (
         <View style={styles.container}>
+            {/* Custom Overlay Spinner */}
+            {refreshing && (
+                <View style={[styles.loadingOverlay, { top: insets.top + 30 }]}>
+                    <ActivityIndicator size="small" color="#D4AF37" />
+                </View>
+            )}
+
             <FlatList
                 data={videos}
                 renderItem={renderItem}
@@ -72,15 +92,15 @@ export const KelamFeed = ({ videos, onLike, onEndReached, initialIndex = 0, refr
                 // Initial state
                 initialScrollIndex={initialIndex}
 
-                // Pull to refresh
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                progressViewOffset={120}
+                // Custom Pull Refresh Detection
+                onScrollEndDrag={handleScrollEndDrag}
+                // Disable native refresh control to prevent "push down"
+                refreshControl={null}
 
                 // EXTRA OPTIMIZATIONS
                 scrollEventThrottle={16}
-                overScrollMode="never"
-                bounces={false}
+                overScrollMode="always"
+                bounces={true}
             />
         </View>
     );
@@ -90,5 +110,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#000',
+    },
+    loadingOverlay: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 50,
     }
 });

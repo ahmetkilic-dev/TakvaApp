@@ -4,6 +4,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
+import * as FileSystem from 'expo-file-system/legacy';
+import * as VideoThumbnails from 'expo-video-thumbnails';
 import { useUserStats } from '../../../contexts/UserStatsContext';
 import KelamService from '../../../services/KelamService';
 import { R2UploadService } from '../../../services/R2UploadService';
@@ -27,7 +29,7 @@ export default function KelamUploadScreen() {
     const pickVideo = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['videos'],
-            allowsEditing: true,
+            allowsEditing: false, // Prevents OS from creating a massive temp copy
             quality: 1.0,
             videoMaxDuration: 60,
         });
@@ -44,6 +46,9 @@ export default function KelamUploadScreen() {
         }
 
         setIsUploading(true);
+        let compressedUri = null;
+        let thumbnailUri = null;
+
         try {
             const creatorId = profile?.id || user?.uid;
 
@@ -51,16 +56,18 @@ export default function KelamUploadScreen() {
                 throw new Error('Kullanıcı kimliği bulunamadı.');
             }
 
-            // 1. Video Sıkıştırma (720p Zorlama)
+            // 1. Video Sıkıştırma (1080p Kalite İyileştirmesi)
             setUploadStep('compressing');
             console.log('[Compressor] Sıkıştırma başlatılıyor...', videoUri);
 
-            const compressedUri = await VideoCompressor.compress(
+            // Manual Sıkıştırma: 1080p @ 8 Mbps (Yüksek Kalite)
+            // 'auto' yerine 'manual' kullanarak kontrolü elimize alıyoruz.
+            const compressionResult = await VideoCompressor.compress(
                 videoUri,
                 {
-                    compressionMethod: 'auto',
-                    maxWidth: 1080, // 1080p (Full HD)
-                    minimumBitrate: 10000000, // 10 Mbps (Pro Kalite)
+                    compressionMethod: 'manual',
+                    bitrate: 8000000, // 8 Mbps (Sabit Yüksek Kalite)
+                    maxSize: 1920, // 1080p (Full HD)
                     input: 'uri',
                 },
                 (progress) => {
@@ -68,20 +75,30 @@ export default function KelamUploadScreen() {
                 }
             );
 
+            // VideoCompressor bazen "file://" önekini unutabilir, kontrol edelim.
+            compressedUri = compressionResult.startsWith('file://') ? compressionResult : `file://${compressionResult}`;
             console.log('[Compressor] Sıkıştırma bitti:', compressedUri);
 
-            // 1.1 Önizleme Fotoğrafı (Thumbnail)
+            // 1.1 Kapak Fotoğrafı (Thumbnail) - JPEG Formatında
             setUploadStep('thumbnailing');
-            console.log('[Compressor] Thumbnail oluşturuluyor...');
-            let thumbnailUri = null;
+            console.log('[Thumbnail] Oluşturuluyor...');
+
             try {
-                const thumbnailResult = await VideoCompressor.getVideoThumbnail(videoUri, {
-                    quality: 0.5,
+                // JPEG formatını zorluyoruz
+                const { uri } = await VideoThumbnails.getThumbnailAsync(compressedUri, { // Sıkıştırılmış videodan alalım
+                    quality: 0.8,
                 });
-                thumbnailUri = thumbnailResult.path;
-                console.log('[Compressor] Thumbnail oluşturuldu:', thumbnailUri);
+                thumbnailUri = uri;
+                console.log('[Thumbnail] Oluşturuldu:', thumbnailUri);
             } catch (err) {
-                console.error('[Compressor] Thumbnail hatası:', err);
+                console.error('[Thumbnail] Hatası:', err);
+                // Eğer sıkıştırılmıştan hata alırsak orijinalden deneyelim
+                try {
+                    const { uri } = await VideoThumbnails.getThumbnailAsync(videoUri, { quality: 0.8 });
+                    thumbnailUri = uri;
+                } catch (retryErr) {
+                    console.error('[Thumbnail] Retry Hatası:', retryErr);
+                }
             }
 
             // 2. Yükleme (Video + Thumbnail)
@@ -96,7 +113,11 @@ export default function KelamUploadScreen() {
             // Thumbnail yükle (Varsa)
             let thumbUrl = null;
             if (thumbnailUri) {
-                thumbUrl = await R2UploadService.uploadFile(thumbnailUri, thumbFileName, 'image/jpeg');
+                try {
+                    thumbUrl = await R2UploadService.uploadFile(thumbnailUri, thumbFileName, 'image/jpeg');
+                } catch (e) {
+                    console.error('Thumbnail upload keyfi hata:', e);
+                }
             }
 
             // 3. Metadata Kaydı (Thumbnail URL eklendi)
@@ -117,6 +138,46 @@ export default function KelamUploadScreen() {
         } finally {
             setIsUploading(false);
             setUploadStep('');
+
+            // 4. CLEANUP: AGGRESSIVE + TRUNCATE FALLBACK
+            // Dosyalar tmp klasöründe kilitli kalırsa, içlerini boşaltarak (0 byte) yer açıyoruz.
+
+            // Sıkıştırılmış Video Sil
+            if (compressedUri) {
+                try {
+                    await FileSystem.deleteAsync(compressedUri, { idempotent: true });
+                    console.log('[Cleanup] ✅ Sıkıştırılmış video silindi:', compressedUri);
+                } catch (e) {
+                    // Silmeye izin yoksa içini boşalt
+                    console.warn('[Cleanup] Silinemedi, içi boşaltılıyor (Truncate)...');
+                    try {
+                        await FileSystem.writeAsStringAsync(compressedUri, '', { encoding: FileSystem.EncodingType.UTF8 });
+                        console.log('[Cleanup] ✅ Dosya içeriği sıfırlandı (Alan açıldı).');
+                    } catch (truncErr) {
+                        console.error('[Cleanup] ❌ Truncate de başarısız:', truncErr.message);
+                    }
+                }
+            }
+
+            // Thumbnail Sil
+            if (thumbnailUri) {
+                try {
+                    await FileSystem.deleteAsync(thumbnailUri, { idempotent: true });
+                    console.log('[Cleanup] Thumbnail silindi:', thumbnailUri);
+                } catch (e) {
+                    console.warn('[Cleanup] Thumbnail silinemedi:', e.message);
+                }
+            }
+
+            // Orijinal (Picker Cache) Video Sil
+            if (videoUri && (videoUri.startsWith('file://') || videoUri.startsWith('/'))) {
+                try {
+                    await FileSystem.deleteAsync(videoUri, { idempotent: true });
+                    console.log('[Cleanup] Video önbelleği silindi:', videoUri);
+                } catch (e) {
+                    console.warn('[Cleanup] Video önbelleği silinemedi:', e.message);
+                }
+            }
         }
     };
 
