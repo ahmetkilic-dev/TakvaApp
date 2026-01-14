@@ -134,7 +134,7 @@ export default function KelamUploadScreen() {
             Alert.alert('Başarılı', 'Videonuz yüklendi!', [{ text: 'Tamam', onPress: () => router.back() }]);
         } catch (error) {
             console.error('Upload error:', error);
-            Alert.alert('Hata', 'Yükleme sırasında bir sorun oluştu.');
+            Alert.alert('Hata', `Yükleme başarısız: ${error.message || 'Bilinmeyen sorun'}`);
         } finally {
             setIsUploading(false);
             setUploadStep('');

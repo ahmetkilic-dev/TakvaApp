@@ -37,7 +37,7 @@ export default function CreatorProfileScreen() {
         try {
             // Modified profile fetch to include username directly from profiles table
             const [profileDataResult, videoData, followerCount] = await Promise.all([
-                supabase.from('profiles').select('id, name, username, role, application_status, following, is_premium, profile_picture, bio, social_links').eq('id', id).maybeSingle(),
+                supabase.from('profiles').select('id, name, username, role, application_status, following, profile_picture, bio, social_links').eq('id', id).maybeSingle(),
                 KelamService.fetchCreatorVideos(id),
                 UserService.getFollowerCount(id)
             ]);
@@ -45,7 +45,7 @@ export default function CreatorProfileScreen() {
             if (profileDataResult.data) {
                 setProfile({ ...profileDataResult.data, follower_count: followerCount });
             } else {
-                setProfile(null); // Handle case where profile is not found
+                setProfile(null);
             }
             setVideos(videoData);
 
@@ -103,7 +103,21 @@ export default function CreatorProfileScreen() {
         );
     }
 
-    if (!profile) return null;
+    if (!profile) {
+        return (
+            <ScreenBackground>
+                <SafeAreaView className="flex-1 justify-center items-center">
+                    <TouchableOpacity
+                        onPress={() => router.back()}
+                        className="absolute left-4 top-12 w-10 h-10 items-center justify-center z-10"
+                    >
+                        <Ionicons name="chevron-back" size={28} color="#FFF" />
+                    </TouchableOpacity>
+                    <Text className="text-white text-lg font-['Plus Jakarta Sans']">Kullanıcı bulunamadı.</Text>
+                </SafeAreaView>
+            </ScreenBackground>
+        );
+    }
 
     // Social bio fallback to match Edit Profile logic
     const bioDisplay = profile.bio || profile.social_links?.bio;

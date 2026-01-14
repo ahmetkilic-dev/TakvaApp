@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, TouchableOpacity, Animated, LayoutAnimation, Platform, UIManager } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useVideoPlayer, VideoView } from 'expo-video';
@@ -21,9 +21,16 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
     const router = useRouter();
     const insets = useSafeAreaInsets();
     const { user, profile, refreshAll } = useUserStats();
-    const [progress, setProgress] = useState(0);
+
+    // UI State
     const [isPlaying, setIsPlaying] = useState(false);
     const [isFollowLoading, setIsFollowLoading] = useState(false);
+    const [isScrubbing, setIsScrubbing] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false); // Description expansion
+
+    // Animation Values
+    const progressAnim = useRef(new Animated.Value(0)).current;
+    const wasPlayingRef = useRef(false);
 
     const isFollowing = (profile?.following || []).includes(video.creator?.id);
     const isOwner = user?.uid === video.creator?.id;
@@ -85,32 +92,46 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
         return () => subscription.remove();
     }, [player]);
 
-    // Scrubbing Logic
-    const [isScrubbing, setIsScrubbing] = useState(false);
-
-    // Progress tracking
+    // Progress Link (Only when NOT scrubbing)
     useEffect(() => {
         if (!player || !isPlaying || !isActive || isScrubbing) return;
 
         const interval = setInterval(() => {
             if (player.currentTime && player.duration) {
                 const val = (player.currentTime / player.duration) * 100;
-                setProgress(val);
+                progressAnim.setValue(val);
             }
-        }, 50);
+        }, 100);
 
         return () => clearInterval(interval);
     }, [player, isPlaying, isActive, isScrubbing]);
 
-    const handleScrub = (e, isEnd = false) => {
+    // Enhanced Scrubbing Handler (Live Seeking)
+    const handleScrub = (e, phase) => {
         const x = e.nativeEvent.locationX;
         const p = Math.max(0, Math.min(1, x / SCREEN_WIDTH));
 
-        setProgress(p * 100);
+        // 1. Instant Visual Feedback (No Latency)
+        progressAnim.setValue(p * 100);
 
-        if (isEnd && player?.duration) {
+        // 2. Play/Pause Management & State
+        if (phase === 'start') {
+            wasPlayingRef.current = isPlaying;
+            setIsScrubbing(true);
+            if (player) player.pause();
+        }
+
+        // 3. Live Seeking (Smooth)
+        if (player?.duration) {
             player.currentTime = p * player.duration;
+        }
+
+        // 4. End Phase
+        if (phase === 'end') {
             setIsScrubbing(false);
+            if (wasPlayingRef.current && player) {
+                player.play();
+            }
         }
     };
 
@@ -123,12 +144,24 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
         }
     };
 
+    const toggleDescription = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setIsExpanded(!isExpanded);
+    };
+
     const relativeTime = formatRelativeTime(video.created_at);
 
     // Calculate visible area for video (Screen - TabBar)
     // BottomNavBar height = 53 (padding+icon) + bottom inset
     const tabBarHeight = 53 + Math.max(insets.bottom, 8);
     const videoHeight = SCREEN_HEIGHT - tabBarHeight;
+
+    // Interpolate animated width for performance
+    const widthInterpolation = progressAnim.interpolate({
+        inputRange: [0, 100],
+        outputRange: ['0%', '100%'],
+        extrapolate: 'clamp'
+    });
 
     return (
         <View style={styles.container}>
@@ -244,35 +277,44 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                 </View>
 
                 {/* Video Title */}
-                <Text style={styles.videoTitle} numberOfLines={2}>
-                    {video.title}
-                </Text>
+                <TouchableOpacity activeOpacity={1} onPress={toggleDescription} hitSlop={{ top: 10, bottom: 10 }}>
+                    <Text style={styles.videoTitle} numberOfLines={isExpanded ? undefined : 2}>
+                        {video.title}
+                    </Text>
+                </TouchableOpacity>
+            </View>
 
-                {/* Full Width Progress Bar - Scrubbable (Native) */}
-                <View
-                    style={styles.progressBarContainer}
-                    hitSlop={{ top: 20, bottom: 20 }}
-                    onStartShouldSetResponder={() => true}
-                    onResponderGrant={(e) => {
-                        setIsScrubbing(true);
-                        handleScrub(e, false);
-                    }}
-                    onResponderMove={(e) => {
-                        handleScrub(e, false);
-                    }}
-                    onResponderRelease={(e) => {
-                        handleScrub(e, true);
-                    }}
-                >
-                    {/* Background Track (Subtle) */}
-                    <View style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.2)' }}>
-                        <View style={[styles.progressBar, { width: `${progress}%` }]} />
-                    </View>
+            {/* Full Width Progress Bar - Scrubbable (Native & Smooth) - Moved Outside to align with TabBar */}
+            <View
+                style={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: tabBarHeight,
+                    height: 2,
+                    backgroundColor: 'rgba(255,255,255,0.3)',
+                    zIndex: 50
+                }}
+                hitSlop={{ top: 20, bottom: 20 }}
+                onStartShouldSetResponder={() => true}
+                onResponderGrant={(e) => handleScrub(e, 'start')}
+                onResponderMove={(e) => handleScrub(e, 'move')}
+                onResponderRelease={(e) => handleScrub(e, 'end')}
+                onResponderTerminate={(e) => handleScrub(e, 'end')}
+            >
+                {/* Background Track */}
+                <View style={{ flex: 1, backgroundColor: 'transparent' }}>
+                    <Animated.View
+                        style={[
+                            styles.progressBar,
+                            { width: widthInterpolation }
+                        ]}
+                    />
                 </View>
             </View>
         </View>
     );
-});
+}); // End Component
 
 const styles = StyleSheet.create({
     container: {
@@ -335,7 +377,7 @@ const styles = StyleSheet.create({
     // Bottom Info
     bottomInfo: {
         position: 'absolute',
-        bottom: 100,
+        bottom: 100, // Adjusted to sit clearly above actions if needed, or actions sit above it
         left: 16,
         right: 80,
     },
@@ -367,14 +409,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
 
-    // Progress Bar
-    progressBarContainer: {
-        marginLeft: -16,
-        marginRight: -80,
-        marginTop: 8,
-        height: 2, // Keeps it thin like Instagram
-        backgroundColor: 'rgba(255,255,255,0.3)',
-    },
+    // Progress Bar (Inner style for Animated.View)
     progressBar: {
         height: '100%',
         backgroundColor: '#FFFFFF',
