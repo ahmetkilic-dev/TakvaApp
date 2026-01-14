@@ -197,9 +197,17 @@ export default function AboneliklerimScreen() {
                         </Text>
                         <View>
                             {paymentInfo ? (
-                                <Text style={{ fontFamily, fontSize: 14, fontWeight: '300', color: 'rgba(255, 255, 255, 0.8)', lineHeight: 20 }}>
-                                    Aboneliğin <Text style={{ fontWeight: '700' }}>{paymentInfo.dateStr}</Text> tarihinde yenilenecektir. {paymentInfo.priceText}
-                                </Text>
+                                <>
+                                    <Text style={{ fontFamily, fontSize: 14, fontWeight: '300', color: 'rgba(255, 255, 255, 0.8)', lineHeight: 20 }}>
+                                        Aboneliğiniz <Text style={{ fontWeight: '700' }}>{paymentInfo.dateStr}</Text> tarihine kadar geçerlidir. {paymentInfo.priceText}
+                                    </Text>
+
+                                    {subscription?.original_transaction_id && (
+                                        <Text style={{ fontFamily, fontSize: 12, fontWeight: '300', color: 'rgba(255, 255, 255, 0.5)', marginTop: 12 }}>
+                                            Abonelik ID: {subscription.original_transaction_id}
+                                        </Text>
+                                    )}
+                                </>
                             ) : (
                                 <Text style={{ fontFamily, fontSize: 14, fontWeight: '300', color: '#CF9B47' }}>
                                     {subscription?.subscription_type === 'free' ? 'Aktif bir aboneliğiniz bulunmamaktadır.' : 'Abonelik bilgileriniz yükleniyor veya eksik (purchase_date yok)...'}

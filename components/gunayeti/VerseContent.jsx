@@ -19,12 +19,13 @@ export default function VerseContent({ verse, isRevealed = false }) {
       <View style={{ marginBottom: 16 }}>
         <Text
           style={{
-            fontFamily: 'Noto Sans Arabic',
+            marginTop: 20,
+            fontFamily: 'Scheherazade New',
             fontSize: 20,
-            fontWeight: '300',
+            fontWeight: '400',
             color: '#FFBA4A',
             lineHeight: 37,
-            letterSpacing: 0.4,
+            letterSpacing: 2,
             textAlign: 'right',
           }}
         >

@@ -3,6 +3,7 @@ import { Alert, NativeModules, Platform } from 'react-native';
 import * as InAppPurchases from 'expo-in-app-purchases';
 import { auth } from '../firebaseConfig'; // Firebase Auth
 import { supabase } from '../lib/supabase'; // Supabase DB
+import { useUserStats } from './UserStatsContext'; // User Stats for sync
 
 const IAPContext = createContext();
 
@@ -141,6 +142,7 @@ export const IAPProvider = ({ children }) => {
                     subscription_type: type,
                     subscription_plan: plan,
                     purchase_date: newPurchaseDateStr,
+                    original_transaction_id: purchase.originalTransactionId || purchase.transactionId || purchase.orderId,
                 });
 
             if (error) {
@@ -310,15 +312,17 @@ export const IAPProvider = ({ children }) => {
                 releaseLock();
 
                 // App Launch Auto-Check
-                setTimeout(() => {
-                    checkCurrentPurchases(true);
-                }, 1000);
+                // AÇILIŞTA OTOMATİK KONTROL İPTAL EDİLDİ (Sadece Supabase kontrolü geçerli)
+                // setTimeout(() => {
+                //     checkCurrentPurchases(true);
+                // }, 1000);
 
             } catch (e) {
                 if (!e.message?.includes('Already')) console.error('Init Hatası:', e);
                 setConnected(true);
                 releaseLock();
-                setTimeout(() => checkCurrentPurchases(true), 1500);
+                // Hata olsa bile otomatik kontrolü tetikleme
+                // setTimeout(() => checkCurrentPurchases(true), 1500);
             }
         };
 
@@ -390,10 +394,66 @@ export const IAPProvider = ({ children }) => {
         }
     }, [connected]);
 
+    // --- DATABASE RESTORE ONLY ---
+    const { refreshAll, user, isInitialized, subscription } = useUserStats();
+
+    // Akıllı Kontrol için Ref (Sadece bir kere çalışsın)
+    const hasPerformedSmartCheck = useRef(false);
+
+    // --- SMART VALIDATION ---
+    useEffect(() => {
+        // 1. IAP Bağlı mı?
+        // 2. User Stats Yüklendi mi? (Kullanıcının veritabanındaki durumu belli mi?)
+        // 3. Daha önce kontrol ettik mi?
+        if (!connected || !isInitialized || hasPerformedSmartCheck.current || !user) return;
+
+        // Kullanıcı veritabanında 'free' ise STORE KONTROLÜ YAPMA.
+        // (Böylece cihazda başka birinin aboneliği varsa bile yanlışlıkla user'a tanımlanmaz)
+        const currentType = subscription?.subscription_type || 'free';
+
+        if (currentType === 'free') {
+            console.log('Smart Check: Kullanıcı Free, mağaza kontrolü atlandı.');
+            hasPerformedSmartCheck.current = true;
+            return;
+        }
+
+        // Kullanıcı Premium/Plus ise:
+        // Mağazaya sor: "Hala geçerli mi?"
+        console.log(`Smart Check: Kullanıcı ${currentType}, mağaza doğrulaması yapılıyor...`);
+        hasPerformedSmartCheck.current = true;
+
+        // checkCurrentPurchases fonksiyonu expiration kontrolü yapar.
+        // Eğer süresi dolmuşsa 'Free'ye çeker.
+        // true = silent mode (Kullanıcıya popup gösterme)
+        checkCurrentPurchases(true);
+
+    }, [connected, isInitialized, user, subscription]);
+
+
+    const restoreToDatabase = async () => {
+        if (isProcessing) return;
+        setIsProcessing(true);
+        try {
+            if (user?.uid) {
+                console.log('Restore requested: Syncing with Supabase...');
+                await refreshAll(user.uid);
+                Alert.alert('Bilgi', 'Mevcut abonelik durumunuz başarıyla güncellendi.');
+            } else {
+                Alert.alert('Hata', 'Kullanıcı bulunamadı.');
+            }
+        } catch (e) {
+            console.error('Restore Error:', e);
+            Alert.alert('Hata', 'Bağlantı hatası.');
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
     const value = {
         isProcessing,
         requestPurchase,
-        restorePurchases: () => checkCurrentPurchases(false),
+        restorePurchases: restoreToDatabase, // OVERRIDE OLD LOGIC
+        // restorePurchases: () => checkCurrentPurchases(false),
     };
 
     return <IAPContext.Provider value={value}>{children}</IAPContext.Provider>;

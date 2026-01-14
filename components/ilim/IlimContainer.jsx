@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenBackground from '../common/ScreenBackground';
@@ -34,6 +35,7 @@ try {
 }
 
 export default function IlimContainer() {
+  const router = useRouter();
   const {
     loading: ilimLoading,
     totalPoints,
@@ -202,12 +204,17 @@ export default function IlimContainer() {
     // Limit Kontrolü
     const { allowed, limit, used } = await checkDailyLimit(userTier);
     if (!allowed) {
+      const isPlus = userTier === 'plus';
+      const message = isPlus
+        ? `Mevcut paketinizle günde ${limit} yanlış cevap verme hakkınız bulunmaktadır.\nDaha fazlası için Premium'a geçin.`
+        : `Mevcut paketinizle günde ${limit} yanlış cevap verme hakkınız bulunmaktadır.\nDaha fazlası için Takva Plus veya Takva Premium'a geçin.`;
+
       Alert.alert(
         "Günlük Limit Doldu",
-        `Mevcut paketinizle günde ${limit} yanlış cevap verme hakkınız bulunmaktadır.\nDaha fazlası için Takva Plus veya Takva Premium'a geçin..`,
+        message,
         [
           { text: "Vazgeç", style: "cancel" },
-          { text: "Premium'a Geç", onPress: () => { /* router.push('/premium') */ } }
+          { text: isPlus ? "Premium'a Geç" : "Paketleri İncele", onPress: () => router.push('/(app)/(services)/premium') }
         ]
       );
       return;

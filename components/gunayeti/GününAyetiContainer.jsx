@@ -125,11 +125,13 @@ export default function GününAyetiContainer() {
         </View>
 
         {/* Navigation Slider - Sadece bugün ayet gösterilmediyse aktif */}
-        <VerseSlider
-          onComplete={handleSliderComplete}
-          disabled={!canRevealVerse}
-          message={!canRevealVerse ? "Bugün kaydırma hakkınız bitti." : null}
-        />
+        {canRevealVerse && (
+          <VerseSlider
+            onComplete={handleSliderComplete}
+            disabled={false}
+            message={null}
+          />
+        )}
 
         {/* Verse Content - Eğer ayet gösterildiyse göster, değilse gizle */}
         <VerseContent verse={displayVerse} isRevealed={verseRevealed} />

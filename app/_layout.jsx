@@ -76,7 +76,7 @@ export default function RootLayout() {
     'PlusJakartaSans-Light': PlusJakartaSans_300Light,
     'PlusJakartaSans-Regular': PlusJakartaSans_400Regular,
     'PlusJakartaSans-Bold': PlusJakartaSans_700Bold,
-    'ScheherazadeNew-Regular': ScheherazadeNew_400Regular,
+    'Scheherazade New': ScheherazadeNew_400Regular,
   });
 
 

@@ -41,7 +41,8 @@ export const UserStatsProvider = ({ children }) => {
     const [subscription, setSubscription] = useState({
         subscription_type: 'free',
         subscription_plan: null,
-        purchase_date: null
+        purchase_date: null,
+        original_transaction_id: null
     });
     const [dailyTasks, setDailyTasks] = useState([]);
     const [userBadges, setUserBadges] = useState([]); // Array of { badge_id, is_completed, current_progress, badges: { title, category, ... } }
@@ -77,8 +78,15 @@ export const UserStatsProvider = ({ children }) => {
                     userBadgesRef.current = parsed.userBadges;
                 }
                 if (parsed.profile) {
-                    setProfile(parsed.profile);
-                    profileRef.current = parsed.profile;
+                    // CACHE INVALIDATION: Surname check
+                    // Eğer cache'de surname yoksa, cache'i yok say ve taze veri çekmesine izin ver.
+                    if (parsed.profile.surname === undefined) {
+                        console.log('Cache invalid (missing surname), forcing refresh...');
+                        // setProfile yapma, böylece server'dan çekmesi gerektiğini anlarız.
+                    } else {
+                        setProfile(parsed.profile);
+                        profileRef.current = parsed.profile;
+                    }
                 }
                 if (parsed.subscription) {
                     setSubscription(parsed.subscription);
@@ -125,12 +133,18 @@ export const UserStatsProvider = ({ children }) => {
     }, []);
 
     const fetchProfile = useCallback(async (uid) => {
-        const { data } = await supabase.from('profiles').select('id, name, username, role, application_status, following, premium_state, profile_picture, bio, social_links').eq('id', uid).maybeSingle();
+        const { data, error } = await supabase.from('profiles').select('id, name, surname, username, role, application_status, following, profile_picture, bio, social_links').eq('id', uid).maybeSingle();
+
+        if (error) console.error('Profile fetch error:', error);
+
         if (data) {
+            console.log('Profile fetched successfully:', { name: data.name, surname: data.surname });
             const final = { ...data, following: data.following || [] };
             setProfile(final);
             profileRef.current = final;
             return final;
+        } else {
+            console.warn('Profile fetch returned no data for uid:', uid);
         }
         return profileRef.current;
     }, []);
@@ -145,7 +159,7 @@ export const UserStatsProvider = ({ children }) => {
     }, []);
 
     const fetchSubscription = useCallback(async (uid) => {
-        const { data } = await supabase.from('subscription').select('subscription_type, subscription_plan, purchase_date').eq('id', uid).maybeSingle();
+        const { data } = await supabase.from('subscription').select('subscription_type, subscription_plan, purchase_date, original_transaction_id').eq('id', uid).maybeSingle();
         if (data) {
             const normalized = {
                 ...data,
@@ -155,7 +169,7 @@ export const UserStatsProvider = ({ children }) => {
             setSubscription(normalized);
             return normalized;
         } else {
-            const defaultSub = { subscription_type: 'free', subscription_plan: null, purchase_date: null };
+            const defaultSub = { subscription_type: 'free', subscription_plan: null, purchase_date: null, original_transaction_id: null };
             setSubscription(defaultSub);
             return defaultSub;
         }

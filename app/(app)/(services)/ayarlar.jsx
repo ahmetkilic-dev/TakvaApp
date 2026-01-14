@@ -1,4 +1,5 @@
 import { useProfile } from '../../../components/profile/hooks/useProfile';
+import { useUserStats } from '../../../contexts/UserStatsContext';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -67,7 +68,19 @@ const getSettingsOptions = (role, applicationStatus) => {
 export default function AyarlarScreen() {
     const router = useRouter();
     const { profileData } = useProfile();
+    const { subscription } = useUserStats();
     const settingsOptions = getSettingsOptions(profileData?.role, profileData?.applicationStatus);
+
+    const handleOptionPress = (option) => {
+        if (option.id === 'aboneliklerim') {
+            const isFree = !subscription?.subscription_type || subscription.subscription_type === 'free';
+            if (isFree) {
+                router.push('/(app)/(services)/premium');
+                return;
+            }
+        }
+        router.push(option.route);
+    };
 
     const handleLogout = () => {
         Alert.alert(
@@ -138,7 +151,7 @@ export default function AyarlarScreen() {
                         {settingsOptions.map((option, index) => (
                             <View key={option.id} className="mb-4">
                                 <TouchableOpacity
-                                    onPress={() => router.push(option.route)}
+                                    onPress={() => handleOptionPress(option)}
                                     className="flex-row items-center justify-between"
                                     activeOpacity={0.7}
                                 >
