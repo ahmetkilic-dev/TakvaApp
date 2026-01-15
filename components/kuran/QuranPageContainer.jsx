@@ -6,7 +6,7 @@ import KuranHeader from './KuranHeader';
 import SuraTitle from './SuraTitle';
 import PageNavigation from './PageNavigation';
 import VerseContent from './VerseContent';
-import { usePageVerses } from './hooks/useQuran';
+import { usePageVerses, useSurahs } from './hooks/useQuran';
 import { usePageTimer } from './hooks/usePageTimer';
 import { useUserStats } from '../../contexts/UserStatsContext';
 
@@ -36,6 +36,10 @@ export default function QuranPageContainer() {
   }, [params?.number]);
 
   const { verses, loading, error } = usePageVerses(currentPage);
+  const { surahs } = useSurahs();
+
+  const currentSurahNum = verses?.[0]?.surahNumber;
+  const surahName = surahs.find(s => s.number === currentSurahNum)?.name || '';
 
   const handlePageChange = (pageNum) => {
     setCurrentPage(pageNum);
@@ -49,9 +53,8 @@ export default function QuranPageContainer() {
   // VerseContent içinde render edilecek component
   const ListHeader = () => (
     <View>
-      <SuraTitle title={`Sayfa ${currentPage}`} />
-
       <PageNavigation
+        surahName={surahName}
         currentPage={currentPage}
         totalPages={TOTAL_PAGES}
         onPageChange={handlePageChange}

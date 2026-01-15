@@ -23,6 +23,8 @@ const MealVerseItem = React.memo(({ verse, index, total }) => {
       backgroundColor: '#EDEBD0', // Ayet için sayfa rengi
       paddingHorizontal: horizontalPadding,
       paddingVertical: 16, // Ayetler arası biraz boşluk
+      borderTopLeftRadius: index === 0 ? 20 : 0,
+      borderTopRightRadius: index === 0 ? 20 : 0,
     }}>
       {/* Arabic Text with Verse Number */}
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -163,7 +165,9 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
           backgroundColor: '#EDEBD0',
           paddingHorizontal: horizontalPadding,
           paddingVertical: 24,
-          minHeight: Dimensions.get('window').height * 0.7 // Sayfa boş görünmesin diye
+          minHeight: Dimensions.get('window').height * 0.7, // Sayfa boş görünmesin diye
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
         }}>
           <Text
             style={{
