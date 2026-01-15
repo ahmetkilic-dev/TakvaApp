@@ -43,13 +43,13 @@ export default [
     },
     {
         "id": 8,
-        "title": "Havle",
+        "title": "Havkale",
         "arabic_pronunciation": "Lâ havle ve lâ kuvvete illâ billâh",
         "meaning": "Güç ve kuvvet ancak Allah'tandır."
     },
     {
         "id": 9,
-        "title": "Hasbiyallah",
+        "title": "Hasbünallah",
         "arabic_pronunciation": "Hasbunallâhu ve ni'mel vekîl",
         "meaning": "Allah bize yeter, O ne güzel vekildir."
     },
@@ -61,7 +61,7 @@ export default [
     },
     {
         "id": 11,
-        "title": "Subhanallahi ve Bihamdihi",
+        "title": "Sübhanallahi ve Bihamdihi",
         "arabic_pronunciation": "Sübhânallâhi ve bi-hamdihî, Sübhânallâhi'l-azîm",
         "meaning": "Allah'ı hamd ile tesbih ederim, Yüce Allah'ı tenzih ederim."
     },
@@ -73,49 +73,49 @@ export default [
     },
     {
         "id": 13,
-        "title": "Tevhid-i Vahdet",
+        "title": "Kelime-i Tevhid (Vahdehû)",
         "arabic_pronunciation": "Lâ ilâhe illallâhü vahdehû lâ şerîke leh",
         "meaning": "Allah'tan başka ilah yoktur, O tektir ve ortağı yoktur."
     },
     {
         "id": 14,
-        "title": "Esma-ül Hüsna'dan",
+        "title": "İsm-i A'zam (Hayy ve Kayyûm)",
         "arabic_pronunciation": "Yâ Hayyu Yâ Kayyûm",
         "meaning": "Ey ezeli hayat sahibi (Hayy) ve kâinatı ayakta tutan (Kayyum)."
     },
     {
         "id": 15,
-        "title": "Rızık Duası",
+        "title": "Rızık Duası (Fettâh ve Rezzâk)",
         "arabic_pronunciation": "Yâ Fettâh, Yâ Rezzâk",
         "meaning": "Ey hayır kapılarını açan ve rızık veren."
     },
     {
         "id": 16,
-        "title": "Dördüncü Kelime",
+        "title": "Kelime-i Temcid",
         "arabic_pronunciation": "Sübhânallâhi velhamdülillâhi ve lâ ilâhe illallâhü vallâhü ekber",
         "meaning": "Allah noksanlıklardan münezzehtir, hamd O'nadır, Allah'tan başka ilah yoktur ve Allah en büyüktür."
     },
     {
         "id": 17,
-        "title": "Şifa Zikri",
+        "title": "Şifa Duası (Yâ Şâfî)",
         "arabic_pronunciation": "Yâ Şâfî",
         "meaning": "Ey hastalıklara şifa veren Allah."
     },
     {
         "id": 18,
-        "title": "Sevgi Zikri",
+        "title": "İsm-i Vedûd",
         "arabic_pronunciation": "Yâ Vedûd",
         "meaning": "Ey itaatkar kullarını çok seven ve sevilmeye layık olan."
     },
     {
         "id": 19,
-        "title": "Af Duası",
+        "title": "Kadir Gecesi Duası",
         "arabic_pronunciation": "Allâhümme inneke afüvvün tuhibbü'l-afve fa'fu annî",
         "meaning": "Allah'ım sen affedicisin, affetmeyi seversin, beni de affet."
     },
     {
         "id": 20,
-        "title": "Hakk Zikri",
+        "title": "Melikü'l-Hakk Zikri",
         "arabic_pronunciation": "Lâ ilâhe illallâhül melikül hakkul mübîn",
         "meaning": "Mülkün sahibi, Hak ve her şeyi açıklayan Allah'tan başka ilah yoktur."
     }

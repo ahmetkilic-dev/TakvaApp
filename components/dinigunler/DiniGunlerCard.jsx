@@ -60,8 +60,8 @@ const DiniGunlerCard = memo(({ day }) => {
   const kalanSureFontSize = Math.max(13, Math.min(16, 14 * scale));
   const gunSayisiFontSize = Math.max(22, Math.min(28, 26 * scale));
 
-  // Memoize icon to prevent unnecessary lookups
-  const iconName = useMemo(() => getIconName(day.icon), [day.icon]);
+  // Always use moon icon as requested
+  const iconName = 'moon';
 
   // Memoize remaining days text
   const remainingText = useMemo(

@@ -87,7 +87,9 @@
         {
           "icon": "./assets/t_icon.png",
           "color": "#FFBA4A",
-          "sounds": [],
+          "sounds": [
+            "./assets/audio/notification.wav"
+          ],
           "mode": "production"
         }
       ],

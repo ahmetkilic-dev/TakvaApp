@@ -12,6 +12,7 @@ const STORAGE_KEYS = {
 
 const CHANNELS = {
     PRAYER: 'prayer-reminders',
+    ALARM: 'prayer-alarms',
     DEFAULT: 'default',
 };
 
@@ -29,6 +30,17 @@ export const NotificationService = {
                 importance: Notifications.AndroidImportance.MAX,
                 vibrationPattern: [0, 500, 250, 500],
                 lightColor: '#FFBA4A',
+                enableVibrate: true,
+                showBadge: true,
+                lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
+            });
+
+            await Notifications.setNotificationChannelAsync(CHANNELS.ALARM, {
+                name: 'Namaz Vakti Alarmları',
+                importance: Notifications.AndroidImportance.MAX,
+                vibrationPattern: [0, 1000, 500, 1000], // Daha uzun titreşim
+                lightColor: '#FF4A4A',
+                sound: 'notification.wav',
                 enableVibrate: true,
                 showBadge: true,
                 lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
@@ -208,14 +220,18 @@ export const NotificationService = {
                             const triggerDate = new Date(dayEntry.date);
                             triggerDate.setHours(h, m - offsetMinutes, 0, 0);
 
+                            const isAlarm = config.isAlarm;
+                            const channelId = isAlarm ? CHANNELS.ALARM : CHANNELS.PRAYER;
+                            const sound = isAlarm ? 'notification.wav' : true;
+
                             if (triggerDate > now) {
                                 await Notifications.scheduleNotificationAsync({
                                     content: {
                                         title: `${label} Hatırlatıcısı`,
                                         body: offsetMinutes > 0 ? `${offsetMinutes} dk sonra ${label} vakti girecek.` : `${label} vakti geldi.`,
-                                        sound: true,
-                                        priority: config.isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
-                                        channelId: CHANNELS.PRAYER,
+                                        sound: sound,
+                                        priority: isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
+                                        channelId: channelId,
                                         data: { type: 'prayer_rem', prayerId },
                                     },
                                     trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
@@ -236,8 +252,18 @@ export const NotificationService = {
                             triggerDate.setHours(h, m, 0, 0);
 
                             if (allowedDays.includes(triggerDate.getDay()) && triggerDate > now) {
+                                const isAlarm = reminder.isAlarm;
+                                const channelId = isAlarm ? CHANNELS.ALARM : CHANNELS.DEFAULT;
+                                const sound = isAlarm ? 'notification.wav' : true;
+
                                 await Notifications.scheduleNotificationAsync({
-                                    content: { title: reminder.name || 'Özel', body: `${reminder.name} vakti geldi.`, sound: true, channelId: CHANNELS.DEFAULT },
+                                    content: {
+                                        title: reminder.name || 'Özel',
+                                        body: `${reminder.name} vakti geldi.`,
+                                        sound: sound,
+                                        priority: isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
+                                        channelId: channelId
+                                    },
                                     trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
                                 });
                                 count++;

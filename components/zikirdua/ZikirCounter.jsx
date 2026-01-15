@@ -2,6 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Svg, { Circle } from 'react-native-svg';
+import { useAudioPlayer } from 'expo-audio';
+import * as Haptics from 'expo-haptics';
 import { useZikirDuaDailyStats } from './hooks/useZikirDuaDailyStats';
 import dhikrList from '../../constants/dhikrData';
 
@@ -74,6 +76,8 @@ const ZikirCounter = React.memo(() => {
   // Mevcut zikrin yerel sayısı
   const count = perDhikrCounts[currentDhikr.id] || 0;
 
+  const player = useAudioPlayer(require('../../assets/audio/click_soft.wav'));
+
   const handlePrev = () => {
     setCurrentDhikrIndex((prev) => (prev === 0 ? dhikrList.length - 1 : prev - 1));
   };
@@ -83,6 +87,9 @@ const ZikirCounter = React.memo(() => {
   };
 
   const handleIncrement = () => {
+    player.seekTo(0);
+    player.play();
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     incrementDhikr(currentDhikr.id);
   };
 
@@ -106,44 +113,44 @@ const ZikirCounter = React.memo(() => {
   return (
     <View
       style={{
-        width: 350,
-        height: 434,
+        width: Math.min(SCREEN_WIDTH * 0.9, 360),
+        minHeight: 450,
         borderRadius: 32,
         backgroundColor: '#1C1C1C',
         borderWidth: 0.5,
         borderColor: 'rgba(255, 255, 255, 0.5)',
-        padding: 20,
+        padding: 24,
         marginBottom: 40,
         alignSelf: 'center',
-        position: 'relative'
+        justifyContent: 'space-between',
+        display: 'flex',
+        flexDirection: 'column'
       }}
     >
-      {/* Top Section: Text Content - Restricted height to prevent overlap */}
-      <View style={{ height: 140 }}>
+      {/* Top Section: Text Content */}
+      <View style={{ flex: 1, justifyContent: 'flex-start' }}>
         {/* Title */}
-        <Text style={{ fontFamily, fontSize: 28, fontWeight: '600', color: '#FFFFFF', marginBottom: 4 }} numberOfLines={1} adjustsFontSizeToFit>
+        <Text style={{ fontFamily, fontSize: 28, fontWeight: '600', color: '#FFFFFF', marginBottom: 8, textAlign: 'center' }} numberOfLines={1} adjustsFontSizeToFit>
           {currentDhikr.title}
         </Text>
 
         {/* Arabic Text */}
-        <Text style={{ fontFamily, fontSize: 18, fontWeight: '400', color: '#FFFFFF', marginBottom: 2, lineHeight: 22 }} numberOfLines={2}>
+        <Text style={{ fontFamily, fontSize: 18, fontWeight: '400', color: '#FFFFFF', marginBottom: 8, lineHeight: 26, textAlign: 'center' }}>
           {currentDhikr.arabic_pronunciation}
         </Text>
 
         {/* Turkish Meaning */}
-        <Text style={{ fontFamily, fontSize: 15, fontWeight: '300', color: 'rgba(255, 255, 255, 0.6)', lineHeight: 18 }} numberOfLines={3}>
+        <Text style={{ fontFamily, fontSize: 15, fontWeight: '300', color: 'rgba(255, 255, 255, 0.6)', lineHeight: 20, textAlign: 'center' }}>
           {currentDhikr.meaning}
         </Text>
       </View>
 
-      {/* Bottom Section: Progress Circle and Navigation - Absolute Pinned to Bottom */}
+      {/* Bottom Section: Progress Circle and Navigation - Relative Positioning */}
       <View style={{
-        position: 'absolute',
-        bottom: 20,
-        left: 20,
-        right: 20,
+        marginTop: 20,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: '100%'
       }}>
         <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
           {/* Left Arrow */}

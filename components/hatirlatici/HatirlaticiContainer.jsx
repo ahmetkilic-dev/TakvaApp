@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, Dimensions, ActivityIndicator, Linking, TouchableOpacity } from 'react-native';
 import { usePrayerTimesForReminders } from '../../hooks/usePrayerTimesForReminders';
 import { useReminderSettings } from './hooks/useReminderSettings';
 import PrayerReminderCard from './PrayerReminderCard';
@@ -95,30 +95,37 @@ export default function HatirlaticiContainer() {
   if (notificationPermission !== 'granted') {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: horizontalPadding }}>
-        <Text
-          style={{
-            fontFamily,
-            fontSize: 16,
-            fontWeight: '600',
-            color: '#FFFFFF',
-            textAlign: 'center',
-            marginBottom: 12,
-          }}
+        <TouchableOpacity
+          style={{ alignItems: 'center', padding: 20 }}
+          onPress={() => Linking.openSettings()}
+          activeOpacity={0.7}
         >
-          ⚠️ Bildirim İzni Gerekli
-        </Text>
-        <Text
-          style={{
-            fontFamily,
-            fontSize: 14,
-            fontWeight: '400',
-            color: 'rgba(255, 255, 255, 0.7)',
-            textAlign: 'center',
-            lineHeight: 20,
-          }}
-        >
-          Hatırlatıcı özelliğini kullanabilmek için lütfen telefonunuzun ayarlarından bildirim izni veriniz.
-        </Text>
+          <Text
+            style={{
+              fontFamily,
+              fontSize: 16,
+              fontWeight: '600',
+              color: '#FFFFFF',
+              textAlign: 'center',
+              marginBottom: 12,
+            }}
+          >
+            ⚠️ Bildirim İzni Gerekli
+          </Text>
+          <Text
+            style={{
+              fontFamily,
+              fontSize: 14,
+              fontWeight: '400',
+              color: 'rgba(255, 255, 255, 0.7)',
+              textAlign: 'center',
+              lineHeight: 20,
+            }}
+          >
+            Hatırlatıcı özelliğini kullanabilmek için lütfen telefonunuzun ayarlarından bildirim izni veriniz.
+            {'\n'}(Ayarlara gitmek için tıklayın)
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
