@@ -19,7 +19,7 @@ export default function KelamScreen() {
     const insets = useSafeAreaInsets();
     const { profile, user, loading } = useUserStats();
     // Creator check
-    const isCreator = profile?.role === 'creator' || profile?.application_status === 'approved';
+    const isCreator = profile?.role === 'creator' || profile?.role === 'admin';
     const [videos, setVideos] = useState(() => KelamService.getCachedFeed() || []);
     // Initial loading is true only if we don't have cached videos
     const [isLoading, setIsLoading] = useState(() => {

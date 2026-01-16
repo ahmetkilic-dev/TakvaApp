@@ -26,6 +26,10 @@ export default function CreateAccountScreen() {
   const [loading, setLoading] = useState(false);
   const [isGenderDropdownOpen, setIsGenderDropdownOpen] = useState(false);
 
+  // Şifre Göster/Gizle State'leri
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepassword, setShowRepassword] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '', surname: '', password: '', repassword: '',
     gender: '', birthDate: '', email: '', phone: ''
@@ -200,8 +204,37 @@ export default function CreateAccountScreen() {
                   <View className="gap-y-5">
                     <TextInput style={fontStyle} placeholder="Adınızı giriniz" placeholderTextColor="#9CA3AF" className={inputStyle} value={formData.name} onChangeText={(text) => setFormData(prev => ({ ...prev, name: text }))} />
                     <TextInput style={fontStyle} placeholder="Soyadınızı giriniz" placeholderTextColor="#9CA3AF" className={inputStyle} value={formData.surname} onChangeText={(text) => setFormData(prev => ({ ...prev, surname: text }))} textContentType="familyName" keyboardType="default" />
-                    <TextInput style={fontStyle} placeholder="Parolanızı giriniz" placeholderTextColor="#9CA3AF" secureTextEntry className={inputStyle} value={formData.password} onChangeText={(text) => setFormData(prev => ({ ...prev, password: text }))} />
-                    <TextInput style={fontStyle} placeholder="Parolanızı tekrar giriniz" placeholderTextColor="#9CA3AF" secureTextEntry className={inputStyle} value={formData.repassword} onChangeText={(text) => setFormData(prev => ({ ...prev, repassword: text }))} />
+                    {/* ŞİFRE ALANI */}
+                    <View className="w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 flex-row items-center">
+                      <TextInput
+                        style={{ ...fontStyle, flex: 1 }}
+                        placeholder="Parolanızı giriniz"
+                        placeholderTextColor="#9CA3AF"
+                        secureTextEntry={!showPassword}
+                        className="text-white text-[15px]"
+                        value={formData.password}
+                        onChangeText={(text) => setFormData(prev => ({ ...prev, password: text }))}
+                      />
+                      <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                        <Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="#9CA3AF" />
+                      </TouchableOpacity>
+                    </View>
+
+                    {/* TEKRAR ŞİFRE ALANI */}
+                    <View className="w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 flex-row items-center">
+                      <TextInput
+                        style={{ ...fontStyle, flex: 1 }}
+                        placeholder="Parolanızı tekrar giriniz"
+                        placeholderTextColor="#9CA3AF"
+                        secureTextEntry={!showRepassword}
+                        className="text-white text-[15px]"
+                        value={formData.repassword}
+                        onChangeText={(text) => setFormData(prev => ({ ...prev, repassword: text }))}
+                      />
+                      <TouchableOpacity onPress={() => setShowRepassword(!showRepassword)}>
+                        <Ionicons name={showRepassword ? "eye-off" : "eye"} size={20} color="#9CA3AF" />
+                      </TouchableOpacity>
+                    </View>
 
                     <View className="flex-row items-center mt-4 mb-2">
                       <TouchableOpacity onPress={() => setIsChecked(!isChecked)} className={`w-6 h-6 border border-white rounded mr-3 items-center justify-center`}>

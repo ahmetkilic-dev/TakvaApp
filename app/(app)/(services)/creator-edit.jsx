@@ -78,7 +78,7 @@ export default function CreatorEditScreen() {
         try {
             const { data, error } = await supabase
                 .from('profiles')
-                .select('username, display_name, social_links')
+                .select('username, display_name, name, social_links')
                 .eq('id', user.uid)
                 .single();
 
@@ -90,7 +90,7 @@ export default function CreatorEditScreen() {
 
                 setFormData({
                     username: data.username || '',
-                    name: data.display_name || '',
+                    name: data.name || data.display_name || '', // Öncelik name, yoksa display_name
                     bio: links.bio || '',
                     link: links.website || ''
                 });
@@ -124,8 +124,9 @@ export default function CreatorEditScreen() {
 
             const updates = {
                 username: formData.username,
-                display_name: formData.name, // Ad Soyad (sadece adminler görür)
-                social_links: updatedLinks,  // Bio ve Website buraya
+                display_name: formData.name, // Display name güncellensin
+                name: formData.name,         // Name kolonu da güncellensin (Kullanıcı isteği)
+                social_links: updatedLinks,
                 updated_at: new Date().toISOString(),
             };
 
@@ -216,7 +217,7 @@ export default function CreatorEditScreen() {
                                     placeholderTextColor="#666"
                                     className={inputStyle}
                                 />
-                                <Text className="text-white/40 text-[11px] mt-2 ml-1" style={{ fontFamily: 'Plus Jakarta Sans' }}>* Bu isim sadece yönetim tarafından görülür. Diğer kullanıcılar kullanıcı adınızı görür.</Text>
+                                <Text className="text-white/40 text-[11px] mt-2 ml-1" style={{ fontFamily: 'Plus Jakarta Sans' }}>Bu isim profilinizi görüntüleyenler tarafından görünür.</Text>
                             </AccordionItem>
 
                             {/* Biyografi */}

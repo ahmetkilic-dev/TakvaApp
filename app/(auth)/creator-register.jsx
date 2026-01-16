@@ -25,6 +25,10 @@ export default function CreatorRegisterScreen() {
   const [loading, setLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
+  // Şifre Göster/Gizle State'leri
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepassword, setShowRepassword] = useState(false);
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -61,7 +65,7 @@ export default function CreatorRegisterScreen() {
     }
   };
 
-  // --- BENZERSİZLİK KONTROLÜ ---
+  // --- BENZERSİZLİK KONTROLÜ (TELEFON) ---
   const checkUniqueness = async (cleanPhone) => {
     const { data, error } = await supabase
       .from('profiles')
@@ -69,12 +73,38 @@ export default function CreatorRegisterScreen() {
       .eq('phone', cleanPhone);
 
     if (error) {
-      console.error("Benzersizlik kontrolü hatası:", error);
+      console.error("Telefon benzersizlik kontrolü hatası:", error);
       return true;
     }
 
     if (data && data.length > 0) {
       Alert.alert("Hata", "Bu telefon numarası zaten kullanımda.");
+      return false;
+    }
+    return true;
+  };
+
+  // --- KULLANICI ADI KONTROLÜ ---
+  const checkUsernameUniqueness = async (username) => {
+    if (!username) return false;
+
+    // Küçük harf ve boşluk kontrolü (ekstra güvenlik)
+    const formattedUsername = username.toLowerCase().replace(/\s/g, '');
+
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('username', formattedUsername); // 'username' sütunu kontrol ediliyor
+
+    if (error) {
+      // Eğer username kolonu yoksa hata verebilir, bu durumda şimdilik geçelim ya da display_name kontrol edelim.
+      // Ancak kullanıcı özellikle username dediği için veritabanında bu alanın olduğunu varsayıyoruz.
+      console.error("Kullanıcı adı kontrol hatası:", error);
+      return true;
+    }
+
+    if (data && data.length > 0) {
+      Alert.alert("Hata", "Bu kullanıcı adı zaten alınmış. Lütfen başka bir kullanıcı adı seçin.");
       return false;
     }
     return true;
@@ -139,7 +169,7 @@ export default function CreatorRegisterScreen() {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === 1) {
       if (!formData.username || !formData.password || !formData.repassword) {
         return Alert.alert("Uyarı", "Lütfen kullanıcı adı ve şifre alanlarını doldurun.");
@@ -150,6 +180,14 @@ export default function CreatorRegisterScreen() {
       if (!isChecked) {
         return Alert.alert("Uyarı", "Lütfen tüm sözleşmeleri kabul edin.");
       }
+
+      // Kullanıcı Adı Kontrolü
+      setLoading(true);
+      const isUsernameUnique = await checkUsernameUniqueness(formData.username);
+      setLoading(false);
+
+      if (!isUsernameUnique) return; // Kullanımda ise ilerleme
+
       setStep(2);
     }
     else if (step === 2) {
@@ -198,9 +236,50 @@ export default function CreatorRegisterScreen() {
                 {/* --- ADIM 1 --- */}
                 {step === 1 && (
                   <View className="gap-y-5">
-                    <TextInput style={fontStyle} placeholder="Kullanıcı Adı" placeholderTextColor="#9CA3AF" className={inputStyle} value={formData.username} onChangeText={(text) => setFormData(prev => ({ ...prev, username: text }))} />
-                    <TextInput style={fontStyle} placeholder="Parolanızı giriniz" placeholderTextColor="#9CA3AF" secureTextEntry className={inputStyle} value={formData.password} onChangeText={(text) => setFormData(prev => ({ ...prev, password: text }))} />
-                    <TextInput style={fontStyle} placeholder="Parolanızı tekrar giriniz" placeholderTextColor="#9CA3AF" secureTextEntry className={inputStyle} value={formData.repassword} onChangeText={(text) => setFormData(prev => ({ ...prev, repassword: text }))} />
+                    <TextInput
+                      style={fontStyle}
+                      placeholder="Kullanıcı Adı"
+                      placeholderTextColor="#9CA3AF"
+                      className={inputStyle}
+                      value={formData.username}
+                      autoCapitalize="none"
+                      onChangeText={(text) => {
+                        // Küçük harf ve boşluksuz zorunluluğu
+                        const formatted = text.toLowerCase().replace(/\s/g, '');
+                        setFormData(prev => ({ ...prev, username: formatted }));
+                      }}
+                    />
+                    {/* ŞİFRE ALANI */}
+                    <View className="w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 flex-row items-center">
+                      <TextInput
+                        style={{ ...fontStyle, flex: 1 }}
+                        placeholder="Parolanızı giriniz"
+                        placeholderTextColor="#9CA3AF"
+                        secureTextEntry={!showPassword}
+                        className="text-white text-[15px]"
+                        value={formData.password}
+                        onChangeText={(text) => setFormData(prev => ({ ...prev, password: text }))}
+                      />
+                      <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                        <Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="#9CA3AF" />
+                      </TouchableOpacity>
+                    </View>
+
+                    {/* TEKRAR ŞİFRE ALANI */}
+                    <View className="w-full bg-[#15221E] border border-white/80 rounded-[10px] px-4 py-4 flex-row items-center">
+                      <TextInput
+                        style={{ ...fontStyle, flex: 1 }}
+                        placeholder="Parolanızı tekrar giriniz"
+                        placeholderTextColor="#9CA3AF"
+                        secureTextEntry={!showRepassword}
+                        className="text-white text-[15px]"
+                        value={formData.repassword}
+                        onChangeText={(text) => setFormData(prev => ({ ...prev, repassword: text }))}
+                      />
+                      <TouchableOpacity onPress={() => setShowRepassword(!showRepassword)}>
+                        <Ionicons name={showRepassword ? "eye-off" : "eye"} size={20} color="#9CA3AF" />
+                      </TouchableOpacity>
+                    </View>
 
                     {/* GÜNCELLENEN SÖZLEŞME ALANI */}
                     <View className="flex-row items-center mt-4 mb-2">

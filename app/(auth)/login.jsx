@@ -238,6 +238,16 @@ export default function LoginScreen() {
               </TouchableOpacity>
             </View>
 
+            {/* Creator Link - Register ekranından alındı */}
+            <View className="items-center mt-4">
+              <Text style={fontStyle} className="text-gray-300 text-[12px] text-center mb-1">
+                İlham verici İslami içerikler üretmek ister misiniz?
+              </Text>
+              <TouchableOpacity onPress={() => router.push('/(auth)/creator-register')}>
+                <Text style={fontStyle} className="text-white font-bold text-sm underline">Başvuru yapın</Text>
+              </TouchableOpacity>
+            </View>
+
             <View className="mt-auto pt-6">
               <TouchableOpacity onPress={() => router.push('/(auth)/create-account')} className="w-full py-4 bg-white rounded-[10px] items-center justify-center active:opacity-80 shadow-lg">
                 <Text style={fontStyle} className="text-black font-regular text-[15px]">Yeni hesap oluştur</Text>
