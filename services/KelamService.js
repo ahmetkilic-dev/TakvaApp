@@ -15,6 +15,47 @@ export const KelamService = {
      * Fetch video feed with creator info
      */
     async fetchVideos(limit = 20, offset = 0, userId = null, shouldShuffle = true) {
+        // ... implementation (this is just context match)
+    }, // I will not actually touch fetchVideos but use range-based editing
+
+    /**
+     * Fetch single video by ID
+     */
+    async getVideoById(videoId, userId = null) {
+        try {
+            const { data, error } = await supabase
+                .from('kelam_videos')
+                .select(`
+                    *,
+                    creator:profiles!kelam_videos_creator_id_fkey(id, name, username, profile_picture)
+                `)
+                .eq('id', videoId)
+                .single();
+
+            if (error) throw error;
+            if (!data) return null;
+
+            let video = data;
+
+            // Check like status if user is logged in
+            if (userId) {
+                const { data: likeData } = await supabase
+                    .from('kelam_likes')
+                    .select('id')
+                    .eq('user_id', userId)
+                    .eq('video_id', videoId)
+                    .maybeSingle(); // single yerine maybeSingle çünkü like olmayabilir
+
+                video.isLiked = !!likeData;
+            }
+
+            return video;
+        } catch (error) {
+            console.error('KelamService: getVideoById error', error);
+            return null;
+        }
+    },
+    async fetchVideos(limit = 20, offset = 0, userId = null, shouldShuffle = true) {
         try {
             const { data, error } = await supabase
                 .from('kelam_videos')

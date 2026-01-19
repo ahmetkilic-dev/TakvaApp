@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity, Animated, LayoutAnimation, Platform, UIManager } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, TouchableOpacity, Animated, LayoutAnimation, Platform, UIManager, Share } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useVideoPlayer, VideoView } from 'expo-video';
@@ -163,6 +163,28 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
         extrapolate: 'clamp'
     });
 
+    const handleShare = async () => {
+        try {
+            // Cloudflare Worker URL (Redirector)
+            const shareUrl = `https://takva-uploader.dev-400.workers.dev/share/${video.id}`;
+            const title = `Takva'da bu kelamı izle: ${video.title}`;
+
+            if (Platform.OS === 'ios') {
+                await Share.share({
+                    message: title,
+                    url: shareUrl,
+                });
+            } else {
+                await Share.share({
+                    message: `${title}\n\n${shareUrl}`,
+                    title: 'Kelam Paylaş'
+                });
+            }
+        } catch (error) {
+            console.error('Paylaşım hatası:', error);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <TouchableOpacity
@@ -258,8 +280,10 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
                     <Text style={styles.actionText}>{video.likes_count || 0}</Text>
                 </TouchableOpacity>
 
+
+
                 {/* Share Button */}
-                <TouchableOpacity style={styles.actionButton}>
+                <TouchableOpacity style={styles.actionButton} onPress={handleShare}>
                     <Ionicons name="arrow-redo-outline" size={30} color="#FFFFFF" />
                     <Text style={styles.actionText}>Paylaş</Text>
                 </TouchableOpacity>
