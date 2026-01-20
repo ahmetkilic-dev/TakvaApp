@@ -41,7 +41,9 @@ export default function KelamScreen() {
                 p_user_id: user.uid,
                 p_activity_type: 'kelam'
             }).then(({ error }) => {
-                if (error) console.error('Kelam activity error:', error);
+                if (error) console.log('Kelam activity warning:', error);
+            }).catch(err => {
+                console.log('Kelam activity network ignored:', err); // Suppress network crash
             });
         }
     }, [user?.uid]);

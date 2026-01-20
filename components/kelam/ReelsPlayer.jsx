@@ -10,6 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { formatRelativeTime } from '../../utils/timeFormat';
 import { useUserStats } from '../../contexts/UserStatsContext';
 import { UserService } from '../../services/UserService';
+import { KelamService } from '../../services/KelamService';
 import { rsW } from '../../utils/responsive';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -31,6 +32,34 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
     // Animation Values
     const progressAnim = useRef(new Animated.Value(0)).current;
     const wasPlayingRef = useRef(false);
+
+    // View Counting Refs
+    const hasViewedRef = useRef(false);
+    const viewTimerRef = useRef(null);
+
+    // Reset view status when video changes
+    useEffect(() => {
+        hasViewedRef.current = false;
+        if (viewTimerRef.current) clearTimeout(viewTimerRef.current);
+    }, [video.id]);
+
+    // Track View (3 Seconds Rule)
+    useEffect(() => {
+        if (isActive && isPlaying && !hasViewedRef.current) {
+            viewTimerRef.current = setTimeout(() => {
+                if (isActive && isPlaying && !hasViewedRef.current) {
+                    KelamService.incrementView(video.id);
+                    hasViewedRef.current = true;
+                }
+            }, 3000); // 3 Seconds
+        }
+
+        return () => {
+            if (viewTimerRef.current) {
+                clearTimeout(viewTimerRef.current);
+            }
+        };
+    }, [isActive, isPlaying, video.id]);
 
     const isFollowing = (profile?.following || []).includes(video.creator?.id);
     const isOwner = user?.uid === video.creator?.id;

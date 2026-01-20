@@ -64,6 +64,7 @@ export default function CreatorStatsScreen() {
 
     // Stats State
     const [stats, setStats] = useState({
+        allTime: { count: 0, views: 0, likes: 0, shares: 0 },
         week: { count: 0, views: 0, likes: 0, shares: 0 },
         month: { count: 0, views: 0, likes: 0, shares: 0 },
         sixMonths: { count: 0, views: 0, likes: 0, shares: 0 },
@@ -97,12 +98,17 @@ export default function CreatorStatsScreen() {
         const now = new Date();
         const oneDay = 24 * 60 * 60 * 1000;
 
+
+
         const calculatePeriod = (days) => {
-            const filtered = videos.filter(v => {
-                const created = new Date(v.created_at);
-                const diffDays = Math.round(Math.abs((now - created) / oneDay));
-                return diffDays <= days;
-            });
+            let filtered = videos;
+            if (days !== 'all') {
+                filtered = videos.filter(v => {
+                    const created = new Date(v.created_at);
+                    const diffDays = Math.round(Math.abs((now - created) / oneDay));
+                    return diffDays <= days;
+                });
+            }
 
             return {
                 count: filtered.length,
@@ -113,6 +119,7 @@ export default function CreatorStatsScreen() {
         };
 
         setStats({
+            allTime: calculatePeriod('all'),
             week: calculatePeriod(7),
             month: calculatePeriod(30),
             sixMonths: calculatePeriod(180),
@@ -237,6 +244,7 @@ export default function CreatorStatsScreen() {
                             isOpen={!!openSections['content']}
                             onPress={() => toggleSection('content')}
                         >
+                            <StatRow label="Tüm zamanlar toplamı." value={stats.allTime.count} />
                             <StatRow label="Son 1 haftalık toplam." value={stats.week.count} />
                             <StatRow label="Son 1 aylık toplam." value={stats.month.count} />
                             <StatRow label="Son 6 aylık toplam." value={stats.sixMonths.count} />
@@ -250,6 +258,7 @@ export default function CreatorStatsScreen() {
                             isOpen={!!openSections['views']}
                             onPress={() => toggleSection('views')}
                         >
+                            <StatRow label="Tüm zamanlar toplamı." value={stats.allTime.views} />
                             <StatRow label="Son 1 haftalık toplam." value={stats.week.views} />
                             <StatRow label="Son 1 aylık toplam." value={stats.month.views} />
                             <StatRow label="Son 6 aylık toplam." value={stats.sixMonths.views} />
@@ -263,6 +272,7 @@ export default function CreatorStatsScreen() {
                             isOpen={!!openSections['likes']}
                             onPress={() => toggleSection('likes')}
                         >
+                            <StatRow label="Tüm zamanlar toplamı." value={stats.allTime.likes} />
                             <StatRow label="Son 1 haftalık toplam." value={stats.week.likes} />
                             <StatRow label="Son 1 aylık toplam." value={stats.month.likes} />
                             <StatRow label="Son 6 aylık toplam." value={stats.sixMonths.likes} />
@@ -277,6 +287,7 @@ export default function CreatorStatsScreen() {
                             onPress={() => toggleSection('shares')}
                             showBorder={false}
                         >
+                            <StatRow label="Tüm zamanlar toplamı." value={stats.allTime.shares} />
                             <StatRow label="Son 1 haftalık toplam." value={stats.week.shares} />
                             <StatRow label="Son 1 aylık toplam." value={stats.month.shares} />
                             <StatRow label="Son 6 aylık toplam." value={stats.sixMonths.shares} />
