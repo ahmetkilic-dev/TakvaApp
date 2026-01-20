@@ -1,22 +1,32 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import HomeBg from '../../assets/images/home-bg.svg';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+import { View, StyleSheet, Image } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import Symbol from '../../assets/images/symbol.png';
 
 function ScreenBackground({ children }) {
   return (
     <View style={styles.container}>
-      {/* SVG Background */}
-      <View style={styles.backgroundContainer}>
-        <HomeBg
-          width={SCREEN_WIDTH}
-          height={SCREEN_HEIGHT}
-          preserveAspectRatio="xMidYMid slice"
-        />
-      </View>
+      {/* Gradient Overlay (z-index 1) */}
+      <LinearGradient
+        colors={[
+          'rgba(0, 0, 0, 0.56)',   // 0% - Dark (Top)
+          'rgba(0, 0, 0, 0.48)',   // 25%
+          'rgba(0, 0, 0, 0.24)',   // 50%
+          'rgba(0, 0, 0, 0.12)',   // 75%
+          'rgba(0, 0, 0, 0)'       // 100% - Transparent
+        ]}
+        locations={[0, 0.25, 0.50, 0.75, 1]}
+        style={styles.gradient}
+      />
 
-      {/* Content */}
+      {/* Symbol (z-index 2) - Placed after gradient to be on top */}
+      <Image
+        source={Symbol}
+        style={styles.symbol}
+        resizeMode="contain"
+      />
+
+      {/* Content (z-index 3) */}
       <View style={styles.content}>
         {children}
       </View>
@@ -27,19 +37,27 @@ function ScreenBackground({ children }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#04100D',
+    backgroundColor: '#182723',
   },
-  backgroundContainer: {
+  gradient: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1,
+    pointerEvents: 'none',
+  },
+  symbol: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    top: 105,
+    left: 45,
+    width: 300,
+    height: 300,
+    opacity: 0.5,
+    tintColor: 'rgba(211, 164, 83, 1)', // #D3A453
+    zIndex: 2,
   },
   content: {
     flex: 1,
-  },
+    zIndex: 3,
+  },  
 });
 
-// Memoize to prevent SVG re-render on every screen change
 export default React.memo(ScreenBackground);

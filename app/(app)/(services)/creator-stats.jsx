@@ -58,9 +58,17 @@ const StatRow = ({ label, value }) => (
 export default function CreatorStatsScreen() {
     const router = useRouter();
     const { profile, user } = useUserStats();
-    const [openSections, setOpenSections] = useState({ 'videos': true }); // Videolarım başta açık gelsin
+    const [openSections, setOpenSections] = useState({ 'videos': true });
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    // Stats State
+    const [stats, setStats] = useState({
+        week: { count: 0, views: 0, likes: 0, shares: 0 },
+        month: { count: 0, views: 0, likes: 0, shares: 0 },
+        sixMonths: { count: 0, views: 0, likes: 0, shares: 0 },
+        year: { count: 0, views: 0, likes: 0, shares: 0 },
+    });
 
     const loadVideos = useCallback(async () => {
         const creatorId = profile?.id || user?.uid;
@@ -81,6 +89,37 @@ export default function CreatorStatsScreen() {
     useEffect(() => {
         loadVideos();
     }, [loadVideos]);
+
+    // Calculate Stats whenever videos change
+    useEffect(() => {
+        if (!videos || videos.length === 0) return;
+
+        const now = new Date();
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        const calculatePeriod = (days) => {
+            const filtered = videos.filter(v => {
+                const created = new Date(v.created_at);
+                const diffDays = Math.round(Math.abs((now - created) / oneDay));
+                return diffDays <= days;
+            });
+
+            return {
+                count: filtered.length,
+                views: filtered.reduce((acc, curr) => acc + (curr.views_count || 0), 0),
+                likes: filtered.reduce((acc, curr) => acc + (curr.likes_count || 0), 0),
+                shares: filtered.reduce((acc, curr) => acc + (curr.shares_count || 0), 0),
+            };
+        };
+
+        setStats({
+            week: calculatePeriod(7),
+            month: calculatePeriod(30),
+            sixMonths: calculatePeriod(180),
+            year: calculatePeriod(365),
+        });
+
+    }, [videos]);
 
     const handleDeleteVideo = async (video) => {
         Alert.alert(
@@ -198,10 +237,10 @@ export default function CreatorStatsScreen() {
                             isOpen={!!openSections['content']}
                             onPress={() => toggleSection('content')}
                         >
-                            <StatRow label="Son 1 haftalık toplam." value="0" />
-                            <StatRow label="Son 1 aylık toplam." value="0" />
-                            <StatRow label="Son 6 aylık toplam." value="0" />
-                            <StatRow label="Son 1 yıllık toplam." value="0" />
+                            <StatRow label="Son 1 haftalık toplam." value={stats.week.count} />
+                            <StatRow label="Son 1 aylık toplam." value={stats.month.count} />
+                            <StatRow label="Son 6 aylık toplam." value={stats.sixMonths.count} />
+                            <StatRow label="Son 1 yıllık toplam." value={stats.year.count} />
                         </AccordionItem>
 
                         {/* Toplam Görüntülenme */}
@@ -211,10 +250,10 @@ export default function CreatorStatsScreen() {
                             isOpen={!!openSections['views']}
                             onPress={() => toggleSection('views')}
                         >
-                            <StatRow label="Son 1 haftalık toplam." value="0" />
-                            <StatRow label="Son 1 aylık toplam." value="0" />
-                            <StatRow label="Son 6 aylık toplam." value="0" />
-                            <StatRow label="Son 1 yıllık toplam." value="0" />
+                            <StatRow label="Son 1 haftalık toplam." value={stats.week.views} />
+                            <StatRow label="Son 1 aylık toplam." value={stats.month.views} />
+                            <StatRow label="Son 6 aylık toplam." value={stats.sixMonths.views} />
+                            <StatRow label="Son 1 yıllık toplam." value={stats.year.views} />
                         </AccordionItem>
 
                         {/* Toplam Beğeni */}
@@ -224,10 +263,10 @@ export default function CreatorStatsScreen() {
                             isOpen={!!openSections['likes']}
                             onPress={() => toggleSection('likes')}
                         >
-                            <StatRow label="Son 1 haftalık toplam." value="0" />
-                            <StatRow label="Son 1 aylık toplam." value="0" />
-                            <StatRow label="Son 6 aylık toplam." value="0" />
-                            <StatRow label="Son 1 yıllık toplam." value="0" />
+                            <StatRow label="Son 1 haftalık toplam." value={stats.week.likes} />
+                            <StatRow label="Son 1 aylık toplam." value={stats.month.likes} />
+                            <StatRow label="Son 6 aylık toplam." value={stats.sixMonths.likes} />
+                            <StatRow label="Son 1 yıllık toplam." value={stats.year.likes} />
                         </AccordionItem>
 
                         {/* Toplam Paylaşım */}
@@ -238,10 +277,10 @@ export default function CreatorStatsScreen() {
                             onPress={() => toggleSection('shares')}
                             showBorder={false}
                         >
-                            <StatRow label="Son 1 haftalık toplam." value="0" />
-                            <StatRow label="Son 1 aylık toplam." value="0" />
-                            <StatRow label="Son 6 aylık toplam." value="0" />
-                            <StatRow label="Son 1 yıllık toplam." value="0" />
+                            <StatRow label="Son 1 haftalık toplam." value={stats.week.shares} />
+                            <StatRow label="Son 1 aylık toplam." value={stats.month.shares} />
+                            <StatRow label="Son 6 aylık toplam." value={stats.sixMonths.shares} />
+                            <StatRow label="Son 1 yıllık toplam." value={stats.year.shares} />
                         </AccordionItem>
 
                     </View>

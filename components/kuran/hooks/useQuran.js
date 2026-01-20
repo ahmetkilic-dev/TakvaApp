@@ -8,7 +8,7 @@ import { PAGE_DATA } from './quranData';
  */
 
 // Sure bilgileri (sabit veri)
-const SURAH_INFO = [
+export const SURAH_INFO = [
   { number: 1, name: 'Fâtiha', nameTransliterated: 'Al-Fatiha', nameTranslated: 'Açılış', ayahCount: 7 },
   { number: 2, name: 'Bakara', nameTransliterated: 'Al-Baqarah', nameTranslated: 'İnek', ayahCount: 286 },
   { number: 3, name: 'Âl-i İmrân', nameTransliterated: 'Ali Imran', nameTranslated: 'İmran Ailesi', ayahCount: 200 },

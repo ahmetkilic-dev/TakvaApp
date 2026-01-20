@@ -130,6 +130,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '400',
     marginBottom: 4,
+    textShadowColor: '#FFFFFF40',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   turkishText: {
     color: 'rgba(255, 255, 255, 0.8)',

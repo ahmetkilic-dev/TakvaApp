@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, FlatList, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, FlatList, Image, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
+import { supabase } from '../../lib/supabase';
 
 const fontFamily = 'Plus Jakarta Sans';
 
@@ -29,6 +30,34 @@ const GradientText = ({ colors, style, children }) => {
 
 export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, isPlus, following = [] }) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [followedUsers, setFollowedUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    // Fetch details when modal opens
+    React.useEffect(() => {
+        if (modalVisible && following.length > 0) {
+            const fetchUsers = async () => {
+                setLoading(true);
+                try {
+                    const { data, error } = await supabase
+                        .from('profiles')
+                        .select('id, name, profile_picture')
+                        .in('id', following);
+
+                    if (data) {
+                        setFollowedUsers(data);
+                    }
+                } catch (err) {
+                    console.error('Error fetching followed users:', err);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            fetchUsers();
+        } else {
+            setFollowedUsers([]);
+        }
+    }, [modalVisible, following]);
 
     // Determine colors and label
     let statusLabel = 'Aktif değil';
@@ -115,13 +144,17 @@ export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, isPlus, f
                             </TouchableOpacity>
                         </View>
 
-                        {following.length === 0 ? (
+                        {loading ? (
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <ActivityIndicator size="large" color="#FFFFFF" />
+                            </View>
+                        ) : followedUsers.length === 0 ? (
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ fontFamily, color: 'rgba(255,255,255,0.6)' }}>Henüz kimseyi takip etmiyorsun.</Text>
                             </View>
                         ) : (
                             <FlatList
-                                data={following}
+                                data={followedUsers}
                                 keyExtractor={(item) => item.id}
                                 renderItem={({ item }) => (
                                     <View style={{
@@ -132,9 +165,12 @@ export const QuickStatsRow = ({ followingCount, badgeCount, isPremium, isPlus, f
                                         borderColor: 'rgba(255,255,255,0.1)'
                                     }}>
                                         <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: '#24322E', marginRight: 12, overflow: 'hidden' }}>
-                                            {item.image ? <Image source={{ uri: item.image }} style={{ width: 40, height: 40 }} /> : <Ionicons name="person" size={24} color="white" style={{ alignSelf: 'center', marginTop: 8 }} />}
+                                            {item.profile_picture ?
+                                                <Image source={{ uri: item.profile_picture }} style={{ width: 40, height: 40 }} /> :
+                                                <Ionicons name="person" size={24} color="white" style={{ alignSelf: 'center', marginTop: 8 }} />
+                                            }
                                         </View>
-                                        <Text style={{ fontFamily, fontSize: 16, color: '#FFFFFF' }}>{item.name}</Text>
+                                        <Text style={{ fontFamily, fontSize: 16, color: '#FFFFFF' }}>{item.name || "İsimsiz Kullanıcı"}</Text>
                                     </View>
                                 )}
                             />

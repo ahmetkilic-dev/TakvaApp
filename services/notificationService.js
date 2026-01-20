@@ -40,7 +40,7 @@ export const NotificationService = {
                 importance: Notifications.AndroidImportance.MAX,
                 vibrationPattern: [0, 1000, 500, 1000], // Daha uzun titreşim
                 lightColor: '#FF4A4A',
-                sound: 'notification.wav',
+                sound: 'notification', // Extension removed for Channel Config
                 enableVibrate: true,
                 showBadge: true,
                 lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
@@ -232,6 +232,7 @@ export const NotificationService = {
                                         sound: sound,
                                         priority: isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
                                         channelId: channelId,
+                                        interruptionLevel: isAlarm ? 'timeSensitive' : 'active', // iOS Support
                                         data: { type: 'prayer_rem', prayerId },
                                     },
                                     trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
@@ -262,7 +263,8 @@ export const NotificationService = {
                                         body: `${reminder.name} vakti geldi.`,
                                         sound: sound,
                                         priority: isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
-                                        channelId: channelId
+                                        channelId: channelId,
+                                        interruptionLevel: isAlarm ? 'timeSensitive' : 'active', // iOS Support
                                     },
                                     trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
                                 });

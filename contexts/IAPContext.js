@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { Alert, NativeModules, Platform } from 'react-native';
-import * as InAppPurchases from 'expo-in-app-purchases';
+import * as RNIap from 'react-native-iap';
 import { auth } from '../firebaseConfig'; // Firebase Auth
 import { supabase } from '../lib/supabase'; // Supabase DB
-import { useUserStats } from './UserStatsContext'; // User Stats for sync
 
 const IAPContext = createContext();
 
@@ -101,7 +100,7 @@ export const IAPProvider = ({ children }) => {
             let newPurchaseDate;
             const newPurchaseDateStr = (() => {
                 let date;
-                const ts = purchase.transactionDate || purchase.purchaseTime;
+                const ts = purchase.transactionDate || purchase.purchaseTime || purchase.transactionDateMs;
 
                 if (!ts) date = new Date();
                 else {
@@ -124,7 +123,7 @@ export const IAPProvider = ({ children }) => {
 
             if (existingData && existingData.purchase_date) {
                 const existingDate = new Date(existingData.purchase_date);
-                // Eğer yeni gelen satın alma tarihi, veritabanındaki tarihten eskiyse GÜNCELLEME
+                // Eğer yeni gelen satın alma tarihi, veritabanındaki tarihten eskiyse GÜNCELLEME YAPMA
                 if (newPurchaseDate < existingDate) {
                     console.log('Eski satın alma verisi, güncelleme atlandı.',
                         `Mevcut: ${existingData.purchase_date}, Yeni: ${newPurchaseDateStr}`);
@@ -142,7 +141,6 @@ export const IAPProvider = ({ children }) => {
                     subscription_type: type,
                     subscription_plan: plan,
                     purchase_date: newPurchaseDateStr,
-                    original_transaction_id: purchase.originalTransactionId || purchase.transactionId || purchase.orderId,
                 });
 
             if (error) {
@@ -170,7 +168,7 @@ export const IAPProvider = ({ children }) => {
                 .upsert({
                     id: user.uid,
                     email: user.email,
-                    subscription_type: 'Free',
+                    subscription_type: 'free',
                     subscription_plan: null, // Boş
                     purchase_date: new Date().toISOString(), // Son güncelleme tarihi olarak kalsın
                 });
@@ -194,68 +192,71 @@ export const IAPProvider = ({ children }) => {
 
         try {
             if (!connected) {
-                try { await InAppPurchases.connectAsync(); setConnected(true); }
-                catch (e) { if (!e.message?.includes('Already')) throw e; }
+                try {
+                    await RNIap.initConnection();
+                    setConnected(true);
+                } catch (e) {
+                    console.warn('Connection error:', e);
+                    throw e;
+                }
             }
 
-            const { responseCode, results } = await InAppPurchases.getPurchaseHistoryAsync();
+            const purchases = await RNIap.getPurchaseHistory();
 
-            if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-                if (results && results.length > 0) {
-                    // Tarihe göre sırala (En yeni en üstte)
-                    const sortedResults = results.sort((a, b) => {
-                        const getDate = (p) => p.transactionDate || p.purchaseTime || 0;
-                        return getDate(b) - getDate(a);
-                    });
+            if (purchases && purchases.length > 0) {
+                // Tarihe göre sırala (En yeni en üstte)
+                const sortedResults = purchases.sort((a, b) => {
+                    const getDate = (p) => p.transactionDate || p.purchaseTime || p.transactionDateMs || 0;
+                    return getDate(b) - getDate(a);
+                });
 
-                    const latestPurchase = sortedResults[0];
+                const latestPurchase = sortedResults[0];
 
-                    // Debug: İlk objenin anahtarlarını görelim (Sadece bir kere)
-                    if (latestPurchase) {
-                        console.log('Latest Purchase Keys:', Object.keys(latestPurchase));
-                        console.log('Selected Latest:', latestPurchase.productId,
-                            new Date(latestPurchase.transactionDate || latestPurchase.purchaseTime || 0).toISOString());
-                    }
+                // Debug: İlk objenin anahtarlarını görelim (Sadece bir kere)
+                if (latestPurchase) {
+                    console.log('Latest Purchase Keys:', Object.keys(latestPurchase));
+                    console.log('Selected Latest:', latestPurchase.productId,
+                        new Date(latestPurchase.transactionDate || latestPurchase.purchaseTime || latestPurchase.transactionDateMs || 0).toISOString());
+                }
 
-                    if (latestPurchase) {
-                        // --- SÜRE KONTROLÜ ---
-                        const purchaseDate = new Date(latestPurchase.transactionDate || latestPurchase.purchaseTime || 0);
-                        const now = new Date();
-                        const diffTime = Math.abs(now - purchaseDate);
-                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                if (latestPurchase) {
+                    // --- SÜRE KONTROLÜ ---
+                    const purchaseDate = new Date(latestPurchase.transactionDate || latestPurchase.purchaseTime || latestPurchase.transactionDateMs || 0);
+                    const now = new Date();
+                    const diffTime = Math.abs(now - purchaseDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-                        let isExpired = false;
-                        const isMonthly = latestPurchase.productId.includes('monthly');
-                        const isYearly = latestPurchase.productId.includes('yearly');
+                    let isExpired = false;
+                    const isMonthly = latestPurchase.productId.includes('monthly');
+                    const isYearly = latestPurchase.productId.includes('yearly');
 
-                        if (isMonthly && diffDays > 32) isExpired = true;
-                        if (isYearly && diffDays > 370) isExpired = true;
+                    if (isMonthly && diffDays > 32) isExpired = true;
+                    if (isYearly && diffDays > 370) isExpired = true;
 
-                        if (isExpired) {
-                            console.log(`Abonelik süresi doldu (${diffDays} gün). Free'ye düşürülüyor...`);
-                            await setSubscriptionToFree();
-                        } else {
-                            const success = await upsertSubscription(latestPurchase);
+                    if (isExpired) {
+                        console.log(`Abonelik süresi doldu (${diffDays} gün). Free'ye düşürülüyor...`);
+                        await setSubscriptionToFree();
+                    } else {
+                        const success = await upsertSubscription(latestPurchase);
 
-                            // Eğer veritabanı güncellendiyse (veya zaten güncelse)
-                            // Kullanıcıya bir geri bildirim verelim (sadece sesli modda)
-                            if (success) {
-                                let type = latestPurchase.productId.includes('premium') ? 'premium' :
-                                    latestPurchase.productId.includes('plus') ? 'plus' : null;
+                        // Eğer veritabanı güncellendiyse (veya zaten güncelse)
+                        // Kullanıcıya bir geri bildirim verelim (sadece sesli modda)
+                        if (success) {
+                            let type = latestPurchase.productId.includes('premium') ? 'premium' :
+                                latestPurchase.productId.includes('plus') ? 'plus' : null;
 
-                                if (type) {
-                                    if (!isSilent) {
-                                        handleSuccess(type);
-                                    } else {
-                                        console.log('Silent restore success:', type);
-                                    }
+                            if (type) {
+                                if (!isSilent) {
+                                    handleSuccess(type);
+                                } else {
+                                    console.log('Silent restore success:', type);
                                 }
                             }
                         }
                     }
-                } else {
-                    if (!isSilent) Alert.alert('Bilgi', 'Geçmiş satın alım bulunamadı.');
                 }
+            } else {
+                if (!isSilent) Alert.alert('Bilgi', 'Geçmiş satın alım bulunamadı.');
             }
         } catch (e) {
             console.warn('Geçmiş hatası:', e.message);
@@ -269,65 +270,80 @@ export const IAPProvider = ({ children }) => {
     // --- INIT ---
     useEffect(() => {
         let isMounted = true;
+        let purchaseUpdateSubscription = null;
+        let purchaseErrorSubscription = null;
 
         const init = async () => {
             if (!acquireLock()) { setTimeout(init, 1000); return; }
 
             try {
-                await InAppPurchases.connectAsync();
+                await RNIap.initConnection();
                 if (!isMounted) { releaseLock(); return; }
                 setConnected(true);
 
-                InAppPurchases.setPurchaseListener(async ({ responseCode, results, errorCode }) => {
-                    if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-                        if (results) {
-                            for (const purchase of results) {
-                                if (!purchase.acknowledged) {
-                                    console.log('YENİ SATIN ALMA:', purchase.productId);
-                                    setIsProcessing(true);
+                // Purchase Update Listener
+                purchaseUpdateSubscription = RNIap.purchaseUpdatedListener(async (purchase) => {
+                    console.log('Purchase Updated:', purchase);
 
-                                    let type = purchase.productId.includes('premium') ? 'premium' :
-                                        purchase.productId.includes('plus') ? 'plus' : null;
+                    const receipt = purchase.transactionReceipt || purchase.purchaseToken;
+                    if (receipt) {
+                        setIsProcessing(true);
 
-                                    if (type) {
-                                        const success = await upsertSubscription(purchase);
-                                        if (success) {
-                                            try {
-                                                await InAppPurchases.finishTransactionAsync(purchase, false);
-                                                handleSuccess(type === 'plus' ? 'Takva Plus' : 'Takva Premium');
-                                            } catch (ackErr) { console.warn(ackErr); }
-                                        }
-                                    }
-                                    setIsProcessing(false);
+                        let type = purchase.productId.includes('premium') ? 'premium' :
+                            purchase.productId.includes('plus') ? 'plus' : null;
+
+                        if (type) {
+                            const success = await upsertSubscription(purchase);
+                            if (success) {
+                                try {
+                                    await RNIap.finishTransaction({ purchase, isConsumable: false });
+                                    handleSuccess(type === 'plus' ? 'Takva Plus' : 'Takva Premium');
+                                } catch (ackErr) {
+                                    console.warn('Finish transaction error:', ackErr);
                                 }
                             }
                         }
-                    } else if (responseCode === InAppPurchases.IAPResponseCode.USER_CANCELED) {
-                        setIsProcessing(false);
-                    } else {
                         setIsProcessing(false);
                     }
+                });
+
+                // Purchase Error Listener
+                purchaseErrorSubscription = RNIap.purchaseErrorListener((error) => {
+                    if (error.code === 'E_USER_CANCELLED') {
+                        console.log('User cancelled purchase');
+                    } else {
+                        console.warn('Purchase error:', error);
+                    }
+                    setIsProcessing(false);
                 });
 
                 releaseLock();
 
                 // App Launch Auto-Check
-                // AÇILIŞTA OTOMATİK KONTROL İPTAL EDİLDİ (Sadece Supabase kontrolü geçerli)
-                // setTimeout(() => {
-                //     checkCurrentPurchases(true);
-                // }, 1000);
+                setTimeout(() => {
+                    checkCurrentPurchases(true);
+                }, 1000);
 
             } catch (e) {
-                if (!e.message?.includes('Already')) console.error('Init Hatası:', e);
+                console.error('Init Hatası:', e);
                 setConnected(true);
                 releaseLock();
-                // Hata olsa bile otomatik kontrolü tetikleme
-                // setTimeout(() => checkCurrentPurchases(true), 1500);
+                setTimeout(() => checkCurrentPurchases(true), 1500);
             }
         };
 
         init();
-        return () => { isMounted = false; };
+
+        return () => {
+            isMounted = false;
+            if (purchaseUpdateSubscription) {
+                purchaseUpdateSubscription.remove();
+            }
+            if (purchaseErrorSubscription) {
+                purchaseErrorSubscription.remove();
+            }
+            RNIap.endConnection();
+        };
     }, []);
 
     // --- BUY ---
@@ -349,27 +365,16 @@ export const IAPProvider = ({ children }) => {
         }, 20000); // 20sn
 
         try {
-            const { responseCode, results } = await InAppPurchases.getProductsAsync([productId]);
-            if (responseCode === InAppPurchases.IAPResponseCode.OK && results.length > 0) {
-                await InAppPurchases.purchaseItemAsync(productId);
+            const products = await RNIap.getSubscriptions({ skus: [productId] });
 
-                // --- CRITICAL MERGE LOGIC ---
-                // Satın alma penceresi kapandığında (await bittiğinde),
-                // hemen geçmişi kontrol et. Eğer "already owned" ise bu kurtarır.
-                // Listener tetiklenirse o da çalışır, Mutex sıraya koyar.
+            if (products && products.length > 0) {
+                await RNIap.requestSubscription({ sku: productId });
 
                 // Listener'ın araya girmesine izin vermek için lock'ı kısa süreliğine açıp
                 // tekrar check'e yönlendirmek lazım.
-                // Ancak checkCurrentPurchases kendi lock'ını alıyor.
-
-                // Burada purchaseItemAsync "await" bittiğinde UI kapanmıştır (genelde).
-                // Listener o an veya hemen sonra tetiklenir.
-                // Biz 2-3 saniye sonra "Check" yaparsak her senaryoyu kapsarız.
-
                 setTimeout(() => {
-                    // Failsafe timer'ı temizle, check fonksiyonu kendi yönetecek
                     clearTimeout(failSafeTimer);
-                    setIsProcessing(false); // UI'yı serbest bırak (check tekrar kitleyecek)
+                    setIsProcessing(false);
                     releaseLock();
 
                     // Şimdi Restore Logic'i manuel olarak (sesli) çağır
@@ -385,8 +390,11 @@ export const IAPProvider = ({ children }) => {
             }
         } catch (e) {
             console.error('Buy Hatası:', e);
-            if (e.message?.includes('promise')) Alert.alert('Hata', 'İşlem çakışması.');
-            else Alert.alert('Hata', 'Satın alma başlatılamadı.');
+            if (e.code === 'E_USER_CANCELLED') {
+                Alert.alert('İptal', 'Satın alma iptal edildi.');
+            } else {
+                Alert.alert('Hata', 'Satın alma başlatılamadı.');
+            }
 
             clearTimeout(failSafeTimer);
             setIsProcessing(false);
@@ -394,66 +402,10 @@ export const IAPProvider = ({ children }) => {
         }
     }, [connected]);
 
-    // --- DATABASE RESTORE ONLY ---
-    const { refreshAll, user, isInitialized, subscription } = useUserStats();
-
-    // Akıllı Kontrol için Ref (Sadece bir kere çalışsın)
-    const hasPerformedSmartCheck = useRef(false);
-
-    // --- SMART VALIDATION ---
-    useEffect(() => {
-        // 1. IAP Bağlı mı?
-        // 2. User Stats Yüklendi mi? (Kullanıcının veritabanındaki durumu belli mi?)
-        // 3. Daha önce kontrol ettik mi?
-        if (!connected || !isInitialized || hasPerformedSmartCheck.current || !user) return;
-
-        // Kullanıcı veritabanında 'free' ise STORE KONTROLÜ YAPMA.
-        // (Böylece cihazda başka birinin aboneliği varsa bile yanlışlıkla user'a tanımlanmaz)
-        const currentType = subscription?.subscription_type || 'free';
-
-        if (currentType === 'free') {
-            console.log('Smart Check: Kullanıcı Free, mağaza kontrolü atlandı.');
-            hasPerformedSmartCheck.current = true;
-            return;
-        }
-
-        // Kullanıcı Premium/Plus ise:
-        // Mağazaya sor: "Hala geçerli mi?"
-        console.log(`Smart Check: Kullanıcı ${currentType}, mağaza doğrulaması yapılıyor...`);
-        hasPerformedSmartCheck.current = true;
-
-        // checkCurrentPurchases fonksiyonu expiration kontrolü yapar.
-        // Eğer süresi dolmuşsa 'Free'ye çeker.
-        // true = silent mode (Kullanıcıya popup gösterme)
-        checkCurrentPurchases(true);
-
-    }, [connected, isInitialized, user, subscription]);
-
-
-    const restoreToDatabase = async () => {
-        if (isProcessing) return;
-        setIsProcessing(true);
-        try {
-            if (user?.uid) {
-                console.log('Restore requested: Syncing with Supabase...');
-                await refreshAll(user.uid);
-                Alert.alert('Bilgi', 'Mevcut abonelik durumunuz başarıyla güncellendi.');
-            } else {
-                Alert.alert('Hata', 'Kullanıcı bulunamadı.');
-            }
-        } catch (e) {
-            console.error('Restore Error:', e);
-            Alert.alert('Hata', 'Bağlantı hatası.');
-        } finally {
-            setIsProcessing(false);
-        }
-    };
-
     const value = {
         isProcessing,
         requestPurchase,
-        restorePurchases: restoreToDatabase, // OVERRIDE OLD LOGIC
-        // restorePurchases: () => checkCurrentPurchases(false),
+        restorePurchases: () => checkCurrentPurchases(false),
     };
 
     return <IAPContext.Provider value={value}>{children}</IAPContext.Provider>;

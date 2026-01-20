@@ -7,6 +7,64 @@ const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 const fontFamily = 'PlusJakartaSans-Light';
 const arabicFontFamily = 'ScheherazadeNew-Regular';
 
+import { SURAH_INFO } from './hooks/useQuran';
+
+const SurahHeader = ({ surahNumber, surahName }) => {
+  if (!surahName) return null;
+
+  // Tevbe (9) haricinde Besmele göster
+  const showBismillah = surahNumber !== 9;
+
+  return (
+    <View style={{ alignItems: 'center', marginBottom: 24, marginTop: 16, width: '100%' }}>
+      {/* Surah Name - Centered */}
+      <View style={{
+        marginBottom: 16, // Space between name and bismillah
+        paddingHorizontal: 30,
+        paddingVertical: 10,
+        borderWidth: 1,
+        borderColor: '#5CAB7D',
+        borderRadius: 8,
+        backgroundColor: 'rgba(92, 171, 125, 0.05)',
+        minWidth: 200,
+        alignItems: 'center'
+      }}>
+        <Text style={{ fontFamily: fontFamily, fontSize: 18, fontWeight: '600', color: '#2A2A2A' }}>
+          {surahName} Sûresi
+        </Text>
+      </View>
+
+      {/* Bismillah - Centered below name */}
+      {showBismillah && (
+        <Text style={{
+          fontFamily: arabicFontFamily,
+          fontSize: 32, // Slightly larger for better calligraphy visibility
+          color: '#000',
+          textAlign: 'center',
+          marginBottom: 8
+        }}>
+          {BISMILLAH_ARABIC}
+        </Text>
+      )}
+    </View>
+  );
+};
+
+
+
+// Better looking simple marker
+const SimpleSurahMarker = () => (
+  <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 30, width: '100%' }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', opacity: 0.6 }}>
+      <View style={{ flex: 1, height: 1, backgroundColor: '#8E8B82', maxWidth: 100 }} />
+      <View style={{ marginHorizontal: 15, transform: [{ rotate: '45deg' }] }}>
+        <View style={{ width: 8, height: 8, backgroundColor: '#8E8B82' }} />
+      </View>
+      <View style={{ flex: 1, height: 1, backgroundColor: '#8E8B82', maxWidth: 100 }} />
+    </View>
+  </View>
+);
+
 const toArabicDigits = (num) => {
   const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
   return num.toString().split('').map(digit => arabicDigits[parseInt(digit)] || digit).join('');
@@ -16,7 +74,7 @@ const BISMILLAH_ARABIC = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ �
 const BISMILLAH_TURKISH = "Rahmân ve Rahîm olan Allah'ın adıyla.";
 
 // Tek bir ayeti render eden component (Meal modu için)
-const MealVerseItem = React.memo(({ verse, index, total }) => {
+const MealVerseItem = React.memo(({ verse, index, total, isSurahEnd }) => {
   return (
     <View style={{
       marginBottom: 0,
@@ -84,8 +142,8 @@ const MealVerseItem = React.memo(({ verse, index, total }) => {
         </Text>
       )}
 
-      {/* Separator - Son ayet hariç */}
-      {index < total - 1 && (
+      {/* Separator - Son ayet hariç (Eğer sure sonu değilse) */}
+      {index < total - 1 && !isSurahEnd && (
         <View
           style={{
             width: '100%',
@@ -96,31 +154,68 @@ const MealVerseItem = React.memo(({ verse, index, total }) => {
           }}
         />
       )}
+
+      {/* Sure Sonu İşareti */}
+      {isSurahEnd && <SimpleSurahMarker />}
     </View>
   );
 });
 
 const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }) => {
 
-  const renderItem = useCallback(({ item, index }) => (
-    <MealVerseItem
-      verse={item}
-      index={index}
-      total={verses.length}
-    />
-  ), [verses.length]);
+  const renderItem = useCallback(({ item, index }) => {
+    // Check if this verse is the last one of its surah
+    const surah = SURAH_INFO.find(s => s.number === item.surahNumber);
+    const isSurahEnd = surah && item.verseNumber === surah.ayahCount;
+
+    // Check for Surah Start (Verse 1)
+    const isSurahStart = item.verseNumber === 1;
+
+    return (
+      <View>
+        {isSurahStart && surah && (
+          <SurahHeader surahNumber={surah.number} surahName={surah.name} />
+        )}
+        <MealVerseItem
+          verse={item}
+          index={index}
+          total={verses.length}
+          isSurahEnd={isSurahEnd}
+        />
+      </View>
+    );
+  }, [verses.length]);
 
   const keyExtractor = useCallback((item, index) => item.id ? item.id.toString() : index.toString(), []);
 
-  // Full Arabic Text (Block Mode)
-  const fullArabicText = useMemo(() => {
-    if (!verses) return "";
-    return verses.map((verse) => {
-      if (verse.verseNumber) {
-        return `${verse.arabic} (${toArabicDigits(verse.verseNumber)}) `;
+  // Arabic Block Mode Logic - Group by Surah
+  const arabicBlocks = useMemo(() => {
+    if (!verses || verses.length === 0) return [];
+
+    const blocks = [];
+    let currentBlock = { surahNumber: verses[0].surahNumber, text: '' };
+
+    verses.forEach((verse, i) => {
+      if (verse.surahNumber !== currentBlock.surahNumber) {
+        // Push old block
+        blocks.push(currentBlock);
+        // Start new block
+        currentBlock = { surahNumber: verse.surahNumber, text: '' };
       }
-      return `${verse.arabic} `;
-    }).join('');
+
+      if (verse.verseNumber) {
+        currentBlock.text += `${verse.arabic} (${toArabicDigits(verse.verseNumber)}) `;
+      } else {
+        currentBlock.text += `${verse.arabic} `;
+      }
+
+      // If it's the last verse of the page, push the block
+      if (i === verses.length - 1) {
+        blocks.push(currentBlock);
+      }
+    });
+
+    return blocks;
   }, [verses]);
 
   if (loading) {
@@ -169,20 +264,42 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
         }}>
-          <Text
-            style={{
-              fontFamily: arabicFontFamily,
-              fontSize: 24,
-              fontWeight: '400',
-              color: '#000000',
-              textAlign: 'center',
-              lineHeight: 45,
-              letterSpacing: 2,
-              writingDirection: 'rtl'
-            }}
-          >
-            {fullArabicText}
-          </Text>
+          {arabicBlocks.map((block, index) => {
+            const surah = SURAH_INFO.find(s => s.number === block.surahNumber);
+            // Check if the block ends with the actual end of the surah
+            // We need to check the last verse of this block. 
+            // However, `block` only has text. We need to check against verses logic or pass metadata.
+            // Simpler: Check if the last verse in `verses` for this surah matches surah.ayahCount
+            const lastVerseOfBlock = verses.filter(v => v.surahNumber === block.surahNumber).pop();
+            const isSurahEnd = surah && lastVerseOfBlock && lastVerseOfBlock.verseNumber === surah.ayahCount;
+
+
+
+            return (
+              <View key={index}>
+                {/* Surah Header for Block Mode */}
+                {surah && (
+                  <SurahHeader surahNumber={surah.number} surahName={surah.name} />
+                )}
+
+                <Text
+                  style={{
+                    fontFamily: arabicFontFamily,
+                    fontSize: 24,
+                    fontWeight: '400',
+                    color: '#000000',
+                    textAlign: 'center',
+                    lineHeight: 45,
+                    letterSpacing: 2,
+                    writingDirection: 'rtl'
+                  }}
+                >
+                  {block.text}
+                </Text>
+                {isSurahEnd && <SimpleSurahMarker />}
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
     );
