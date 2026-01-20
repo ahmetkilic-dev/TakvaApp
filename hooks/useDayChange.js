@@ -56,7 +56,7 @@ export const useDayChange = () => {
 
         // Eğer gün değişmişse, ÖNCE reset işlemini dene
         if (lastDate.getTime() !== todayDate.getTime()) {
-          console.log('📅 Gün değişimi tespit edildi. Reset servisi tetikleniyor...');
+
 
           await updateLastActiveDate(userId); // Veritabanındaki tarihi güncelle
         }
@@ -69,7 +69,7 @@ export const useDayChange = () => {
         setLastActiveDate(todayDate);
       }
     } catch (err) {
-      console.error('🔴 Gün kontrolü hatası (fetchLastActiveDate):', err);
+
       setError(err);
       setLastActiveDate(getToday());
     } finally {
@@ -96,7 +96,7 @@ export const useDayChange = () => {
       setLastActiveDate(normalizedNow);
       // console.log('✅ Son aktif tarih güncellendi:', dateStr); // Gereksiz log kaldırıldı
     } catch (err) {
-      console.error('🔴 Son aktif tarih güncelleme hatası:', err);
+
       setError(err);
     }
   }, []);

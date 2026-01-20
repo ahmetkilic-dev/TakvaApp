@@ -81,7 +81,7 @@ export const UserStatsProvider = ({ children }) => {
                     // CACHE INVALIDATION: Surname check
                     // Eğer cache'de surname yoksa, cache'i yok say ve taze veri çekmesine izin ver.
                     if (parsed.profile.surname === undefined) {
-                        console.log('Cache invalid (missing surname), forcing refresh...');
+
                         // setProfile yapma, böylece server'dan çekmesi gerektiğini anlarız.
                     } else {
                         setProfile(parsed.profile);
@@ -135,16 +135,16 @@ export const UserStatsProvider = ({ children }) => {
     const fetchProfile = useCallback(async (uid) => {
         const { data, error } = await supabase.from('profiles').select('id, name, surname, username, role, application_status, following, profile_picture, bio, social_links').eq('id', uid).maybeSingle();
 
-        if (error) console.error('Profile fetch error:', error);
+
 
         if (data) {
-            console.log('Profile fetched successfully:', { name: data.name, surname: data.surname });
+
             const final = { ...data, following: data.following || [] };
             setProfile(final);
             profileRef.current = final;
             return final;
         } else {
-            console.warn('Profile fetch returned no data for uid:', uid);
+
         }
         return profileRef.current;
     }, []);
@@ -165,7 +165,7 @@ export const UserStatsProvider = ({ children }) => {
                 ...data,
                 subscription_type: (data.subscription_type || 'free').toLowerCase()
             };
-            console.log('Subscription data fetched:', normalized);
+
             setSubscription(normalized);
             return normalized;
         } else {
@@ -188,7 +188,7 @@ export const UserStatsProvider = ({ children }) => {
             ]);
             await saveCache(s, t, p, b, sub);
         } catch (error) {
-            console.error('Fetch all data error:', error);
+
         } finally {
             setLoading(false);
             setIsInitialized(true);

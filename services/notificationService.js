@@ -12,8 +12,12 @@ const STORAGE_KEYS = {
 
 const CHANNELS = {
     PRAYER: 'prayer-reminders',
-    ALARM: 'prayer-alarms',
+    ALARM: 'prayer-alarms-v2',
     DEFAULT: 'default',
+};
+
+const CATEGORIES = {
+    ALARM: 'alarm-actions',
 };
 
 /**
@@ -38,12 +42,17 @@ export const NotificationService = {
             await Notifications.setNotificationChannelAsync(CHANNELS.ALARM, {
                 name: 'Namaz Vakti Alarmları',
                 importance: Notifications.AndroidImportance.MAX,
-                vibrationPattern: [0, 1000, 500, 1000], // Daha uzun titreşim
+                vibrationPattern: [0, 1000, 1000, 1000, 1000, 1000], // Daha agresif titreşim
                 lightColor: '#FF4A4A',
-                sound: 'notification', // Extension removed for Channel Config
+                sound: 'notification.wav', // Extension added back for clarity, though expo handles it
                 enableVibrate: true,
                 showBadge: true,
                 lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
+                audioAttributes: {
+                    usage: Notifications.AndroidAudioUsage.ALARM,
+                    contentType: Notifications.AndroidAudioContentType.SONIFICATION,
+                },
+                bypassDnd: true, // Do Not Disturb modunu delmesi için (User permission gerekebilir)
             });
 
             await Notifications.setNotificationChannelAsync(CHANNELS.DEFAULT, {
@@ -53,6 +62,20 @@ export const NotificationService = {
                 lightColor: '#FFBA4A',
             });
         }
+
+        // Register Notification Categories (Buttons like Stop/Snooze)
+        await Notifications.setNotificationCategoryAsync(CATEGORIES.ALARM, [
+            {
+                identifier: 'STOP_ACTION',
+                buttonTitle: 'Durdur',
+                options: { isDestructive: true },
+            },
+            {
+                identifier: 'SNOOZE_ACTION',
+                buttonTitle: '5 Dakika Ertele',
+                options: { isAuthenticationRequired: false },
+            },
+        ]);
     },
 
     /**
@@ -104,7 +127,7 @@ export const NotificationService = {
                     return json.data;
                 }
             } catch (e) {
-                console.error('API Fetch Error:', e);
+
             }
             return null;
         };
@@ -141,7 +164,7 @@ export const NotificationService = {
         // Run in background slightly to not block UI transition
         setTimeout(async () => {
             try {
-                console.log('🔄 [NotificationService] Yeniden planlama başladı (Aşama 1: İlk 3 Gün)...');
+
                 await Notifications.cancelAllScheduledNotificationsAsync();
 
                 const [prayerRemindersRaw, customRemindersRaw, appSettingsRaw, locationRaw] = await Promise.all([
@@ -157,15 +180,41 @@ export const NotificationService = {
                 const location = locationRaw ? JSON.parse(locationRaw) : { latitude: 41.0082, longitude: 28.9784, city: 'İstanbul' };
 
                 const cityName = location.cityName || location.city || location.name || 'İstanbul';
-                const timings = await this.getPrayerTimesForRange(location.latitude, location.longitude, 10);
+                // USER REQUEST: Rolling Window (Sürekli Döngü)
+                // Her gece saat 00:10'da uyanıp "BUGÜN ve YARIN" (2 Gün) planını tazeler.
+                const timings = await this.getPrayerTimesForRange(location.latitude, location.longitude, 2);
                 if (!timings || timings.length === 0) return;
 
                 const now = new Date();
 
-                // Helper to check if a date is within the "Priority Phase" (Next 3 days)
+                // Helper to check if a date is within the "Priority Phase" (Next 2 days)
                 const isPriorityDay = (date) => {
                     const diffDays = Math.ceil((date - now) / (1000 * 60 * 60 * 24));
-                    return diffDays <= 3;
+                    return diffDays <= 2;
+                };
+
+                const getFormattedTime = () => {
+                    const d = new Date();
+                    return d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                };
+
+                const getNextWakeUp = () => {
+                    const d = new Date();
+                    d.setHours(0, 10, 0, 0);
+                    // Eğer şu an 00:10'u geçtiyse, bir sonraki günün 00:10'unu hedefle
+                    if (d <= now) {
+                        d.setDate(d.getDate() + 1);
+                    }
+                    return d;
+                };
+
+                const nextWakeUp = getNextWakeUp();
+
+                const timeUntil = (target) => {
+                    const diffMs = target - new Date();
+                    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+                    const mins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                    return `${hours} saat ${mins} dakika`;
                 };
 
                 const scheduleLogic = async (timingsSlice, isBackground = false) => {
@@ -220,24 +269,49 @@ export const NotificationService = {
                             const triggerDate = new Date(dayEntry.date);
                             triggerDate.setHours(h, m - offsetMinutes, 0, 0);
 
-                            const isAlarm = config.isAlarm;
-                            const channelId = isAlarm ? CHANNELS.ALARM : CHANNELS.PRAYER;
-                            const sound = isAlarm ? 'notification.wav' : true;
-
                             if (triggerDate > now) {
-                                await Notifications.scheduleNotificationAsync({
-                                    content: {
-                                        title: `${label} Hatırlatıcısı`,
-                                        body: offsetMinutes > 0 ? `${offsetMinutes} dk sonra ${label} vakti girecek.` : `${label} vakti geldi.`,
-                                        sound: sound,
-                                        priority: isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
-                                        channelId: channelId,
-                                        interruptionLevel: isAlarm ? 'timeSensitive' : 'active', // iOS Support
-                                        data: { type: 'prayer_rem', prayerId },
-                                    },
-                                    trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
-                                });
-                                count++;
+                                // 1. Schedule Alarm if enabled
+                                if (config.isAlarm) {
+                                    await Notifications.scheduleNotificationAsync({
+                                        content: {
+                                            title: `${label} Alarmı`,
+                                            body: offsetMinutes > 0 ? `${offsetMinutes} dk sonra ${label} vakti girecek.` : `${label} vakti geldi.`,
+                                            sound: 'notification.wav',
+                                            priority: Notifications.AndroidNotificationPriority.MAX,
+                                            channelId: CHANNELS.ALARM,
+                                            categoryIdentifier: CATEGORIES.ALARM,
+                                            interruptionLevel: 'timeSensitive',
+                                            autoDismiss: false, // Android: Don't dismiss on click
+                                            sticky: true,       // Android: Cannot be swiped away
+                                            data: {
+                                                type: 'prayer_rem',
+                                                prayerId,
+                                                isAlarm: true,
+                                                title: `${label} Alarmı`,
+                                                body: offsetMinutes > 0 ? `${offsetMinutes} dk sonra ${label} vakti girecek.` : `${label} vakti geldi.`
+                                            },
+                                        },
+                                        trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                                    });
+                                    count++;
+                                }
+
+                                // 2. Schedule Notification if enabled
+                                if (config.isNotification) {
+                                    await Notifications.scheduleNotificationAsync({
+                                        content: {
+                                            title: `${label} Hatırlatıcısı`,
+                                            body: offsetMinutes > 0 ? `${offsetMinutes} dk sonra ${label} vakti girecek.` : `${label} vakti geldi.`,
+                                            sound: true,
+                                            priority: Notifications.AndroidNotificationPriority.HIGH,
+                                            channelId: CHANNELS.PRAYER,
+                                            interruptionLevel: 'active',
+                                            data: { type: 'prayer_rem', prayerId, isAlarm: false },
+                                        },
+                                        trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                                    });
+                                    count++;
+                                }
                             }
                         }
                     }
@@ -253,49 +327,42 @@ export const NotificationService = {
                             triggerDate.setHours(h, m, 0, 0);
 
                             if (allowedDays.includes(triggerDate.getDay()) && triggerDate > now) {
-                                const isAlarm = reminder.isAlarm;
-                                const channelId = isAlarm ? CHANNELS.ALARM : CHANNELS.DEFAULT;
-                                const sound = isAlarm ? 'notification.wav' : true;
-
-                                await Notifications.scheduleNotificationAsync({
-                                    content: {
-                                        title: reminder.name || 'Özel',
-                                        body: `${reminder.name} vakti geldi.`,
-                                        sound: sound,
-                                        priority: isAlarm ? Notifications.AndroidNotificationPriority.MAX : Notifications.AndroidNotificationPriority.HIGH,
-                                        channelId: channelId,
-                                        interruptionLevel: isAlarm ? 'timeSensitive' : 'active', // iOS Support
-                                    },
-                                    trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
-                                });
-                                count++;
-                            }
-                        }
-                    }
-
-                    // --- 4. GENEL UYGULAMA (Daily Triggers - Only in Phase 1) ---
-                    if (!isBackground) {
-                        for (const task of generalTasks) {
-                            if (appSettings[task.key]) {
-                                await Notifications.scheduleNotificationAsync({
-                                    content: { title: task.t, body: `${task.t} zamanı geldi.`, sound: true, channelId: CHANNELS.DEFAULT },
-                                    trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: task.h, minute: task.m },
-                                });
-                                count++;
-                            }
-                        }
-
-                        // --- 5. DİNİ GÜNLER ---
-                        if (appSettings.religious) {
-                            for (const day of STATIC_RELIGIOUS_DAYS_2026) {
-                                const triggerDate = new Date(day.dateObj);
-                                triggerDate.setDate(triggerDate.getDate() - 1);
-                                triggerDate.setHours(10, 0, 0, 0);
-
-                                // If religous day is within our priority window
-                                if (triggerDate > now && isPriorityDay(triggerDate)) {
+                                // 1. Schedule Alarm if enabled
+                                if (reminder.isAlarm) {
                                     await Notifications.scheduleNotificationAsync({
-                                        content: { title: 'Dini Gün Hatırlatıcı', body: `Yarın ${day.name}. ✨`, sound: true },
+                                        content: {
+                                            title: reminder.name || 'Özel Alarm',
+                                            body: `${reminder.name} vakti geldi.`,
+                                            sound: 'notification.wav',
+                                            priority: Notifications.AndroidNotificationPriority.MAX,
+                                            channelId: CHANNELS.ALARM,
+                                            categoryIdentifier: CATEGORIES.ALARM,
+                                            interruptionLevel: 'timeSensitive',
+                                            autoDismiss: false,
+                                            sticky: true,
+                                            data: {
+                                                isAlarm: true,
+                                                title: reminder.name || 'Özel Alarm',
+                                                body: `${reminder.name} vakti geldi.`
+                                            },
+                                        },
+                                        trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                                    });
+                                    count++;
+                                }
+
+                                // 2. Schedule Notification if enabled
+                                if (reminder.isNotification) {
+                                    await Notifications.scheduleNotificationAsync({
+                                        content: {
+                                            title: reminder.name || 'Özel Hatırlatıcı',
+                                            body: `${reminder.name} vakti geldi.`,
+                                            sound: true,
+                                            priority: Notifications.AndroidNotificationPriority.HIGH,
+                                            channelId: CHANNELS.DEFAULT,
+                                            interruptionLevel: 'active',
+                                            data: { isAlarm: false },
+                                        },
                                         trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
                                     });
                                     count++;
@@ -304,31 +371,230 @@ export const NotificationService = {
                         }
                     }
 
+                    // --- 4. GENEL UYGULAMA BİLDİRİMLERİ (Ayet, Zikir, İlim) ---
+                    for (const task of generalTasks) {
+                        if (!appSettings[task.key]) continue;
+                        for (const dayEntry of timingsSlice) {
+                            const triggerDate = new Date(dayEntry.date);
+                            triggerDate.setHours(task.h, task.m, 0, 0);
+
+                            if (triggerDate > now) {
+                                await Notifications.scheduleNotificationAsync({
+                                    content: {
+                                        title: task.t,
+                                        body: `${task.t} zamanı geldi. ✨`,
+                                        sound: true,
+                                        priority: Notifications.AndroidNotificationPriority.HIGH,
+                                        channelId: CHANNELS.DEFAULT,
+                                        data: { isAlarm: false }
+                                    },
+                                    trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                                });
+                                count++;
+                            }
+                        }
+                    }
+
+                    // --- 5. DİNİ GÜNLER ---
+                    if (appSettings.religious) {
+                        for (const day of STATIC_RELIGIOUS_DAYS_2026) {
+                            const triggerDate = new Date(day.dateObj);
+                            triggerDate.setDate(triggerDate.getDate() - 1);
+                            triggerDate.setHours(10, 0, 0, 0);
+
+                            // If religous day is within our priority window
+                            if (triggerDate > now && isPriorityDay(triggerDate)) {
+                                await Notifications.scheduleNotificationAsync({
+                                    content: { title: 'Dini Gün Hatırlatıcı', body: `Yarın ${day.name}. ✨`, sound: true },
+                                    trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                                });
+                                count++;
+                            }
+                        }
+                    }
+
                     return count;
                 };
 
-                // AŞAMA 1: İlk 3 Günü Hemen Kur (UI akıcı kalsın)
-                const priorityTimings = timings.slice(0, 3);
-                const p1Count = await scheduleLogic(priorityTimings, false);
-                console.log(`✅ [NotificationService] Aşama 1 Bitti: ${p1Count} bildirim kuruldu. İlk 72 saat güvende.`);
+                // USER REQUEST: Rolling Window (2 Günlük Döngü)
+                // İlk kurulumda Bugünü ve Yarını planlar, sonra her gece 00:10'da uyanıp listeyi tazeler.
+                const totalScheduled = await scheduleLogic(timings, false);
 
-                // AŞAMA 2: Kalan 7 Günü Arka Planda Kur (2 saniye bekle ki UI tamamen rahatlasın)
-                setTimeout(async () => {
-                    try {
-                        console.log('🔄 [NotificationService] Aşama 2 Başladı (Gelecek hafta planlanıyor)...');
-                        const futureTimings = timings.slice(3);
-                        const p2Count = await scheduleLogic(futureTimings, true);
-                        console.log(`✅ [NotificationService] Aşama 2 Bitti: ${p2Count} ek bildirim kuruldu.`);
-                    } catch (futureErr) {
-                        console.error('❌ Background reschedule error:', futureErr);
-                    }
-                }, 2000);
+                // Get all scheduled details for logging
+                const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+
+                // Filter: All upcoming items (Vakit, Reminder, Alarm)
+                // Filter items with DATE trigger and relevant content
+                const upcomingItems = scheduled
+                    .filter(n => n.trigger.type === 'date' || n.content.data?.type === 'prayer_rem')
+                    .map(n => {
+                        const isAlarm = n.content.channelId === CHANNELS.ALARM || n.content.priority === 'max' || n.content.priority === 5;
+                        const isVakit = n.content.title === 'Namaz Vakti';
+
+                        let label = '🔔 BİLDİRİM';
+                        if (isAlarm) label = '🚨 ALARM';
+                        else if (isVakit) label = '🕋 VAKİT';
+
+                        return {
+                            title: n.content.title,
+                            date: new Date(n.trigger.value),
+                            type: label
+                        };
+                    })
+                    .sort((a, b) => a.date - b.date);
+
+                const counts = upcomingItems.reduce((acc, item) => {
+                    acc[item.type] = (acc[item.type] || 0) + 1;
+                    return acc;
+                }, {});
+
+
 
             } catch (error) {
-                console.error('❌ Reschedule error:', error);
+
             }
         }, 100);
         return { success: true };
+    },
+
+    /**
+     * Reschedule only specific notification type
+     * @param {string} type - 'prayer', 'verse', 'dhikr', 'knowledge', 'religious'
+     */
+    async rescheduleSpecific(type) {
+        try {
+
+
+            // Get current settings
+            const [appSettingsRaw, locationRaw] = await Promise.all([
+                AsyncStorage.getItem(STORAGE_KEYS.APP_SETTINGS),
+                AsyncStorage.getItem(STORAGE_KEYS.USER_LOCATION),
+            ]);
+
+            const appSettings = appSettingsRaw ? JSON.parse(appSettingsRaw) : {};
+            const location = locationRaw ? JSON.parse(locationRaw) : { latitude: 41.0082, longitude: 28.9784, city: 'İstanbul' };
+            const cityName = location.cityName || location.city || location.name || 'İstanbul';
+
+            // Get all scheduled notifications
+            const allScheduled = await Notifications.getAllScheduledNotificationsAsync();
+
+            // Cancel only notifications of this type
+            const typeIdentifiers = {
+                prayer: (n) => n.content.title === 'Namaz Vakti',
+                verse: (n) => n.content.title === 'Günün Ayeti',
+                dhikr: (n) => n.content.title === 'Zikir Hatırlatıcısı',
+                knowledge: (n) => n.content.title === 'İlim Hatırlatıcısı',
+                religious: (n) => n.content.title === 'Dini Gün Hatırlatıcı',
+            };
+
+            const identifierFn = typeIdentifiers[type];
+            if (!identifierFn) {
+
+                return { success: false };
+            }
+
+            // Cancel matching notifications
+            for (const notification of allScheduled) {
+                if (identifierFn(notification.content)) {
+                    await Notifications.cancelScheduledNotificationAsync(notification.identifier);
+                }
+            }
+
+            // If setting is enabled, reschedule for next 2 days
+            if (!appSettings[type]) {
+
+                return { success: true };
+            }
+
+            const timings = await this.getPrayerTimesForRange(location.latitude, location.longitude, 2);
+            if (!timings || timings.length === 0) {
+
+                return { success: false };
+            }
+
+            const now = new Date();
+            let count = 0;
+
+            // Schedule based on type
+            if (type === 'prayer') {
+                const prayerKeyMap = { '1': 'Fajr', '2': 'Sunrise', '3': 'Dhuhr', '4': 'Asr', '5': 'Maghrib', '6': 'Isha' };
+                const prayerNameMap = { '1': 'İmsak', '2': 'Güneş', '3': 'Öğle', '4': 'İkindi', '5': 'Akşam', '6': 'Yatsı' };
+
+                for (const prayerId of ['1', '2', '3', '4', '5', '6']) {
+                    for (const dayEntry of timings) {
+                        const rawTime = dayEntry.timings[prayerKeyMap[prayerId]].split(' ')[0];
+                        const [h, m] = rawTime.split(':').map(Number);
+                        const triggerDate = new Date(dayEntry.date);
+                        triggerDate.setHours(h, m, 0, 0);
+
+                        if (triggerDate > now) {
+                            await Notifications.scheduleNotificationAsync({
+                                content: {
+                                    title: 'Namaz Vakti',
+                                    body: `${cityName} için ${prayerNameMap[prayerId]} vakti girdi. 🕋`,
+                                    sound: true,
+                                    channelId: CHANNELS.PRAYER,
+                                },
+                                trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                            });
+                            count++;
+                        }
+                    }
+                }
+            } else if (type === 'verse' || type === 'dhikr' || type === 'knowledge') {
+                const taskMap = {
+                    verse: { t: 'Günün Ayeti', h: 11, m: 0 },
+                    dhikr: { t: 'Zikir Hatırlatıcısı', h: 21, m: 0 },
+                    knowledge: { t: 'İlim Hatırlatıcısı', h: 18, m: 0 },
+                };
+                const task = taskMap[type];
+
+                for (const dayEntry of timings) {
+                    const triggerDate = new Date(dayEntry.date);
+                    triggerDate.setHours(task.h, task.m, 0, 0);
+
+                    if (triggerDate > now) {
+                        await Notifications.scheduleNotificationAsync({
+                            content: {
+                                title: task.t,
+                                body: `${task.t} zamanı geldi. ✨`,
+                                sound: true,
+                                priority: Notifications.AndroidNotificationPriority.HIGH,
+                                channelId: CHANNELS.DEFAULT,
+                                data: { isAlarm: false }
+                            },
+                            trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                        });
+                        count++;
+                    }
+                }
+            } else if (type === 'religious') {
+                const isPriorityDay = (date) => {
+                    const diffDays = Math.ceil((date - now) / (1000 * 60 * 60 * 24));
+                    return diffDays <= 2;
+                };
+
+                for (const day of STATIC_RELIGIOUS_DAYS_2026) {
+                    const triggerDate = new Date(day.dateObj);
+                    triggerDate.setDate(triggerDate.getDate() - 1);
+                    triggerDate.setHours(10, 0, 0, 0);
+
+                    if (triggerDate > now && isPriorityDay(triggerDate)) {
+                        await Notifications.scheduleNotificationAsync({
+                            content: { title: 'Dini Gün Hatırlatıcı', body: `Yarın ${day.name}. ✨`, sound: true },
+                            trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                        });
+                        count++;
+                    }
+                }
+            }
+
+
+            return { success: true, count };
+        } catch (error) {
+
+            return { success: false, error };
+        }
     },
 
     // Helpers

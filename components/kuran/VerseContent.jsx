@@ -193,14 +193,14 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
     if (!verses || verses.length === 0) return [];
 
     const blocks = [];
-    let currentBlock = { surahNumber: verses[0].surahNumber, text: '' };
+    let currentBlock = { surahNumber: verses[0].surahNumber, text: '', startVerseNumber: verses[0].verseNumber };
 
     verses.forEach((verse, i) => {
       if (verse.surahNumber !== currentBlock.surahNumber) {
         // Push old block
         blocks.push(currentBlock);
         // Start new block
-        currentBlock = { surahNumber: verse.surahNumber, text: '' };
+        currentBlock = { surahNumber: verse.surahNumber, text: '', startVerseNumber: verse.verseNumber };
       }
 
       if (verse.verseNumber) {
@@ -278,7 +278,7 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
             return (
               <View key={index}>
                 {/* Surah Header for Block Mode */}
-                {surah && (
+                {surah && block.startVerseNumber === 1 && (
                   <SurahHeader surahNumber={surah.number} surahName={surah.name} />
                 )}
 

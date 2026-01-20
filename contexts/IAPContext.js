@@ -44,7 +44,7 @@ export const IAPProvider = ({ children }) => {
 
     // --- RELOAD APP HELPER ---
     const reloadApp = async () => {
-        console.log('App reloading...');
+
         try {
             // 1. Try Expo Updates (Production)
             try {
@@ -60,7 +60,7 @@ export const IAPProvider = ({ children }) => {
                 Alert.alert("Güncelleme Gerekli", "Lütfen aboneliğin aktif olması için uygulamayı tamamen kapatıp tekrar açın.");
             }
         } catch (error) {
-            console.error('Reload Error:', error);
+
         }
     };
 
@@ -80,7 +80,7 @@ export const IAPProvider = ({ children }) => {
         try {
             const user = auth.currentUser;
             if (!user) {
-                console.log('Update atlandı: Kullanıcı yok.');
+
                 return false;
             }
 
@@ -131,7 +131,7 @@ export const IAPProvider = ({ children }) => {
                 }
             }
 
-            console.log(`Supabase upsert: ${type} - ${plan} (${user.uid})`);
+
 
             const { error } = await supabase
                 .from('subscription')
@@ -144,13 +144,13 @@ export const IAPProvider = ({ children }) => {
                 });
 
             if (error) {
-                console.error('Upsert Hatası:', error.message);
+
                 return false;
             }
 
             return true;
         } catch (error) {
-            console.error('Supabase Kritik Hata:', error);
+
             return false;
         }
     };
@@ -161,7 +161,7 @@ export const IAPProvider = ({ children }) => {
             const user = auth.currentUser;
             if (!user) return;
 
-            console.log(`Abonelik Free'ye çekiliyor (${user.uid})`);
+
 
             const { error } = await supabase
                 .from('subscription')
@@ -174,10 +174,10 @@ export const IAPProvider = ({ children }) => {
                 });
 
             if (error) {
-                console.error('Free Update Hatası:', error.message);
+
             }
         } catch (error) {
-            console.error('Kritik Hata:', error);
+
         }
     };
 
@@ -196,7 +196,7 @@ export const IAPProvider = ({ children }) => {
                     await RNIap.initConnection();
                     setConnected(true);
                 } catch (e) {
-                    console.warn('Connection error:', e);
+
                     throw e;
                 }
             }
@@ -214,7 +214,7 @@ export const IAPProvider = ({ children }) => {
 
                 // Debug: İlk objenin anahtarlarını görelim (Sadece bir kere)
                 if (latestPurchase) {
-                    console.log('Latest Purchase Keys:', Object.keys(latestPurchase));
+
                     console.log('Selected Latest:', latestPurchase.productId,
                         new Date(latestPurchase.transactionDate || latestPurchase.purchaseTime || latestPurchase.transactionDateMs || 0).toISOString());
                 }
@@ -234,7 +234,7 @@ export const IAPProvider = ({ children }) => {
                     if (isYearly && diffDays > 370) isExpired = true;
 
                     if (isExpired) {
-                        console.log(`Abonelik süresi doldu (${diffDays} gün). Free'ye düşürülüyor...`);
+
                         await setSubscriptionToFree();
                     } else {
                         const success = await upsertSubscription(latestPurchase);
@@ -249,7 +249,7 @@ export const IAPProvider = ({ children }) => {
                                 if (!isSilent) {
                                     handleSuccess(type);
                                 } else {
-                                    console.log('Silent restore success:', type);
+
                                 }
                             }
                         }
@@ -259,7 +259,7 @@ export const IAPProvider = ({ children }) => {
                 if (!isSilent) Alert.alert('Bilgi', 'Geçmiş satın alım bulunamadı.');
             }
         } catch (e) {
-            console.warn('Geçmiş hatası:', e.message);
+
             if (!isSilent) Alert.alert('Hata', 'İşlem hatası.');
         } finally {
             if (!isSilent) setIsProcessing(false);
@@ -283,7 +283,7 @@ export const IAPProvider = ({ children }) => {
 
                 // Purchase Update Listener
                 purchaseUpdateSubscription = RNIap.purchaseUpdatedListener(async (purchase) => {
-                    console.log('Purchase Updated:', purchase);
+
 
                     const receipt = purchase.transactionReceipt || purchase.purchaseToken;
                     if (receipt) {
@@ -299,7 +299,7 @@ export const IAPProvider = ({ children }) => {
                                     await RNIap.finishTransaction({ purchase, isConsumable: false });
                                     handleSuccess(type === 'plus' ? 'Takva Plus' : 'Takva Premium');
                                 } catch (ackErr) {
-                                    console.warn('Finish transaction error:', ackErr);
+
                                 }
                             }
                         }
@@ -310,9 +310,9 @@ export const IAPProvider = ({ children }) => {
                 // Purchase Error Listener
                 purchaseErrorSubscription = RNIap.purchaseErrorListener((error) => {
                     if (error.code === 'E_USER_CANCELLED') {
-                        console.log('User cancelled purchase');
+
                     } else {
-                        console.warn('Purchase error:', error);
+
                     }
                     setIsProcessing(false);
                 });
@@ -325,7 +325,7 @@ export const IAPProvider = ({ children }) => {
                 }, 1000);
 
             } catch (e) {
-                console.error('Init Hatası:', e);
+
                 setConnected(true);
                 releaseLock();
                 setTimeout(() => checkCurrentPurchases(true), 1500);
@@ -378,7 +378,7 @@ export const IAPProvider = ({ children }) => {
                     releaseLock();
 
                     // Şimdi Restore Logic'i manuel olarak (sesli) çağır
-                    console.log('Buy Flow bitti, Restore check tetikleniyor...');
+
                     checkCurrentPurchases(false);
                 }, 3000);
 
@@ -389,7 +389,7 @@ export const IAPProvider = ({ children }) => {
                 releaseLock();
             }
         } catch (e) {
-            console.error('Buy Hatası:', e);
+
             if (e.code === 'E_USER_CANCELLED') {
                 Alert.alert('İptal', 'Satın alma iptal edildi.');
             } else {

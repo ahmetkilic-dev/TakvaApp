@@ -17,8 +17,8 @@ export const useReminderSettings = () => {
       await loadSettings();
       await loadCustomReminders();
       await checkNotificationPermissions();
-      // Ensure channels are set up
-      await NotificationService.setupChannels();
+      // setupChannels is handled by useAppNotifications at launch, no need to repeat here
+      // await NotificationService.setupChannels();
     };
     init();
   }, []);

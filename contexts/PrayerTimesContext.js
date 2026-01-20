@@ -114,7 +114,7 @@ export function PrayerTimesProvider({ children }) {
         const checkDayChange = () => {
             const currentDay = toDayKey(new Date());
             if (lastFetchDate.current && lastFetchDate.current !== currentDay) {
-                console.log('🌙 Gün değişti - Namaz vakitleri güncelleniyor...');
+
                 fetchDailyTimes();
                 fetchMonthlyTimes();
             }
@@ -132,7 +132,7 @@ export function PrayerTimesProvider({ children }) {
             if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
                 const currentDay = toDayKey(new Date());
                 if (lastFetchDate.current && lastFetchDate.current !== currentDay) {
-                    console.log('📱 Uygulama ön plana geldi - Gün değişmiş, vakitler güncelleniyor...');
+
                     await fetchDailyTimes();
                     await fetchMonthlyTimes();
                 }

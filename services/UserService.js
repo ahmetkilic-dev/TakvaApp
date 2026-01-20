@@ -15,7 +15,7 @@ export const UserService = {
             if (error) throw error;
             return data;
         } catch (error) {
-            console.error('UserService: getProfile error', error);
+
             return null;
         }
     },
@@ -35,7 +35,7 @@ export const UserService = {
             if (error) throw error;
             return data;
         } catch (error) {
-            console.error('UserService: updateProfile error', error);
+
             throw error;
         }
     },
@@ -54,7 +54,7 @@ export const UserService = {
             if (error) throw error;
             return data || [];
         } catch (error) {
-            console.error('UserService: searchCreators error', error);
+
             return [];
         }
     },
@@ -79,7 +79,7 @@ export const UserService = {
                 totalLikes
             };
         } catch (error) {
-            console.error('UserService: getCreatorStats error', error);
+
             return { followerCount: 0, totalLikes: 0 };
         }
     },
@@ -99,7 +99,7 @@ export const UserService = {
             if (error) throw error;
             return data; // Returns true (following) or false (unfollowed)
         } catch (error) {
-            console.error('UserService: toggleFollow error', error);
+
             throw error;
         }
     },
@@ -120,7 +120,7 @@ export const UserService = {
             const following = data?.following || [];
             return following.includes(targetUserId);
         } catch (error) {
-            console.error('UserService: getFollowStatus error', error);
+
             return false;
         }
     },
@@ -142,7 +142,7 @@ export const UserService = {
                 .filter('following', 'cs', jsonTarget);
 
             if (error) {
-                console.error('UserService: getFollowerCount query error:', error);
+
                 throw error;
             }
             return count || 0;

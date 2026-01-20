@@ -25,7 +25,7 @@ export const askHoca = async (question) => {
         const data = await response.json();
 
         if (data.error) {
-            console.error('Gemini API Error Detail:', JSON.stringify(data.error, null, 2));
+
             return `Hata: ${data.error.message || "Bilinmeyen bir hata oluştu."}`;
         }
 
@@ -33,7 +33,7 @@ export const askHoca = async (question) => {
         return answer || "Cevap anlaşılamadı.";
 
     } catch (error) {
-        console.error('Network Error:', error);
+
         return "Bağlantı hatası oluştu. İnternetini kontrol edip tekrar dener misin?";
     }
 };

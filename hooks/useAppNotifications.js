@@ -12,16 +12,16 @@ const BACKGROUND_NOTIFICATION_TASK = 'BACKGROUND_NOTIFICATION_RESCHEDULE';
 // Define the background task outside the hook
 TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, async () => {
     try {
-        console.log('🔄 [Background] Arka plan bildirimleri yenileniyor...');
+
         const result = await NotificationService.rescheduleAll();
 
         if (result.success) {
-            console.log(`✅ [Background] Yenileme başarılı: ${result.count} bildirim kuruldu.`);
+
             return BackgroundFetch.BackgroundFetchResult.NewData;
         }
         return BackgroundFetch.BackgroundFetchResult.NoData;
     } catch (error) {
-        console.error('❌ [Background] Arka plan görev hatası:', error);
+
         return BackgroundFetch.BackgroundFetchResult.Failed;
     }
 });
@@ -54,17 +54,43 @@ export const useAppNotifications = () => {
                 const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_NOTIFICATION_TASK);
                 if (!isRegistered) {
                     await BackgroundFetch.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK, {
-                        minimumInterval: 60 * 60 * 12, // 12 hours
+                        minimumInterval: 60 * 60 * 24, // 24 hours
                         stopOnTerminate: false,
                         startOnBoot: true,
                     });
-                    console.log('✅ [Setup] Arka plan görev kaydı başarılı (12 saat).');
+
                 }
             } catch (err) {
-                console.log('❌ [Setup] Hatası:', err);
+
             }
         };
         setup();
+
+        // Handle Alarm Actions (Stop / Snooze)
+        const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+            const actionId = response.actionIdentifier;
+            const notificationContent = response.notification.request.content;
+            const data = notificationContent.data;
+
+            if (actionId === 'SNOOZE_ACTION') {
+
+                const snoozeDate = new Date();
+                snoozeDate.setMinutes(snoozeDate.getMinutes() + 5);
+
+                Notifications.scheduleNotificationAsync({
+                    content: {
+                        ...notificationContent,
+                        title: `(Ertelendi) ${data.title || notificationContent.title}`,
+                        body: `Erteleme: ${data.body || notificationContent.body}`,
+                    },
+                    trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: snoozeDate },
+                });
+            } else if (actionId === 'STOP_ACTION') {
+
+            }
+        });
+
+        return () => subscription.remove();
     }, []);
 
     // Load setttings on mount
@@ -79,7 +105,7 @@ export const useAppNotifications = () => {
                 // Always ensure notifications are up to date on app launch
                 await NotificationService.rescheduleAll();
             } catch (error) {
-                console.error('❌ [LoadSettings] Hatası:', error);
+
             } finally {
                 setLoading(false);
             }
@@ -87,14 +113,22 @@ export const useAppNotifications = () => {
         loadSettings();
     }, []);
 
-    const saveSettings = async (newState) => {
+    const saveSettings = async (newState, changedKey = null) => {
         try {
             await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
             setNotificationStates(newState);
-            // Trigger immediate reschedule when settings change
-            await NotificationService.rescheduleAll();
+
+            // If specific key changed, only reschedule that type
+            // If 'all' changed or no specific key, reschedule everything
+            if (changedKey && changedKey !== 'all') {
+
+                await NotificationService.rescheduleSpecific(changedKey);
+            } else {
+
+                await NotificationService.rescheduleAll();
+            }
         } catch (error) {
-            console.error('❌ [SaveSettings] Hatası:', error);
+
         }
     };
 
@@ -106,13 +140,14 @@ export const useAppNotifications = () => {
                 acc[key] = newValue;
                 return acc;
             }, {});
+            saveSettings(newState, 'all');
         } else {
             newState[id] = !notificationStates[id];
             const { all, ...rest } = newState;
             const allEnabled = Object.values(rest).every(v => v);
             newState.all = allEnabled;
+            saveSettings(newState, id); // Pass the changed key
         }
-        saveSettings(newState);
     };
 
     return {

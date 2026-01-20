@@ -51,7 +51,7 @@ export const KelamService = {
 
             return video;
         } catch (error) {
-            console.error('KelamService: getVideoById error', error);
+
             return null;
         }
     },
@@ -97,7 +97,7 @@ export const KelamService = {
             if (offset === 0) this._feedCache = videos;
             return videos;
         } catch (error) {
-            console.error('KelamService: fetchVideos error', error);
+
             return [];
         }
     },
@@ -110,7 +110,7 @@ export const KelamService = {
             const { error } = await supabase.rpc('increment_kelam_views', { video_id: videoId });
             if (error) throw error;
         } catch (error) {
-            console.error('KelamService: incrementView error', error);
+
         }
     },
 
@@ -128,7 +128,7 @@ export const KelamService = {
             if (error) throw error;
             return data;
         } catch (error) {
-            console.error('KelamService: saveVideoMetadata error', error);
+
             throw error;
         }
     },
@@ -138,10 +138,10 @@ export const KelamService = {
      */
     async toggleLike(videoId, userId, isLiked) {
         try {
-            console.log('[KelamService] toggleLike processing:', { videoId, userId, isLiked });
+
 
             if (!userId) {
-                console.error('[KelamService] toggleLike failed: No userId provided');
+
                 return false;
             }
 
@@ -159,7 +159,7 @@ export const KelamService = {
             }
             return true;
         } catch (error) {
-            console.error('[KelamService] toggleLike error', error);
+
             return false;
         }
     },
@@ -199,7 +199,7 @@ export const KelamService = {
 
             return videos;
         } catch (error) {
-            console.error('KelamService: fetchCreatorVideos error:', error);
+
             return [];
         }
     },
@@ -217,7 +217,7 @@ export const KelamService = {
                     const fileName = url.split('/').pop();
                     await fetch(`${workerUrl}/${fileName}`, { method: 'DELETE' });
                 } catch (e) {
-                    console.error('R2 deletion failed:', url, e);
+
                 }
             };
 
@@ -234,7 +234,7 @@ export const KelamService = {
             if (error) throw error;
             return true;
         } catch (error) {
-            console.error('KelamService: deleteVideo error', error);
+
             throw error;
         }
     }

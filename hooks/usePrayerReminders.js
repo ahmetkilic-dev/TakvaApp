@@ -52,7 +52,7 @@ export const usePrayerReminders = () => {
         setReminders(JSON.parse(stored));
       }
     } catch (error) {
-      console.error('Hatırlatıcı yükleme hatası:', error);
+
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,7 @@ export const usePrayerReminders = () => {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newReminders));
       setReminders(newReminders);
     } catch (error) {
-      console.error('Hatırlatıcı kaydetme hatası:', error);
+
     }
   };
 
@@ -113,7 +113,7 @@ export const usePrayerReminders = () => {
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        console.warn('Bildirim izni verilmedi');
+
         return;
       }
 
@@ -151,7 +151,7 @@ export const usePrayerReminders = () => {
         // Bildirim içeriği
         const content = {
           title: `${reminder.name} Vakti`,
-          body: offsetMinutes > 0 
+          body: offsetMinutes > 0
             ? `${offsetMinutes} dakika sonra ${reminder.name} vakti giriyor`
             : `${reminder.name} vakti girdi`,
           sound: reminder.isAlarm ? 'default' : null,
@@ -168,10 +168,10 @@ export const usePrayerReminders = () => {
           trigger,
         });
 
-        console.log(`📢 ${reminder.name} için bildirim kuruldu: ${notifTime.toLocaleString()}`);
+
       }
     } catch (error) {
-      console.error('Bildirim kurma hatası:', error);
+
     }
   };
 
