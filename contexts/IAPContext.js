@@ -201,7 +201,7 @@ export const IAPProvider = ({ children }) => {
                 }
             }
 
-            const purchases = await RNIap.getPurchaseHistory();
+            const purchases = await RNIap.getAvailablePurchases();
 
             if (purchases && purchases.length > 0) {
                 // Tarihe göre sırala (En yeni en üstte)
