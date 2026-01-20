@@ -21,7 +21,7 @@ import CelseImage from '../../../assets/namazrehber/celse.webp';
 import KavmeImage from '../../../assets/namazrehber/kavme.webp';
 import KiyamImage from '../../../assets/namazrehber/kiyam.webp';
 import NiyetImage from '../../../assets/namazrehber/niyet.webp';
-import RukuImage from '../../../assets/namazrehber/rüku.webp';
+import RukuImage from '../../../assets/namazrehber/ruku.webp';
 import SecdeImage from '../../../assets/namazrehber/secde.webp';
 import SelamImage from '../../../assets/namazrehber/selam.webp';
 
@@ -376,96 +376,55 @@ export default function NamazOgren() {
 
         {/* Content */}
         <View style={styles.contentContainer}>
-          {/* Title */}
-          <Text style={styles.mainTitle}>Namaz Kılma Rehberi</Text>
+          {/* Intro & Selection (When no prayer selected) */}
+          {!selectedPrayer && (
+            <ScrollView style={styles.introScroll} contentContainerStyle={styles.introContent}>
+              {/* Title */}
+              <Text style={styles.mainTitle}>Namaz Kılma Rehberi</Text>
 
-          {/* Subtitle */}
-          <Text style={styles.subtitle}>Seçtiğiniz namazın kılınışını adım adım öğrenin.</Text>
+              {/* Subtitle */}
+              <Text style={styles.subtitle}>Seçtiğiniz namazın kılınışını adım adım öğrenin.</Text>
 
-          {/* Dropdown */}
-          <TouchableOpacity
-            style={styles.dropdown}
-            onPress={() => setDropdownOpen(!dropdownOpen)}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.dropdownText}>
-              {selectedPrayer ? `${selectedPrayer.name} (${selectedPrayer.rekats} rekât)` : "Namaz seçiniz"}
-            </Text>
-            <Ionicons
-              name={dropdownOpen ? "chevron-up" : "chevron-down"}
-              size={20}
-              color="#fff"
-            />
-          </TouchableOpacity>
+              {/* Dropdown */}
+              <TouchableOpacity
+                style={styles.dropdown}
+                onPress={() => setDropdownOpen(!dropdownOpen)}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.dropdownText}>
+                  {selectedPrayer ? `${selectedPrayer.name} (${selectedPrayer.rekats} rekât)` : "Namaz seçiniz"}
+                </Text>
+                <Ionicons
+                  name={dropdownOpen ? "chevron-up" : "chevron-down"}
+                  size={20}
+                  color="#fff"
+                />
+              </TouchableOpacity>
 
-          {/* Prayer List */}
-          {dropdownOpen && (
-            <View style={styles.prayerList}>
-              {prayers.map((prayer, index) => (
-                <View key={prayer.id}>
-                  <TouchableOpacity
-                    style={styles.prayerItem}
-                    onPress={() => {
-                      setSelectedPrayer(prayer);
-                      setDropdownOpen(false);
-                      setCurrentRekatIndex(0);
-                    }}
-                    activeOpacity={0.8}
-                  >
-                    <Text style={styles.prayerItemText}>
-                      {prayer.name} ({prayer.rekats} rekât)
-                    </Text>
-                  </TouchableOpacity>
-                  {index < prayers.length - 1 && <View style={styles.prayerDivider} />}
+              {/* Prayer List */}
+              {dropdownOpen && (
+                <View style={styles.prayerList}>
+                  {prayers.map((prayer, index) => (
+                    <View key={prayer.id}>
+                      <TouchableOpacity
+                        style={styles.prayerItem}
+                        onPress={() => {
+                          setSelectedPrayer(prayer);
+                          setDropdownOpen(false);
+                          setCurrentRekatIndex(0);
+                        }}
+                        activeOpacity={0.8}
+                      >
+                        <Text style={styles.prayerItemText}>
+                          {prayer.name} ({prayer.rekats} rekât)
+                        </Text>
+                      </TouchableOpacity>
+                      {index < prayers.length - 1 && <View style={styles.prayerDivider} />}
+                    </View>
+                  ))}
                 </View>
-              ))}
-            </View>
-          )}
-
-          {/* Rekât Navigation */}
-          {selectedPrayer && rekats.length > 0 && (
-            <View style={styles.rekatNav}>
-              <TouchableOpacity
-                style={styles.rekatNavButton}
-                onPress={() => {
-                  if (currentRekatIndex > 0) {
-                    const newIndex = currentRekatIndex - 1;
-                    horizontalScrollRef.current?.scrollTo({
-                      x: newIndex * SCREEN_WIDTH,
-                      animated: true
-                    });
-                    setCurrentRekatIndex(newIndex);
-                  }
-                }}
-                disabled={currentRekatIndex === 0}
-              >
-                <Ionicons name="chevron-back" size={20} color={currentRekatIndex === 0 ? "rgba(255,255,255,0.3)" : "#fff"} />
-              </TouchableOpacity>
-              <View style={{ flexDirection: "column", alignItems: "center" }}>
-                <Text style={styles.rekatNavText}>
-                  {rekats[currentRekatIndex]?.number || currentRekatIndex + 1}. Rekât
-                </Text>
-                <Text style={styles.rekatTypeText}>
-                  {rekats[currentRekatIndex]?.type}
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={styles.rekatNavButton}
-                onPress={() => {
-                  if (currentRekatIndex < rekats.length - 1) {
-                    const newIndex = currentRekatIndex + 1;
-                    horizontalScrollRef.current?.scrollTo({
-                      x: newIndex * SCREEN_WIDTH,
-                      animated: true
-                    });
-                    setCurrentRekatIndex(newIndex);
-                  }
-                }}
-                disabled={currentRekatIndex === rekats.length - 1}
-              >
-                <Ionicons name="chevron-forward" size={20} color={currentRekatIndex === rekats.length - 1 ? "rgba(255,255,255,0.3)" : "#fff"} />
-              </TouchableOpacity>
-            </View>
+              )}
+            </ScrollView>
           )}
 
           {/* Horizontal Scroll - Rekâtlar */}
@@ -481,6 +440,7 @@ export default function NamazOgren() {
                 // Anlık olarak UI güncelle, kaydırır kaydırmaz değişsin
                 if (index !== currentRekatIndex && index >= 0 && index < rekats.length) {
                   setCurrentRekatIndex(index);
+                  if (dropdownOpen) setDropdownOpen(false); // Close dropdown on swipe
                 }
               }}
               onMomentumScrollEnd={(event) => {
@@ -488,6 +448,7 @@ export default function NamazOgren() {
                 const index = Math.round(offsetX / SCREEN_WIDTH);
                 if (index >= 0 && index < rekats.length) {
                   setCurrentRekatIndex(index);
+                  if (dropdownOpen) setDropdownOpen(false);
                 }
               }}
               scrollEventThrottle={16}
@@ -506,6 +467,92 @@ export default function NamazOgren() {
                     contentContainerStyle={styles.verticalScrollContent}
                     showsVerticalScrollIndicator={false}
                   >
+                    {/* Header Elements Inside ScrollView */}
+                    <View style={{ paddingBottom: spacing(10) }}>
+                      <Text style={styles.mainTitle}>Namaz Kılma Rehberi</Text>
+                      <Text style={styles.subtitle}>Seçtiğiniz namazın kılınışını adım adım öğrenin.</Text>
+
+                      <TouchableOpacity
+                        style={styles.dropdown}
+                        onPress={() => setDropdownOpen(!dropdownOpen)}
+                        activeOpacity={0.8}
+                      >
+                        <Text style={styles.dropdownText}>
+                          {selectedPrayer ? `${selectedPrayer.name} (${selectedPrayer.rekats} rekât)` : "Namaz seçiniz"}
+                        </Text>
+                        <Ionicons
+                          name={dropdownOpen ? "chevron-up" : "chevron-down"}
+                          size={20}
+                          color="#fff"
+                        />
+                      </TouchableOpacity>
+
+                      {dropdownOpen && (
+                        <View style={styles.prayerList}>
+                          {prayers.map((prayer, index) => (
+                            <View key={prayer.id}>
+                              <TouchableOpacity
+                                style={styles.prayerItem}
+                                onPress={() => {
+                                  setSelectedPrayer(prayer);
+                                  setDropdownOpen(false);
+                                  setCurrentRekatIndex(0);
+                                }}
+                                activeOpacity={0.8}
+                              >
+                                <Text style={styles.prayerItemText}>
+                                  {prayer.name} ({prayer.rekats} rekât)
+                                </Text>
+                              </TouchableOpacity>
+                              {index < prayers.length - 1 && <View style={styles.prayerDivider} />}
+                            </View>
+                          ))}
+                        </View>
+                      )}
+
+                      <View style={styles.rekatNav}>
+                        <TouchableOpacity
+                          style={styles.rekatNavButton}
+                          onPress={() => {
+                            if (currentRekatIndex > 0) {
+                              const newIndex = currentRekatIndex - 1;
+                              horizontalScrollRef.current?.scrollTo({
+                                x: newIndex * SCREEN_WIDTH,
+                                animated: true
+                              });
+                              setCurrentRekatIndex(newIndex);
+                            }
+                          }}
+                          disabled={currentRekatIndex === 0}
+                        >
+                          <Ionicons name="chevron-back" size={20} color={currentRekatIndex === 0 ? "rgba(255,255,255,0.3)" : "#fff"} />
+                        </TouchableOpacity>
+                        <View style={{ flexDirection: "column", alignItems: "center" }}>
+                          <Text style={styles.rekatNavText}>
+                            {rekats[currentRekatIndex]?.number || currentRekatIndex + 1}. Rekât
+                          </Text>
+                          <Text style={styles.rekatTypeText}>
+                            {rekats[currentRekatIndex]?.type}
+                          </Text>
+                        </View>
+                        <TouchableOpacity
+                          style={styles.rekatNavButton}
+                          onPress={() => {
+                            if (currentRekatIndex < rekats.length - 1) {
+                              const newIndex = currentRekatIndex + 1;
+                              horizontalScrollRef.current?.scrollTo({
+                                x: newIndex * SCREEN_WIDTH,
+                                animated: true
+                              });
+                              setCurrentRekatIndex(newIndex);
+                            }
+                          }}
+                          disabled={currentRekatIndex === rekats.length - 1}
+                        >
+                          <Ionicons name="chevron-forward" size={20} color={currentRekatIndex === rekats.length - 1 ? "rgba(255,255,255,0.3)" : "#fff"} />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
                     {rekat.steps.map((step, stepIndex) => {
                       if (step && step.showImageOnly && step.image) {
                         return (
@@ -517,21 +564,24 @@ export default function NamazOgren() {
                         );
                       }
                       return (
-                        <View key={stepIndex} style={styles.stepScreen}>
-                          {step.image && (
-                            <View style={styles.imageCard}>
-                              <Image source={step.image} style={styles.stepImage} resizeMode="contain" />
-                            </View>
-                          )}
-                          {step.description && (
-                            <View style={styles.stepCard}>
-                              <Text style={styles.stepTitle}>{step.title}</Text>
-                              {step.subtitle && <Text style={styles.stepSubtitle}>{step.subtitle}</Text>}
-                              <Text style={styles.stepDescription}>
-                                {step.description}
-                              </Text>
-                            </View>
-                          )}
+                        <View key={stepIndex}>
+                          <View style={styles.stepScreen}>
+                            {step.image && (
+                              <View style={styles.imageCard}>
+                                <Image source={step.image} style={styles.stepImage} resizeMode="contain" />
+                              </View>
+                            )}
+                            {step.description && (
+                              <View style={styles.stepCard}>
+                                <Text style={styles.stepTitle}>{step.title}</Text>
+                                {step.subtitle && <Text style={styles.stepSubtitle}>{step.subtitle}</Text>}
+                                <Text style={styles.stepDescription}>
+                                  {step.description}
+                                </Text>
+                              </View>
+                            )}
+                          </View>
+                          {stepIndex < rekat.steps.length - 1 && step.id !== 'niyet' && <View style={styles.stepDivider} />}
                         </View>
                       );
                     })}
@@ -591,7 +641,7 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: fontSize(20),
-    fontFamily: "PlusJakarta-Medium",
+    fontFamily: "PlusJakartaSans-Bold", // Was PlusJakarta-Medium (fallback to Bold or Regular?) Medium not loaded.
     color: "#FFFFFF",
     textAlign: "left",
     marginTop: spacing(20),
@@ -600,7 +650,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: fontSize(14),
-    fontFamily: "PlusJakarta-Medium",
+    fontFamily: "PlusJakartaSans-Regular", // Was PlusJakarta-Medium
     color: "rgba(255, 255, 255, 0.6)",
     textAlign: "left",
     marginBottom: spacing(24),
@@ -623,7 +673,7 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: fontSize(16),
-    fontFamily: "PlusJakarta-Regular",
+    fontFamily: "PlusJakartaSans-Regular",
     color: "#FFFFFF",
     flex: 1,
   },
@@ -655,7 +705,7 @@ const styles = StyleSheet.create({
   },
   prayerItemText: {
     fontSize: fontSize(14),
-    fontFamily: "PlusJakarta-Light",
+    fontFamily: "PlusJakartaSans-Light",
     color: "#FFFFFF",
     textAlign: "center",
   },
@@ -677,13 +727,13 @@ const styles = StyleSheet.create({
   },
   rekatNavText: {
     fontSize: fontSize(16),
-    fontFamily: "PlusJakarta-SemiBold",
+    fontFamily: "PlusJakartaSans-Bold", // Was SemiBold, using Bold as substitute
     color: "#FFFFFF",
     textAlign: "center",
   },
   rekatTypeText: {
     fontSize: fontSize(12),
-    fontFamily: "PlusJakarta-Regular",
+    fontFamily: "PlusJakartaSans-Regular",
     color: "rgba(255, 255, 255, 0.7)",
     textAlign: "center",
     marginTop: spacing(4),
@@ -707,28 +757,22 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: spacing(20),
-    paddingBottom: spacing(20),
+    paddingTop: 0, // Reduced to 0 to move image up closer to divider
+    paddingBottom: spacing(20), // Restored to 20 to keep rectangle spacing consistent
     paddingHorizontal: spacing(20),
   },
   imageCard: {
     width: wp(77.3),
-    height: spacing(280),
-    backgroundColor: "#FFFFFF",
-    borderRadius: borderRadius(12),
-    borderWidth: spacing(2),
-    borderColor: "#FFFFFF",
-    marginBottom: spacing(20),
+    height: spacing(400),
+    backgroundColor: "transparent",
+    marginBottom: spacing(10), // Reduced to 10px as requested
     alignItems: "center",
     justifyContent: "center",
-    padding: spacing(10),
     alignSelf: "center",
   },
   stepImage: {
     width: "100%",
     height: "100%",
-    maxWidth: wp(53.1),
-    maxHeight: spacing(240),
     resizeMode: "contain",
   },
   stepCard: {
@@ -743,23 +787,38 @@ const styles = StyleSheet.create({
   },
   stepTitle: {
     fontSize: fontSize(18),
-    fontFamily: "PlusJakarta-Bold",
+    fontFamily: "PlusJakartaSans-Bold",
     color: "#FFFFFF",
     marginBottom: spacing(8),
     textAlign: "center",
   },
   stepSubtitle: {
     fontSize: fontSize(14),
-    fontFamily: "PlusJakarta-SemiBold",
+    fontFamily: "PlusJakartaSans-Bold",
     color: "#FFFFFF",
     marginBottom: spacing(12),
     textAlign: "center",
   },
   stepDescription: {
     fontSize: fontSize(14),
-    fontFamily: "PlusJakarta-Regular",
+    fontFamily: "PlusJakartaSans-Regular",
     color: "#FFFFFF",
     lineHeight: fontSize(22),
     textAlign: "center",
+  },
+  introScroll: {
+    flex: 1,
+    width: "100%",
+  },
+  introContent: {
+    paddingBottom: spacing(40),
+    alignItems: "center", // Align items to center
+  },
+  stepDivider: {
+    width: wp(80),
+    height: 1,
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    alignSelf: "center",
+    marginVertical: spacing(10), // Restored to 10px
   },
 });
