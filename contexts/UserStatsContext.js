@@ -29,6 +29,7 @@ export const UserStatsProvider = ({ children }) => {
         shares: 0,
         login_streak: 1,
         rated: false,
+        followed_social: false,
         follows: []
     });
     const [profile, setProfile] = useState({

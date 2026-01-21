@@ -10,6 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { formatRelativeTime } from '../../utils/timeFormat';
 import { useUserStats } from '../../contexts/UserStatsContext';
 import { UserService } from '../../services/UserService';
+import { UserStatsService } from '../../services/UserStatsService';
 import { KelamService } from '../../services/KelamService';
 import { rsW } from '../../utils/responsive';
 
@@ -193,24 +194,41 @@ export const ReelsPlayer = React.memo(({ video, isActive, isMuted, onLike }) => 
     });
 
     const handleShare = async () => {
+        console.log('🔥 PAYLAŞ BUTONU BASILDI');
+        console.log('📱 User ID:', user?.uid);
+        console.log('🎬 Video ID:', video.id);
+
         try {
             // Cloudflare Worker URL (Redirector)
             const shareUrl = `https://takva-uploader.dev-400.workers.dev/share/${video.id}`;
             const title = `Takva'da bu kelamı izle: ${video.title}`;
 
-            if (Platform.OS === 'ios') {
-                await Share.share({
-                    message: title,
-                    url: shareUrl,
-                });
+            const result = await Share.share(
+                Platform.OS === 'ios'
+                    ? { message: title, url: shareUrl }
+                    : { message: `${title}\n\n${shareUrl}`, title: 'Kelam Paylaş' }
+            );
+
+            console.log('📤 PAYLAŞIM SONUCU:', result);
+            console.log('✅ Action:', result.action);
+            console.log('🎯 sharedAction:', Share.sharedAction);
+            console.log('❌ dismissedAction:', Share.dismissedAction);
+
+            // ✅ Paylaşım başarılıysa tracking yap
+            if (result.action === Share.sharedAction && user?.uid) {
+                console.log('💾 TRACKING BAŞLIYOR...');
+                // Shares sayacını artır
+                const incrementResult = await UserStatsService.incrementField(user.uid, 'shares', 1);
+                console.log('📊 INCREMENT SONUÇ:', incrementResult);
+
+                // Rozetleri güncelle
+                await UserStatsService.updateAppBadges(user.uid);
+                console.log('🏆 BADGE UPDATE TAMAMLANDI');
             } else {
-                await Share.share({
-                    message: `${title}\n\n${shareUrl}`,
-                    title: 'Kelam Paylaş'
-                });
+                console.log('⚠️ TRACKING ATLANDIACTION:', result.action, 'USER:', user?.uid);
             }
         } catch (error) {
-            console.error('Paylaşım hatası:', error);
+            console.error('❌ PAYLAŞIM HATASI:', error);
         }
     };
 

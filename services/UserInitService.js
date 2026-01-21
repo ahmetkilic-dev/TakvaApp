@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase';
+import { UserStatsService } from './UserStatsService';
 
 export const UserInitService = {
     /**
@@ -43,9 +44,13 @@ export const UserInitService = {
             if (promises.length > 0) {
                 await Promise.all(promises);
             }
+
+            // ✅ Login streak'i güncelle (Her uygulama açılışında)
+            await UserStatsService.updateLoginStreak(userId);
         } catch (error) {
             // Hata durumunda (internet yoksa vs) sessiz kal veya retry mekanizması ekle
             // console.error('User Init Error:', error);
         }
     }
 };
+
