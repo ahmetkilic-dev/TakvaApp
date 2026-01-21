@@ -81,5 +81,52 @@ export const UserStatsService = {
         } catch (e) {
             // error
         }
+    },
+
+    /**
+     * Login streak'i güncelle (Her uygulama açılışında çağrılmalı)
+     * @param {string} userId
+     */
+    async updateLoginStreak(userId) {
+        if (!userId) return;
+        try {
+            const { error } = await supabase.rpc('update_login_streak', {
+                p_user_id: userId
+            });
+            if (error) throw error;
+        } catch (e) {
+            // error
+        }
+    },
+
+    /**
+     * Uygulama kategorisi rozetlerini manuel güncelle
+     * @param {string} userId
+     */
+    async updateAppBadges(userId) {
+        if (!userId) return;
+        try {
+            const { error } = await supabase.rpc('update_app_badges', {
+                p_user_id: userId
+            });
+            if (error) throw error;
+        } catch (e) {
+            // error
+        }
+    },
+
+    /**
+     * Tek bir field'ı set et (boolean veya string değerler için)
+     * @param {string} userId
+     * @param {string} field
+     * @param {any} value
+     */
+    async setField(userId, field, value) {
+        if (!userId) return;
+        try {
+            return await this.updateStats(userId, { [field]: value });
+        } catch (e) {
+            return null;
+        }
     }
 };

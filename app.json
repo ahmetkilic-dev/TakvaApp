@@ -10,9 +10,9 @@
     "backgroundColor": "#04100D",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/t_splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#04100D"
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#182723"
     },
     "ios": {
       "supportsTablet": true,
@@ -35,7 +35,7 @@
         "foregroundImage": "./assets/t_icon.png",
         "backgroundColor": "#04100D"
       },
-      "backgroundColor": "#04100D",
+      "backgroundColor": "#182723",
       "edgeToEdgeEnabled": true,
       "googleServicesFile": "./google-services.json",
       "androidNavigationBar": {
