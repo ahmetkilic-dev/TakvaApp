@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Modal, Pressable, Dimensions, ScrollView, Switch, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, Pressable, Dimensions, ScrollView, Switch, TextInput, Platform } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
@@ -367,24 +367,26 @@ export default function CustomReminderSettingsModal({ visible, onClose, onSave, 
                             </View>
 
                             {/* Alarm Switch */}
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 24 }}>
-                                <Switch
-                                    value={modalAlarm}
-                                    onValueChange={setModalAlarm}
-                                    trackColor={{ false: '#7C8381', true: '#15614D' }}
-                                    thumbColor="#FFFFFF"
-                                    ios_backgroundColor="#7C8381"
-                                    style={{ marginRight: 12, marginTop: 2 }}
-                                />
-                                <View style={{ flex: 1 }}>
-                                    <Text style={{ fontFamily, fontSize: 12, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
-                                        Alarm Kur
-                                    </Text>
-                                    <Text style={{ fontFamily, fontSize: 10, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)' }}>
-                                        Telefon çalarak seni uyandıran tam ekran bir alarm kurulur.
-                                    </Text>
+                            {Platform.OS !== 'ios' && (
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 24 }}>
+                                    <Switch
+                                        value={modalAlarm}
+                                        onValueChange={setModalAlarm}
+                                        trackColor={{ false: '#7C8381', true: '#15614D' }}
+                                        thumbColor="#FFFFFF"
+                                        ios_backgroundColor="#7C8381"
+                                        style={{ marginRight: 12, marginTop: 2 }}
+                                    />
+                                    <View style={{ flex: 1 }}>
+                                        <Text style={{ fontFamily, fontSize: 12, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
+                                            Alarm Kur
+                                        </Text>
+                                        <Text style={{ fontFamily, fontSize: 10, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)' }}>
+                                            Telefon çalarak seni uyandıran tam ekran bir alarm kurulur.
+                                        </Text>
+                                    </View>
                                 </View>
-                            </View>
+                            )}
 
                             {/* Save Button */}
                             <TouchableOpacity

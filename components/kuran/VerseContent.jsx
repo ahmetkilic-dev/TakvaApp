@@ -171,8 +171,18 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
     // Check for Surah Start (Verse 1)
     const isSurahStart = item.verseNumber === 1;
 
+    // Apply Page Styling to the first item to match Kuran mode
+    const wrapperStyle = index === 0 ? {
+      backgroundColor: '#EDEBD0',
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+      paddingTop: 24, // Match Kuran mode container padding
+    } : {
+      backgroundColor: '#EDEBD0' // Ensure continuity for other items
+    };
+
     return (
-      <View>
+      <View style={wrapperStyle}>
         {isSurahStart && surah && (
           <SurahHeader surahNumber={surah.number} surahName={surah.name} />
         )}
@@ -243,8 +253,8 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
   };
 
   const contentContainerStyle = {
-    paddingBottom: 40,
-    // paddingHorizontal ve vertical'ı buradan kaldırdık, item'lara taşıyacağız
+    flexGrow: 1, // İçerik az olsa bile container'ın uzamasını sağlar
+    // paddingBottom'ı kaldırdık, içerideki view'lara vereceğiz
   };
 
   // 'Kur'an' Modu: Blok Metin (ScrollView)
@@ -257,9 +267,11 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
       >
         {ListHeaderComponent}
         <View style={{
+          flex: 1, // ScrollView flexGrow: 1 olduğu için bu da kalan alanı doldurur
           backgroundColor: '#EDEBD0',
           paddingHorizontal: horizontalPadding,
           paddingVertical: 24,
+          paddingBottom: 100, // Alt boşluk buraya taşındı ve arttırıldı
           minHeight: Dimensions.get('window').height * 0.7, // Sayfa boş görünmesin diye
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
@@ -267,13 +279,8 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
           {arabicBlocks.map((block, index) => {
             const surah = SURAH_INFO.find(s => s.number === block.surahNumber);
             // Check if the block ends with the actual end of the surah
-            // We need to check the last verse of this block. 
-            // However, `block` only has text. We need to check against verses logic or pass metadata.
-            // Simpler: Check if the last verse in `verses` for this surah matches surah.ayahCount
             const lastVerseOfBlock = verses.filter(v => v.surahNumber === block.surahNumber).pop();
             const isSurahEnd = surah && lastVerseOfBlock && lastVerseOfBlock.verseNumber === surah.ayahCount;
-
-
 
             return (
               <View key={index}>
@@ -314,13 +321,14 @@ const VerseContent = ({ verses, activeTab, loading, error, ListHeaderComponent }
       style={containerStyle}
       contentContainerStyle={contentContainerStyle}
       ListHeaderComponent={ListHeaderComponent}
+      ListFooterComponent={() => (
+        <View style={{ flex: 1, backgroundColor: '#EDEBD0', paddingBottom: 100 }} />
+      )}
       showsVerticalScrollIndicator={false}
       initialNumToRender={4}
       maxToRenderPerBatch={5}
       windowSize={5}
       removeClippedSubviews={true}
-    // Liste elemanları arasına veya arkasına renk vermek yerine 
-    // her item kendi arkaplanına sahip olacak
     />
   );
 };
