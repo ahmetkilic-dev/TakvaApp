@@ -38,6 +38,7 @@ export const Tiers = {
 export const IAPProvider = ({ children }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [connected, setConnected] = useState(false);
+  const [currentSubscription, setCurrentSubscription] = useState(null); // { tier: 'plus'|'premium', plan: 'monthly'|'yearly' }
 
   // Mutex Lock
   const iapLock = useRef(false);
@@ -226,6 +227,37 @@ export const IAPProvider = ({ children }) => {
     }
   };
 
+  // --- FETCH FROM DB (Source of Truth) ---
+  const fetchSubscriptionFromDB = async () => {
+    try {
+      const user = auth.currentUser;
+      if (!user) {
+        setCurrentSubscription(null);
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('subscription')
+        .select('*')
+        .eq('id', user.uid)
+        .single();
+
+      if (data && data.subscription_type && data.subscription_type !== 'free') {
+        // Check expiration? Supabase doesn't auto-expire, but we can check date here if needed.
+        // For now, trust the DB record.
+        setCurrentSubscription({
+          tier: data.subscription_type,
+          plan: data.subscription_plan
+        });
+      } else {
+        setCurrentSubscription(null);
+      }
+    } catch (e) {
+      console.log('Error fetching subscription from DB:', e);
+    }
+  };
+
+
   // --- RESTORE / CHECK LOGIC ---
   const checkCurrentPurchases = async (isSilent = false) => {
     if (!acquireLock()) {
@@ -284,6 +316,27 @@ export const IAPProvider = ({ children }) => {
           } else {
             const success = await upsertSubscription(latestPurchase, isSilent);
 
+            if (success) {
+              // Sadece veritabanına başarıyla yazıldıysa state'i güncelle
+              // Context state'ini güncelle
+              let type = latestPurchase.productId.includes('premium') ? 'premium' :
+                latestPurchase.productId.includes('plus') ? 'plus' : null;
+              let plan = latestPurchase.productId.includes('monthly') ? 'monthly' :
+                latestPurchase.productId.includes('yearly') ? 'yearly' : null;
+
+              if (type && plan) {
+                setCurrentSubscription({ tier: type, plan: plan });
+              }
+            } else {
+              // Eğer success false döndüyse (Account protection veya zaten güncel)
+              // DB verisini güvenilir kaynak olarak al
+              fetchSubscriptionFromDB();
+
+              if (!isSilent) {
+                Alert.alert('Bilgi', 'Aboneliğiniz zaten aktif ve güncel.');
+              }
+            }
+
             // Eğer veritabanı güncellendiyse (veya zaten güncelse)
             // Kullanıcıya bir geri bildirim verelim (sadece sesli modda)
             if (success) {
@@ -320,6 +373,9 @@ export const IAPProvider = ({ children }) => {
 
     const init = async () => {
       if (!acquireLock()) { setTimeout(init, 1000); return; }
+
+      // 1. Önce DB'den mevcut durumu çek (Hızlı açılış için)
+      await fetchSubscriptionFromDB();
 
       try {
         await initConnection();
@@ -471,6 +527,7 @@ export const IAPProvider = ({ children }) => {
 
   const value = {
     isProcessing,
+    currentSubscription,
     requestPurchase,
     restorePurchases: () => checkCurrentPurchases(false),
   };

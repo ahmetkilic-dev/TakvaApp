@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, ActivityIndicator, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -157,10 +157,19 @@ const PlanList = React.memo(({ plans, selectedPlan, onSelectPlan, activeTier }) 
 
 export default function PremiumScreen() {
   const router = useRouter();
-  const { isProcessing, requestPurchase, restorePurchases } = useIAP(); // Use global IAP context
+  const { isProcessing, requestPurchase, restorePurchases, currentSubscription } = useIAP(); // Use global IAP context
 
-  const [activeTier, setActiveTier] = useState(Tiers.PREMIUM);
-  const [selectedPlan, setSelectedPlan] = useState('monthly');
+  // Default to user's current subscription if available, otherwise Premium/Monthly
+  const [activeTier, setActiveTier] = useState(currentSubscription?.tier || Tiers.PREMIUM);
+  const [selectedPlan, setSelectedPlan] = useState(currentSubscription?.plan || 'monthly');
+
+  // Update selection if subscription changes (e.g. after purchase)
+  useEffect(() => {
+    if (currentSubscription) {
+      setActiveTier(currentSubscription.tier);
+      setSelectedPlan(currentSubscription.plan);
+    }
+  }, [currentSubscription]);
 
   const currentPlans = useMemo(() => plansData[activeTier], [activeTier]);
   const currentFeatures = useMemo(() => featuresData[activeTier], [activeTier]);
@@ -176,6 +185,8 @@ export default function PremiumScreen() {
     // Call Context to start purchase flow
     requestPurchase(productId);
   };
+
+  const isCurrentPlan = currentSubscription?.tier === activeTier && currentSubscription?.plan === selectedPlan;
 
   return (
     <ScreenBackground>
@@ -217,15 +228,17 @@ export default function PremiumScreen() {
           <View style={{ alignItems: 'center', marginBottom: 12 }}>
             <TouchableOpacity
               activeOpacity={0.8}
-              style={{ width: Math.min(350, SCREEN_WIDTH - horizontalPadding * 2), height: 50, borderRadius: 12, borderWidth: 0.5, borderColor: activeTier === Tiers.PREMIUM ? 'rgba(207, 155, 71, 0.5)' : 'rgba(255,255,255,0.3)', backgroundColor: '#0D303A', alignItems: 'center', justifyContent: 'center', opacity: isProcessing ? 0.7 : 1 }}
+              style={{ width: Math.min(350, SCREEN_WIDTH - horizontalPadding * 2), height: 50, borderRadius: 12, borderWidth: 0.5, borderColor: activeTier === Tiers.PREMIUM ? 'rgba(207, 155, 71, 0.5)' : 'rgba(255,255,255,0.3)', backgroundColor: '#0D303A', alignItems: 'center', justifyContent: 'center', opacity: (isProcessing || isCurrentPlan) ? 0.6 : 1 }}
               onPress={handleBuy}
-              disabled={isProcessing}
+              disabled={isProcessing || isCurrentPlan}
             >
               <MaskedView style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} maskElement={<View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                 {isProcessing ? (
                   <ActivityIndicator color="#FFFFFF" />
                 ) : (
-                  <Text style={{ fontFamily, fontSize: 18, fontWeight: '700', lineHeight: 18, textAlign: 'center', color: '#FFFFFF' }}>{activeTier === Tiers.PREMIUM ? "Takva Premium'a Geç" : "Takva Plus'a Geç"}</Text>
+                  <Text style={{ fontFamily, fontSize: 18, fontWeight: '700', lineHeight: 18, textAlign: 'center', color: '#FFFFFF' }}>
+                    {isCurrentPlan ? "Mevcut Plan" : (activeTier === Tiers.PREMIUM ? "Takva Premium'a Geç" : "Takva Plus'a Geç")}
+                  </Text>
                 )}
               </View>}>
                 <LinearGradient colors={activeTier === Tiers.PREMIUM ? ['#E9CC88', '#CF9B47'] : ['#FFFFFF', '#E0E0E0']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ width: '100%', height: '100%' }} />
