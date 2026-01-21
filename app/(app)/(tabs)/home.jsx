@@ -1,4 +1,4 @@
-import { ScrollView, StatusBar } from 'react-native';
+import { ScrollView, StatusBar, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
 
@@ -12,6 +12,7 @@ import QuranSection from '../../../components/home/QuranSection';
 import HadithCard from '../../../components/home/HadithCard';
 import ReligiousDayCard from '../../../components/home/ReligiousDayCard';
 import FloatingHocaButton from '../../../components/common/FloatingHocaButton';
+import AdBanner from '../../../components/ads/AdBanner'; // Reklam Bileşeni
 import { useScrollJumpFix } from '../../../utils/scrollOptimization';
 
 export default function HomeScreen() {
@@ -48,6 +49,9 @@ export default function HomeScreen() {
           <ReligiousDayCard />
         </ScrollView>
       </SafeAreaView>
+      <View style={{ marginBottom: 0 }}>
+        <AdBanner />
+      </View>
       <FloatingHocaButton />
     </ScreenBackground>
   );

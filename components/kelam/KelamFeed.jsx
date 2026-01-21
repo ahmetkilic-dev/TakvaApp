@@ -1,8 +1,9 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, FlatList, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { rsH } from '../../utils/responsive';
 import { ReelsPlayer } from './ReelsPlayer';
+import { useInterstitialAd } from '../ads/useInterstitialAd';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -15,9 +16,36 @@ export const KelamFeed = ({ videos, onLike, onEndReached, initialIndex = 0, refr
     const [activeIndex, setActiveIndex] = useState(initialIndex);
     const [isMuted, setIsMuted] = useState(false);
 
+    // AdMob Interstitial
+    const { showAd, isLoaded } = useInterstitialAd();
+    const lastAdIndex = useRef(0);
+
+    // Fix: onViewableItemsChanged is frozen, so it needs a ref to see the latest state
+    const adStateRef = useRef({ showAd, isLoaded });
+
+    // Her render'da ref'i güncelle
+    useEffect(() => {
+        adStateRef.current = { showAd, isLoaded };
+    }, [showAd, isLoaded]);
+
     const onViewableItemsChanged = useRef(({ viewableItems }) => {
         if (viewableItems.length > 0) {
-            setActiveIndex(viewableItems[0].index);
+            const newIndex = viewableItems[0].index;
+            // console.log('Kelam Feed Index:', newIndex);
+            setActiveIndex(newIndex);
+
+            // Her 5 videoda bir reklam göster (5, 10, 15...)
+            if (newIndex > 0 && newIndex % 5 === 0) {
+                // Ref üzerinden en güncel durumu oku
+                const { isLoaded: currentIsLoaded, showAd: currentShowAd } = adStateRef.current;
+
+                if (newIndex > lastAdIndex.current) {
+                    if (currentIsLoaded) {
+                        currentShowAd();
+                        lastAdIndex.current = newIndex;
+                    }
+                }
+            }
         }
     }).current;
 
