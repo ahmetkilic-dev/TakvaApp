@@ -1,0 +1,10 @@
+adaptive-icon.png
+favicon.png
+images\home-bg.png
+images\home-bg.webp
+images\logo-white.png
+images\takvim.png
+splash-icon.png
+splash.png
+t_icon.png
+t_splash-icon.png
