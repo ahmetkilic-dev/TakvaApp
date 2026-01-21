@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import ScreenBackground from '../common/ScreenBackground';
 import { useIlimData } from './hooks/useIlimData';
 import { useUserStats } from '../../contexts/UserStatsContext';
+import { useRewardedAd } from '../ads/useRewardedAd';
 import { Alert } from 'react-native';
 
 import IlimHeader from './IlimHeader';
@@ -47,7 +48,8 @@ export default function IlimContainer() {
     markQuestionAsAnswered,
     saveCurrentQuestionId,
     checkDailyLimit,
-    dailyWrongCount
+    dailyWrongCount,
+    rewardLife
   } = useIlimData();
 
   const { subscription } = useUserStats();
@@ -63,6 +65,9 @@ export default function IlimContainer() {
 
   const [isStatisticsModalVisible, setIsStatisticsModalVisible] = useState(false);
   const [questionLoading, setQuestionLoading] = useState(true);
+
+  // Rewarded Ad Hook
+  const { showAd, isLoaded: isAdLoaded } = useRewardedAd();
 
   const remainingLives = useMemo(() => {
     if (userTier === 'premium') return '∞';
@@ -214,8 +219,19 @@ export default function IlimContainer() {
         message,
         [
           { text: "Vazgeç", style: "cancel" },
+          // Reklam yüklü ise butonu göster
+          isAdLoaded ? {
+            text: "📺 Reklam İzle (+1 Can)",
+            onPress: () => {
+              showAd(() => {
+                // Reklam başarıyla izlendi, ödülü ver
+                rewardLife();
+                Alert.alert("Tebrikler!", "1 Can kazandınız. Kaldığınız yerden devam edebilirsiniz.");
+              });
+            }
+          } : null,
           { text: isPlus ? "Premium'a Geç" : "Paketleri İncele", onPress: () => router.push('/(app)/(services)/premium') }
-        ]
+        ].filter(Boolean)
       );
       return;
     }
@@ -260,7 +276,7 @@ export default function IlimContainer() {
     }, 4000);
 
 
-  }, [currentQuestion, selectedAnswer, addPoints, loadRandomQuestion, markQuestionAsAnswered, ilimData]);
+  }, [currentQuestion, selectedAnswer, addPoints, loadRandomQuestion, markQuestionAsAnswered, ilimData, checkDailyLimit, userTier, isAdLoaded, showAd, rewardLife]);
 
   // Açıklama gösterilince otomatik aşağı kaydır
   useEffect(() => {

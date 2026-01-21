@@ -133,8 +133,40 @@ export const useIlimData = () => {
   const addPoints = useCallback(async (points, categoryKey, isCorrect) => {
     if (!user) return;
 
+    // OPTIMISTIC UPDATE: Anında ekranı güncelle (Server cevabını bekleme)
+    if (isCorrect) {
+      setDailyPoints(prev => prev + points);
+      setTotalPoints(prev => prev + points);
+      setDailyQuestionCount(prev => prev + 1);
+      // Kategori istatistiklerini de basitçe güncelle
+      setCategoryStats(prev => {
+        const cat = prev[categoryKey] || { correct: 0, incorrect: 0, score: 0 };
+        return {
+          ...prev,
+          [categoryKey]: {
+            ...cat,
+            correct: (cat.correct || 0) + 1,
+            score: (cat.score || 0) + points
+          }
+        };
+      });
+    } else {
+      // Yanlış cevap: Kalbi anında düşür
+      setDailyWrongCount(prev => prev + 1);
+      setDailyQuestionCount(prev => prev + 1);
+      setCategoryStats(prev => {
+        const cat = prev[categoryKey] || { correct: 0, incorrect: 0, score: 0 };
+        return {
+          ...prev,
+          [categoryKey]: {
+            ...cat,
+            incorrect: (cat.incorrect || 0) + 1
+          }
+        };
+      });
+    }
+
     try {
-      // Tüm işlem artık Supabase RPC üzerinden yapılıyor
       const { error } = await supabase.rpc('record_ilim_answer', {
         p_user_id: user.uid,
         p_category_key: categoryKey,
@@ -144,15 +176,17 @@ export const useIlimData = () => {
 
       if (error) throw error;
 
-      // Real-time data loading will handle the state update via UserStatsContext or manual reload
-      // But for immediate UI feedback, we can trigger a reload
-      await loadUserData(user.uid, true);
+      // REMOVED: await loadUserData(user.uid, true);
+      // NEDEN KALDIRILDI?
+      // Çünkü sunucu, biz RPC çağrısını yaptıktan hemen sonra veriyi döndürüyor olabilir AMA
+      // bazen işlem gecikirse "eski (stale)" veriyi gönderip bizim optimistic update'i eziyordu.
+      // Bu yüzden local state'e güveniyoruz. Sayfa yenilenince zaten serverdan çekecek.
 
     } catch (err) {
       console.error('Error recording ilim answer:', err);
       setError(err.message);
     }
-  }, [user, loadUserData]);
+  }, [user]);
 
   const getAllCategoryStats = useCallback(() => {
     const categories = ['fikih', 'kuran', 'hadis', 'ahlak', 'siyer', 'gunler', 'kavramlar', 'esma'];
@@ -218,6 +252,26 @@ export const useIlimData = () => {
     return { allowed: used < limit, limit, used };
   }, [dailyWrongCount]);
 
+  // Reklam izleyince can kazandır (Yanlış sayısını 1 azalt)
+  const rewardLife = useCallback(async () => {
+    if (!user) return;
+
+    const newCount = Math.max(0, dailyWrongCount - 1);
+
+    // OPTIMISTIC UPDATE
+    setDailyWrongCount(newCount);
+
+    try {
+      await supabase
+        .from('daily_user_stats')
+        .update({ wrong_answer_count: newCount })
+        .eq('user_id', user.uid)
+        .eq('date_key', todayKey);
+    } catch (e) {
+      console.error('Error rewarding life:', e);
+    }
+  }, [user, dailyWrongCount, todayKey]);
+
   return {
     user,
     loading,
@@ -234,7 +288,9 @@ export const useIlimData = () => {
     markQuestionAsAnswered,
     saveCurrentQuestionId,
     reloadData: () => user && loadUserData(user.uid),
-    checkDailyLimit
+    reloadData: () => user && loadUserData(user.uid),
+    checkDailyLimit,
+    rewardLife
   };
 };
 
