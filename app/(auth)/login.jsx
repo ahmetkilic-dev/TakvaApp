@@ -212,7 +212,7 @@ export default function LoginScreen() {
                   <TextInput style={{ ...fontStyle, flex: 1 }} placeholder="Şifre" placeholderTextColor="#9CA3AF" secureTextEntry={!showPassword} className="text-white text-[15px]" value={password} onChangeText={setPassword} />
                   <TouchableOpacity onPress={() => setShowPassword(!showPassword)}><Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="#9CA3AF" /></TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => handleNotImplemented('Şifre Sıfırlama')} className="mt-4 self-start"><Text style={fontStyle} className="text-white text-[13px] font-medium">Şifremi unuttum</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push('/(auth)/forgot-password')} className="mt-4 self-start"><Text style={fontStyle} className="text-white text-[13px] font-medium">Şifremi unuttum</Text></TouchableOpacity>
               </View>
             </View>
 

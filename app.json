@@ -30,7 +30,11 @@
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
         },
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "associatedDomains": [
+          "applinks:wezy-takva.firebaseapp.com",
+          "applinks:wezyapps.com"
+        ]
       }
     },
     "android": {
