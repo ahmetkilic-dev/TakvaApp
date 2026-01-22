@@ -10,7 +10,7 @@ const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
 
 const videoSource = require('../../assets/images/ayetvideo.mp4');
 
-export default function GününAyetiVideo({ onVideoEnd }) {
+export default function GununAyetiVideo({ onVideoEnd }) {
   const player = useVideoPlayer(videoSource, (player) => {
     player.loop = false;
     player.play();

@@ -4,7 +4,7 @@ import GününAyetiHeader from './GununAyetiHeader';
 
 const fontFamily = 'Plus Jakarta Sans';
 
-export default function GününAyetiLoading() {
+export default function GunuAyetiLoading() {
   return (
     <SafeAreaView edges={['top']} className="flex-1">
       <GününAyetiHeader />

@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
-export default function GününAyetiHeader() {
+export default function GununAyetiHeader() {
   const router = useRouter();
 
   return (

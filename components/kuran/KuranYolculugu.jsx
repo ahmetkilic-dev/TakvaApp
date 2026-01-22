@@ -5,7 +5,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 const fontFamily = 'Plus Jakarta Sans';
 
-export default function KuranYolculuğu() {
+export default function KuranYolculugu() {
   return (
     <View style={{ paddingHorizontal: horizontalPadding, paddingTop: 22, paddingBottom: 16 }}>
       <Text

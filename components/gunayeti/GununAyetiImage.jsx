@@ -8,7 +8,7 @@ const fontFamily = 'Plus Jakarta Sans';
 const horizontalPadding = Math.max(20, SCREEN_WIDTH * 0.05);
 const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
 
-export default function GününAyetiImage() {
+export default function GununAyetiImage() {
   return (
     <View style={{ marginBottom: 16, alignItems: 'center' }}>
       <Image
