@@ -1,10 +1,10 @@
 import ScreenBackground from '../../../components/common/ScreenBackground';
-import GününAyetiContainer from '../../../components/gunayeti/GününAyetiContainer';
+import GununAyetiContainer from '../../../components/gunayeti/GununAyetiContainer';
 
 export default function HadithScreen() {
   return (
     <ScreenBackground>
-      <GününAyetiContainer />
+      <GununAyetiContainer />
     </ScreenBackground>
   );
 }

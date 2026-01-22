@@ -1,6 +1,6 @@
 import { View, Text, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import GününAyetiHeader from './GününAyetiHeader';
+import GününAyetiHeader from './GununAyetiHeader';
 
 const fontFamily = 'Plus Jakarta Sans';
 

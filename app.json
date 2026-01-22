@@ -23,11 +23,14 @@
         "NSLocationWhenInUseUsageDescription": "Namaz vakitlerini doğru hesaplamak için konumunuz gereklidir.",
         "UIBackgroundModes": [
           "fetch",
+          "remote-notification",
+          "fetch",
           "remote-notification"
         ],
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
-        }
+        },
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -110,7 +113,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "d235fde8-3b89-42ca-8aac-3c1c62297778"
+        "projectId": "8cbd7cb5-5ce5-4e15-919b-e7733ef2f66e"
       }
     }
   }

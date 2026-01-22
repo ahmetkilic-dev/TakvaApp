@@ -4,13 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCallback, useState, useMemo } from 'react';
 import { useVerses } from './hooks/useVerses';
 import { useVersesDailyStats } from './hooks/useVersesDailyStats';
-import GününAyetiHeader from './GününAyetiHeader';
-import GününAyetiImage from './GününAyetiImage';
-import GününAyetiVideo from './GününAyetiVideo';
+import GününAyetiHeader from './GununAyetiHeader';
+import GününAyetiImage from './GununAyetiImage';
+import GününAyetiVideo from './GununAyetiVideo';
 import VerseSlider from './VerseSlider';
 import VerseContent from './VerseContent';
-import GününAyetiLoading from './GününAyetiLoading';
-import GününAyetiError from './GününAyetiError';
+import GününAyetiLoading from './GununAyetiLoading';
+import GününAyetiError from './GununAyetiError';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
