@@ -4,7 +4,7 @@ import { useState, useCallback, useMemo } from 'react';
 
 import { useRouter } from 'expo-router';
 import KuranHeader from './KuranHeader';
-import KuranYolculuğu from './KuranYolculuğu';
+import KuranYolculugu from './KuranYolculugu';
 import OkumayaDevamEt from './OkumayaDevamEt';
 import TabNavigation from './TabNavigation';
 import SureListItem from './SureListItem';
@@ -116,7 +116,7 @@ export default function KuranContainer() {
   // Header component for FlatList
   const ListHeader = useMemo(() => (
     <View>
-      <KuranYolculuğu />
+      <KuranYolculugu />
       {showLastPage && <OkumayaDevamEt />}
 
       {/* Kuran Section Header */}
