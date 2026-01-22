@@ -99,7 +99,7 @@ const LockedMetricCard = ({ required }) => {
 
     return (
         <TouchableOpacity
-            onPress={() => router.push('/(app)/(services)/paywall')}
+            onPress={() => router.push('/(app)/(services)/premium')}
             style={{
                 width: itemWidth,
                 height: 65,

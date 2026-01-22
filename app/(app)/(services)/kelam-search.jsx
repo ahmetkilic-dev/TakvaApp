@@ -156,7 +156,7 @@ export default function KelamSearchScreen() {
                     <View style={styles.searchInputContainer}>
                         <TextInput
                             style={styles.searchInput}
-                            placeholder="Sözler köşkü"
+                            placeholder="İçerik Üretici Arayın"
                             placeholderTextColor="rgba(255,255,255,0.4)"
                             value={searchQuery}
                             onChangeText={handleSearch}

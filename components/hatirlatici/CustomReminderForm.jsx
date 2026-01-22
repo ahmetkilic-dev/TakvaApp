@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput, Switch, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Switch, Modal, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import CustomReminderSettingsModal from './CustomReminderSettingsModal';
@@ -182,38 +182,40 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
       </View>
 
       {/* Alarm Switch */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
-        <Switch
-          value={alarmEnabled}
-          onValueChange={setAlarmEnabled}
-          trackColor={{ false: '#7C8381', true: '#15614D' }}
-          thumbColor="#FFFFFF"
-          ios_backgroundColor="#7C8381"
-        />
-        <View style={{ flex: 1, marginLeft: 12 }}>
-          <Text
-            style={{
-              fontFamily,
-              fontSize: 12,
-              fontWeight: '400',
-              color: '#FFFFFF',
-              marginBottom: 4,
-            }}
-          >
-            Alarm Kur
-          </Text>
-          <Text
-            style={{
-              fontFamily,
-              fontSize: 10,
-              fontWeight: '400',
-              color: 'rgba(255, 255, 255, 0.6)',
-            }}
-          >
-            Telefon çalarak seni uyandıran tam ekran bir alarm kurulur.
-          </Text>
+      {Platform.OS !== 'ios' && (
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+          <Switch
+            value={alarmEnabled}
+            onValueChange={setAlarmEnabled}
+            trackColor={{ false: '#7C8381', true: '#15614D' }}
+            thumbColor="#FFFFFF"
+            ios_backgroundColor="#7C8381"
+          />
+          <View style={{ flex: 1, marginLeft: 12 }}>
+            <Text
+              style={{
+                fontFamily,
+                fontSize: 12,
+                fontWeight: '400',
+                color: '#FFFFFF',
+                marginBottom: 4,
+              }}
+            >
+              Alarm Kur
+            </Text>
+            <Text
+              style={{
+                fontFamily,
+                fontSize: 10,
+                fontWeight: '400',
+                color: 'rgba(255, 255, 255, 0.6)',
+              }}
+            >
+              Telefon çalarak seni uyandıran tam ekran bir alarm kurulur.
+            </Text>
+          </View>
         </View>
-      </View>
+      )}
 
       {/* Save Button */}
       <TouchableOpacity
@@ -251,6 +253,7 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
         }}
         reminder={{ name: name || 'Özel Hatırlatıcı' }}
         currentSettings={{ days: selectedDays }}
+        daysOnly={true}
       />
     </View>
   );

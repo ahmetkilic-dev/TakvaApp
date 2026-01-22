@@ -8,7 +8,7 @@ const fontFamily = 'Plus Jakarta Sans';
 
 const daysOptions = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
 
-export default function CustomReminderSettingsModal({ visible, onClose, onSave, reminder, currentSettings }) {
+export default function CustomReminderSettingsModal({ visible, onClose, onSave, reminder, currentSettings, daysOnly }) {
     const [modalDays, setModalDays] = useState('Her gün');
     const [modalTime, setModalTime] = useState('18:00');
     const [modalNotification, setModalNotification] = useState(false);
@@ -315,59 +315,65 @@ export default function CustomReminderSettingsModal({ visible, onClose, onSave, 
                             </View>
 
                             {/* Time Input */}
-                            <Text
-                                style={{
-                                    fontFamily,
-                                    fontSize: 14,
-                                    fontWeight: '700',
-                                    color: '#FFFFFF',
-                                    marginBottom: 8,
-                                }}
-                            >
-                                Ne zaman gelsin?
-                            </Text>
-                            <TextInput
-                                style={{
-                                    fontFamily,
-                                    fontSize: 14,
-                                    fontWeight: '400',
-                                    color: '#FFFFFF',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                                    borderRadius: 5,
-                                    borderWidth: 0.5,
-                                    borderColor: 'rgba(255, 255, 255, 0.3)',
-                                    paddingHorizontal: 12,
-                                    paddingVertical: 10,
-                                    marginBottom: 16,
-                                }}
-                                placeholder="18:00"
-                                placeholderTextColor="rgba(255, 255, 255, 0.5)"
-                                value={modalTime}
-                                onChangeText={setModalTime}
-                            />
+                            {!daysOnly && (
+                                <>
+                                    <Text
+                                        style={{
+                                            fontFamily,
+                                            fontSize: 14,
+                                            fontWeight: '700',
+                                            color: '#FFFFFF',
+                                            marginBottom: 8,
+                                        }}
+                                    >
+                                        Ne zaman gelsin?
+                                    </Text>
+                                    <TextInput
+                                        style={{
+                                            fontFamily,
+                                            fontSize: 14,
+                                            fontWeight: '400',
+                                            color: '#FFFFFF',
+                                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                            borderRadius: 5,
+                                            borderWidth: 0.5,
+                                            borderColor: 'rgba(255, 255, 255, 0.3)',
+                                            paddingHorizontal: 12,
+                                            paddingVertical: 10,
+                                            marginBottom: 16,
+                                        }}
+                                        placeholder="18:00"
+                                        placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                                        value={modalTime}
+                                        onChangeText={setModalTime}
+                                    />
+                                </>
+                            )}
 
                             {/* Notification Switch */}
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 16 }}>
-                                <Switch
-                                    value={modalNotification}
-                                    onValueChange={setModalNotification}
-                                    trackColor={{ false: '#7C8381', true: '#15614D' }}
-                                    thumbColor="#FFFFFF"
-                                    ios_backgroundColor="#7C8381"
-                                    style={{ marginRight: 12, marginTop: 2 }}
-                                />
-                                <View style={{ flex: 1 }}>
-                                    <Text style={{ fontFamily, fontSize: 12, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
-                                        Bildirim Gönder
-                                    </Text>
-                                    <Text style={{ fontFamily, fontSize: 10, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)' }}>
-                                        Sessiz bir uyarı alırsın, telefon çalmadan bildirim görünür.
-                                    </Text>
+                            {!daysOnly && (
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 16 }}>
+                                    <Switch
+                                        value={modalNotification}
+                                        onValueChange={setModalNotification}
+                                        trackColor={{ false: '#7C8381', true: '#15614D' }}
+                                        thumbColor="#FFFFFF"
+                                        ios_backgroundColor="#7C8381"
+                                        style={{ marginRight: 12, marginTop: 2 }}
+                                    />
+                                    <View style={{ flex: 1 }}>
+                                        <Text style={{ fontFamily, fontSize: 12, fontWeight: '700', color: '#FFFFFF', marginBottom: 4 }}>
+                                            Bildirim Gönder
+                                        </Text>
+                                        <Text style={{ fontFamily, fontSize: 10, fontWeight: '400', color: 'rgba(255, 255, 255, 0.6)' }}>
+                                            Sessiz bir uyarı alırsın, telefon çalmadan bildirim görünür.
+                                        </Text>
+                                    </View>
                                 </View>
-                            </View>
+                            )}
 
                             {/* Alarm Switch */}
-                            {Platform.OS !== 'ios' && (
+                            {!daysOnly && Platform.OS !== 'ios' && (
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 24 }}>
                                     <Switch
                                         value={modalAlarm}
