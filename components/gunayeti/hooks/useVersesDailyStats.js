@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase } from '../../../lib/supabase';
 import { useDayChangeContext } from '../../../contexts/DayChangeContext';
 import { useUserStats } from '../../../contexts/UserStatsContext';
@@ -30,13 +31,29 @@ export const useVersesDailyStats = () => {
   // Gün değişimi kontrolü
   /* Local daily reset logic removed - Date key handles uniqueness */
 
-  // Supabase'den günlük ayet verisini yükle
+  // Supabase'den veya Local Storage'dan günlük ayet verisini yükle
   useEffect(() => {
     let alive = true;
 
     (async () => {
       try {
         if (!alive) return;
+
+        const localKey = `@takva_verse_revealed_${todayKey}`;
+
+        // 1. Önce Local Storage kontrol et (Hızlı ve Offline dostu)
+        const localStored = await AsyncStorage.getItem(localKey);
+
+        if (localStored) {
+          const parsedLocal = JSON.parse(localStored);
+          if (parsedLocal.revealed) {
+            setVerseRevealed(true);
+            setCurrentVerseData(parsedLocal.data || null);
+            setLoading(false);
+            return; // Localde varsa Supabase'e gitmeye gerek yok (veya arka planda senkronize edilebilir)
+          }
+        }
+
         if (!user?.uid) {
           setVerseRevealed(false);
           setCurrentVerseData(null);
@@ -44,6 +61,7 @@ export const useVersesDailyStats = () => {
           return;
         }
 
+        // 2. Supabase kontrolü (Online ise)
         setLoading(true);
         const { data, error } = await supabase
           .from('daily_user_stats')
@@ -60,17 +78,24 @@ export const useVersesDailyStats = () => {
 
           if (revealed && data.verse_data) {
             setCurrentVerseData(data.verse_data);
+            // Local'i de güncelle ki sonraki girişlerde hızlı olsun
+            await AsyncStorage.setItem(localKey, JSON.stringify({ revealed: true, data: data.verse_data }));
           } else {
             setCurrentVerseData(null);
           }
         } else {
+          // Supabase'de kayıt yok, yerelde de yok -> Henüz gösterilmedi
           setVerseRevealed(false);
           setCurrentVerseData(null);
         }
       } catch (e) {
         console.warn('📖 Günlük ayet verisi yükleme hatası:', e?.message || e);
-        setVerseRevealed(false);
-        setCurrentVerseData(null);
+        // Hata durumunda (internet yoksa) local kontrol zaten yapıldı, 
+        // localde yoksa false kabul ediyoruz.
+        if (!verseRevealed) {
+          setVerseRevealed(false);
+          setCurrentVerseData(null);
+        }
       } finally {
         if (alive) setLoading(false);
       }
@@ -84,10 +109,8 @@ export const useVersesDailyStats = () => {
   // Ayeti kaydet ve göster
   const revealVerse = useCallback(
     async (verseData) => {
-      if (!user?.uid) {
-        console.warn('📖 Kullanıcı giriş yapmamış');
-        return { success: false, message: 'Kullanıcı giriş yapmamış' };
-      }
+      // Offline modda kullanıcı kontrolü esnetilebilir veya yerel kullanıcı gibi davranılabilir.
+      // Ancak mevcut yapıda user.uid kontrolü var.
 
       if (verseRevealed) {
         console.warn('📖 Bugün zaten ayet gösterildi');
@@ -95,42 +118,49 @@ export const useVersesDailyStats = () => {
       }
 
       try {
-        // Supabase'e kaydet (Günlük bazda)
-        await supabase.from('daily_user_stats').upsert({
-          user_id: user.uid,
-          date_key: todayKey,
-          verse_revealed: true,
-          verse_data: {
-            id: verseData.id,
-            arabic: verseData.arabic,
-            turkish: verseData.turkish,
-            reference: verseData.reference,
-            surahNumber: verseData.surahNumber,
-            surahName: verseData.surahName,
-            ayahNumber: verseData.ayahNumber,
-          },
-          updated_at: new Date().toISOString()
-        });
-
-        // Toplam hanesine de bir tane ekle (Kumulatif / Hesap bazlı)
-        await supabase.rpc('increment_user_stat', {
-          target_user_id: user.uid,
-          column_name: 'total_verses',
-          increment_by: 1
-        });
-
-        // State güncelle
+        // 1. ÖNCE LOCAL STATE VE STORAGE GÜNCELLE (Optimistik)
         setVerseRevealed(true);
         setCurrentVerseData(verseData);
 
-        // 1. Günlük görev tamamlama - ARTIK SUNUCU TARAFLI
-        // await incrementTask(1, 1);
+        const localKey = `@takva_verse_revealed_${todayKey}`;
+        await AsyncStorage.setItem(localKey, JSON.stringify({ revealed: true, data: verseData }));
+
+        // 2. SONRA ONLINE KAYIT (Hata alsa bile kullanıcı ayeti gördü sayılır)
+        if (user?.uid) {
+          // Supabase'e kaydet (Günlük bazda)
+          await supabase.from('daily_user_stats').upsert({
+            user_id: user.uid,
+            date_key: todayKey,
+            verse_revealed: true,
+            verse_data: {
+              id: verseData.id,
+              arabic: verseData.arabic,
+              turkish: verseData.turkish,
+              reference: verseData.reference,
+              surahNumber: verseData.surahNumber,
+              surahName: verseData.surahName,
+              ayahNumber: verseData.ayahNumber,
+            },
+            updated_at: new Date().toISOString()
+          });
+
+          // Toplam hanesine de bir tane ekle
+          await supabase.rpc('increment_user_stat', {
+            target_user_id: user.uid,
+            column_name: 'total_verses',
+            increment_by: 1
+          });
+
+          // 1. Günlük görev tamamlama
+          // await incrementTask(1, 1);
+        }
 
         console.log(`📖 Ayet gösterildi ve kaydedildi (${todayKey}): ${verseData.reference}`);
         return { success: true, message: 'Ayet gösterildi' };
       } catch (e) {
-        console.error('📖 Ayet kaydetme hatası:', e?.message || e);
-        return { success: false, message: 'Ayet kaydedilemedi' };
+        console.error('📖 Ayet online kayıt hatası (Offline olabilir):', e?.message || e);
+        // Online kayıt başarısız olsa bile yerelde kaydettik, bu yüzden success dönüyoruz.
+        return { success: true, message: 'Ayet gösterildi (Çevrimdışı kayıt)' };
       }
     },
     [todayKey, user?.uid, verseRevealed]

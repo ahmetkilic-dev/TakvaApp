@@ -99,6 +99,11 @@ export const useReminderSettings = () => {
     reminders, customReminders, loading, notificationPermission,
     updateReminder, toggleReminder, addCustomReminder, updateCustomReminder, deleteCustomReminder, toggleCustomReminder,
     refreshNotifications: () => NotificationService.rescheduleAll(),
+    refreshReminders: async () => {
+      setLoading(true);
+      await Promise.all([loadSettings(), loadCustomReminders()]);
+      setLoading(false);
+    }
   };
 };
 

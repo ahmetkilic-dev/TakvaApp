@@ -178,7 +178,24 @@ export function useNamazDurumu() {
     items,
     completedCount,
     totalCount: PRAYER_KEYS.length,
+    totalCount: PRAYER_KEYS.length,
     toggle,
+    refreshStatus: async () => {
+      setLoading(true);
+      if (user?.uid) {
+        await refreshFromSupabase(user.uid);
+      } else {
+        // Local refresh (reload from storage)
+        const stored = await AsyncStorage.getItem('@takva_namaz_durumu_local');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed.dateKey === todayKey) {
+            setState(parsed);
+          }
+        }
+      }
+      setLoading(false);
+    }
   };
 }
 

@@ -28,11 +28,7 @@ const aboutItems = [
     title: 'Gizlilik Politikası',
     description: 'Verilerinin nasıl korunduğunu ve işlendiğini öğren.',
   },
-  {
-    id: 'kvkk',
-    title: 'KVKK Aydınlatma Metni',
-    description: 'Kişisel verilerinin hangi amaçlarla kullanıldığını detaylı incele.',
-  },
+
 ];
 
 export default function HakkindaScreen() {
@@ -95,42 +91,78 @@ export default function HakkindaScreen() {
         >
           {/* Hakkında Section */}
           <View className="flex-1 rounded-t-[20px] p-5 pt-7 pb-20" style={{ backgroundColor: 'rgba(24, 39, 35, 0.9)' }}>
-            {aboutItems.map((item, index) => (
-              <View key={item.id} className="mb-4">
-                <TouchableOpacity
-                  onPress={() => handleItemPress(item.id)}
-                  className="flex-row items-center justify-between"
-                >
-                  <View className="flex-1 pr-4">
-                    <Text
-                      style={{
-                        fontFamily,
-                        fontSize: 16,
-                        fontWeight: '500',
-                        color: '#FFFFFF',
-                      }}
-                    >
-                      {item.title}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily,
-                        fontSize: 12,
-                        fontWeight: '400',
-                        color: 'rgba(255, 255, 255, 0.6)',
-                        marginTop: 2,
-                        lineHeight: 16,
-                      }}
-                    >
-                      {item.description}
-                    </Text>
+            {aboutItems.map((item, index) => {
+              if (item.id === 'hakkimizda') {
+                return (
+                  <View key={item.id} className="mb-4">
+                    <View className="flex-row items-center justify-between">
+                      <View className="flex-1 pr-4">
+                        <Text
+                          style={{
+                            fontFamily,
+                            fontSize: 16,
+                            fontWeight: '500',
+                            color: '#FFFFFF',
+                          }}
+                        >
+                          {item.title}
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily,
+                            fontSize: 12,
+                            fontWeight: '400',
+                            color: 'rgba(255, 255, 255, 0.6)',
+                            marginTop: 2,
+                            lineHeight: 16,
+                          }}
+                        >
+                          {item.description}
+                        </Text>
+                      </View>
+                    </View>
+                    <View className="h-[1px] bg-white/10 mt-4 w-full" />
                   </View>
-                  <Ionicons name="chevron-forward" size={20} color="#FFFFFF" />
-                </TouchableOpacity>
+                );
+              }
 
-                <View className="h-[1px] bg-white/10 mt-4 w-full" />
-              </View>
-            ))}
+              return (
+                <View key={item.id} className="mb-4">
+                  <TouchableOpacity
+                    onPress={() => handleItemPress(item.id)}
+                    className="flex-row items-center justify-between"
+                  >
+                    <View className="flex-1 pr-4">
+                      <Text
+                        style={{
+                          fontFamily,
+                          fontSize: 16,
+                          fontWeight: '500',
+                          color: '#FFFFFF',
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily,
+                          fontSize: 12,
+                          fontWeight: '400',
+                          color: 'rgba(255, 255, 255, 0.6)',
+                          marginTop: 2,
+                          lineHeight: 16,
+                        }}
+                      >
+                        {item.description}
+                      </Text>
+                    </View>
+                    <Ionicons name="chevron-forward" size={20} color="#FFFFFF" />
+                  </TouchableOpacity>
+
+                  <View className="h-[1px] bg-white/10 mt-4 w-full" />
+                </View>
+              )
+            })}
 
             {/* Copyright */}
             <Text

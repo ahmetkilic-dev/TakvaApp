@@ -6,6 +6,7 @@ import PrayerTimesList from './PrayerTimesList';
 import ImsakiyeLoading from './ImsakiyeLoading';
 import ImsakiyeError from './ImsakiyeError';
 import { usePrayerTimes } from './hooks/usePrayerTimes';
+import LocationPermissionGuard from '../common/LocationPermissionGuard';
 
 const fontFamily = 'Plus Jakarta Sans';
 const HORIZONTAL_PADDING = 20;
@@ -31,22 +32,24 @@ export default function ImsakiyeContainer() {
   return (
     <SafeAreaView edges={['top']} className="flex-1">
       <ImsakiyeHeader />
-      
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
         <ImsakiyeTitle />
-        
-        <PrayerTimesList prayerTimesList={prayerTimesList} />
-        
-        {prayerTimesList.length === 0 && (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>
-              Bu ay için namaz vakti bulunamadı
-            </Text>
-          </View>
-        )}
+
+        <LocationPermissionGuard>
+          <PrayerTimesList prayerTimesList={prayerTimesList} />
+
+          {prayerTimesList.length === 0 && (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>
+                Bu ay için namaz vakti bulunamadı
+              </Text>
+            </View>
+          )}
+        </LocationPermissionGuard>
       </ScrollView>
     </SafeAreaView>
   );

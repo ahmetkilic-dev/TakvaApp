@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput, Switch, Modal, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Switch, Modal, Platform, KeyboardAvoidingView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import CustomReminderSettingsModal from './CustomReminderSettingsModal';
@@ -11,7 +11,43 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
   const [time, setTime] = useState('18:00');
   const [notificationEnabled, setNotificationEnabled] = useState(false);
   const [alarmEnabled, setAlarmEnabled] = useState(false);
+  const [timeModalVisible, setTimeModalVisible] = useState(false);
   const [dayModalVisible, setDayModalVisible] = useState(false);
+
+
+  // Time formatlama fonksiyonu (HH:MM)
+  const handleTimeChange = (text) => {
+    // Sadece rakamları al
+    const cleaned = text.replace(/[^0-9]/g, '');
+
+    // Maksimum 4 rakam (HHMM)
+    if (cleaned.length > 4) return;
+
+    let formatted = cleaned;
+
+    // İlk rakam kontrolü (0-2 arası olabilir)
+    if (cleaned.length >= 1) {
+      if (parseInt(cleaned[0]) > 2) {
+        formatted = '0' + cleaned;
+      }
+    }
+
+    // Saat kısmı kontrolü (23'ten büyük olamaz)
+    if (cleaned.length >= 2) {
+      const hours = parseInt(cleaned.substring(0, 2));
+      if (hours > 23) {
+        // 23'ten büyükse, mesela 25 yazıldıysa 2 yazılmış gibi davran veya düzelt
+        // Basitlik için sadece ilk 2 haneyi al ve formatla
+      }
+    }
+
+    // Otomatik iki nokta ekle
+    if (cleaned.length >= 2) {
+      formatted = cleaned.substring(0, 2) + ':' + cleaned.substring(2);
+    }
+
+    setTime(formatted);
+  };
 
   const handleSave = () => {
     if (name.trim()) {
@@ -127,12 +163,9 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
       >
         Ne zaman gelsin?
       </Text>
-      <TextInput
+      <TouchableOpacity
+        onPress={() => setTimeModalVisible(true)}
         style={{
-          fontFamily,
-          fontSize: 14,
-          fontWeight: '400',
-          color: '#FFFFFF',
           backgroundColor: 'rgba(255, 255, 255, 0.1)',
           borderRadius: 5,
           borderWidth: 0.5,
@@ -140,12 +173,23 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
           paddingHorizontal: 12,
           paddingVertical: 10,
           marginBottom: 16,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
-        placeholder="18:00"
-        placeholderTextColor="rgba(255, 255, 255, 0.5)"
-        value={time}
-        onChangeText={setTime}
-      />
+      >
+        <Text
+          style={{
+            fontFamily,
+            fontSize: 14,
+            fontWeight: '400',
+            color: '#FFFFFF',
+          }}
+        >
+          {time}
+        </Text>
+        <Ionicons name="time-outline" size={20} color="#FFFFFF" />
+      </TouchableOpacity>
 
       {/* Notification Switch */}
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
@@ -255,6 +299,19 @@ export default function CustomReminderForm({ onSave, contentWidth }) {
         currentSettings={{ days: selectedDays }}
         daysOnly={true}
       />
+      {/* Time Selection Modal */}
+      <CustomReminderSettingsModal
+        visible={timeModalVisible}
+        onClose={() => setTimeModalVisible(false)}
+        onSave={(settings) => {
+          setTime(settings.time);
+          setTimeModalVisible(false);
+        }}
+        reminder={{ name: name || 'Özel Hatırlatıcı' }}
+        currentSettings={{ time: time }}
+        timeOnly={true}
+      />
+
     </View>
   );
 }

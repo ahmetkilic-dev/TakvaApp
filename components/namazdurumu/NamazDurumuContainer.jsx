@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useMemo } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, Animated } from 'react-native';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, Animated, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenBackground from '../common/ScreenBackground';
@@ -72,8 +72,30 @@ const PrayerItem = React.memo(({ prayer, toggle, disabled, isLast, fontFamily })
 
 export default function NamazDurumuContainer() {
   const insets = useSafeAreaInsets();
-  const { user, loading, items, completedCount, totalCount, toggle } = useNamazDurumu();
+  const { user, loading, items, completedCount, totalCount, toggle, refreshStatus } = useNamazDurumu();
   const checkAnim = useRef(new Animated.Value(1)).current;
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await Promise.all([
+        refreshStatus(),
+        new Promise(resolve => setTimeout(resolve, 800))
+      ]);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  const handleScrollEndDrag = (e) => {
+    const offsetY = e.nativeEvent.contentOffset.y;
+    if (offsetY < -80 && !refreshing) {
+      handleRefresh();
+    }
+  };
 
   const allCompleted = completedCount === totalCount;
 
@@ -98,6 +120,22 @@ export default function NamazDurumuContainer() {
       <SafeAreaView edges={['top']} className="flex-1">
         <NamazDurumuHeader />
 
+        {/* Custom Refresh Spinner */}
+        {refreshing && (
+          <View style={{
+            position: 'absolute',
+            top: 70, // Below header
+            left: 0,
+            right: 0,
+            zIndex: 100,
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 50,
+          }}>
+            <ActivityIndicator size="small" color="#D4AF37" />
+          </View>
+        )}
+
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
@@ -105,6 +143,8 @@ export default function NamazDurumuContainer() {
             paddingTop: 24,
             paddingBottom: 0,
           }}
+          scrollEventThrottle={16}
+          onScrollEndDrag={handleScrollEndDrag}
         >
           {/* Main Image */}
           <View style={{ marginBottom: 24, alignItems: 'center' }}>

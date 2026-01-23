@@ -241,7 +241,7 @@ export const NotificationService = {
                                 if (triggerDate > now) {
                                     await Notifications.scheduleNotificationAsync({
                                         content: {
-                                            title: 'Namaz Vakti',
+                                            title: 'Takva',
                                             body: `${cityName} için ${prayerNameMap[prayerId]} vakti girdi. 🕋`,
                                             sound: true,
                                             channelId: CHANNELS.PRAYER,
@@ -381,8 +381,8 @@ export const NotificationService = {
                             if (triggerDate > now) {
                                 await Notifications.scheduleNotificationAsync({
                                     content: {
-                                        title: task.t,
-                                        body: `${task.t} zamanı geldi. ✨`,
+                                        title: 'Takva',
+                                        body: `${task.t} vakti geldi. ✨`,
                                         sound: true,
                                         priority: Notifications.AndroidNotificationPriority.HIGH,
                                         channelId: CHANNELS.DEFAULT,
@@ -405,7 +405,7 @@ export const NotificationService = {
                             // If religous day is within our priority window
                             if (triggerDate > now && isPriorityDay(triggerDate)) {
                                 await Notifications.scheduleNotificationAsync({
-                                    content: { title: 'Dini Gün Hatırlatıcı', body: `Yarın ${day.name}. ✨`, sound: true },
+                                    content: { title: 'Takva', body: `Yarın ${day.name}. ✨`, sound: true },
                                     trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
                                 });
                                 count++;
@@ -556,7 +556,7 @@ export const NotificationService = {
                     if (triggerDate > now) {
                         await Notifications.scheduleNotificationAsync({
                             content: {
-                                title: task.t,
+                                title: 'Takva',
                                 body: `${task.t} zamanı geldi. ✨`,
                                 sound: true,
                                 priority: Notifications.AndroidNotificationPriority.HIGH,
@@ -581,7 +581,7 @@ export const NotificationService = {
 
                     if (triggerDate > now && isPriorityDay(triggerDate)) {
                         await Notifications.scheduleNotificationAsync({
-                            content: { title: 'Dini Gün Hatırlatıcı', body: `Yarın ${day.name}. ✨`, sound: true },
+                            content: { title: 'Takva', body: `Yarın ${day.name}. ✨`, sound: true },
                             trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
                         });
                         count++;

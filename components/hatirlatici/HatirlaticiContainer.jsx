@@ -1,4 +1,5 @@
 import { View, Text, ScrollView, Dimensions, ActivityIndicator, Linking, TouchableOpacity } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { usePrayerTimesForReminders } from '../../hooks/usePrayerTimesForReminders';
 import { useReminderSettings } from './hooks/useReminderSettings';
 import PrayerReminderCard from './PrayerReminderCard';
@@ -14,6 +15,7 @@ const contentWidth = SCREEN_WIDTH - (horizontalPadding * 2);
 const fontFamily = 'Plus Jakarta Sans';
 
 export default function HatirlaticiContainer() {
+  const insets = useSafeAreaInsets();
   const { prayerTimes, loading: prayerLoading, displayCity } = usePrayerTimesForReminders();
   const {
     reminders,
@@ -26,12 +28,35 @@ export default function HatirlaticiContainer() {
     updateCustomReminder,
     deleteCustomReminder,
     toggleCustomReminder,
+    refreshReminders
   } = useReminderSettings();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [customModalVisible, setCustomModalVisible] = useState(false);
   const [selectedPrayer, setSelectedPrayer] = useState(null);
   const [selectedCustomReminder, setSelectedCustomReminder] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await Promise.all([
+        refreshReminders(),
+        new Promise(resolve => setTimeout(resolve, 800))
+      ]);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  const handleScrollEndDrag = (e) => {
+    const offsetY = e.nativeEvent.contentOffset.y;
+    if (offsetY < -80 && !refreshing) {
+      handleRefresh();
+    }
+  };
 
   const handleUpdate = (item, isCustom = false) => {
     if (isCustom) {
@@ -150,6 +175,32 @@ export default function HatirlaticiContainer() {
 
   return (
     <>
+      {/* Custom Refresh Spinner Overlay */}
+      {refreshing && (
+        <View style={{
+          position: 'absolute',
+          top: insets.top - 20, // Adjust overlap since container handles margins differently or check parent
+          // Wait, HatirlaticiScreen has SafeAreaView. This container is inside it.
+          // insets.top might be 0 if handled by parent safe area?
+          // The parent HatirlaticiScreen has SafeAreaView edges=['top'].
+          // So insets.top might be relevant if we use absolute positioning relative to window, 
+          // but here we are inside a View?
+          // Let's use simplified positioning relative to this container. 
+          // Actually, since we are inside standard flow, maybe top 10 is enough if relative to parent.
+          // But 'position: absolute' is relative to nearest positioned ancestor.
+          // Let's safe guess top 10.
+          top: 10,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 50,
+        }}>
+          <ActivityIndicator size="small" color="#D4AF37" />
+        </View>
+      )}
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -158,6 +209,8 @@ export default function HatirlaticiContainer() {
           paddingBottom: 20,
         }}
         style={{ flex: 1 }}
+        scrollEventThrottle={16}
+        onScrollEndDrag={handleScrollEndDrag}
       >
         {/* Vakit Kartları */}
         <View style={{ gap: 16 }}>

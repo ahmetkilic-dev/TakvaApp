@@ -36,6 +36,7 @@ export const useRewardedAd = () => {
         const unsubscribeError = ad.addAdEventListener(AdEventType.ERROR, (error) => {
             console.error('RewardedAd: Load Error:', error);
             setLoaded(false);
+            rewardedAdRef.current = null; // Reset ref so reload logic kicks in
         });
 
         const unsubscribeClosed = ad.addAdEventListener(AdEventType.CLOSED, () => {

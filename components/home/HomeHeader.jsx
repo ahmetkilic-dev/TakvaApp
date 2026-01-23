@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'expo-router';
 import { usePrayerTimes } from '../../contexts/PrayerTimesContext';
+import LocationPermissionGuard from '../common/LocationPermissionGuard';
 
 // İkonlar
 import icHatirlatici from '../../assets/images/hatirlatici.png';
@@ -121,79 +122,81 @@ const HomeHeader = React.memo(() => {
     <View className="px-4 pt-6 pb-6">
 
       {/* 1. SAYAÇ ve KONUM ALANI */}
-      <View className="items-center mb-6">
-        <Text
-          style={{ fontFamily, fontSize: 18, fontWeight: '400' }}
-          className="text-white mb-0 tracking-wide"
-        >
-          {displayData.nextPrayerName} vaktine
-        </Text>
+      <LocationPermissionGuard compact={true}>
+        <View className="items-center mb-6">
+          <Text
+            style={{ fontFamily, fontSize: 18, fontWeight: '400' }}
+            className="text-white mb-0 tracking-wide"
+          >
+            {displayData.nextPrayerName} vaktine
+          </Text>
 
-        {/* MERKEZİ SAYAÇ ALANI */}
-        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: -4 }}>
+          {/* MERKEZİ SAYAÇ ALANI */}
+          <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: -4 }}>
 
-          {/* SAAT, DAKİKA ve SANİYE KUTUSU */}
-          <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-            <Text
-              style={{
-                fontFamily,
-                color: ACTIVE_COLOR,
-                fontSize: 80,
-                fontWeight: '600',
-                lineHeight: 90,
-                includeFontPadding: false,
-              }}
-            >
-              {hours}:{minutes}
-            </Text>
+            {/* SAAT, DAKİKA ve SANİYE KUTUSU */}
+            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+              <Text
+                style={{
+                  fontFamily,
+                  color: ACTIVE_COLOR,
+                  fontSize: 80,
+                  fontWeight: '600',
+                  lineHeight: 90,
+                  includeFontPadding: false,
+                }}
+              >
+                {hours}:{minutes}
+              </Text>
 
-            {/* SANİYE */}
-            <Text
-              style={{
-                fontFamily,
-                color: ACTIVE_COLOR,
-                fontSize: 24,
-                fontWeight: '500',
-                includeFontPadding: false,
-                marginLeft: 2,
-              }}
-            >
-              :{seconds}
-            </Text>
+              {/* SANİYE */}
+              <Text
+                style={{
+                  fontFamily,
+                  color: ACTIVE_COLOR,
+                  fontSize: 24,
+                  fontWeight: '500',
+                  includeFontPadding: false,
+                  marginLeft: 2,
+                }}
+              >
+                :{seconds}
+              </Text>
+            </View>
+
           </View>
 
+          <Text
+            style={{ fontFamily, fontSize: 16, fontWeight: '400', color: INACTIVE_COLOR }}
+            className="mt-0"
+          >
+            {displayCity}
+          </Text>
         </View>
 
-        <Text
-          style={{ fontFamily, fontSize: 16, fontWeight: '400', color: INACTIVE_COLOR }}
-          className="mt-0"
-        >
-          {displayCity}
-        </Text>
-      </View>
+        {/* 2. VAKİTLER ÇİZELGESİ */}
+        <View className="flex-row justify-center items-center mb-4 px-1" style={{ gap: 17 }}>
+          {prayerTimes.length > 0 ? (
+            prayerTimes.map((v, i) => {
+              const isActive = i === displayData.activeVakitIndex;
+              const textColor = isActive ? ACTIVE_COLOR : INACTIVE_COLOR;
 
-      {/* 2. VAKİTLER ÇİZELGESİ */}
-      <View className="flex-row justify-center items-center mb-4 px-1" style={{ gap: 17 }}>
-        {prayerTimes.length > 0 ? (
-          prayerTimes.map((v, i) => {
-            const isActive = i === displayData.activeVakitIndex;
-            const textColor = isActive ? ACTIVE_COLOR : INACTIVE_COLOR;
-
-            return (
-              <View key={i} className="items-center gap-y-1">
-                <Text style={{ fontFamily, color: textColor, fontSize: 14, fontWeight: '400' }}>
-                  {v.label}
-                </Text>
-                <Text style={{ fontFamily, color: textColor, fontSize: 16, fontWeight: '700' }}>
-                  {v.time.split(' ')[0]}
-                </Text>
-              </View>
-            );
-          })
-        ) : (
-          <Text style={{ fontFamily }} className="text-white/50 text-center w-full">Yükleniyor...</Text>
-        )}
-      </View>
+              return (
+                <View key={i} className="items-center gap-y-1">
+                  <Text style={{ fontFamily, color: textColor, fontSize: 14, fontWeight: '400' }}>
+                    {v.label}
+                  </Text>
+                  <Text style={{ fontFamily, color: textColor, fontSize: 16, fontWeight: '700' }}>
+                    {v.time.split(' ')[0]}
+                  </Text>
+                </View>
+              );
+            })
+          ) : (
+            <Text style={{ fontFamily }} className="text-white/50 text-center w-full">Yükleniyor...</Text>
+          )}
+        </View>
+      </LocationPermissionGuard>
 
       {/* 3. TARİH ALANI */}
       <View className="items-center mb-8 pt-2 w-full self-center">

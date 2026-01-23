@@ -6,16 +6,11 @@ import Symbol from '../../assets/images/symbol.png';
 function ScreenBackground({ children }) {
   return (
     <View style={styles.container}>
-      {/* Gradient Overlay (z-index 1) */}
+      {/* Main Background Gradient (z-index 1) */}
       <LinearGradient
-        colors={[
-          'rgba(0, 0, 0, 0.56)',   // 0% - Dark (Top)
-          'rgba(0, 0, 0, 0.48)',   // 25%
-          'rgba(0, 0, 0, 0.24)',   // 50%
-          'rgba(0, 0, 0, 0.12)',   // 75%
-          'rgba(0, 0, 0, 0)'       // 100% - Transparent
-        ]}
-        locations={[0, 0.25, 0.50, 0.75, 1]}
+        colors={['#0C1311', '#162421']}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
         style={styles.gradient}
       />
 
@@ -37,7 +32,7 @@ function ScreenBackground({ children }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#182723',
+    backgroundColor: '#0C1311', // Fallback color (Start color)
   },
   gradient: {
     ...StyleSheet.absoluteFillObject,
@@ -57,7 +52,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     zIndex: 3,
-  },  
+  },
 });
 
 export default React.memo(ScreenBackground);
