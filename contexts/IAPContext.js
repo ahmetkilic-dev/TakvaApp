@@ -139,6 +139,7 @@ export const IAPProvider = ({ children }) => {
         purchase.orderId;
 
       // 1. Transaction ID Kontrolü (Account Protection)
+      // 1. Transaction ID Kontrolü (Account Protection)
       if (transactionId) {
         const { data: ownerData } = await supabase
           .from('subscription')
@@ -150,7 +151,7 @@ export const IAPProvider = ({ children }) => {
           if (!isSilent) {
             Alert.alert(
               'Hata',
-              `Bu abonelik başka bir hesaba (${ownerData.email}) tanımlanmış. Lütfen doğru hesapla giriş yapın.`
+              `Bu Apple hesabı (Abonelik) zaten başka bir Takva kullanıcısına (${ownerData.email}) tanımlanmış. Lütfen kendi hesabınızla giriş yapın.`
             );
           }
           if (__DEV__) console.log('Account Protection: Blocked restore to', user.email);
@@ -498,9 +499,8 @@ export const IAPProvider = ({ children }) => {
           setIsProcessing(false);
           releaseLock();
 
-          // Şimdi Restore Logic'i manuel olarak (sesli) çağır
-
-          checkCurrentPurchases(false);
+          // Restore Logic'i sessiz (silent) olarak çağır ki hata basmasın
+          checkCurrentPurchases(true);
         }, 3000);
 
       } else {

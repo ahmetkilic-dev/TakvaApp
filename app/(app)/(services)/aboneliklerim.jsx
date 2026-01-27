@@ -220,7 +220,7 @@ export default function AboneliklerimScreen() {
                     <FeatureList features={currentFeatures} activeTier={activeTier} />
 
                     <Text style={{ fontFamily, fontSize: 12, fontWeight: '300', color: 'rgba(255, 255, 255, 0.4)', textAlign: 'center', marginTop: 12 }}>
-                        Abonelikleriniz App Store / Google Play hesabınız üzerinden yönetilir. Takva hesabınızla ilişkilendirilmiş aboneliklerinizi buradan takip edebilirsiniz.
+                        Abonelikleriniz {Platform.OS === 'ios' ? 'App Store' : 'Google Play'} hesabınız üzerinden yönetilir. Takva hesabınızla ilişkilendirilmiş aboneliklerinizi buradan takip edebilirsiniz.
                     </Text>
                 </ScrollView>
             </SafeAreaView>

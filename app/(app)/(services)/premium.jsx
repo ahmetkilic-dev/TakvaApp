@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, ActivityIndicator, Alert, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -10,6 +10,7 @@ import ScreenBackground from '../../../components/common/ScreenBackground';
 
 // Import from Context and Constants
 import { useIAP, Tiers, PRODUCT_IDS } from '../../../contexts/IAPContext';
+import * as WebBrowser from 'expo-web-browser';
 
 // Premium icon section uses this
 const PremiumIcon = require('../../../assets/hizmetler/hoca.png');
@@ -41,12 +42,12 @@ const featuresData = {
 // Plans Data
 const plansData = {
   [Tiers.PLUS]: [
-    { id: 'annual', title: 'Yıllık Plan', price: '₺24,99', period: '/ ay', billing: '₺299,99 / yıl olarak faturalandırılır', topLabel: 'Avantajlı plan', bottomLabel: 'İlk kullanıcılarına özel' },
     { id: 'monthly', title: 'Aylık Plan', price: '₺29,99', period: '/ ay', description: 'İstediğin zaman iptal edebilirsin.', topLabel: 'Esnek kullanım' },
+    { id: 'annual', title: 'Yıllık Plan', price: '₺299,99', period: '/ yıl', billing: 'Ayda ₺24,99', topLabel: 'Avantajlı plan', bottomLabel: 'İlk kullanıcılarına özel' },
   ],
   [Tiers.PREMIUM]: [
-    { id: 'annual', title: 'Yıllık Plan', price: '₺74,99', period: '/ ay', billing: '₺899,99 / yıl olarak faturalandırılır', topLabel: 'Avantajlı plan', bottomLabel: 'İlk kullanıcılarına özel' },
     { id: 'monthly', title: 'Aylık Plan', price: '₺79,99', period: '/ ay', description: 'İstediğin zaman iptal edebilirsin.', topLabel: 'Esnek kullanım' },
+    { id: 'annual', title: 'Yıllık Plan', price: '₺899,99', period: '/ yıl', billing: 'Ayda ₺74,99', topLabel: 'Avantajlı plan', bottomLabel: 'İlk kullanıcılarına özel' },
   ],
 };
 
@@ -219,10 +220,26 @@ export default function PremiumScreen() {
 
           <PlanList plans={currentPlans} selectedPlan={selectedPlan} onSelectPlan={setSelectedPlan} activeTier={activeTier} />
 
-          <Text style={{ fontFamily, fontSize: 14, fontWeight: '300', color: 'rgba(255, 255, 255, 0.8)', textAlign: 'center', marginBottom: 24, lineHeight: 20 }}>
-            Ödemeler App Store / Google Play üzerinden yapılır.{'\n'}
-            Abonelikler mağaza şartlarına tabidir.
-          </Text>
+          <View style={{ marginBottom: 24, alignItems: 'center' }}>
+            <Text style={{ fontFamily, fontSize: 13, fontWeight: '300', color: 'rgba(255, 255, 255, 0.6)', textAlign: 'center', marginBottom: 12, lineHeight: 18 }}>
+              Ödemeler App Store hesabınız üzerinden yönetilir.{'\n'}
+              Abonelikler mağaza şartlarına tabidir.
+            </Text>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+              <TouchableOpacity onPress={() => WebBrowser.openBrowserAsync('https://www.wezyapps.com/gizlilik-politikasi')}>
+                <Text style={{ fontFamily, fontSize: 13, color: 'rgba(255, 255, 255, 0.6)', textDecorationLine: 'underline' }}>
+                  Gizlilik Politikası
+                </Text>
+              </TouchableOpacity>
+              <View style={{ width: 1, height: 12, backgroundColor: 'rgba(255, 255, 255, 0.3)' }} />
+              <TouchableOpacity onPress={() => WebBrowser.openBrowserAsync('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')}>
+                <Text style={{ fontFamily, fontSize: 13, color: 'rgba(255, 255, 255, 0.6)', textDecorationLine: 'underline' }}>
+                  Kullanım Koşulları (EULA)
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
           {/* Call to Action Button */}
           <View style={{ alignItems: 'center', marginBottom: 12 }}>
