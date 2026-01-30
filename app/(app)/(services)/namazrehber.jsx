@@ -438,91 +438,7 @@ export default function NamazOgren() {
           {/* Horizontal Scroll - Rekâtlar */}
           {selectedPrayer && rekats.length > 0 && (
             <>
-              <View style={{ paddingBottom: 10 }}>
-                <Text style={styles.mainTitle}>Namaz Kılma Rehberi</Text>
-                <Text style={styles.subtitle}>Seçtiğiniz namazın kılınışını adım adım öğrenin.</Text>
 
-                <TouchableOpacity
-                  style={styles.dropdown}
-                  onPress={() => setDropdownOpen(!dropdownOpen)}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.dropdownText}>
-                    {selectedPrayer ? `${selectedPrayer.name} (${selectedPrayer.rekats} rekât)` : "Namaz seçiniz"}
-                  </Text>
-                  <Ionicons
-                    name={dropdownOpen ? "chevron-up" : "chevron-down"}
-                    size={20}
-                    color="#fff"
-                  />
-                </TouchableOpacity>
-
-                {dropdownOpen && (
-                  <View style={styles.prayerList}>
-                    {prayers.map((prayer, index) => (
-                      <View key={prayer.id}>
-                        <TouchableOpacity
-                          style={styles.prayerItem}
-                          onPress={() => {
-                            setSelectedPrayer(prayer);
-                            setDropdownOpen(false);
-                            setCurrentRekatIndex(0);
-                          }}
-                          activeOpacity={0.8}
-                        >
-                          <Text style={styles.prayerItemText}>
-                            {prayer.name} ({prayer.rekats} rekât)
-                          </Text>
-                        </TouchableOpacity>
-                        {index < prayers.length - 1 && <View style={styles.prayerDivider} />}
-                      </View>
-                    ))}
-                  </View>
-                )}
-
-                <View style={styles.rekatNav}>
-                  <TouchableOpacity
-                    style={styles.rekatNavButton}
-                    onPress={() => {
-                      if (currentRekatIndex > 0) {
-                        const newIndex = currentRekatIndex - 1;
-                        horizontalScrollRef.current?.scrollTo({
-                          x: newIndex * SCREEN_WIDTH,
-                          animated: true
-                        });
-                        setCurrentRekatIndex(newIndex);
-                      }
-                    }}
-                    disabled={currentRekatIndex === 0}
-                  >
-                    <Ionicons name="chevron-back" size={20} color={currentRekatIndex === 0 ? "rgba(255,255,255,0.3)" : "#fff"} />
-                  </TouchableOpacity>
-                  <View style={{ flexDirection: "column", alignItems: "center" }}>
-                    <Text style={styles.rekatNavText}>
-                      {rekats[currentRekatIndex]?.number || currentRekatIndex + 1}. Rekât
-                    </Text>
-                    <Text style={styles.rekatTypeText}>
-                      {rekats[currentRekatIndex]?.type}
-                    </Text>
-                  </View>
-                  <TouchableOpacity
-                    style={styles.rekatNavButton}
-                    onPress={() => {
-                      if (currentRekatIndex < rekats.length - 1) {
-                        const newIndex = currentRekatIndex + 1;
-                        horizontalScrollRef.current?.scrollTo({
-                          x: newIndex * SCREEN_WIDTH,
-                          animated: true
-                        });
-                        setCurrentRekatIndex(newIndex);
-                      }
-                    }}
-                    disabled={currentRekatIndex === rekats.length - 1}
-                  >
-                    <Ionicons name="chevron-forward" size={20} color={currentRekatIndex === rekats.length - 1 ? "rgba(255,255,255,0.3)" : "#fff"} />
-                  </TouchableOpacity>
-                </View>
-              </View>
 
               <ScrollView
                 ref={horizontalScrollRef}
@@ -562,6 +478,91 @@ export default function NamazOgren() {
                       contentContainerStyle={styles.verticalScrollContent}
                       showsVerticalScrollIndicator={false}
                     >
+                      <View style={{ paddingBottom: 10 }}>
+                        <Text style={styles.mainTitle}>Namaz Kılma Rehberi</Text>
+                        <Text style={styles.subtitle}>Seçtiğiniz namazın kılınışını adım adım öğrenin.</Text>
+
+                        <TouchableOpacity
+                          style={styles.dropdown}
+                          onPress={() => setDropdownOpen(!dropdownOpen)}
+                          activeOpacity={0.8}
+                        >
+                          <Text style={styles.dropdownText}>
+                            {selectedPrayer ? `${selectedPrayer.name} (${selectedPrayer.rekats} rekât)` : "Namaz seçiniz"}
+                          </Text>
+                          <Ionicons
+                            name={dropdownOpen ? "chevron-up" : "chevron-down"}
+                            size={20}
+                            color="#fff"
+                          />
+                        </TouchableOpacity>
+
+                        {dropdownOpen && (
+                          <View style={styles.prayerList}>
+                            {prayers.map((prayer, index) => (
+                              <View key={prayer.id}>
+                                <TouchableOpacity
+                                  style={styles.prayerItem}
+                                  onPress={() => {
+                                    setSelectedPrayer(prayer);
+                                    setDropdownOpen(false);
+                                    setCurrentRekatIndex(0);
+                                  }}
+                                  activeOpacity={0.8}
+                                >
+                                  <Text style={styles.prayerItemText}>
+                                    {prayer.name} ({prayer.rekats} rekât)
+                                  </Text>
+                                </TouchableOpacity>
+                                {index < prayers.length - 1 && <View style={styles.prayerDivider} />}
+                              </View>
+                            ))}
+                          </View>
+                        )}
+
+                        <View style={styles.rekatNav}>
+                          <TouchableOpacity
+                            style={styles.rekatNavButton}
+                            onPress={() => {
+                              if (rekatIndex > 0) {
+                                const newIndex = rekatIndex - 1;
+                                horizontalScrollRef.current?.scrollTo({
+                                  x: newIndex * SCREEN_WIDTH,
+                                  animated: true
+                                });
+                                setCurrentRekatIndex(newIndex);
+                              }
+                            }}
+                            disabled={rekatIndex === 0}
+                          >
+                            <Ionicons name="chevron-back" size={20} color={rekatIndex === 0 ? "rgba(255,255,255,0.3)" : "#fff"} />
+                          </TouchableOpacity>
+                          <View style={{ flexDirection: "column", alignItems: "center" }}>
+                            <Text style={styles.rekatNavText}>
+                              {rekat.number}. Rekât
+                            </Text>
+                            <Text style={styles.rekatTypeText}>
+                              {rekat.type}
+                            </Text>
+                          </View>
+                          <TouchableOpacity
+                            style={styles.rekatNavButton}
+                            onPress={() => {
+                              if (rekatIndex < rekats.length - 1) {
+                                const newIndex = rekatIndex + 1;
+                                horizontalScrollRef.current?.scrollTo({
+                                  x: newIndex * SCREEN_WIDTH,
+                                  animated: true
+                                });
+                                setCurrentRekatIndex(newIndex);
+                              }
+                            }}
+                            disabled={rekatIndex === rekats.length - 1}
+                          >
+                            <Ionicons name="chevron-forward" size={20} color={rekatIndex === rekats.length - 1 ? "rgba(255,255,255,0.3)" : "#fff"} />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
 
                       {rekat.steps.map((step, stepIndex) => {
                         if (step && step.showImageOnly && step.image) {
@@ -603,7 +604,7 @@ export default function NamazOgren() {
           )}
         </View>
       </View>
-    </ScreenBackground>
+    </ScreenBackground >
   );
 }
 

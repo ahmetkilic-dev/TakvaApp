@@ -32,7 +32,7 @@ const IlimPointsCard = memo(({ dailyPoints = 0, totalPoints = 0, remainingLives 
       {/* Center: Remaining Lives (Heart) */}
       <View style={styles.centerSection}>
         <View style={styles.heartWrapper}>
-          <Ionicons name="heart" size={44} color="#FF0000" />
+          <Ionicons name="heart" size={40} color="#FF0000" />
           <Text style={styles.remainingLivesText}>{remainingLives}</Text>
         </View>
       </View>
@@ -58,9 +58,11 @@ IlimPointsCard.displayName = 'IlimPointsCard';
 const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
-    padding: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between', // Alanı eşit dağıt
     shadowColor: '#FFFFFF',
     shadowOffset: { width: 0, height: 18 },
     shadowOpacity: 0.05,
@@ -68,55 +70,57 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   leftSection: {
-    flex: 1,
+    // flex: 1, // Kaldırıldı, kendi içeriği kadar yer kaplasın
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
   },
   rightSection: {
-    flex: 1,
+    // flex: 1, // Kaldırıldı
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   icon: {
-    width: 48,
-    height: 48,
-    marginRight: 12,
+    width: 32, // Küçültüldü (48 -> 32)
+    height: 32,
+    marginRight: 8, // (12 -> 8)
   },
   pointsContainer: {
     alignItems: 'flex-start',
   },
   pointsValue: {
     fontFamily: FONT_FAMILY,
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 14, // (16 -> 14)
+    fontWeight: '700',
     color: '#FFFFFF',
   },
   pointsLabel: {
     fontFamily: FONT_FAMILY,
-    fontSize: 12,
+    fontSize: 10, // (12 -> 10)
     fontWeight: '400',
-    color: '#FFFFFF',
+    color: 'rgba(255, 255, 255, 0.7)',
     letterSpacing: 0.24,
   },
   centerSection: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
   },
   heartWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative',
+    width: 40,
+    height: 40,
   },
   remainingLivesText: {
     position: 'absolute',
     fontFamily: FONT_FAMILY,
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '700',
     color: '#FFFFFF',
-    top: '22%', // Büyük kalbin tam ortasında durması için
+    // top ayarı kaldırıldı, wrapper ortalayacak (ama absolute olduğu için yine de gerekebilir, görselin ortasına gelmesi için margin verilebilir)
+    marginTop: -2, // Görselin optik ortası için hafif yukarı
+    textAlign: 'center',
   },
 });
 

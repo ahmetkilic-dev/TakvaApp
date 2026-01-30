@@ -14,7 +14,11 @@ import { UserStatsService } from '../../services/UserStatsService';
 import { KelamService } from '../../services/KelamService';
 import { rsW } from '../../utils/responsive';
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window');
+const { height: SCREEN_HEIGHT_FULL } = Dimensions.get('screen');
+
+// Android tam ekran (edge-to-edge) düzeltmesi
+const SCREEN_HEIGHT = Platform.OS === 'android' ? SCREEN_HEIGHT_FULL : WINDOW_HEIGHT;
 
 /**
  * Instagram Reels-style video player

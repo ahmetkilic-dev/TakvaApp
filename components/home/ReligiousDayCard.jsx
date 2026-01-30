@@ -56,11 +56,11 @@ export default function ReligiousDayCard() {
 
           {/* Takvim Bilgileri */}
           <View style={styles.dateContainer}>
-            <Text style={[fontStyle, styles.dateLabel]} numberOfLines={1}>
+            <Text style={[fontStyle, styles.dateLabel]}>
               <Text style={styles.dateUnderline}>Hicrî Takvim</Text> : <Text style={styles.dateValue}>{hijriDate}</Text>
             </Text>
             <View style={styles.dateDivider} />
-            <Text style={[fontStyle, styles.dateLabel]} numberOfLines={1}>
+            <Text style={[fontStyle, styles.dateLabel]}>
               <Text style={styles.dateUnderline}>Miladî Takvim</Text> : <Text style={styles.dateValue}>{gregorianDate}</Text>
             </Text>
           </View>
@@ -76,7 +76,7 @@ export default function ReligiousDayCard() {
             onPress={() => router.push('/(app)/(services)/diniGunler')}
             activeOpacity={0.8}
           >
-            <Text style={[fontStyle, styles.buttonText]}>İslamî takvime git</Text>
+            <Text style={[fontStyle, styles.buttonText]}>Takvime Git</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
   },
   dateLabel: {
     color: 'rgba(255, 255, 255, 0.6)',
-    fontSize: 13,
+    fontSize: 12, // Bir tık küçültüldü
+    flexWrap: 'wrap', // Gerekiyorsa alt satıra geçsin
   },
   dateUnderline: {
     textDecorationLine: 'underline',
@@ -158,31 +159,35 @@ const styles = StyleSheet.create({
   rightContent: {
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: 110,
+    // minWidth: 110, // Sabit genişliği kaldırdık veya azalttık
+    width: '30%', // Oransal genişlik
   },
   remainingLabel: {
     color: '#FFBA4A',
-    fontSize: 13,
+    fontSize: 12,
     textDecorationLine: 'underline',
     marginBottom: 4,
   },
   remainingDays: {
     color: '#FFBA4A',
-    fontSize: 28,
+    fontSize: 24, // Biraz küçüldü
     fontWeight: '700',
-    marginBottom: 12,
+    marginBottom: 8,
   },
   button: {
     backgroundColor: '#182723',
     borderRadius: 8,
     borderWidth: 0.5,
     borderColor: 'rgba(255, 255, 255, 0.5)',
-    paddingVertical: 10,
-    paddingHorizontal: 14,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    width: '100%', // Kapsayıcıya uy
+    alignItems: 'center',
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 11,
+    fontSize: 10, // Buton metni sığsın
     fontWeight: '700',
+    textAlign: 'center',
   },
 });

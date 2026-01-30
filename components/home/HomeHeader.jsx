@@ -174,8 +174,8 @@ const HomeHeader = React.memo(() => {
           </Text>
         </View>
 
-        {/* 2. VAKİTLER ÇİZELGESİ */}
-        <View className="flex-row justify-center items-center mb-4 px-1" style={{ gap: 17 }}>
+        {/* 2. VAKİTLER ÇİZELGESİ (Responsive) */}
+        <View className="flex-row justify-between items-center mb-4 px-2 w-full">
           {prayerTimes.length > 0 ? (
             prayerTimes.map((v, i) => {
               const isActive = i === displayData.activeVakitIndex;
@@ -183,10 +183,10 @@ const HomeHeader = React.memo(() => {
 
               return (
                 <View key={i} className="items-center gap-y-1">
-                  <Text style={{ fontFamily, color: textColor, fontSize: 14, fontWeight: '400' }}>
+                  <Text style={{ fontFamily, color: textColor, fontSize: 13, fontWeight: '400' }}>
                     {v.label}
                   </Text>
-                  <Text style={{ fontFamily, color: textColor, fontSize: 16, fontWeight: '700' }}>
+                  <Text style={{ fontFamily, color: textColor, fontSize: 15, fontWeight: '700' }}>
                     {v.time.split(' ')[0]}
                   </Text>
                 </View>
@@ -205,10 +205,10 @@ const HomeHeader = React.memo(() => {
         </Text>
       </View>
 
-      {/* 4. MENÜ BUTONLARI */}
-      <View className="flex-row justify-center px-2" style={{ gap: 19 }}>
+      {/* 4. MENÜ BUTONLARI (Tam Eşit Aralıklı) */}
+      <View className="flex-row justify-between w-full px-2">
         {menuItems.map((item, index) => (
-          <View key={index} className="items-center" style={{ gap: 8 }}>
+          <View key={index} style={{ width: '19%', alignItems: 'center', gap: 8 }}>
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => handleMenuPress(item.path)}
@@ -226,7 +226,12 @@ const HomeHeader = React.memo(() => {
               />
             </TouchableOpacity>
 
-            <Text style={{ fontFamily, fontSize: 12, fontWeight: '400' }} className="text-gray-300 text-center">
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={{ fontFamily, fontSize: 11, fontWeight: '400' }}
+              className="text-gray-300 text-center w-full"
+            >
               {item.label}
             </Text>
           </View>

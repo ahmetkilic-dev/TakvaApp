@@ -1,11 +1,15 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, FlatList, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Dimensions, FlatList, ActivityIndicator, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { rsH } from '../../utils/responsive';
 import { ReelsPlayer } from './ReelsPlayer';
 import { useInterstitialAd } from '../ads/useInterstitialAd';
+const { height: WINDOW_HEIGHT } = Dimensions.get('window');
+const { height: SCREEN_HEIGHT_FULL } = Dimensions.get('screen');
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+// Android'de transparan status bar ve navigation bar (edge-to-edge) kullandığımız için
+// Window height bazen eksik kalıyor (nav bar kadar). Screen height kullanmak daha güvenli.
+const SCREEN_HEIGHT = Platform.OS === 'android' ? SCREEN_HEIGHT_FULL : WINDOW_HEIGHT;
 
 /**
  * Main Feed Component for Kelam Videos

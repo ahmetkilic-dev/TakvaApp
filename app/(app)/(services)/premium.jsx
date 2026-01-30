@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, ActivityIndicator, Alert, Linking } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Image, ActivityIndicator, Alert, Linking, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -209,10 +209,10 @@ export default function PremiumScreen() {
           <View style={{ alignItems: 'center', marginBottom: 24 }}>
             <View style={{ width: Math.min(360, SCREEN_WIDTH - 32), height: 46, borderRadius: 23, backgroundColor: 'rgba(217, 217, 217, 0.2)', borderWidth: 0.5, borderColor: 'rgba(255, 255, 255, 0.5)', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 4 }}>
               <TouchableOpacity onPress={() => setActiveTier(Tiers.PLUS)} style={{ flex: 1, height: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 20, backgroundColor: activeTier === Tiers.PLUS ? '#182723' : 'transparent', marginRight: 4 }}>
-                <Text style={{ fontFamily: 'Cinzel-Bold', color: '#E2E8F0', fontSize: 16, opacity: activeTier === Tiers.PLUS ? 1 : 0.6 }}>TAKVA PLUS</Text>
+                <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8} style={{ fontFamily: 'Cinzel-Bold', color: '#E2E8F0', fontSize: 14, opacity: activeTier === Tiers.PLUS ? 1 : 0.6 }}>TAKVA PLUS</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setActiveTier(Tiers.PREMIUM)} style={{ flex: 1, height: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 20, backgroundColor: activeTier === Tiers.PREMIUM ? '#182723' : 'transparent' }}>
-                <Text style={{ fontFamily: 'Cinzel-Bold', color: '#CF9B47', fontSize: 16, opacity: activeTier === Tiers.PREMIUM ? 1 : 0.6 }}>TAKVA PREMIUM</Text>
+                <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8} style={{ fontFamily: 'Cinzel-Bold', color: '#CF9B47', fontSize: 14, opacity: activeTier === Tiers.PREMIUM ? 1 : 0.6 }}>TAKVA PREMIUM</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -223,7 +223,7 @@ export default function PremiumScreen() {
 
           <View style={{ marginBottom: 24, alignItems: 'center' }}>
             <Text style={{ fontFamily, fontSize: 13, fontWeight: '300', color: 'rgba(255, 255, 255, 0.6)', textAlign: 'center', marginBottom: 12, lineHeight: 18 }}>
-              Ödemeler App Store hesabınız üzerinden yönetilir.{'\n'}
+              Ödemeler {Platform.OS === 'ios' ? 'App Store' : 'Google Play'} hesabınız üzerinden yönetilir.{'\n'}
               Abonelikler mağaza şartlarına tabidir.
             </Text>
 

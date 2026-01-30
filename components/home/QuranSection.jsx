@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
    },
    ctaCard: {
       width: SCREEN_WIDTH * 0.9,
-      minHeight: 135,
+      // minHeight: 120, // Sabit yükseklik yerine içeriğe göre esnesin
       backgroundColor: '#24322E',
       borderRadius: 20,
       borderWidth: 0.5,
@@ -229,48 +229,50 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       paddingLeft: 16,
-      paddingRight: 10,
-      paddingVertical: 12,
+      paddingRight: 8,
+      paddingVertical: 10, // Dikey boşluk azaltıldı (Kart yüksekliği düştü)
    },
    ctaTextContainer: {
       flex: 1,
       justifyContent: 'center',
+      paddingRight: 6,
    },
    ctaTitle: {
       color: '#FFFFFF',
       fontSize: 16,
       fontWeight: '700',
-      marginBottom: 4,
+      marginBottom: 2, // Başlık altı boşluk kısıldı
    },
    ctaDescription: {
       color: '#FFFFFF',
-      fontSize: 12,
+      fontSize: 11, // Font bir tık küçüldü
       fontWeight: '300',
-      lineHeight: 15,
-      marginBottom: 12,
+      lineHeight: 14, // Satır arası kısıldı
+      marginBottom: 8, // Buton üstü boşluk kısıldı
    },
    ctaButton: {
       backgroundColor: '#182723',
       borderWidth: 0.8,
       borderColor: '#FFBA4A80',
-      borderRadius: 10,
-      paddingVertical: 6,
-      paddingHorizontal: 16,
+      borderRadius: 8,
+      paddingVertical: 6, // Buton dikey padding kısıldı
+      paddingHorizontal: 12,
       alignSelf: 'flex-start',
    },
    ctaButtonText: {
       color: '#FFFFFF',
-      fontSize: 12,
+      fontSize: 11,
       fontWeight: '600',
    },
    ctaImageContainer: {
-      marginLeft: 8,
+      width: '40%', // Görsel büyütüldü (%35 -> %40)
       alignItems: 'flex-end',
       justifyContent: 'center',
    },
    ctaImage: {
-      width: 155,
-      height: 100,
+      width: '100%',
+      height: undefined,
+      aspectRatio: 1.5,
       borderRadius: 8,
       borderWidth: 0.5,
       borderColor: 'rgba(255, 255, 255, 0.5)',

@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
   symbol: {
     position: 'absolute',
     top: 105,
-    left: 45,
+    // left: 45, // Eski: Sola dayalıydı
+    alignSelf: 'center', // Yeni: Ortala
     width: 300,
     height: 300,
     opacity: 0.5,

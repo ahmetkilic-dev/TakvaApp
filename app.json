@@ -50,6 +50,10 @@
         "visible": "none",
         "backgroundColor": "#04100D"
       },
+      "splash": {
+        "resizeMode": "contain",
+        "backgroundColor": "#182723"
+      },
       "package": "com.wezyapps.takvaapp",
       "permissions": [
         "INTERNET",
