@@ -9,7 +9,8 @@ import MaskedView from '@react-native-masked-view/masked-view';
 import ScreenBackground from '../../../components/common/ScreenBackground';
 
 // Import from Context and Constants
-import { useIAP, Tiers, PRODUCT_IDS } from '../../../contexts/IAPContext';
+import { Tiers, PRODUCT_IDS } from '../../../contexts/IAPContext';
+import { useUnifiedIAP } from '../../../hooks/useUnifiedIAP';
 import * as WebBrowser from 'expo-web-browser';
 
 // Premium icon section uses this
@@ -158,7 +159,7 @@ const PlanList = React.memo(({ plans, selectedPlan, onSelectPlan, activeTier }) 
 
 export default function PremiumScreen() {
   const router = useRouter();
-  const { isProcessing, requestPurchase, restorePurchases, currentSubscription } = useIAP(); // Use global IAP context
+  const { isProcessing, requestPurchase, restorePurchases, currentSubscription } = useUnifiedIAP(); // Use global IAP context
 
   // Default to user's current subscription if available, otherwise Premium/Monthly
   const [activeTier, setActiveTier] = useState(currentSubscription?.tier || Tiers.PREMIUM);

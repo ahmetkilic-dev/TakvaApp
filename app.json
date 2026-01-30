@@ -42,6 +42,7 @@
         "foregroundImage": "./assets/t_icon.png",
         "backgroundColor": "#04100D"
       },
+      "versionCode": 16,
       "backgroundColor": "#182723",
       "edgeToEdgeEnabled": true,
       "googleServicesFile": "./google-services.json",

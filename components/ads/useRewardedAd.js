@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { RewardedAd, RewardedAdEventType, TestIds, AdEventType } from 'react-native-google-mobile-ads';
-import { useIAP } from '../../contexts/IAPContext';
+import { useUnifiedIAP } from '../../hooks/useUnifiedIAP';
 
 // Kullanıcının verdiği İlim Reklam ID'si
 const PRODUCTION_REWARDED_ID = 'ca-app-pub-5371686714825436/7480096154';
@@ -8,7 +8,7 @@ const PRODUCTION_REWARDED_ID = 'ca-app-pub-5371686714825436/7480096154';
 const adUnitId = __DEV__ ? TestIds.REWARDED : PRODUCTION_REWARDED_ID;
 
 export const useRewardedAd = () => {
-    const { currentSubscription } = useIAP();
+    const { currentSubscription } = useUnifiedIAP();
     const [loaded, setLoaded] = useState(false);
     const rewardedAdRef = useRef(null);
 

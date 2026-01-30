@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
-import { useIAP } from '../../contexts/IAPContext';
+import { useUnifiedIAP } from '../../hooks/useUnifiedIAP';
 
 // Kullanıcının verdiği Gerçek Interstitial ID (Ekran Görüntüsünden)
 const PRODUCTION_INTERSTITIAL_ID = 'ca-app-pub-5371686714825436/6244596600';
@@ -10,7 +10,7 @@ const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : PRODUCTION_INTERSTITIAL_ID;
 let interstitial = null;
 
 export const useInterstitialAd = () => {
-    const { currentSubscription } = useIAP();
+    const { currentSubscription } = useUnifiedIAP();
     const [loaded, setLoaded] = useState(false);
 
     // Reklamı yükle

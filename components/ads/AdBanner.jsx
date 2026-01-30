@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Platform } from 'react-native';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-import { useIAP } from '../../contexts/IAPContext';
+import { useUnifiedIAP } from '../../hooks/useUnifiedIAP';
 
 // Kullanıcının verdiği Gerçek Ad Unit ID
 const PRODUCTION_AD_UNIT_ID = 'ca-app-pub-5371686714825436/6975781855';
 
 const AdBanner = () => {
-    const { currentSubscription } = useIAP();
+    const { currentSubscription } = useUnifiedIAP();
     const [adError, setAdError] = useState(false);
 
     // Abonelik varsa reklam gösterme
